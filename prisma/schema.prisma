@@ -9,17 +9,130 @@ datasource db {
 
   provider = "postgresql"
 
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  url = env("DATABASE_URL") // uses connection pooling
 
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
+// PRODUCT RELATED MODELS
+
+model Product {
+    id        String      @id @default(cuid())
     name      String
+    SKU String
+    price Float
+    description String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    category ProductCategory @relation(fields: [categoryId] , references: [id])
+    categoryId String
+    discount Discount @relation(fields: [discountId] , references: [id])
+    discountId String
+    inventory ProductInventory @relation(fields: [inventoryId] , references: [id])
+    inventoryId String  @unique
     @@index([name])
+}
+
+model ProductInventory {
+    id        String      @id @default(cuid()) 
+    quantity Float
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    product Product?
+}
+
+model Discount {
+    id        String      @id @default(cuid())
+    name      String
+    description String
+    discountPercent Float
+    active Boolean
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    products Product[]
+}
+
+model ProductCategory {
+  id String @id @default(cuid())
+  name String
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  products Product[]
+}
+
+// USER RELATED MODELS
+
+model UserAddress {
+  id        String      @id @default(cuid())
+  userId String
+  addressLine1 String
+  addressLine2 String
+  city String
+  postalCode String
+  country String
+  telephone String
+  mobile String
+}
+
+model UserPayment {
+  id        String      @id @default(cuid())
+  userId String
+  paymentType String
+  provider String
+  accountNumber String
+  expiry String
+}
+
+// ORDER RELATED MODELS
+
+model OrderDetails {
+  id        String      @id @default(cuid())
+  userId String
+  total Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orderItems OrderItems[]
+  paymentDetails PaymentDetails  @relation(fields: [paymentId] , references: [id])
+  paymentId String @unique
+}
+
+model OrderItems {
+  id        String      @id @default(cuid())
+  quantity Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order OrderDetails @relation(fields: [orderId] , references: [id])
+  orderId String
+}
+
+model PaymentDetails {
+  id        String      @id @default(cuid())
+  amount Int
+  provider String
+  status String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orderDetails OrderDetails?
+}
+
+// SHOPPING SESSION RELATED MODELS
+
+model CartItem {
+  id        String      @id @default(cuid())
+  quantity Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  shoppingSession ShoppingSession @relation(fields: [sessionId] , references: [id])
+  sessionId String
+}
+
+model ShoppingSession {
+  id        String      @id @default(cuid())
+  userId String
+  total Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cartItems CartItem[]
 }
