@@ -25,6 +25,8 @@ const SizeFilter = () => {
   return (
     <div className="border-b border-slate-700 p-8">
       <p className="font-bold">Sizes</p>
+      <div className="h-4"></div>
+
       {sizes.map((size, i) => (
         <div className="flex gap-2" key={i}>
           <input
