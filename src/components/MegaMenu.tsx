@@ -16,7 +16,9 @@ const MegaMenu = ({ type = null }: Props) => {
     <section className="flex gap-32">
       {categories?.map((category) => (
         <div key={category.id}>
-          <p className="font-bold">{category.name}</p>
+          <Link href={`/${lowerCaseType}/${category.slug}`}>
+            <p className="font-bold">{category.name}</p>
+          </Link>
           <ul>
             {category.children
               .filter((subcategory) =>
