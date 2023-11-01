@@ -7,7 +7,13 @@ const Nav = () => {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   return (
     <nav>
-      <ul role="navigation" className="flex  cursor-pointer border">
+      <ul
+        role="navigation"
+        className="flex cursor-pointer  justify-center border"
+      >
+        <li className="cursor-pointer p-4">
+          <Link href="/">Home</Link>
+        </li>
         <li
           className="cursor-pointer p-4"
           onClick={() => setShowMegaMenu(false)}
@@ -36,6 +42,9 @@ const Nav = () => {
         </li>
         <li className="cursor-pointer p-4">
           <Link href={`/men`}>Kids</Link>
+        </li>
+        <li className="cursor-pointer p-4">
+          <Link href="/contact">Contact</Link>
         </li>
       </ul>
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
