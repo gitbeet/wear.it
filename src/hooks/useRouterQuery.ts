@@ -20,5 +20,5 @@ export const useRouterQuery = () => {
     });
   };
 
-  return { addQuery, removeQuery };
+  return { addQuery, removeQuery, router };
 };
