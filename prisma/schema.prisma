@@ -63,7 +63,16 @@ model Product {
   discountId String?
   inventory ProductInventory @relation(fields: [inventoryId] , references: [id])
   inventoryId Int  @unique
+  images ProductImage[]
   @@index([name])
+}
+
+model ProductImage {
+  id        String      @id @default(cuid())
+  imageURL  String
+  // imageBlur String
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
 }
 
 model ProductCategory {

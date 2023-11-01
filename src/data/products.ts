@@ -21,6 +21,15 @@ export const products: ProductType[] = [
         id: 1,
       },
     },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
   },
   {
     name: "Test Hat",
@@ -40,13 +49,22 @@ export const products: ProductType[] = [
         id: 2,
       },
     },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/red-hat.png",
+          },
+        ],
+      },
+    },
   },
   {
     name: "Test Leggings",
     description: "Coolest leggings ever!",
     types: ["WOMEN"],
     price: 150,
-    colors: ["BLACK"],
+    colors: ["PURPLE"],
     sizes: ["S", "M", "L", "XL"],
     SKU: uuid(),
     category: {
@@ -57,6 +75,15 @@ export const products: ProductType[] = [
     inventory: {
       connect: {
         id: 3,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/purple-leggings.png",
+          },
+        ],
       },
     },
   },
