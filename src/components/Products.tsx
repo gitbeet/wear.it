@@ -13,7 +13,8 @@ const Products = () => {
 
   const queryInput = useMemo(
     () => ({
-      color: color as ProductColor[],
+      // .flat(1) is used so we get an array if color is both a string or a string[] , filter(Boolean) -> filter falsey values
+      color: [color].flat(1).filter(Boolean) as ProductColor[],
       size: [size].flat(1).filter(Boolean) as ProductSize[],
       type: slug?.[0]?.toUpperCase() as CategoryType,
       slug: slug?.[1],

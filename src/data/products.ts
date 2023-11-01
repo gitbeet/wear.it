@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 type ProductType = Prisma.ProductCreateInput;
 export const products: ProductType[] = [
   {
-    name: "Clothing",
-    description: "All Clothing products",
+    name: "Test t-shirt",
+    description: "This is the coolest t-shirt ever",
     types: ["MEN", "WOMEN"],
     price: 150,
     colors: ["ORANGE", "BROWN"],
@@ -13,12 +13,50 @@ export const products: ProductType[] = [
     SKU: uuid(),
     category: {
       connect: {
-        id: 1,
+        id: 22,
       },
     },
     inventory: {
       connect: {
         id: 1,
+      },
+    },
+  },
+  {
+    name: "Test Hat",
+    description: "Cool hat ",
+    types: ["MEN"],
+    price: 150,
+    colors: ["RED"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 42,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 2,
+      },
+    },
+  },
+  {
+    name: "Test Leggings",
+    description: "Coolest leggings ever!",
+    types: ["WOMEN"],
+    price: 150,
+    colors: ["BLACK"],
+    sizes: ["S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 36,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 3,
       },
     },
   },

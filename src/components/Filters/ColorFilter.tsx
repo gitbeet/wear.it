@@ -17,12 +17,13 @@ const colorOptions: ColorOption[] = [
   { id: 6, name: "WHITE", color: "bg-white" },
   { id: 7, name: "GREEN", color: "bg-green-500" },
   { id: 8, name: "PINK", color: "bg-pink-500" },
+  { id: 8, name: "BROWN", color: "bg-amber-900" },
 ];
 
 const ColorFilter = () => {
   const router = useRouter();
   const { addQuery, removeQuery } = useRouterQuery();
-  const { color: colorsQuery = "" } = router.query;
+  const { color: colorsQuery = [""] } = router.query;
   const colorsQueryArray = [colorsQuery].flat(1).filter(Boolean);
 
   const handleColor = async (color: string) => {
@@ -45,7 +46,7 @@ const ColorFilter = () => {
     <div className="border-b border-slate-700 p-8">
       <p className="font-bold">Colors</p>
       <div className="h-4"></div>
-      <div className="grid grid-cols-2 items-center justify-center gap-4">
+      <div className="grid grid-cols-3 items-center justify-center gap-4">
         {colorOptions.map((option) => {
           const lowerCaseName = option.name.toLowerCase();
           return (
@@ -55,7 +56,7 @@ const ColorFilter = () => {
             >
               <div
                 role="button"
-                onClick={() => handleColor(lowerCaseName)}
+                onClick={() => handleColor(option.name)}
                 className={`aspect-square w-8 rounded-full ${
                   option.color
                 } border border-transparent ${

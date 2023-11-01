@@ -6,8 +6,8 @@ const ProductsPage = () => {
   return (
     <main className="flex items-center justify-between">
       <section className="h-screen w-64 border">
-        <ColorFilter />
         <SizeFilter />
+        <ColorFilter />
       </section>
       <section>
         <Products />

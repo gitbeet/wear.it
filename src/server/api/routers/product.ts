@@ -8,12 +8,17 @@ export const productRouter = createTRPCRouter({
         size: z.nativeEnum(ProductSize).array().optional(),
         color: z.nativeEnum(ProductColor).array().optional(),
         type: z.nativeEnum(CategoryType).optional(),
+        slug: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { color = [], size = [], type = "MEN" } = input;
+      const { color = [], size = [], type = "MEN", slug } = input;
+      console.log(color);
       const products = await ctx.db.product.findMany({
         where: {
+          category: {
+            slug,
+          },
           types: {
             hasSome: [type],
           },

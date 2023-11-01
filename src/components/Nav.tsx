@@ -38,10 +38,10 @@ const Nav = () => {
             setShowMegaMenu(false);
           }}
         >
-          <Link href={`/men`}>Women</Link>
+          <Link href={`/women`}>Women</Link>
         </li>
         <li className="cursor-pointer p-4">
-          <Link href={`/men`}>Kids</Link>
+          <Link href={`/kids`}>Kids</Link>
         </li>
         <li className="cursor-pointer p-4">
           <Link href="/contact">Contact</Link>
