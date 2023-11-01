@@ -55,33 +55,33 @@ model Product {
   price Float
   description String
   category ProductCategory @relation(fields: [categoryId] , references: [id])
-  categoryId String
+  categoryId Int
   types CategoryType[]
   sizes ProductSize[]
   colors ProductColor[]
-  discount Discount @relation(fields: [discountId] , references: [id])
-  discountId String
+  discount Discount? @relation(fields: [discountId] , references: [id])
+  discountId String?
   inventory ProductInventory @relation(fields: [inventoryId] , references: [id])
-  inventoryId String  @unique
+  inventoryId Int  @unique
   @@index([name])
 }
 
 model ProductCategory {
-  id String @id @default(cuid())
+  id Int @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name String
   slug String
   types CategoryType[]
   description String
-  parentId String
+  parentId Int?
   parent ProductCategory? @relation(fields: [parentId] , references: [id] , name: "ParentChild")
   children ProductCategory[] @relation(name: "ParentChild")
   products Product[]
 }
 
 model ProductInventory {
-    id        String      @id @default(cuid()) 
+    id        Int      @id 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     quantity Float

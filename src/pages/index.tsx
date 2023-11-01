@@ -3,7 +3,7 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const { data: products, isLoading } = api.product.getProducts.useQuery();
+  const { data: products, isLoading } = api.product.getAll.useQuery();
 
   return (
     <>
@@ -13,7 +13,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        {products?.map((product) => <h1 key={product.id}>{product.name}</h1>)}
+        {products?.map((product) => (
+          <div key={product.id}>
+            <h1>{product.name}</h1>
+            <p>{product.price}</p>
+          </div>
+        ))}
       </main>
     </>
   );
