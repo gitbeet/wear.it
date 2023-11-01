@@ -15,52 +15,90 @@ datasource db {
 
 }
 
+// ENUMS
+
+enum CategoryType {
+  MEN
+  WOMEN
+}
+
+enum ProductSize {
+  XS
+  S
+  M
+  L
+  XL
+  XXL
+  XXXL
+}
+
+enum ProductColor {
+  PURPLE
+  BLACK
+  RED
+  ORANGE
+  BLUE
+  WHITE
+  BROWN
+  GREEN
+  PINK
+}
+
 // PRODUCT RELATED MODELS
 
 model Product {
-    id        String      @id @default(cuid())
-    name      String
-    SKU String
-    price Float
-    description String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    category ProductCategory @relation(fields: [categoryId] , references: [id])
-    categoryId String
-    discount Discount @relation(fields: [discountId] , references: [id])
-    discountId String
-    inventory ProductInventory @relation(fields: [inventoryId] , references: [id])
-    inventoryId String  @unique
-    @@index([name])
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  SKU String
+  price Float
+  description String
+  category ProductCategory @relation(fields: [categoryId] , references: [id])
+  categoryId String
+  types CategoryType[]
+  sizes ProductSize[]
+  colors ProductColor[]
+  discount Discount @relation(fields: [discountId] , references: [id])
+  discountId String
+  inventory ProductInventory @relation(fields: [inventoryId] , references: [id])
+  inventoryId String  @unique
+  @@index([name])
+}
+
+model ProductCategory {
+  id String @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  slug String
+  types CategoryType[]
+  description String
+  parentId String
+  parent ProductCategory? @relation(fields: [parentId] , references: [id] , name: "ParentChild")
+  children ProductCategory[] @relation(name: "ParentChild")
+  products Product[]
 }
 
 model ProductInventory {
     id        String      @id @default(cuid()) 
-    quantity Float
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    quantity Float
     product Product?
 }
 
 model Discount {
     id        String      @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
     name      String
     description String
     discountPercent Float
     active Boolean
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
     products Product[]
 }
 
-model ProductCategory {
-  id String @id @default(cuid())
-  name String
-  description String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  products Product[]
-}
 
 // USER RELATED MODELS
 
@@ -89,10 +127,10 @@ model UserPayment {
 
 model OrderDetails {
   id        String      @id @default(cuid())
-  userId String
-  total Decimal
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId String
+  total Decimal
   orderItems OrderItems[]
   paymentDetails PaymentDetails  @relation(fields: [paymentId] , references: [id])
   paymentId String @unique
@@ -100,20 +138,20 @@ model OrderDetails {
 
 model OrderItems {
   id        String      @id @default(cuid())
-  quantity Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  quantity Int
   order OrderDetails @relation(fields: [orderId] , references: [id])
   orderId String
 }
 
 model PaymentDetails {
   id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   amount Int
   provider String
   status String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   orderDetails OrderDetails?
 }
 
@@ -121,18 +159,18 @@ model PaymentDetails {
 
 model CartItem {
   id        String      @id @default(cuid())
-  quantity Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  quantity Int
   shoppingSession ShoppingSession @relation(fields: [sessionId] , references: [id])
   sessionId String
 }
 
 model ShoppingSession {
   id        String      @id @default(cuid())
-  userId String
-  total Decimal
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId String
+  total Decimal
   cartItems CartItem[]
 }
