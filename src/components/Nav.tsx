@@ -1,17 +1,44 @@
 import React, { useState } from "react";
 import MegaMenu from "./MegaMenu";
+import Link from "next/link";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
+  const [showMegaMenu, setShowMegaMenu] = useState(false);
   return (
     <nav>
-      <ul role="navigation" className="flex gap-32">
-        <li onClick={() => setType("men")}>Men</li>
-        <li onClick={() => setType("women")}>Women</li>
-        <li>Kids</li>
+      <ul role="navigation" className="flex  cursor-pointer border">
+        <li
+          className="cursor-pointer p-4"
+          onClick={() => setShowMegaMenu(false)}
+          onMouseOver={() => {
+            setShowMegaMenu(true);
+            setType("men");
+          }}
+          onMouseLeave={() => {
+            setShowMegaMenu(false);
+          }}
+        >
+          <Link href={`/men`}>Men</Link>
+        </li>
+        <li
+          className="cursor-pointer p-4"
+          onClick={() => setShowMegaMenu(false)}
+          onMouseOver={() => {
+            setShowMegaMenu(true);
+            setType("women");
+          }}
+          onMouseLeave={() => {
+            setShowMegaMenu(false);
+          }}
+        >
+          <Link href={`/men`}>Women</Link>
+        </li>
+        <li className="cursor-pointer p-4">
+          <Link href={`/men`}>Kids</Link>
+        </li>
       </ul>
-      <div className="h-8"></div>
-      <MegaMenu type={type} />
+      <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
     </nav>
   );
 };

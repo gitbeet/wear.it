@@ -4,16 +4,22 @@ import { api } from "~/utils/api";
 
 interface Props {
   type: "men" | "women" | null;
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MegaMenu = ({ type = null }: Props) => {
+const MegaMenu = ({ type = null, show, setShow }: Props) => {
   const { data: categories, isLoading: isGettingCategories } =
     api.category.getAll.useQuery();
   if (isGettingCategories) return <span>Loading...</span>;
   if (!categories) return <span>Something went wrong.</span>;
   const lowerCaseType = type?.toLowerCase() ?? "men";
   return (
-    <section className="flex gap-32">
+    <section
+      onMouseOver={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+      className={` ${show ? "visible" : "invisible"} flex gap-32 border p-4`}
+    >
       {categories?.map((category) => (
         <div key={category.id}>
           <Link href={`/${lowerCaseType}/${category.slug}`}>
