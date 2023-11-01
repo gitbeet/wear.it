@@ -46,24 +46,27 @@ const ColorFilter = () => {
       <p className="font-bold">Colors</p>
       <div className="h-4"></div>
       <div className="grid grid-cols-2 items-center justify-center gap-4">
-        {colorOptions.map((option) => (
-          <div
-            key={option.id}
-            className="flex w-full flex-col items-center justify-center gap-1 "
-          >
+        {colorOptions.map((option) => {
+          const lowerCaseName = option.name.toLowerCase();
+          return (
             <div
-              role="button"
-              onClick={() => handleColor(option.name.toLowerCase())}
-              className={`aspect-square w-8 rounded-full ${
-                option.color
-              } border border-transparent ${
-                colorsQueryArray.includes(option.name.toLowerCase()) &&
-                "border-yellow-500"
-              }`}
-            ></div>
-            <p>{option.name}</p>
-          </div>
-        ))}
+              key={option.id}
+              className="flex w-full flex-col items-center justify-center gap-1 "
+            >
+              <div
+                role="button"
+                onClick={() => handleColor(lowerCaseName)}
+                className={`aspect-square w-8 rounded-full ${
+                  option.color
+                } border border-transparent ${
+                  colorsQueryArray.includes(lowerCaseName) &&
+                  "border-yellow-500"
+                }`}
+              ></div>
+              <p>{option.name.charAt(0) + lowerCaseName.slice(1)}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
