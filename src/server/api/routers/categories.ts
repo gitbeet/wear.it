@@ -9,6 +9,9 @@ export const categoryRouter = createTRPCRouter({
       orderBy: {
         id: "asc",
       },
+      include: {
+        children: true,
+      },
     });
     return categories;
   }),
