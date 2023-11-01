@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { api } from "~/utils/api";
 
@@ -24,9 +25,12 @@ const MegaMenu = ({ type = null }: Props) => {
                 ),
               )
               .map((subcategory) => (
-                <li className="text-slate-300" key={subcategory.id}>
-                  {subcategory.name}
-                </li>
+                <Link
+                  key={subcategory.id}
+                  href={`/${lowerCaseType}/${subcategory.slug}`}
+                >
+                  <li className="text-slate-300">{subcategory.name}</li>
+                </Link>
               ))}
           </ul>
         </div>
