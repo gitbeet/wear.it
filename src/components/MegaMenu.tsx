@@ -18,7 +18,9 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
     <section
       onMouseOver={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
-      className={` ${show ? "visible" : "invisible"} flex gap-32 border p-4`}
+      className={` ${
+        show ? "visible" : "invisible"
+      } absolute flex w-full justify-center gap-32 border bg-slate-900 p-4`}
     >
       {categories?.map((category) => (
         <div key={category.id}>

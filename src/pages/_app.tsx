@@ -16,10 +16,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`${inter.className} flex min-h-screen flex-col items-center  bg-gradient-to-b from-slate-800 to-slate-900 text-white`}
+        className={`${inter.className}   min-h-screen  bg-gradient-to-b from-slate-800 to-slate-900 text-white`}
       >
-        <Nav />
-        <Component {...pageProps} />
+        <div className="mx-auto  max-w-[1560px]">
+          <Nav />
+          <Component {...pageProps} />
+        </div>
       </main>
     </>
   );

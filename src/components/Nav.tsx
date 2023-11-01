@@ -6,7 +6,7 @@ const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   return (
-    <nav>
+    <nav className="relative">
       <ul
         role="navigation"
         className="flex cursor-pointer  justify-center border"
