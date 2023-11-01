@@ -73,7 +73,6 @@ model ProductCategory {
   name String
   slug String
   types CategoryType[]
-  description String
   parentId Int?
   parent ProductCategory? @relation(fields: [parentId] , references: [id] , name: "ParentChild")
   children ProductCategory[] @relation(name: "ParentChild")
