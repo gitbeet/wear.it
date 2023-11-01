@@ -4,14 +4,12 @@ import Products from "~/components/Products";
 
 const ProductsPage = () => {
   return (
-    <main className="flex items-center justify-between">
-      <section className="h-screen w-64 border">
+    <main className="flex gap-4 pt-12">
+      <section className="h-screen w-[450px] border">
         <SizeFilter />
         <ColorFilter />
       </section>
-      <section>
-        <Products />
-      </section>
+      <Products />
     </main>
   );
 };

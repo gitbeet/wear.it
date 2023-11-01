@@ -4,11 +4,11 @@ import { v4 as uuid } from "uuid";
 type ProductType = Prisma.ProductCreateInput;
 export const products: ProductType[] = [
   {
-    name: "Test t-shirt",
+    name: "Casual white T-shirt",
     description: "This is the coolest t-shirt ever",
-    types: ["MEN", "WOMEN"],
+    types: ["MEN"],
     price: 150,
-    colors: ["ORANGE", "BROWN"],
+    colors: ["WHITE"],
     sizes: ["XS", "S", "M", "L", "XL"],
     SKU: uuid(),
     category: {
@@ -35,7 +35,7 @@ export const products: ProductType[] = [
     name: "Test Hat",
     description: "Cool hat ",
     types: ["MEN"],
-    price: 150,
+    price: 79,
     colors: ["RED"],
     sizes: ["XS", "S", "M", "L", "XL"],
     SKU: uuid(),
@@ -63,7 +63,7 @@ export const products: ProductType[] = [
     name: "Test Leggings",
     description: "Coolest leggings ever!",
     types: ["WOMEN"],
-    price: 150,
+    price: 96,
     colors: ["PURPLE"],
     sizes: ["S", "M", "L", "XL"],
     SKU: uuid(),

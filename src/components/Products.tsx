@@ -2,6 +2,7 @@ import type { CategoryType, ProductColor, ProductSize } from "@prisma/client";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import { api } from "~/utils/api";
+import ProductCard from "./ProductCard";
 
 const Products = () => {
   const router = useRouter();
@@ -28,9 +29,9 @@ const Products = () => {
   if (!data) return <h1>Something went wrong...</h1>;
 
   return (
-    <section className="w-full grow border">
+    <section className="grid w-full grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-2 border">
       {data.map((product) => (
-        <h1 key={product.id}>{product.name}</h1>
+        <ProductCard key={product.id} product={product} />
       ))}
     </section>
   );

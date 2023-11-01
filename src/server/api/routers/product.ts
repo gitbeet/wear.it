@@ -35,6 +35,10 @@ export const productRouter = createTRPCRouter({
                 }
               : undefined,
         },
+        include: {
+          images: true,
+          discount: true,
+        },
       });
       return products;
     }),
