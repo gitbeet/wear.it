@@ -42,7 +42,9 @@ const ProductCard = ({ product }: { product: Product }) => {
         <p>{product.name}</p>
         <div className="h-1"></div>
         <Link
-          href={`/${product.types[0]?.toLowerCase()}/${product.category.slug}`}
+          href={`/products/${product.types[0]?.toLowerCase()}/${
+            product.category.slug
+          }`}
         >
           <p className="text-gray-500">{product.category.name}</p>
         </Link>

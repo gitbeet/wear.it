@@ -7,10 +7,11 @@ import LoadingPage from "./loading";
 
 const Products = () => {
   const router = useRouter();
-  const { color, size, slug } = router.query as {
+  const { color, size, slug, sort } = router.query as {
     color: string | string[] | undefined;
     size: string | string[] | undefined;
     slug: string[] | undefined;
+    sort: "newest" | "high-to-low" | "low-to-high";
   };
 
   const queryInput = useMemo(
@@ -20,8 +21,9 @@ const Products = () => {
       size: [size].flat(1).filter(Boolean) as ProductSize[],
       type: slug?.[0]?.toUpperCase() as CategoryType,
       slug: slug?.[1],
+      sort,
     }),
-    [color, size, slug],
+    [color, size, slug, sort],
   );
 
   const { data, isLoading } = api.product.getAll.useQuery(queryInput);

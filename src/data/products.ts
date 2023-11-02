@@ -60,6 +60,90 @@ export const products: ProductType[] = [
     },
   },
   {
+    name: "Test Hat",
+    description: "Cool hat ",
+    types: ["MEN"],
+    price: 79,
+    colors: ["RED"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 42,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 3,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/red-hat.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Test Hat",
+    description: "Cool hat ",
+    types: ["MEN"],
+    price: 79,
+    colors: ["RED"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 42,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 4,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/red-hat.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Test Hat",
+    description: "Cool hat ",
+    types: ["MEN"],
+    price: 79,
+    colors: ["RED"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 42,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 5,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/red-hat.png",
+          },
+        ],
+      },
+    },
+  },
+  {
     name: "Test Leggings",
     description: "Coolest leggings ever!",
     types: ["WOMEN"],
@@ -79,7 +163,7 @@ export const products: ProductType[] = [
     },
     inventory: {
       connect: {
-        id: 3,
+        id: 6,
       },
     },
     images: {

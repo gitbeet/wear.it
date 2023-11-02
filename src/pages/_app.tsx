@@ -18,8 +18,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <main
         className={`${inter.className}   min-h-screen  bg-slate-100 text-gray-900`}
       >
-        <div className="mx-auto  max-w-[1560px] overflow-hidden">
-          <Nav />
+        <Nav />
+        <div className="mx-auto min-h-screen  max-w-[1400px] overflow-hidden">
           <Component {...pageProps} />
         </div>
       </main>

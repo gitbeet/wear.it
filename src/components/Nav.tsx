@@ -6,10 +6,10 @@ const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   return (
-    <nav className="relative">
+    <nav className="relative z-50 ">
       <ul
         role="navigation"
-        className="flex cursor-pointer  justify-center border"
+        className="relative z-20 flex cursor-pointer  justify-center  bg-slate-100"
       >
         <li className="cursor-pointer p-4">
           <Link href="/">Home</Link>
@@ -25,7 +25,7 @@ const Nav = () => {
             setShowMegaMenu(false);
           }}
         >
-          <Link href={`products/men`}>Men</Link>
+          <Link href={`/products/men`}>Men</Link>
         </li>
         <li
           className="cursor-pointer p-4"
@@ -38,10 +38,10 @@ const Nav = () => {
             setShowMegaMenu(false);
           }}
         >
-          <Link href={`products/women`}>Women</Link>
+          <Link href={`/products/women`}>Women</Link>
         </li>
         <li className="cursor-pointer p-4">
-          <Link href={`products/kids`}>Kids</Link>
+          <Link href={`/products/kids`}>Kids</Link>
         </li>
         <li className="cursor-pointer p-4">
           <Link href="/contact">Contact</Link>

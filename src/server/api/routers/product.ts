@@ -9,11 +9,18 @@ export const productRouter = createTRPCRouter({
         color: z.nativeEnum(ProductColor).array().optional(),
         type: z.nativeEnum(CategoryType).optional(),
         slug: z.string().optional(),
+        sort: z.enum(["newest", "high-to-low", "low-to-high"]).optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { color = [], size = [], type = "MEN", slug } = input;
-      console.log(color);
+      const {
+        color = [],
+        size = [],
+        type = "MEN",
+        slug,
+        sort = "newest",
+      } = input;
+
       const products = await ctx.db.product.findMany({
         where: {
           category: {
@@ -49,6 +56,14 @@ export const productRouter = createTRPCRouter({
             },
           },
         },
+        orderBy:
+          sort === "newest"
+            ? { createdAt: "asc" }
+            : sort === "high-to-low"
+            ? { price: "desc" }
+            : sort === "low-to-high"
+            ? { price: "asc" }
+            : { name: "asc" },
       });
       return products;
     }),
