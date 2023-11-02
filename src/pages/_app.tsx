@@ -16,7 +16,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`${inter.className}   min-h-screen  bg-gradient-to-b from-slate-800 to-slate-900 text-white`}
+        className={`${inter.className}   min-h-screen  bg-slate-100 text-gray-900`}
       >
         <div className="mx-auto  max-w-[1560px]">
           <Nav />

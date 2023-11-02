@@ -23,21 +23,34 @@ const SizeFilter = () => {
   };
 
   return (
-    <div className="border-b border-slate-700 p-8">
+    <div className="border-b border-gray-300 p-8">
       <p className="font-bold">Sizes</p>
       <div className="h-4"></div>
+      <div className="flex flex-col gap-1 pl-4">
+        {sizes.map((size, i) => {
+          const isIncluded = sizesQueryArray.includes(size);
 
-      {sizes.map((size, i) => (
-        <div className="flex gap-2" key={i}>
-          <input
-            type="checkbox"
-            id={size}
-            onChange={() => handleSizes(size)}
-            checked={sizesQueryArray.includes(size)}
-          />
-          <label htmlFor={size}>{size}</label>
-        </div>
-      ))}
+          return (
+            <div className="flex gap-2" key={i}>
+              <input
+                className="w-4"
+                type="checkbox"
+                id={size}
+                onChange={() => handleSizes(size)}
+                checked={isIncluded}
+              />
+              <label
+                className={`${
+                  isIncluded ? "text-gray-800" : "text-gray-600"
+                } text-sm font-semibold `}
+                htmlFor={size}
+              >
+                {size}
+              </label>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

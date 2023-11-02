@@ -20,13 +20,14 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
       onMouseLeave={() => setShow(false)}
       className={` ${
         show ? "visible" : "invisible"
-      } absolute flex w-full justify-center gap-32 border bg-slate-900 p-4`}
+      } absolute z-10 flex w-full justify-center gap-32 border bg-slate-100 p-4`}
     >
       {categories?.map((category) => (
         <div key={category.id}>
           <Link href={`/${lowerCaseType}/${category.slug}`}>
             <p className="font-bold">{category.name}</p>
           </Link>
+          <div className="h-4"></div>
           <ul>
             {category.children
               .filter((subcategory) =>
@@ -39,7 +40,9 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
                   key={subcategory.id}
                   href={`/${lowerCaseType}/${subcategory.slug}`}
                 >
-                  <li className="text-slate-300">{subcategory.name}</li>
+                  <li className="text-gray-700 hover:underline">
+                    {subcategory.name}
+                  </li>
                 </Link>
               ))}
           </ul>

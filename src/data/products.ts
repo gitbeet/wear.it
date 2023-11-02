@@ -67,6 +67,11 @@ export const products: ProductType[] = [
     colors: ["PURPLE"],
     sizes: ["S", "M", "L", "XL"],
     SKU: uuid(),
+    discount: {
+      connect: {
+        id: 1,
+      },
+    },
     category: {
       connect: {
         id: 36,

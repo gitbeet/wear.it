@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import { api } from "~/utils/api";
 import ProductCard from "./ProductCard";
+import LoadingPage from "./loading";
 
 const Products = () => {
   const router = useRouter();
@@ -25,11 +26,11 @@ const Products = () => {
 
   const { data, isLoading } = api.product.getAll.useQuery(queryInput);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoadingPage />;
   if (!data) return <h1>Something went wrong...</h1>;
 
   return (
-    <section className="grid w-full grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-2 border">
+    <section className="grid w-full grid-cols-[repeat(auto-fill,minmax(300px,1fr))] content-start  gap-2 border">
       {data.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

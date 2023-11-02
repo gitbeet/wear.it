@@ -9,6 +9,7 @@ const main = async () => {
   await prisma.product.deleteMany();
   await prisma.productCategory.deleteMany();
   await prisma.productInventory.deleteMany();
+  await prisma.discount.deleteMany();
 
   const createCategories = prisma.productCategory.createMany({
     data: productCategories,
@@ -21,6 +22,18 @@ const main = async () => {
   });
 
   await prisma.$transaction([createInventories]);
+
+  const createDiscounts = prisma.discount.create({
+    data: {
+      id: 1,
+      active: true,
+      discountPercent: 25,
+      description: "Winter offer for all t-shirts",
+      name: "Winter T-shirt Sale",
+    },
+  });
+
+  await prisma.$transaction([createDiscounts]);
 
   for (const p of products) {
     await prisma.product.create({

@@ -43,12 +43,13 @@ const ColorFilter = () => {
     }
   };
   return (
-    <div className="border-b border-slate-700 p-8">
+    <div className="border-b  border-gray-300 p-8">
       <p className="font-bold">Colors</p>
       <div className="h-4"></div>
       <div className="grid grid-cols-3 items-center justify-center gap-4">
         {colorOptions.map((option) => {
           const lowerCaseName = option.name.toLowerCase();
+          const isIncluded = colorsQueryArray.includes(option.name);
           return (
             <div
               key={option.id}
@@ -57,14 +58,21 @@ const ColorFilter = () => {
               <div
                 role="button"
                 onClick={() => handleColor(option.name)}
-                className={`aspect-square w-8 rounded-full ${
+                className={`aspect-square w-[1.625rem] rounded-full ${
                   option.color
-                } border border-transparent ${
-                  colorsQueryArray.includes(lowerCaseName) &&
-                  "border-yellow-500"
+                } border-[2px] outline outline-2 ${
+                  isIncluded
+                    ? "border-gray-100 outline-gray-500 "
+                    : "border-gray-200 outline-transparent "
                 }`}
               ></div>
-              <p>{option.name.charAt(0) + lowerCaseName.slice(1)}</p>
+              <p
+                className={`${
+                  isIncluded ? "text-gray-800" : "text-gray-600"
+                } text-sm font-semibold `}
+              >
+                {option.name.charAt(0) + lowerCaseName.slice(1)}
+              </p>
             </div>
           );
         })}
