@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { type RouterOutputs } from "~/utils/api";
 
 type Product = RouterOutputs["product"]["getAll"][number];
@@ -40,7 +41,11 @@ const ProductCard = ({ product }: { product: Product }) => {
       >
         <p>{product.name}</p>
         <div className="h-1"></div>
-        <p className="text-gray-500">{product.category.name}</p>
+        <Link
+          href={`/${product.types[0]?.toLowerCase()}/${product.category.slug}`}
+        >
+          <p className="text-gray-500">{product.category.name}</p>
+        </Link>
       </div>
     </div>
   );

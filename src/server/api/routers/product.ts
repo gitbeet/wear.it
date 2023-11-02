@@ -45,6 +45,7 @@ export const productRouter = createTRPCRouter({
           category: {
             select: {
               name: true,
+              slug: true,
             },
           },
         },

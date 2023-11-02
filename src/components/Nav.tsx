@@ -25,7 +25,7 @@ const Nav = () => {
             setShowMegaMenu(false);
           }}
         >
-          <Link href={`/men`}>Men</Link>
+          <Link href={`products/men`}>Men</Link>
         </li>
         <li
           className="cursor-pointer p-4"
@@ -38,10 +38,10 @@ const Nav = () => {
             setShowMegaMenu(false);
           }}
         >
-          <Link href={`/women`}>Women</Link>
+          <Link href={`products/women`}>Women</Link>
         </li>
         <li className="cursor-pointer p-4">
-          <Link href={`/kids`}>Kids</Link>
+          <Link href={`products/kids`}>Kids</Link>
         </li>
         <li className="cursor-pointer p-4">
           <Link href="/contact">Contact</Link>
