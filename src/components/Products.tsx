@@ -30,11 +30,11 @@ const Products = () => {
   if (!data) return <h1>Something went wrong...</h1>;
 
   return (
-    <section className="grid w-full grid-cols-[repeat(auto-fill,minmax(300px,1fr))] content-start  gap-2 border">
+    <>
       {data.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </section>
+    </>
   );
 };
 
