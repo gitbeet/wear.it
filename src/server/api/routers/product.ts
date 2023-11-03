@@ -2,6 +2,17 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import z from "zod";
 import { CategoryType, ProductColor, ProductSize } from "@prisma/client";
 export const productRouter = createTRPCRouter({
+  getSingleProduct: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { id } = input;
+      const product = await ctx.db.product.findUnique({
+        where: {
+          id,
+        },
+      });
+      return product;
+    }),
   getAll: publicProcedure
     .input(
       z.object({
@@ -58,7 +69,7 @@ export const productRouter = createTRPCRouter({
         },
         orderBy:
           sort === "newest"
-            ? { createdAt: "asc" }
+            ? { createdAt: "desc" }
             : sort === "high-to-low"
             ? { price: "desc" }
             : sort === "low-to-high"

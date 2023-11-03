@@ -176,4 +176,256 @@ export const products: ProductType[] = [
       },
     },
   },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 7,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 8,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 9,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 10,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 11,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 12,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 13,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 14,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "Casual white T-shirt",
+    description: "This is the coolest t-shirt ever",
+    types: ["MEN"],
+    price: 150,
+    colors: ["WHITE"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    SKU: uuid(),
+    category: {
+      connect: {
+        id: 22,
+      },
+    },
+    inventory: {
+      connect: {
+        id: 15,
+      },
+    },
+    images: {
+      createMany: {
+        data: [
+          {
+            imageURL: "/assets/product-images/white-tShirt.png",
+          },
+        ],
+      },
+    },
+  },
 ];

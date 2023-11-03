@@ -39,7 +39,9 @@ const ProductCard = ({ product }: { product: Product }) => {
           product.discount ? "-top-10 left-4" : "-top-4 left-4"
         }`}
       >
-        <p>{product.name}</p>
+        <Link href={`/product/${product.id}`}>
+          <p>{product.name}</p>
+        </Link>
         <div className="h-1"></div>
         <Link
           href={`/products/${product.types[0]?.toLowerCase()}/${

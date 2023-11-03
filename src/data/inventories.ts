@@ -30,4 +30,40 @@ export const productInventories: ProductInventory[] = [
     id: 7,
     quantity: 222,
   },
+  {
+    id: 8,
+    quantity: 222,
+  },
+  {
+    id: 9,
+    quantity: 222,
+  },
+  {
+    id: 10,
+    quantity: 222,
+  },
+  {
+    id: 11,
+    quantity: 222,
+  },
+  {
+    id: 12,
+    quantity: 222,
+  },
+  {
+    id: 13,
+    quantity: 222,
+  },
+  {
+    id: 14,
+    quantity: 222,
+  },
+  {
+    id: 15,
+    quantity: 222,
+  },
+  {
+    id: 16,
+    quantity: 222,
+  },
 ];
