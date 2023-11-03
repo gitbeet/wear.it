@@ -25,8 +25,8 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
       >
         <div
           className={`${
-            show ? "opacity-100" : "-translate-y-24 opacity-0"
-          } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[350ms]`}
+            show ? "opacity-100" : "-translate-y-16 opacity-0"
+          } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
         >
           {categories?.map((category) => (
             <div key={category.id}>
@@ -46,7 +46,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
                       key={subcategory.id}
                       href={`/products/${lowerCaseType}/${subcategory.slug}`}
                     >
-                      <li className="text-gray-700 hover:underline">
+                      <li className="pb-2 text-gray-600 hover:underline">
                         {subcategory.name}
                       </li>
                     </Link>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MegaMenu from "./MegaMenu";
 import Link from "next/link";
+import NavLink from "./NavLink";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
@@ -11,11 +12,8 @@ const Nav = () => {
         role="navigation"
         className="relative z-20 flex cursor-pointer  justify-center  bg-slate-100"
       >
-        <li className="cursor-pointer p-4">
-          <Link href="/">Home</Link>
-        </li>
-        <li
-          className="cursor-pointer p-4"
+        <NavLink link="/" text="Home" />
+        <NavLink
           onClick={() => setShowMegaMenu(false)}
           onMouseOver={() => {
             setShowMegaMenu(true);
@@ -24,11 +22,10 @@ const Nav = () => {
           onMouseLeave={() => {
             setShowMegaMenu(false);
           }}
-        >
-          <Link href={`/products/men`}>Men</Link>
-        </li>
-        <li
-          className="cursor-pointer p-4"
+          link="/products/men"
+          text="Men"
+        />
+        <NavLink
           onClick={() => setShowMegaMenu(false)}
           onMouseOver={() => {
             setShowMegaMenu(true);
@@ -37,15 +34,11 @@ const Nav = () => {
           onMouseLeave={() => {
             setShowMegaMenu(false);
           }}
-        >
-          <Link href={`/products/women`}>Women</Link>
-        </li>
-        <li className="cursor-pointer p-4">
-          <Link href={`/products/kids`}>Kids</Link>
-        </li>
-        <li className="cursor-pointer p-4">
-          <Link href="/contact">Contact</Link>
-        </li>
+          link="/products/women"
+          text="Women"
+        />
+        <NavLink link="/products/kids" text="Kids" />
+        <NavLink link="/contact" text="Contact" />
       </ul>
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
     </nav>
