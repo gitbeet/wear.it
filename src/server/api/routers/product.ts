@@ -10,6 +10,26 @@ export const productRouter = createTRPCRouter({
         where: {
           id,
         },
+        include: {
+          discount: {
+            select: {
+              active: true,
+              discountPercent: true,
+            },
+          },
+          category: {
+            select: {
+              name: true,
+              slug: true,
+            },
+          },
+          images: {
+            select: {
+              imageURL: true,
+              id: true,
+            },
+          },
+        },
       });
       return product;
     }),

@@ -2,13 +2,13 @@ import { type ProductColor } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useRouterQuery } from "~/hooks/useRouterQuery";
 
-type ColorOption = {
+export type ColorOption = {
   name: ProductColor;
   color: string;
   id: number;
 };
 
-const colorOptions: ColorOption[] = [
+export const colorOptions: ColorOption[] = [
   { id: 1, name: "RED", color: "bg-red-500" },
   { id: 2, name: "PURPLE", color: "bg-purple-500" },
   { id: 3, name: "BLACK", color: "bg-black" },
