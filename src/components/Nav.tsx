@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import MegaMenu from "./MegaMenu";
-import Link from "next/link";
 import NavLink from "./NavLink";
 
 const Nav = () => {
