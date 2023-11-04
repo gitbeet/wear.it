@@ -81,6 +81,8 @@ const Product = ({
       color: selectedColor,
       quantity: 1,
       size: selectedSize,
+      discount,
+      price,
     });
   };
 

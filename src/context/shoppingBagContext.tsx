@@ -16,6 +16,8 @@ type ShoppingBagProduct = {
   quantity: number;
   color: ProductColor;
   size: ProductSize;
+  discount: { discountPercent: number; active: boolean } | null;
+  price: number;
 };
 
 type BagContextType = {
@@ -31,14 +33,14 @@ const ShoppingBagProvider: React.FC<React.PropsWithChildren> = ({
   const [shoppingBag, setShoppingBag] = useState<ShoppingBagProduct[]>([]);
 
   const addToBag = (data: ShoppingBagProduct) => {
-    const { color, id, quantity, size } = data;
+    const { color, id, quantity, size, discount, price } = data;
     setShoppingBag((prev) => {
       const itemIndex = prev.findIndex((item) => {
         return item.id === id && item.color === color && item.size === size;
       });
       console.log(itemIndex);
       return itemIndex === -1
-        ? [...prev, { id, color, size, quantity }]
+        ? [...prev, { id, color, size, quantity, discount, price }]
         : prev.map((item) =>
             item.id === id && item.color === color && item.size === size
               ? { ...item, quantity: item.quantity + 1 }

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import { type ChangeEvent } from "react";
 import Link from "next/link";
+import { inter } from "~/pages/_app";
 
 interface Props {
   id: string;
@@ -69,6 +70,8 @@ const BagItem = ({ id, color, quantity, size, index }: Props) => {
                     id,
                     quantity,
                     size: e.target.value as ProductSize,
+                    discount,
+                    price,
                   })
                 }
                 value={size}
@@ -88,6 +91,8 @@ const BagItem = ({ id, color, quantity, size, index }: Props) => {
                     id,
                     quantity: parseInt(e.target.value),
                     size,
+                    discount,
+                    price,
                   })
                 }
                 value={quantity}
