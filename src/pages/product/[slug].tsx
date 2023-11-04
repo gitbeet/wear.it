@@ -3,7 +3,6 @@ import type {
   InferGetServerSidePropsType,
 } from "next";
 import { createServerSideHelpers } from "@trpc/react-query/server";
-
 import React, { useState } from "react";
 import { appRouter } from "~/server/api/root";
 import { api } from "~/utils/api";
@@ -15,6 +14,7 @@ import type { ProductSize, ProductColor } from "@prisma/client";
 import Button from "~/components/UI/Button";
 import ImageGallery from "~/components/Product/ImageGallery";
 import { BsHandbag, BsHeart } from "react-icons/bs";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 const Product = ({
   id,
@@ -25,26 +25,61 @@ const Product = ({
     api.product.getSingleProduct.useQuery({ id });
   if (isGettingProductData) return <LoadingPage />;
   if (!productData) return <h1>Something went wrong.</h1>;
-  const { colors, name, price, sizes, description, category, images } =
-    productData;
+  const {
+    colors,
+    name,
+    price,
+    sizes,
+    description,
+    category,
+    images,
+    discount,
+  } = productData;
+
+  const priceBeforeDiscount = formatCurrency(price);
+  const priceAfterDiscount = formatCurrency(
+    discount?.discountPercent && discount.active
+      ? price - (price * discount?.discountPercent) / 100
+      : price,
+  );
   return (
     <div>
       <section className="mx-auto flex max-w-[1200px] justify-between border pt-24">
         {/* IMAGE BLOCK */}
         <ImageGallery images={images} />
         {/* INFO BLOCK */}
-        <div className="h-[700px] w-[500px] ">
-          <p className="text-2xl font-semibold">{name}</p>
-          <p className="text-gray-500">{category.name}</p>
-          <p className="text-3xl font-bold">${price}</p>
-          <p className="text-2xl font-semibold">Colors</p>
+        <div className="flex w-[450px] flex-col gap-6">
           <div>
-            {colors.map((c, i) => (
-              <>
+            <p className="text-2xl font-semibold">{name}</p>
+            <div className="h-1"></div>
+            <p className="text-gray-500">{category.name}</p>
+          </div>
+          <div>
+            {discount && discount?.active && (
+              <p className="text-xl font-black text-green-600 ">
+                {discount?.discountPercent}% OFF
+              </p>
+            )}
+
+            <span className="text-2xl font-bold">{priceAfterDiscount}</span>
+            {discount && discount?.active && (
+              <span className="pl-2 text-xl  text-gray-500 line-through">
+                {priceBeforeDiscount}
+              </span>
+            )}
+          </div>
+          <div>
+            <p className="text-2xl font-semibold">Colors</p>
+            <div className="h-2"></div>
+            <div className="flex gap-2">
+              {colors.map((c, i) => (
                 <div
+                  key={i}
                   role="button"
-                  onClick={() => setSelectedColor(c)}
-                  className={`aspect-square w-[1.625rem] rounded-full ${colorOptions.find(
+                  onClick={() =>
+                    setSelectedColor(selectedColor === c ? null : c)
+                  }
+                  className={`h-8 w-8 rounded-full ${colorOptions.find(
                     (option) => option.name === c,
                   )?.color} border-[2px] outline outline-2 ${
                     selectedColor === c
@@ -52,25 +87,30 @@ const Product = ({
                       : "border-gray-200 outline-transparent "
                   }`}
                 ></div>
-              </>
-            ))}
+              ))}
+            </div>
           </div>
-          <p className="text-2xl font-semibold">Select Size</p>
-          <div className="flex gap-2">
-            {sizes.map((s, i) => (
-              <span
-                role="button"
-                onClick={() => setSelectedSize(s)}
-                className={`${
-                  s === selectedSize ? "border-gray-800" : "border-gray-300"
-                } w-16 rounded-sm border py-2 text-center`}
-                key={i}
-              >
-                {s}
-              </span>
-            ))}
+          <div>
+            <p className="text-2xl font-semibold">Select Size</p>
+            <div className="h-4"></div>
+            <div className="flex gap-2">
+              {sizes.map((s, i) => (
+                <span
+                  role="button"
+                  onClick={() => setSelectedSize(s)}
+                  className={`${
+                    s === selectedSize
+                      ? "border-gray-800  text-gray-800"
+                      : "border-gray-300  text-gray-500"
+                  } w-16 rounded-[3px] border py-2 text-center font-bold`}
+                  key={i}
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 pt-4">
             <Button
               text="Add to Bag"
               onClick={() => void 0}
@@ -84,8 +124,11 @@ const Product = ({
             />
           </div>
 
-          <p className="text-2xl font-semibold">Description</p>
-          <p>{description}</p>
+          <div>
+            <p className="text-2xl font-semibold">Description</p>
+            <div className="h-2"></div>
+            <p className="pl-2 font-light">{description}</p>
+          </div>
           <p className="text-2xl font-semibold">Reviews (420)</p>
         </div>
       </section>

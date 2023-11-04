@@ -37,9 +37,14 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED"],
-    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["RED", "BLUE", "WHITE"],
+    sizes: ["S", "M", "L"],
     SKU: uuid(),
+    discount: {
+      connect: {
+        id: 1,
+      },
+    },
     category: {
       connect: {
         id: 42,
@@ -75,9 +80,14 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED"],
-    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["RED", "BLUE", "WHITE"],
+    sizes: ["S", "M", "L"],
     SKU: uuid(),
+    discount: {
+      connect: {
+        id: 1,
+      },
+    },
     category: {
       connect: {
         id: 42,
@@ -113,9 +123,14 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED"],
-    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["RED", "BLUE", "WHITE"],
+    sizes: ["S", "M", "L"],
     SKU: uuid(),
+    discount: {
+      connect: {
+        id: 1,
+      },
+    },
     category: {
       connect: {
         id: 42,
@@ -151,9 +166,14 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED"],
-    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["RED", "BLUE", "WHITE"],
+    sizes: ["S", "M", "L"],
     SKU: uuid(),
+    discount: {
+      connect: {
+        id: 1,
+      },
+    },
     category: {
       connect: {
         id: 42,
