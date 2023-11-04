@@ -9,7 +9,7 @@ type Product = RouterOutputs["product"]["getAll"][number];
 
 const ProductCard = ({ product }: { product: Product }) => {
   const [showColorVariations, setShowColorVariations] = useState(false);
-  const [currentImage, setCurrentImage] = useState(0);
+  const [currentImage, setCurrentImage] = useState(product.images[0]?.id);
   const priceBeforeDiscount = formatCurrency(product.price);
   const priceAfterDiscount = formatCurrency(
     product.discount?.discountPercent
@@ -19,7 +19,9 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
   return (
     <Link
-      href={`/product/${product.id}/${product.images[currentImage]?.color}`}
+      href={`/product/${product.id}/${product.images.find(
+        (image) => image.id === currentImage,
+      )?.color}`}
     >
       <div className=" bg-gray-100 pb-2 text-gray-900">
         <div
@@ -37,7 +39,10 @@ const ProductCard = ({ product }: { product: Product }) => {
               className="relative bg-slate-200"
               width={500}
               height={500}
-              src={product.images[currentImage]?.imageURL ?? ""}
+              src={
+                product.images.find((image) => image.id === currentImage)
+                  ?.imageURL ?? ""
+              }
               alt="Product image"
             />
             {product.discount ? (
@@ -66,20 +71,22 @@ const ProductCard = ({ product }: { product: Product }) => {
               showColorVariations ? " flex items-center gap-2 pt-2" : "hidden"
             }
           >
-            {product.colors.map((color, i) => (
-              <Image
-                onMouseOver={() => setCurrentImage(i)}
-                className="bg-slate-200"
-                width={48}
-                height={48}
-                key={i}
-                src={
-                  product.images.find((image) => image.color === color)
-                    ?.imageURL ?? ""
-                }
-                alt={`${color} variation`}
-              />
-            ))}
+            {product.colors.map((color, i) => {
+              const image = product.images.find(
+                (image) => image.color === color,
+              );
+              return (
+                <Image
+                  onMouseOver={() => setCurrentImage(image?.id)}
+                  className="bg-slate-200"
+                  width={48}
+                  height={48}
+                  key={i}
+                  src={image?.imageURL ?? ""}
+                  alt={`${color} variation`}
+                />
+              );
+            })}
           </div>
         </div>
 
