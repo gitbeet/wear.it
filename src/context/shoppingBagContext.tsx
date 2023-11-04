@@ -21,6 +21,8 @@ type ShoppingBagProduct = {
 type BagContextType = {
   shoppingBag: ShoppingBagProduct[];
   addToBag: (data: ShoppingBagProduct) => void;
+  modifyBagItem: (index: number, data: ShoppingBagProduct) => void;
+  removeFromBag: (index: number) => void;
 };
 
 const ShoppingBagProvider: React.FC<React.PropsWithChildren> = ({
@@ -46,8 +48,20 @@ const ShoppingBagProvider: React.FC<React.PropsWithChildren> = ({
     console.log(shoppingBag);
   };
 
+  const modifyBagItem = (index: number, data: ShoppingBagProduct) => {
+    setShoppingBag((prev) =>
+      prev.map((item, i) => (i === index ? data : item)),
+    );
+  };
+
+  const removeFromBag = (index: number) => {
+    setShoppingBag((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
-    <shopingBagContext.Provider value={{ shoppingBag, addToBag }}>
+    <shopingBagContext.Provider
+      value={{ shoppingBag, addToBag, modifyBagItem, removeFromBag }}
+    >
       {children}
     </shopingBagContext.Provider>
   );
