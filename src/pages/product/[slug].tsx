@@ -12,9 +12,9 @@ import { db } from "~/server/db";
 import LoadingPage from "~/components/loading";
 import { colorOptions } from "~/components/Filters/ColorFilter";
 import type { ProductSize, ProductColor } from "@prisma/client";
-import Button from "~/components/Button";
-import Image from "next/image";
+import Button from "~/components/UI/Button";
 import ImageGallery from "~/components/Product/ImageGallery";
+import { BsHandbag, BsHeart } from "react-icons/bs";
 
 const Product = ({
   id,
@@ -71,8 +71,17 @@ const Product = ({
             ))}
           </div>
           <div className="flex flex-col gap-4">
-            <Button text="Add to Bag" onClick={() => void 0} />
-            <Button text="Add to Favorites" onClick={() => void 0} ghost />
+            <Button
+              text="Add to Bag"
+              onClick={() => void 0}
+              icon={<BsHandbag />}
+            />
+            <Button
+              text="Add to Favorites"
+              onClick={() => void 0}
+              ghost
+              icon={<BsHeart />}
+            />
           </div>
 
           <p className="text-2xl font-semibold">Description</p>
