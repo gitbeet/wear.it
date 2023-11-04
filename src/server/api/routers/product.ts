@@ -27,6 +27,7 @@ export const productRouter = createTRPCRouter({
             select: {
               imageURL: true,
               id: true,
+              color: true,
             },
           },
         },

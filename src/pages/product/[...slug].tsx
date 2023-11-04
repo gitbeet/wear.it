@@ -3,7 +3,7 @@ import type {
   InferGetServerSidePropsType,
 } from "next";
 import { createServerSideHelpers } from "@trpc/react-query/server";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { appRouter } from "~/server/api/root";
 import { api } from "~/utils/api";
 import SuperJSON from "superjson";
@@ -15,14 +15,30 @@ import Button from "~/components/UI/Button";
 import ImageGallery from "~/components/Product/ImageGallery";
 import { BsHandbag, BsHeart } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
-
+import { useRouter } from "next/router";
 const Product = ({
   id,
+  color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const [selectedColor, setSelectedColor] = useState<ProductColor | null>(null);
+  const router = useRouter();
+  const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
+    color as ProductColor,
+  );
   const [selectedSize, setSelectedSize] = useState<ProductSize | null>(null);
+
   const { data: productData, isLoading: isGettingProductData } =
     api.product.getSingleProduct.useQuery({ id });
+
+  // Check if color query is valid and if not change it to the product default color
+  useEffect(() => {
+    const primaryColor = productData?.colors[0];
+    const isColorValid =
+      productData?.colors.findIndex((color) => color === selectedColor) !== -1;
+    if (!isColorValid && primaryColor) {
+      void handleColor(primaryColor);
+    }
+  }, [productData]);
+
   if (isGettingProductData) return <LoadingPage />;
   if (!productData) return <h1>Something went wrong.</h1>;
   const {
@@ -42,11 +58,23 @@ const Product = ({
       ? price - (price * discount?.discountPercent) / 100
       : price,
   );
+
+  async function handleColor(color: ProductColor) {
+    setSelectedColor(color);
+    await router.push(`/product/${productData?.id}/${color}`, undefined, {
+      shallow: true,
+      scroll: true,
+    });
+  }
+
   return (
     <div>
       <section className="mx-auto flex max-w-[1200px] justify-between border pt-24">
         {/* IMAGE BLOCK */}
-        <ImageGallery images={images} />
+        <ImageGallery
+          images={images.filter((image) => image.color === selectedColor)}
+          selectedColor={selectedColor}
+        />
         {/* INFO BLOCK */}
         <div className="flex w-[450px] flex-col gap-6">
           <div>
@@ -76,9 +104,9 @@ const Product = ({
                 <div
                   key={i}
                   role="button"
-                  onClick={() =>
-                    setSelectedColor(selectedColor === c ? null : c)
-                  }
+                  onClick={async () => {
+                    await handleColor(c);
+                  }}
                   className={`h-8 w-8 rounded-full ${colorOptions.find(
                     (option) => option.name === c,
                   )?.color} border-[2px] outline outline-2 ${
@@ -153,15 +181,16 @@ export const getServerSideProps = async (
     transformer: SuperJSON,
   });
 
-  if (typeof slug !== "string") {
+  if (!slug?.[0]) {
     throw new Error("no slug");
   }
 
-  await helpers.product.getSingleProduct.prefetch({ id: slug });
+  await helpers.product.getSingleProduct.prefetch({ id: slug[0] });
   return {
     props: {
       trpcState: helpers.dehydrate(),
-      id: slug,
+      id: slug[0],
+      color: slug[1] ?? "",
     },
   };
 };

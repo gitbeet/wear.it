@@ -73,7 +73,9 @@ const ProductCard = ({ product }: { product: Product }) => {
 
       <div className="h-4"></div>
       <div className="pl-4">
-        <Link href={`/product/${product.id}`}>
+        <Link
+          href={`/product/${product.id}/${product.images[currentImage]?.color}`}
+        >
           <p>{product.name}</p>
         </Link>
         <div className="h-1"></div>

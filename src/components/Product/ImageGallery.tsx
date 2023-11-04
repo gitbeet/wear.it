@@ -1,18 +1,23 @@
+import { type ProductColor } from "@prisma/client";
 import Image from "next/image";
 import { useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 
 interface Props {
-  images: { id: string; imageURL: string }[];
+  images: { id: string; imageURL: string; color: ProductColor }[];
+  selectedColor: ProductColor | null;
 }
 
-const ImageGallery = ({ images }: Props) => {
+const ImageGallery = ({ images, selectedColor }: Props) => {
   const [currentImage, setCurrentImage] = useState(0);
 
+  const filteredImages = images.filter?.(
+    (image) => image.color === selectedColor,
+  );
   return (
     <div className="flex items-start gap-4">
       <div className="flex flex-col gap-2">
-        {images.map((image, i) => (
+        {filteredImages.map((image, i) => (
           <Image
             onMouseOver={() => setCurrentImage(i)}
             className={`${
