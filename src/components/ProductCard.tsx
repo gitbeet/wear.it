@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { BsHeart } from "react-icons/bs";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { type RouterOutputs } from "~/utils/api";
 
@@ -26,8 +27,14 @@ const ProductCard = ({ product }: { product: Product }) => {
           onMouseLeave={() => setShowColorVariations(false)}
         >
           <div className="relative">
+            <div
+              role="button"
+              className="absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-gray-50"
+            >
+              <BsHeart className="h-6 w-6" />
+            </div>
             <Image
-              className=" relative bg-slate-200"
+              className="relative bg-slate-200"
               width={500}
               height={500}
               src={product.images[currentImage]?.imageURL ?? ""}
@@ -48,7 +55,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                 </div>
               </div>
             ) : (
-              <p className="absoltute -bottom-11 left-4 w-fit bg-gray-50 px-3 py-1 font-bold">
+              <p className="absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-bold">
                 {priceBeforeDiscount}
               </p>
             )}
