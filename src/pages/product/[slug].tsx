@@ -14,13 +14,13 @@ import { colorOptions } from "~/components/Filters/ColorFilter";
 import type { ProductSize, ProductColor } from "@prisma/client";
 import Button from "~/components/Button";
 import Image from "next/image";
+import ImageGallery from "~/components/Product/ImageGallery";
 
 const Product = ({
   id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(null);
   const [selectedSize, setSelectedSize] = useState<ProductSize | null>(null);
-
   const { data: productData, isLoading: isGettingProductData } =
     api.product.getSingleProduct.useQuery({ id });
   if (isGettingProductData) return <LoadingPage />;
@@ -31,34 +31,14 @@ const Product = ({
     <div>
       <section className="mx-auto flex max-w-[1200px] justify-between border pt-24">
         {/* IMAGE BLOCK */}
-        <div className="flex h-[500px] gap-4">
-          <div className="">
-            {images.map((image) => (
-              <Image
-                className="bg-slate-200"
-                key={image.id}
-                width={64}
-                height={64}
-                src={image.imageURL}
-                alt="thumbnail"
-              />
-            ))}
-          </div>
-          <Image
-            className="bg-slate-200"
-            src={images[0]?.imageURL}
-            alt="product image"
-            width={550}
-            height={550}
-          />
-        </div>
+        <ImageGallery images={images} />
         {/* INFO BLOCK */}
         <div className="h-[700px] w-[500px] ">
-          <p>{name}</p>
-          <p>{category.name}</p>
-          <p>{price}</p>
-          <p>Colors</p>
-          <p>
+          <p className="text-2xl font-semibold">{name}</p>
+          <p className="text-gray-500">{category.name}</p>
+          <p className="text-3xl font-bold">${price}</p>
+          <p className="text-2xl font-semibold">Colors</p>
+          <div>
             {colors.map((c, i) => (
               <>
                 <div
@@ -74,15 +54,15 @@ const Product = ({
                 ></div>
               </>
             ))}
-          </p>
-          <p>Select Size</p>
+          </div>
+          <p className="text-2xl font-semibold">Select Size</p>
           <div className="flex gap-2">
             {sizes.map((s, i) => (
               <span
                 role="button"
                 onClick={() => setSelectedSize(s)}
                 className={`${
-                  s === selectedSize ? "border-slate-800" : "border-slate-300"
+                  s === selectedSize ? "border-gray-800" : "border-gray-300"
                 } w-16 rounded-sm border py-2 text-center`}
                 key={i}
               >
@@ -95,9 +75,9 @@ const Product = ({
             <Button text="Add to Favorites" onClick={() => void 0} ghost />
           </div>
 
-          <p>Description</p>
+          <p className="text-2xl font-semibold">Description</p>
           <p>{description}</p>
-          <p>Reviews (420)</p>
+          <p className="text-2xl font-semibold">Reviews (420)</p>
         </div>
       </section>
       <div className="h-32"></div>
