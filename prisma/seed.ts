@@ -11,29 +11,29 @@ const main = async () => {
   await prisma.productInventory.deleteMany();
   await prisma.discount.deleteMany();
 
-  const createCategories = prisma.productCategory.createMany({
-    data: productCategories,
-  });
+  // const createCategories = prisma.productCategory.createMany({
+  //   data: productCategories,
+  // });
 
-  await prisma.$transaction([createCategories]);
+  // await prisma.$transaction([createCategories]);
 
-  const createInventories = prisma.productInventory.createMany({
-    data: productInventories,
-  });
+  // const createInventories = prisma.productInventory.createMany({
+  //   data: productInventories,
+  // });
 
-  await prisma.$transaction([createInventories]);
+  // await prisma.$transaction([createInventories]);
 
-  const createDiscounts = prisma.discount.create({
-    data: {
-      id: 1,
-      active: true,
-      discountPercent: 25,
-      description: "Winter offer for all t-shirts",
-      name: "Winter T-shirt Sale",
-    },
-  });
+  // const createDiscounts = prisma.discount.create({
+  //   data: {
+  //     id: 1,
+  //     active: true,
+  //     discountPercent: 25,
+  //     description: "Winter offer for all t-shirts",
+  //     name: "Winter T-shirt Sale",
+  //   },
+  // });
 
-  await prisma.$transaction([createDiscounts]);
+  // await prisma.$transaction([createDiscounts]);
 
   for (const p of products) {
     await prisma.product.create({
