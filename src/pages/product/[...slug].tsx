@@ -27,6 +27,7 @@ const Product = ({
     color as ProductColor,
   );
   const [selectedSize, setSelectedSize] = useState<ProductSize | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const { data: productData, isLoading: isGettingProductData } =
     api.product.getSingleProduct.useQuery({ id });
@@ -68,6 +69,20 @@ const Product = ({
       scroll: true,
     });
   }
+
+  const handleAddToBag = () => {
+    if (!selectedSize) {
+      setError("Please select a size");
+      return;
+    }
+    if (!selectedColor) return;
+    addToBag({
+      id,
+      color: selectedColor,
+      quantity: 1,
+      size: selectedSize,
+    });
+  };
 
   return (
     <div>
@@ -121,13 +136,26 @@ const Product = ({
             </div>
           </div>
           <div>
-            <p className="text-2xl font-semibold">Select Size</p>
+            <p
+              className={`${
+                error ? "text-red-500" : "text-gray-800"
+              } text-2xl font-semibold`}
+            >
+              Select Size
+            </p>
             <div className="h-4"></div>
-            <div className="flex gap-2">
+            <div
+              className={`${
+                error ? "border-red-500" : "border-transparent"
+              } flex w-fit gap-2 rounded-sm border`}
+            >
               {sizes.map((s, i) => (
                 <span
                   role="button"
-                  onClick={() => setSelectedSize(s)}
+                  onClick={() => {
+                    setSelectedSize(s);
+                    setError(null);
+                  }}
                   className={`${
                     s === selectedSize
                       ? "border-gray-800  text-gray-800"
@@ -139,19 +167,19 @@ const Product = ({
                 </span>
               ))}
             </div>
+
+            <p
+              className={`${
+                error ? "visible" : "pointer-events-none invisible"
+              } pt-2 text-sm text-red-500`}
+            >
+              Please select a size
+            </p>
           </div>
           <div className="flex flex-col gap-4 pt-4">
             <Button
               text="Add to Bag"
-              onClick={() => {
-                if (!selectedColor || !selectedSize) return;
-                addToBag({
-                  id,
-                  color: selectedColor,
-                  quantity: 1,
-                  size: selectedSize,
-                });
-              }}
+              onClick={handleAddToBag}
               icon={<BsHandbag />}
             />
             <Button
