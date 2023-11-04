@@ -42,13 +42,13 @@ const ProductCard = ({ product }: { product: Product }) => {
                   <p className=" py-1 text-gray-500 line-through">
                     {priceBeforeDiscount}
                   </p>
-                  <p className="w-fit bg-gray-100 px-3 py-1 font-bold text-red-500">
+                  <p className="w-fit bg-gray-50 px-3 py-1 font-bold text-red-500">
                     {priceAfterDiscount}
                   </p>
                 </div>
               </div>
             ) : (
-              <p className="absoltute -bottom-11 left-4 w-fit bg-gray-100 px-3 py-1 font-bold">
+              <p className="absoltute -bottom-11 left-4 w-fit bg-gray-50 px-3 py-1 font-bold">
                 {priceBeforeDiscount}
               </p>
             )}
@@ -56,7 +56,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 
           <div
             className={
-              showColorVariations ? " flex items-center gap-2 py-2" : "hidden"
+              showColorVariations ? " flex items-center gap-2 pt-2" : "hidden"
             }
           >
             {product.colors.map((color, i) => (
@@ -78,20 +78,10 @@ const ProductCard = ({ product }: { product: Product }) => {
 
         <div className="h-4"></div>
         {!showColorVariations && (
-          <div className="pl-4">
-            {/* <Link
-              href={`/product/${product.id}/${product.images[currentImage]?.color}`}
-            > */}
+          <div className="min-h-[4rem] overflow-hidden pl-4">
             <p className="font-semibold">{product.name}</p>
-            {/* </Link> */}
             <div className="h-1"></div>
-            {/* <Link
-              href={`/products/${product.types[0]?.toLowerCase()}/${
-                product.category.slug
-              }`}
-            > */}
             <p className="text-gray-500">{product.category.name}</p>
-            {/* </Link> */}
           </div>
         )}
       </div>

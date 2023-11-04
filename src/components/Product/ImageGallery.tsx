@@ -1,6 +1,6 @@
 import { type ProductColor } from "@prisma/client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 
 interface Props {
@@ -10,6 +10,10 @@ interface Props {
 
 const ImageGallery = ({ images, selectedColor }: Props) => {
   const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    setCurrentImage(0);
+  }, [selectedColor]);
 
   const filteredImages = images.filter?.(
     (image) => image.color === selectedColor,

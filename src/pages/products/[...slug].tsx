@@ -18,7 +18,7 @@ const ProductsPage = () => {
         />
         <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
       </section>
-      <section className=" flex gap-4 pt-8">
+      <section className=" flex gap-4 overflow-hidden pt-8">
         <div
           className={`${
             showFilters ? "" : "-ml-64"

@@ -21,7 +21,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-50 ">
       <div
         onClick={() => setShowSort((prev) => !prev)}
         role="listbox"
@@ -40,7 +40,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
       <div
         className={`${
           showSort ? "" : "opacity-0"
-        } absolute left-0 flex w-max -translate-x-1/2  flex-col gap-2 bg-gray-100 p-8 text-right font-semibold transition-all duration-500`}
+        } absolute left-4 flex w-max -translate-x-1/2 flex-col gap-2  rounded-lg bg-gray-50 p-6 text-right font-semibold transition-all duration-500`}
       >
         <p
           onClick={() => handleChangeSort("newest")}

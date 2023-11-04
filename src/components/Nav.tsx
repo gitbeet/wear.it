@@ -9,7 +9,7 @@ const Nav = () => {
     <nav className="relative z-50 ">
       <ul
         role="navigation"
-        className="relative z-20 flex cursor-pointer  justify-center  bg-slate-100"
+        className="relative z-20 flex cursor-pointer  justify-center  bg-slate-50 shadow-sm"
       >
         <NavLink link="/" text="Home" />
         <NavLink

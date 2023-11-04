@@ -33,7 +33,7 @@ export const products: ProductType[] = [
     },
   },
   {
-    name: "Cozy Patterned Woolen Winter Hat",
+    name: "Cozy Patterned Woolen Winter Hat (many images)",
     description:
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
@@ -64,7 +64,22 @@ export const products: ProductType[] = [
             color: "RED",
           },
           {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--red--2.png",
+            color: "RED",
+          },
+          {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--red--3.png",
+            color: "RED",
+          },
+          {
             imageURL: "/assets/product-images/cozy-woolen-winter-hat--blue.png",
+            color: "BLUE",
+          },
+          {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--blue--2.png",
             color: "BLUE",
           },
           {
@@ -77,7 +92,7 @@ export const products: ProductType[] = [
     },
   },
   {
-    name: "Cozy Patterned Woolen Winter Hat",
+    name: "Cozy Patterned Woolen Winter Hat (many images)",
     description:
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
@@ -108,7 +123,22 @@ export const products: ProductType[] = [
             color: "RED",
           },
           {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--red--2.png",
+            color: "RED",
+          },
+          {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--red--3.png",
+            color: "RED",
+          },
+          {
             imageURL: "/assets/product-images/cozy-woolen-winter-hat--blue.png",
+            color: "BLUE",
+          },
+          {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--blue--2.png",
             color: "BLUE",
           },
           {
@@ -121,7 +151,7 @@ export const products: ProductType[] = [
     },
   },
   {
-    name: "Cozy Patterned Woolen Winter Hat",
+    name: "Cozy Patterned Woolen Winter Hat (many images)",
     description:
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
@@ -152,7 +182,22 @@ export const products: ProductType[] = [
             color: "RED",
           },
           {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--red--2.png",
+            color: "RED",
+          },
+          {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--red--3.png",
+            color: "RED",
+          },
+          {
             imageURL: "/assets/product-images/cozy-woolen-winter-hat--blue.png",
+            color: "BLUE",
+          },
+          {
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--blue--2.png",
             color: "BLUE",
           },
           {

@@ -16,10 +16,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`${inter.className}   h-[100dvh]  bg-slate-100 text-gray-800`}
+        className={`${inter.className}   min-h-[100dvh]  bg-gray-50 text-gray-800`}
       >
         <Nav />
-        <section className="mx-auto min-h-full max-w-[1400px] overflow-hidden">
+        <section className="mx-auto min-h-full max-w-[1400px] ">
           <Component {...pageProps} />
         </section>
       </main>
