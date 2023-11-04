@@ -73,6 +73,7 @@ model ProductImage {
   // imageBlur String
   Product   Product @relation(fields: [productId], references: [id] , onDelete: Cascade)
   productId String
+  color ProductColor
 }
 
 model ProductCategory {

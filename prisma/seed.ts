@@ -7,9 +7,9 @@ const prisma = new PrismaClient();
 
 const main = async () => {
   await prisma.product.deleteMany();
-  await prisma.productCategory.deleteMany();
-  await prisma.productInventory.deleteMany();
-  await prisma.discount.deleteMany();
+  // await prisma.productCategory.deleteMany();
+  // await prisma.productInventory.deleteMany();
+  // await prisma.discount.deleteMany();
 
   // const createCategories = prisma.productCategory.createMany({
   //   data: productCategories,

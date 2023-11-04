@@ -26,6 +26,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -37,7 +38,7 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED", "BLUE", "WHITE"],
+    colors: ["RED", "BLUE", "BLACK"],
     sizes: ["S", "M", "L"],
     SKU: uuid(),
     discount: {
@@ -59,16 +60,17 @@ export const products: ProductType[] = [
       createMany: {
         data: [
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--red.png",
+            color: "RED",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--blue.png",
+            color: "BLUE",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
-          },
-          {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--black.png",
+            color: "BLACK",
           },
         ],
       },
@@ -80,7 +82,7 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED", "BLUE", "WHITE"],
+    colors: ["RED", "BLUE", "BLACK"],
     sizes: ["S", "M", "L"],
     SKU: uuid(),
     discount: {
@@ -102,16 +104,17 @@ export const products: ProductType[] = [
       createMany: {
         data: [
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--red.png",
+            color: "RED",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--blue.png",
+            color: "BLUE",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
-          },
-          {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--black.png",
+            color: "BLACK",
           },
         ],
       },
@@ -123,7 +126,7 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED", "BLUE", "WHITE"],
+    colors: ["RED", "BLUE", "BLACK"],
     sizes: ["S", "M", "L"],
     SKU: uuid(),
     discount: {
@@ -145,16 +148,17 @@ export const products: ProductType[] = [
       createMany: {
         data: [
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--red.png",
+            color: "RED",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--blue.png",
+            color: "BLUE",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
-          },
-          {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--black.png",
+            color: "BLACK",
           },
         ],
       },
@@ -166,7 +170,7 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED", "BLUE", "WHITE"],
+    colors: ["RED", "BLUE", "BLACK"],
     sizes: ["S", "M", "L"],
     SKU: uuid(),
     discount: {
@@ -188,16 +192,17 @@ export const products: ProductType[] = [
       createMany: {
         data: [
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--red.png",
+            color: "RED",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL: "/assets/product-images/cozy-woolen-winter-hat--blue.png",
+            color: "BLUE",
           },
           {
-            imageURL: "/assets/product-images/red-hat.png",
-          },
-          {
-            imageURL: "/assets/product-images/red-hat.png",
+            imageURL:
+              "/assets/product-images/cozy-woolen-winter-hat--black.png",
+            color: "BLACK",
           },
         ],
       },
@@ -231,6 +236,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/purple-leggings.png",
+            color: "PURPLE",
           },
         ],
       },
@@ -259,6 +265,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -287,6 +294,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -315,6 +323,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -343,6 +352,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -371,6 +381,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -399,6 +410,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -427,6 +439,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -455,6 +468,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
@@ -483,6 +497,7 @@ export const products: ProductType[] = [
         data: [
           {
             imageURL: "/assets/product-images/white-tShirt.png",
+            color: "WHITE",
           },
         ],
       },
