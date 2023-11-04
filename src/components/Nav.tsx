@@ -4,18 +4,21 @@ import NavLink from "./NavLink";
 import ShoppingBagIcon from "./Cart/ShoppingBagIcon";
 import { FiUser } from "react-icons/fi";
 import { BsHeart, BsSearch } from "react-icons/bs";
+import Link from "next/link";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   return (
     <nav className="bg-slate-50 ">
-      <div className="relative z-50 bg-slate-50  ">
-        <div className=" mx-auto flex max-w-[1600px] items-center justify-between">
-          <h1 className="text-xl font-black">e.fashion</h1>
+      <div className="relative z-50 bg-slate-50 py-4 ">
+        <div className="relative mx-auto flex max-w-[1600px] items-center justify-between">
+          <Link href="/">
+            <h1 className="text-xl font-black">e.fashion</h1>
+          </Link>
           <ul
             role="navigation"
-            className="flex cursor-pointer  justify-center  shadow-sm"
+            className="absolute left-1/2 flex -translate-x-1/2 cursor-pointer justify-center"
           >
             <NavLink link="/" text="Home" />
             <NavLink
@@ -48,7 +51,7 @@ const Nav = () => {
           <div className="flex items-center gap-4 ">
             <div className="pointer-events-none relative h-8 pr-4">
               <BsSearch className="absolute left-2 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-              <input className="h-full rounded-full border border-slate-300 bg-slate-200 pl-8" />
+              <input className="h-full w-40  rounded-full border border-slate-200 bg-slate-100 pl-8" />
             </div>
             <BsHeart role="button" className="pointer-events-none h-5 w-5" />
             <ShoppingBagIcon />

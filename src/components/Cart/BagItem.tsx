@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import { type ChangeEvent } from "react";
 import Link from "next/link";
-import { inter } from "~/pages/_app";
 
 interface Props {
   id: string;

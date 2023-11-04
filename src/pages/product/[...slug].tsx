@@ -17,6 +17,7 @@ import { BsHandbag, BsHeart } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
+import Link from "next/link";
 const Product = ({
   id,
   color,
@@ -53,6 +54,7 @@ const Product = ({
     category,
     images,
     discount,
+    types,
   } = productData;
 
   const priceBeforeDiscount = formatCurrency(price);
@@ -99,7 +101,11 @@ const Product = ({
           <div>
             <p className="text-2xl font-semibold">{name}</p>
             <div className="h-1"></div>
-            <p className="text-gray-500">{category.name}</p>
+            <Link
+              href={`/products/${types[0]?.toLowerCase()}/${category.slug}`}
+            >
+              <p className="text-gray-500">{category.name}</p>
+            </Link>
           </div>
           <div>
             {discount && discount?.active && (
