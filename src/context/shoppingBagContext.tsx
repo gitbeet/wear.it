@@ -32,14 +32,18 @@ const ShoppingBagProvider: React.FC<React.PropsWithChildren> = ({
     const { color, id, quantity, size } = data;
     setShoppingBag((prev) => {
       const itemIndex = prev.findIndex((item) => {
-        item.id === id && item.color === color && item.size === size;
+        return item.id === id && item.color === color && item.size === size;
       });
+      console.log(itemIndex);
       return itemIndex === -1
         ? [...prev, { id, color, size, quantity }]
         : prev.map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+            item.id === id && item.color === color && item.size === size
+              ? { ...item, quantity: item.quantity + 1 }
+              : item,
           );
     });
+    console.log(shoppingBag);
   };
 
   return (

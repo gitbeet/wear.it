@@ -16,10 +16,12 @@ import ImageGallery from "~/components/Product/ImageGallery";
 import { BsHandbag, BsHeart } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
+import { useShoppingBagContext } from "~/context/shoppingBagContext";
 const Product = ({
   id,
   color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { addToBag } = useShoppingBagContext();
   const router = useRouter();
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
     color as ProductColor,
@@ -69,7 +71,7 @@ const Product = ({
 
   return (
     <div>
-      <section className="mx-auto flex max-w-[1200px] justify-between border pt-24">
+      <section className="mx-auto flex max-w-[1200px] justify-between  pt-24">
         {/* IMAGE BLOCK */}
         <ImageGallery
           images={images.filter((image) => image.color === selectedColor)}
@@ -141,7 +143,15 @@ const Product = ({
           <div className="flex flex-col gap-4 pt-4">
             <Button
               text="Add to Bag"
-              onClick={() => void 0}
+              onClick={() => {
+                if (!selectedColor || !selectedSize) return;
+                addToBag({
+                  id,
+                  color: selectedColor,
+                  quantity: 1,
+                  size: selectedSize,
+                });
+              }}
               icon={<BsHandbag />}
             />
             <Button
