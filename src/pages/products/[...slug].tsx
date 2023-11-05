@@ -27,9 +27,7 @@ const ProductsPage = () => {
           <SizeFilter />
           <ColorFilter />
         </div>
-        <div className="grid w-full grow grid-cols-3 content-start  gap-2  ">
-          <Products />
-        </div>
+        <Products />
       </section>
     </main>
   );
