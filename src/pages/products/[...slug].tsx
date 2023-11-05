@@ -1,4 +1,3 @@
-import { chevronIcon, filtersIcon } from "public/assets/icons";
 import { useState } from "react";
 import ColorFilter from "~/components/Filters/ColorFilter";
 import SizeFilter from "~/components/Filters/SizeFilter";

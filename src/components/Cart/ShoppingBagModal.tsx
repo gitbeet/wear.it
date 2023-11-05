@@ -13,11 +13,10 @@ const ShoppingBagModal = () => {
   const numberOfItems = shoppingBag.length;
   //   Get the last product in the cart
   const product = shoppingBag[shoppingBag.length - 1];
-  if (shoppingBag.length < 1) return <p>your bag is empty</p>;
-  if (!product) return <LoadingSpinner />;
+
   return (
     <>
-      {showBagModal && (
+      {showBagModal && product && (
         <div className="absolute right-8 z-30  min-w-[450px]  bg-gray-50 px-8 pb-8 pt-4">
           <div className="flex w-full justify-between">
             <p className="flex items-center gap-1 font-semibold">

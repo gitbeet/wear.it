@@ -7,7 +7,13 @@ import { type RouterOutputs } from "~/utils/api";
 
 type Product = RouterOutputs["product"]["getAll"][number];
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({
+  product,
+  slider = false,
+}: {
+  product: Product;
+  slider?: boolean;
+}) => {
   const [showColorVariations, setShowColorVariations] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.images[0]?.id);
   const priceBeforeDiscount = formatCurrency(product.price);
@@ -23,7 +29,11 @@ const ProductCard = ({ product }: { product: Product }) => {
         (image) => image.id === currentImage,
       )?.color}`}
     >
-      <div className=" bg-gray-100 pb-2 text-gray-900">
+      <div
+        className={`${
+          slider ? "relative h-[500px] w-[400px] snap-start" : ""
+        } bg-gray-100 pb-2 text-gray-800`}
+      >
         <div
           onMouseOver={() => setShowColorVariations(true)}
           onMouseLeave={() => setShowColorVariations(false)}
@@ -37,8 +47,8 @@ const ProductCard = ({ product }: { product: Product }) => {
             </div>
             <Image
               className="relative bg-slate-200"
-              width={500}
-              height={500}
+              width={800}
+              height={800}
               src={
                 product.images.find((image) => image.id === currentImage)
                   ?.imageURL ?? ""

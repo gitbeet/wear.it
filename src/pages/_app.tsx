@@ -23,7 +23,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
             className={`${inter.className}   min-h-[100dvh]  bg-gray-50 text-gray-800`}
           >
             <Nav />
-            <section className="mx-auto min-h-full max-w-[1400px] ">
+            <section className="mx-auto min-h-[100dvh] max-w-[1600px] ">
               <Component {...pageProps} />
             </section>
           </main>
