@@ -23,7 +23,7 @@ const sliderPromos = [
     ),
   },
   {
-    title: `FREE shipping on orders over ${formatCurrency(90)}`,
+    title: `FREE shipping on orders over $90`,
     image: "/assets/promo-image-free-shipping.jpg",
     button: (
       <Button
@@ -94,6 +94,28 @@ const EventSlider = () => {
   );
 };
 
+const Trending = () => {
+  const { data: products, isLoading: isGettingProducts } =
+    api.product.getAll.useQuery({
+      color: ["WHITE"],
+      size: undefined,
+      slug: undefined,
+      sort: undefined,
+      type: undefined,
+    });
+  return (
+    <section>
+      <h2 className="text-2xl font-semibold">Trending</h2>
+      <div className="h-8"></div>
+      {products && (
+        <div className="w-full overflow-hidden">
+          <Carousel products={products} />
+        </div>
+      )}
+    </section>
+  );
+};
+
 const Promotions = () => (
   <section className="grid w-full gap-4 lg:grid-cols-[1fr,1fr]">
     <Image height={800} src={bannerTShirts} alt="jejw" />
@@ -102,7 +124,6 @@ const Promotions = () => (
       <div className="h-4"></div>
       <Image height={392} src={bannerSneakers} alt="jejw" />
     </div>
-    <div className="h-96"></div>
   </section>
 );
 
@@ -113,7 +134,10 @@ export default function Home() {
       <EventSlider />
       <PromoSlider />
       <div className="h-16"></div>
+      <Trending />
+      <div className="h-16"></div>
       <Promotions />
+      <div className="h-16"></div>
     </section>
   );
 }

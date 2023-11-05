@@ -28,9 +28,9 @@ export const chevronIcon = (
     <path
       d="M1.36133 0.687935L5.69901 5.02562L10.0367 0.687935"
       stroke="black"
-      stroke-width="1.08442"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.08442"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

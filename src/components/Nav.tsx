@@ -7,10 +7,14 @@ import { BsHeart, BsSearch } from "react-icons/bs";
 import Link from "next/link";
 import ShoppingBagModal from "./Cart/ShoppingBagModal";
 import { useModalsContext } from "~/context/modalsContext";
+import { useRouter } from "next/router";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
+  const router = useRouter();
+  const currentPage = router.asPath;
+  console.log(currentPage);
   return (
     <nav className="bg-slate-50 ">
       <div className="relative z-50 bg-slate-50 py-4 ">
