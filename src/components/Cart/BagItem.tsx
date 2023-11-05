@@ -32,6 +32,7 @@ const BagItem = ({
   if (!productData) return <h1>Something went wrong.</h1>;
   const { name, category, sizes, discount, price, images } = productData;
   const quantityArray = [...Array(10).keys()];
+  const priceBeforeDiscount = formatCurrency(price);
   const priceAfterDiscount = formatCurrency(
     (discount?.discountPercent && discount.active
       ? price - (price * discount?.discountPercent) / 100
@@ -54,10 +55,12 @@ const BagItem = ({
       <div className="flex w-full flex-col justify-between">
         {/* TOP */}
         <div>
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-4">
             <div>
-              <Link href={`/product/${id}`}>
-                <p className=" font-semibold">{name}</p>
+              <Link className="font-semibold" href={`/product/${id}`}>
+                <p className={`${modal ? "max-w-[320px]" : ""} line-clamp-1`}>
+                  {name}
+                </p>
               </Link>
               <p className="text-gray-600">{category.name}</p>
             </div>
@@ -77,7 +80,14 @@ const BagItem = ({
               <span>{size}</span>
             </div>
           )}
-          {modal && <p className="font-bold">{priceAfterDiscount}</p>}
+          {modal && (
+            <p>
+              <span className="font-bold">{priceAfterDiscount}</span>{" "}
+              <span className="pl-2 text-gray-500 line-through">
+                {priceBeforeDiscount}
+              </span>
+            </p>
+          )}
 
           {!modal && (
             <>

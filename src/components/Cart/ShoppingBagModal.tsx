@@ -48,7 +48,7 @@ const ShoppingBagModal = () => {
       <div
         className={`${
           showBagModal ? "bg-gray-900/40 backdrop-blur" : "opacity-0"
-        } pointer-events-none fixed inset-0 z-20  min-h-screen transition-all duration-500 `}
+        } pointer-events-none fixed inset-0 z-20  min-h-screen transition-all duration-300 `}
       ></div>
     </>
   );
