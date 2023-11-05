@@ -6,10 +6,11 @@ import { FiUser } from "react-icons/fi";
 import { BsHeart, BsSearch } from "react-icons/bs";
 import Link from "next/link";
 import ShoppingBagModal from "./Cart/ShoppingBagModal";
+import { useModalsContext } from "~/context/modalsContext";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
-  const [showMegaMenu, setShowMegaMenu] = useState(false);
+  const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   return (
     <nav className="bg-slate-50 ">
       <div className="relative z-50 bg-slate-50 py-4 ">

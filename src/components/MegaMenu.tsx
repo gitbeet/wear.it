@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { useModalsContext } from "~/context/modalsContext";
 import { api } from "~/utils/api";
 
 interface Props {

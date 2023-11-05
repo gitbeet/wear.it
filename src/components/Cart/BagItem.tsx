@@ -42,13 +42,14 @@ const BagItem = ({
     <div
       className={`${
         !modal ? " border-b border-gray-300" : ""
-      } flex w-full py-6`}
+      } flex w-full gap-4 py-6`}
     >
       <Image
         width={modal ? 128 : 196}
         height={modal ? 128 : 196}
         src={thumbnail ?? ""}
         alt="Product thumbnail"
+        className="bg-slate-200"
       />
       <div className="flex w-full flex-col justify-between">
         {/* TOP */}

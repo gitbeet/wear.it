@@ -18,10 +18,12 @@ import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import Link from "next/link";
+import { useModalsContext } from "~/context/modalsContext";
 const Product = ({
   id,
   color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { setShowBagModal } = useModalsContext();
   const { addToBag } = useShoppingBagContext();
   const router = useRouter();
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
@@ -86,6 +88,7 @@ const Product = ({
       discount,
       price,
     });
+    setShowBagModal(true);
   };
 
   return (
