@@ -8,13 +8,14 @@ interface Props {
 
 const SinglePageSlider = ({ slides }: Props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [touched, setTouched] = useState(false);
   const disabledLeft = currentSlide < 1;
   const disabledRight = currentSlide >= slides.length - 1;
-  const [touched, setTouched] = useState(false);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev >= slides.length - 1 ? 0 : prev + 1));
-  }, []);
+  }, [slides.length]);
+
   useEffect(() => {
     if (touched) return;
     const interval = setInterval(nextSlide, 5000);
@@ -25,26 +26,35 @@ const SinglePageSlider = ({ slides }: Props) => {
     <div
       onMouseOver={() => setTouched(true)}
       onMouseLeave={() => setTouched(false)}
-      className="relative  h-72 min-w-full "
+      className="relative h-72 min-w-full"
     >
-      <div className="absolute left-1/2 top-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4">
-        <h2 className=" text-center text-5xl font-black uppercase text-gray-900">
-          {slides[currentSlide]?.title}
-        </h2>
-        <div className="w-fit">{slides[currentSlide]?.button}</div>
-      </div>
-      {slides.map((slide, i) => (
-        <Image
-          key={i}
-          fill
-          objectFit="cover"
-          className={`absolute z-0 bg-slate-200 ${
-            i === currentSlide ? "opacity-75" : "opacity-0"
-          } transition-opacity duration-1000`}
-          src={slide.image ?? ""}
-          alt="Slide background"
-        />
-      ))}
+      {slides.map((slide, i) => {
+        const isVisible = i === currentSlide;
+        return (
+          <>
+            <Image
+              key={i}
+              fill
+              objectFit="cover"
+              className={`absolute z-0 bg-slate-200 ${
+                isVisible ? "opacity-75" : "opacity-0"
+              } transition-opacity duration-1000`}
+              src={slide.image ?? ""}
+              alt="Slide background"
+            />
+            <div
+              className={`${
+                isVisible ? "opacity-100" : "opacity-0"
+              } absolute left-1/2 top-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 transition-[opacity] duration-1000`}
+            >
+              <h2 className=" text-center text-5xl font-black uppercase text-gray-900">
+                {slide.title}
+              </h2>
+              <div className="w-fit">{slide.button}</div>
+            </div>
+          </>
+        );
+      })}
       <button
         disabled={disabledLeft}
         onClick={() => {
