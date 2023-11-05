@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { type RouterOutputs } from "~/utils/api";
 import ProductCard from "../ProductCard";
+import { FiChevronLeft } from "react-icons/fi";
 
 const mock = [...Array(15).keys()];
 
@@ -52,10 +53,34 @@ const Carousel = ({ products }: { products: Product[] }) => {
       : 0;
   }, []);
 
+  const arrowLeft = (
+    <button
+      onClick={movePrev}
+      disabled={isDisabled("prev")}
+      className="relative left-4 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-gray-300 bg-gray-50 p-2 text-center disabled:cursor-not-allowed disabled:opacity-75"
+    >
+      <FiChevronLeft className="h-8 w-8 text-gray-800" />
+      <span className="sr-only">Previous</span>
+    </button>
+  );
+
+  const arrowRight = (
+    <button
+      onClick={moveNext}
+      disabled={isDisabled("next")}
+      className="relative right-4 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-gray-300 bg-gray-50 p-2 text-center disabled:cursor-not-allowed disabled:opacity-75"
+    >
+      <FiChevronLeft className="h-8 w-8 rotate-180 text-gray-800" />
+      <span className="sr-only">Next</span>
+    </button>
+  );
+
   return (
     <div className="relative overflow-hidden">
       <div className="absolute flex h-full w-full justify-between">
-        <button
+        {arrowLeft}
+        {arrowRight}
+        {/* <button
           onClick={movePrev}
           className="z-10 m-0 h-full w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-blue-900/75 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25"
           disabled={isDisabled("prev")}
@@ -75,8 +100,8 @@ const Carousel = ({ products }: { products: Product[] }) => {
             />
           </svg>
           <span className="sr-only">Prev</span>
-        </button>
-        <button
+        </button> */}
+        {/* <button
           onClick={moveNext}
           className="z-10 m-0 h-full w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-blue-900/75 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25"
           disabled={isDisabled("next")}
@@ -96,7 +121,7 @@ const Carousel = ({ products }: { products: Product[] }) => {
             />
           </svg>
           <span className="sr-only">Next</span>
-        </button>
+        </button> */}
       </div>
       <div
         ref={carousel}

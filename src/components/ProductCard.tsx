@@ -32,7 +32,7 @@ const ProductCard = ({
       <div
         className={`${
           slider ? "relative h-[500px] w-[400px] snap-start" : ""
-        } bg-gray-100 pb-2 text-gray-800`}
+        } bg-gray-50 pb-2 text-gray-800`}
       >
         <div
           onMouseOver={() => setShowColorVariations(true)}

@@ -5,14 +5,13 @@ import { BsHandbag } from "react-icons/bs";
 import Carousel from "~/components/UI/MultiPageCarousel";
 import Image from "next/image";
 import { api } from "~/utils/api";
-import { ProductColor } from "@prisma/client";
 
 const Hero = () => (
   <section className="relative w-full  overflow-hidden py-24">
     <div className="relative z-10 ">
       <h1 className="text-7xl font-extrabold">Ready for winter?</h1>
       <div className="h-8"></div>
-      <p className="max-w-lg text-xl">
+      <p className="max-w-lg text-xl font-light text-gray-700">
         Winter Wardrobe Wonders to Keep You Warm and Smiling All Season Long!
       </p>
       <div className="h-16"></div>
@@ -50,7 +49,9 @@ const EventSlider = () => {
       <div className="">
         <h2 className="text-5xl font-extrabold">Cozy up!</h2>
         <div className="h-4"></div>
-        <p>Get Comfy with Our Winter Selection</p>
+        <p className="text-xl font-light text-gray-700">
+          Get Comfy with Our Winter Selection
+        </p>
       </div>
       {products && (
         <div className="w-full overflow-hidden">
