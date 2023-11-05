@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 
 interface Props {
@@ -12,14 +12,14 @@ const SinglePageSlider = ({ slides }: Props) => {
   const disabledRight = currentSlide >= slides.length - 1;
   const [touched, setTouched] = useState(false);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev >= slides.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
   useEffect(() => {
     if (touched) return;
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [touched]);
+  }, [touched, nextSlide]);
 
   return (
     <div

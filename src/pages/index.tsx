@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import heroImage from "../../public/assets/landing-page--hero.jpg";
 import Button from "~/components/UI/Button";
 import { BsHandbag } from "react-icons/bs";
@@ -7,7 +6,9 @@ import Image from "next/image";
 import { api } from "~/utils/api";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import SinglePageSlider from "~/components/UI/SinglePageSlider";
-
+import bannerJackets from "../../public/assets/banner-small-jackets.jpg";
+import bannerSneakers from "../../public/assets/banner-small--sneakers.jpg";
+import bannerTShirts from "../../public/assets/banner-large--tShirts.jpg";
 const sliderPromos = [
   {
     title: "-35% OFF your first order",
@@ -93,13 +94,26 @@ const EventSlider = () => {
   );
 };
 
+const Promotions = () => (
+  <section className="grid w-full gap-4 lg:grid-cols-[1fr,1fr]">
+    <Image height={800} src={bannerTShirts} alt="jejw" />
+    <div>
+      <Image height={392} src={bannerJackets} alt="jejw" />
+      <div className="h-4"></div>
+      <Image height={392} src={bannerSneakers} alt="jejw" />
+    </div>
+    <div className="h-96"></div>
+  </section>
+);
+
 export default function Home() {
   return (
     <section>
       <Hero />
       <EventSlider />
       <PromoSlider />
-      <div className="h-32"></div>
+      <div className="h-16"></div>
+      <Promotions />
     </section>
   );
 }
