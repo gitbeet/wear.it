@@ -5,6 +5,37 @@ import { BsHandbag } from "react-icons/bs";
 import Carousel from "~/components/UI/MultiPageCarousel";
 import Image from "next/image";
 import { api } from "~/utils/api";
+import { formatCurrency } from "~/utilities/formatCurrency";
+import SinglePageSlider from "~/components/UI/SinglePageSlider";
+
+const sliderPromos = [
+  {
+    title: "-35% OFF your first order",
+    image: "/assets/promo-image-first-order.jpg",
+    button: (
+      <Button
+        ghost
+        text="Sign up now"
+        // icon={<BsHandbag className="h-5 w-5" />}
+        onClick={() => void 0}
+      />
+    ),
+  },
+  {
+    title: `FREE shipping on orders over ${formatCurrency(90)}`,
+    image: "/assets/promo-image-free-shipping.jpg",
+    button: (
+      <Button
+        ghost
+        text="Start shopping"
+        icon={<BsHandbag className="h-5 w-5" />}
+        onClick={() => void 0}
+      />
+    ),
+  },
+];
+
+const PromoSlider = () => <SinglePageSlider slides={sliderPromos} />;
 
 const Hero = () => (
   <section className="relative w-full  overflow-hidden py-24">
@@ -45,7 +76,7 @@ const EventSlider = () => {
       type: undefined,
     });
   return (
-    <section className="flex w-full items-center gap-16 pb-32 pt-8">
+    <section className="flex w-full items-center gap-16  py-8">
       <div className="">
         <h2 className="text-5xl font-extrabold">Cozy up!</h2>
         <div className="h-4"></div>
@@ -67,6 +98,8 @@ export default function Home() {
     <section>
       <Hero />
       <EventSlider />
+      <PromoSlider />
+      <div className="h-32"></div>
     </section>
   );
 }
