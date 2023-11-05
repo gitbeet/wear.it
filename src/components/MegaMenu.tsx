@@ -20,7 +20,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           onMouseLeave={() => setShow(false)}
           className={` ${
             show ? "" : "-translate-y-full"
-          } absolute z-10 h-[500px] w-full bg-slate-100   transition-transform duration-[300] ease-in-out`}
+          } absolute z-30 h-[500px] w-full bg-slate-100   transition-transform duration-[300] ease-in-out`}
         ></section>
       ) : !categories ? (
         <section
@@ -28,7 +28,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           onMouseLeave={() => setShow(false)}
           className={` ${
             show ? "" : "-translate-y-full"
-          } absolute z-10 flex h-[500px] w-full   items-center justify-center bg-slate-100 transition-transform duration-[300] ease-in-out`}
+          } absolute z-30 flex h-[500px] w-full   items-center justify-center bg-slate-100 transition-transform duration-[300] ease-in-out`}
         >
           <p className="text-center">
             Something Went Wrong. Please Refresh the page
@@ -40,7 +40,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           onMouseLeave={() => setShow(false)}
           className={` ${
             show ? "" : "-translate-y-full"
-          } absolute z-10 w-full bg-slate-100   transition-transform duration-[300] ease-in-out`}
+          } absolute z-30 w-full bg-slate-100   transition-transform duration-[300] ease-in-out`}
         >
           <div
             className={`${
@@ -76,11 +76,10 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           </div>
         </section>
       )}
-
       <div
         className={`${
           show ? "bg-gray-900/40 backdrop-blur" : "opacity-0"
-        } pointer-events-none fixed inset-0 z-[-1] min-h-screen transition-all duration-500 `}
+        } pointer-events-none fixed inset-0 z-20  min-h-screen transition-all duration-500 `}
       ></div>
     </>
   );

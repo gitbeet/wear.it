@@ -14,9 +14,17 @@ interface Props {
   size: ProductSize;
   color: ProductColor;
   index: number;
+  modal?: boolean;
 }
 
-const BagItem = ({ id, color, quantity, size, index }: Props) => {
+const BagItem = ({
+  id,
+  color,
+  quantity,
+  size,
+  index,
+  modal = false,
+}: Props) => {
   const { modifyBagItem, removeFromBag } = useShoppingBagContext();
   const { data: productData, isLoading: isGettingProductData } =
     api.product.getSingleProduct.useQuery({ id });
@@ -31,10 +39,14 @@ const BagItem = ({ id, color, quantity, size, index }: Props) => {
   );
   const thumbnail = images.find((image) => image.color === color)?.imageURL;
   return (
-    <div className="flex w-full border-b border-gray-300 py-6">
+    <div
+      className={`${
+        !modal ? " border-b border-gray-300" : ""
+      } flex w-full py-6`}
+    >
       <Image
-        width={196}
-        height={196}
+        width={modal ? 128 : 196}
+        height={modal ? 128 : 196}
         src={thumbnail ?? ""}
         alt="Product thumbnail"
       />
@@ -48,7 +60,7 @@ const BagItem = ({ id, color, quantity, size, index }: Props) => {
               </Link>
               <p className="text-gray-600">{category.name}</p>
             </div>
-            <p className="font-bold">{priceAfterDiscount}</p>
+            {!modal && <p className="font-bold">{priceAfterDiscount}</p>}
           </div>
           <div className="h-2"></div>
           <div className="text-gray-600">
@@ -58,69 +70,83 @@ const BagItem = ({ id, color, quantity, size, index }: Props) => {
         {/* BOTTOM */}
         <div>
           {/* SIZE & QTY */}
-          <div className="flex gap-12">
+          {modal && (
             <div className="flex gap-2 text-gray-600">
-              <p>Sizes</p>
-              <select
-                className="bg-gray-200 pl-4"
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                  modifyBagItem(index, {
-                    color,
-                    id,
-                    quantity,
-                    size: e.target.value as ProductSize,
-                    discount,
-                    price,
-                  })
-                }
-                value={size}
-              >
-                {sizes.map((s, i) => (
-                  <option key={i}>{s}</option>
-                ))}
-              </select>
+              <p>Size</p>
+              <span>{size}</span>
             </div>
-            <div className="flex gap-2 text-gray-600">
-              <p>Quantity</p>
-              <select
-                className="bg-gray-200 pl-4"
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                  modifyBagItem(index, {
-                    color,
-                    id,
-                    quantity: parseInt(e.target.value),
-                    size,
-                    discount,
-                    price,
-                  })
-                }
-                value={quantity}
-              >
-                {quantityArray.map((num) => (
-                  <option key={num}>{num + 1}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="h-4"></div>
+          )}
+          {modal && <p className="font-bold">{priceAfterDiscount}</p>}
+
+          {!modal && (
+            <>
+              <div className="flex gap-12">
+                <div className="flex gap-2 text-gray-600">
+                  <p>Sizes</p>
+                  <select
+                    className="bg-gray-200 pl-4"
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                      modifyBagItem(index, {
+                        color,
+                        id,
+                        quantity,
+                        size: e.target.value as ProductSize,
+                        discount,
+                        price,
+                      })
+                    }
+                    value={size}
+                  >
+                    {sizes.map((s, i) => (
+                      <option key={i}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex gap-2 text-gray-600">
+                  <p>Quantity</p>
+                  <select
+                    className="bg-gray-200 pl-4"
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                      modifyBagItem(index, {
+                        color,
+                        id,
+                        quantity: parseInt(e.target.value),
+                        size,
+                        discount,
+                        price,
+                      })
+                    }
+                    value={quantity}
+                  >
+                    {quantityArray.map((num) => (
+                      <option key={num}>{num + 1}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="h-4"></div>
+            </>
+          )}
           {/* BTNS */}
-          <div className="flex gap-8">
-            <div
-              role="button"
-              className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
-            >
-              <BsHeart className="h-5 w-5" />
-              <span>Add to Favorites</span>
+          {!modal && (
+            <div className="flex gap-8">
+              <div
+                role="button"
+                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
+              >
+                <BsHeart className="h-5 w-5" />
+                <span>Add to Favorites</span>
+              </div>
+              <div
+                onClick={() => removeFromBag(index)}
+                role="button"
+                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
+              >
+                <BsTrash className="h-5 w-5" />
+                <span className="pl-2">Remove</span>
+              </div>
             </div>
-            <div
-              onClick={() => removeFromBag(index)}
-              role="button"
-              className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
-            >
-              <BsTrash className="h-5 w-5" />
-              <span className="pl-2">Remove</span>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

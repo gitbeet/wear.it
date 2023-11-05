@@ -5,6 +5,7 @@ import ShoppingBagIcon from "./Cart/ShoppingBagIcon";
 import { FiUser } from "react-icons/fi";
 import { BsHeart, BsSearch } from "react-icons/bs";
 import Link from "next/link";
+import ShoppingBagModal from "./Cart/ShoppingBagModal";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
@@ -60,6 +61,7 @@ const Nav = () => {
         </div>
       </div>
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
+      <ShoppingBagModal />
     </nav>
   );
 };
