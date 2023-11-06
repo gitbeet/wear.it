@@ -88,11 +88,10 @@ const EventSlider = () => {
           Get Comfy with Our Winter Selection
         </p>
       </div>
-      {products && (
-        <div className="w-full overflow-hidden">
-          <Carousel products={products.products} />
-        </div>
-      )}
+
+      <div className="w-full overflow-hidden">
+        <Carousel products={products?.products} isLoading={isGettingProducts} />
+      </div>
     </section>
   );
 };
@@ -110,11 +109,10 @@ const Trending = () => {
     <section>
       <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-8"></div>
-      {products && (
-        <div className="w-full overflow-hidden">
-          <Carousel products={products.products} />
-        </div>
-      )}
+
+      <div className="w-full overflow-hidden">
+        <Carousel products={products?.products} isLoading={isGettingProducts} />
+      </div>
     </section>
   );
 };

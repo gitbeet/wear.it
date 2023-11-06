@@ -5,7 +5,7 @@ import { BsHeart } from "react-icons/bs";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { type RouterOutputs } from "~/utils/api";
 
-type Product = RouterOutputs["product"]["getAll"][number];
+type Product = RouterOutputs["product"]["getAll"]["products"][number];
 
 const ProductCard = ({
   product,

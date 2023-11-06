@@ -2,12 +2,19 @@ import { useRef, useState, useEffect } from "react";
 import { type RouterOutputs } from "~/utils/api";
 import ProductCard from "../ProductCard";
 import { FiChevronLeft } from "react-icons/fi";
+import { SkeletonCard } from "~/pages/products/[...slug]";
 
-const mock = [...Array(15).keys()];
+type Product = RouterOutputs["product"]["getAll"]["products"] | undefined;
 
-type Product = RouterOutputs["product"]["getAll"]["products"];
+const skeleton = [...Array(10).keys()];
 
-const Carousel = ({ products }: { products: Product }) => {
+const Carousel = ({
+  products,
+  isLoading,
+}: {
+  products: Product;
+  isLoading: boolean;
+}) => {
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef<HTMLDivElement | null>(null);
@@ -85,9 +92,17 @@ const Carousel = ({ products }: { products: Product }) => {
         ref={carousel}
         className="relative z-0 flex touch-pan-x snap-x snap-mandatory gap-2 overflow-hidden scroll-smooth"
       >
-        {products.map((product) => {
-          return <ProductCard slider key={product.id} product={product} />;
-        })}
+        {isLoading ? (
+          skeleton.map((el) => {
+            return <SkeletonCard key={el} slider />;
+          })
+        ) : !products ? (
+          <h1>Something went wrong</h1>
+        ) : (
+          products.map((product) => {
+            return <ProductCard slider key={product.id} product={product} />;
+          })
+        )}
       </div>
     </div>
   );
