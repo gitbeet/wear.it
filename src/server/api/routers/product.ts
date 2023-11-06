@@ -43,7 +43,8 @@ export const productRouter = createTRPCRouter({
         type: z.nativeEnum(CategoryType).array().optional(),
         slug: z.string().optional(),
         sort: z.enum(["newest", "high-to-low", "low-to-high"]).optional(),
-        skip: z.number().positive().optional(),
+        skip: z.number().optional(),
+        pageSize: z.number().positive().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -55,55 +56,62 @@ export const productRouter = createTRPCRouter({
         type = ["MEN", "WOMEN"],
         slug,
         sort = "newest",
+        pageSize,
       } = input;
 
-      const products = await ctx.db.product.findMany({
-        where: {
-          collectionId,
-          category: {
-            slug,
-          },
-          types: {
-            hasSome: type,
-          },
-          colors:
-            color.length > 0
-              ? {
-                  hasSome: color,
-                }
-              : undefined,
-          sizes:
-            size.length > 0
-              ? {
-                  hasSome: size,
-                }
-              : undefined,
+      const where = {
+        collectionId,
+        category: {
+          slug,
         },
-        include: {
-          images: true,
-          discount: {
-            select: {
-              discountPercent: true,
+        types: {
+          hasSome: type,
+        },
+        colors:
+          color.length > 0
+            ? {
+                hasSome: color,
+              }
+            : undefined,
+        sizes:
+          size.length > 0
+            ? {
+                hasSome: size,
+              }
+            : undefined,
+      };
+
+      const [products, totalProducts] = await ctx.db.$transaction([
+        ctx.db.product.findMany({
+          where,
+          include: {
+            images: true,
+            discount: {
+              select: {
+                discountPercent: true,
+              },
+            },
+            category: {
+              select: {
+                name: true,
+                slug: true,
+              },
             },
           },
-          category: {
-            select: {
-              name: true,
-              slug: true,
-            },
-          },
-        },
-        take: 15,
-        skip,
-        orderBy:
-          sort === "newest"
-            ? { createdAt: "desc" }
-            : sort === "high-to-low"
-            ? { price: "desc" }
-            : sort === "low-to-high"
-            ? { price: "asc" }
-            : { name: "asc" },
-      });
-      return products;
+          take: pageSize,
+          skip,
+          orderBy:
+            sort === "newest"
+              ? { createdAt: "desc" }
+              : sort === "high-to-low"
+              ? { price: "desc" }
+              : sort === "low-to-high"
+              ? { price: "asc" }
+              : { name: "asc" },
+        }),
+        ctx.db.product.count({ where }),
+      ]);
+
+      return { products, totalProducts };
     }),
 });
