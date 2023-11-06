@@ -5,9 +5,9 @@ import { FiChevronLeft } from "react-icons/fi";
 
 const mock = [...Array(15).keys()];
 
-type Product = RouterOutputs["product"]["getAll"][number];
+type Product = RouterOutputs["product"]["getAll"]["products"];
 
-const Carousel = ({ products }: { products: Product[] }) => {
+const Carousel = ({ products }: { products: Product }) => {
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef<HTMLDivElement | null>(null);

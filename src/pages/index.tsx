@@ -90,7 +90,7 @@ const EventSlider = () => {
       </div>
       {products && (
         <div className="w-full overflow-hidden">
-          <Carousel products={products} />
+          <Carousel products={products.products} />
         </div>
       )}
     </section>
@@ -112,7 +112,7 @@ const Trending = () => {
       <div className="h-8"></div>
       {products && (
         <div className="w-full overflow-hidden">
-          <Carousel products={products} />
+          <Carousel products={products.products} />
         </div>
       )}
     </section>
