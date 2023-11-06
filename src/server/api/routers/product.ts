@@ -43,10 +43,12 @@ export const productRouter = createTRPCRouter({
         type: z.nativeEnum(CategoryType).array().optional(),
         slug: z.string().optional(),
         sort: z.enum(["newest", "high-to-low", "low-to-high"]).optional(),
+        skip: z.number().positive().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
       const {
+        skip,
         collectionId,
         color = [],
         size = [],
@@ -91,6 +93,8 @@ export const productRouter = createTRPCRouter({
             },
           },
         },
+        take: 15,
+        skip,
         orderBy:
           sort === "newest"
             ? { createdAt: "desc" }

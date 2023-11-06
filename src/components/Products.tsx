@@ -1,6 +1,6 @@
 import type { CategoryType, ProductColor, ProductSize } from "@prisma/client";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { api } from "~/utils/api";
 import ProductCard from "./ProductCard";
 
@@ -27,7 +27,7 @@ const Skeleton = () => {
   ));
 };
 
-const Products = () => {
+const Products = ({ currentPage }: { currentPage: number }) => {
   const router = useRouter();
   const { color, size, slug, sort } = router.query as {
     color: string | string[] | undefined;
@@ -41,7 +41,7 @@ const Products = () => {
       // .flat(1) is used so we get an array if color is both a string or a string[] , filter(Boolean) -> filter falsey values
       color: [color].flat(1).filter(Boolean) as ProductColor[],
       size: [size].flat(1).filter(Boolean) as ProductSize[],
-      type: slug?.[0]?.toUpperCase() as CategoryType,
+      type: [slug?.[0]?.toUpperCase() as CategoryType],
       slug: slug?.[1],
       sort,
     }),
@@ -59,10 +59,13 @@ const Products = () => {
   if (!data) return <h1>Something went wrong...</h1>;
 
   return (
-    <div className="grid w-full grow grid-cols-3 content-start  gap-2  ">
-      {data.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div className="flex flex-col items-center gap-16">
+      {" "}
+      <div className="grid w-full grow grid-cols-3 content-start  gap-2  ">
+        {data.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -6,7 +6,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        display: "Montserrat, sans-serif",
+        body: "Open Sans, sans-serif",
       },
     },
   },

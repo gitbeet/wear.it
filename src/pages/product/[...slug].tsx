@@ -110,13 +110,13 @@ const Product = ({
               <p className="text-gray-500">{category.name}</p>
             </Link>
           </div>
-          <div>
+          <div className="font-display">
             {discount && discount?.active && (
-              <p className="text-xl font-black text-green-600 ">
-                {discount?.discountPercent}% OFF
+              <p className="w-fit rounded-sm bg-teal-500 px-2 py-1 text-xl font-black text-gray-100 ">
+                -{discount?.discountPercent}%
               </p>
             )}
-
+            <div className="h-1"></div>
             <span className="text-2xl font-bold">{priceAfterDiscount}</span>
             {discount && discount?.active && (
               <span className="pl-2 text-xl  text-gray-500 line-through">
@@ -125,7 +125,7 @@ const Product = ({
             )}
           </div>
           <div>
-            <p className="text-2xl font-semibold">Colors</p>
+            <p className="font-display text-2xl font-semibold">Colors</p>
             <div className="h-2"></div>
             <div className="flex gap-2">
               {colors.map((c, i) => (
@@ -171,7 +171,7 @@ const Product = ({
                     s === selectedSize
                       ? "border-gray-800  text-gray-800"
                       : "border-gray-300  text-gray-500"
-                  } w-16 rounded-[3px] border py-2 text-center font-bold`}
+                  } font-display w-16 rounded-[3px] border py-2 text-center font-bold`}
                   key={i}
                 >
                   {s}

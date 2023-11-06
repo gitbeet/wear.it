@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { productInventories } from "../src/data/inventories";
+// import { productInventories } from "../src/data/inventories";
 import { productCategories } from "../src/data/categories";
 import { products } from "../src/data/products";
 

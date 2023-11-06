@@ -56,21 +56,21 @@ const ProductCard = ({
               alt="Product image"
             />
             {product.discount ? (
-              <div className="absolute bottom-2 left-4 ">
-                <p className="font-bold">
+              <div className="absolute bottom-2 left-4 text-gray-900">
+                <p className="font-display w-fit rounded-sm bg-teal-500 px-1 font-bold text-white">
                   -{product.discount.discountPercent}%
                 </p>
                 <div className=" flex gap-2 ">
-                  <p className=" py-1 text-gray-500 line-through">
+                  <p className="font-display py-1 text-gray-500 line-through">
                     {priceBeforeDiscount}
                   </p>
-                  <p className="w-fit bg-gray-50 px-3 py-1 font-bold text-red-500">
+                  <p className="font-display w-fit bg-gray-50 px-3 py-1 font-bold text-pink-500">
                     {priceAfterDiscount}
                   </p>
                 </div>
               </div>
             ) : (
-              <p className="absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-bold">
+              <p className="font-display absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-bold">
                 {priceBeforeDiscount}
               </p>
             )}

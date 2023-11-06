@@ -41,7 +41,9 @@ const PromoSlider = () => <SinglePageSlider slides={sliderPromos} />;
 const Hero = () => (
   <section className="relative w-full  overflow-hidden py-24">
     <div className="relative z-10 ">
-      <h1 className="text-7xl font-extrabold">Ready for winter?</h1>
+      <h1 className="font-display text-7xl font-extrabold">
+        Ready for winter?
+      </h1>
       <div className="h-8"></div>
       <p className="max-w-lg text-xl font-light text-gray-700">
         Winter Wardrobe Wonders to Keep You Warm and Smiling All Season Long!
@@ -80,7 +82,7 @@ const EventSlider = () => {
   return (
     <section className="flex w-full items-center gap-16 ">
       <div className="">
-        <h2 className="text-5xl font-extrabold">Cozy up!</h2>
+        <h2 className="font-display text-5xl font-extrabold">Cozy up!</h2>
         <div className="h-4"></div>
         <p className="text-xl font-light text-gray-700">
           Get Comfy with Our Winter Selection
@@ -106,7 +108,7 @@ const Trending = () => {
     });
   return (
     <section>
-      <h2 className="text-2xl font-semibold">Trending</h2>
+      <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-8"></div>
       {products && (
         <div className="w-full overflow-hidden">
