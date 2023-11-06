@@ -8,6 +8,7 @@ import Link from "next/link";
 import ShoppingBagModal from "./Cart/ShoppingBagModal";
 import { useModalsContext } from "~/context/modalsContext";
 import { useRouter } from "next/router";
+import Logo from "./Logo";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
@@ -19,9 +20,7 @@ const Nav = () => {
     <nav className="bg-slate-50 ">
       <div className="relative z-50 bg-slate-50 py-4 ">
         <div className="relative mx-auto flex max-w-[1600px] items-center justify-between">
-          <Link href="/">
-            <h1 className="text-xl font-black">e.fashion</h1>
-          </Link>
+          <Logo />
           <ul
             role="navigation"
             className="absolute left-1/2 flex -translate-x-1/2 cursor-pointer justify-center"

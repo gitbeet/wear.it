@@ -38,7 +38,7 @@ const SinglePageSlider = ({ slides }: Props) => {
               objectFit="cover"
               className={`absolute z-0 bg-slate-200 ${
                 isVisible ? "opacity-75" : "opacity-0"
-              } transition-opacity duration-1000`}
+              } rounded-md transition-opacity duration-1000`}
               src={slide.image ?? ""}
               alt="Slide background"
             />

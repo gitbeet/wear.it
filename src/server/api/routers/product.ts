@@ -37,29 +37,32 @@ export const productRouter = createTRPCRouter({
   getAll: publicProcedure
     .input(
       z.object({
+        collectionId: z.number().optional(),
         size: z.nativeEnum(ProductSize).array().optional(),
         color: z.nativeEnum(ProductColor).array().optional(),
-        type: z.nativeEnum(CategoryType).optional(),
+        type: z.nativeEnum(CategoryType).array().optional(),
         slug: z.string().optional(),
         sort: z.enum(["newest", "high-to-low", "low-to-high"]).optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
       const {
+        collectionId,
         color = [],
         size = [],
-        type = "MEN",
+        type = ["MEN", "WOMEN"],
         slug,
         sort = "newest",
       } = input;
 
       const products = await ctx.db.product.findMany({
         where: {
+          collectionId,
           category: {
             slug,
           },
           types: {
-            hasSome: [type],
+            hasSome: type,
           },
           colors:
             color.length > 0

@@ -44,6 +44,13 @@ enum ProductColor {
   PINK
 }
 
+enum CollectionSeason {
+  SPRING
+  SUMMER
+  FALL
+  WINTER
+}
+
 // PRODUCT RELATED MODELS
 
 model Product {
@@ -61,10 +68,22 @@ model Product {
   colors ProductColor[]
   discount Discount? @relation(fields: [discountId] , references: [id])
   discountId Int?
+  collection Collection? @relation(fields: [collectionId] , references: [id])
+  collectionId Int?
   inventory ProductInventory @relation(fields: [inventoryId] , references: [id])
-  inventoryId Int  @unique
+  inventoryId String @unique
   images ProductImage[] 
   @@index([name])
+}
+
+model Collection {
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  year Int
+  season CollectionSeason
+  products Product[]
 }
 
 model ProductImage {
@@ -90,11 +109,11 @@ model ProductCategory {
 }
 
 model ProductInventory {
-    id        Int      @id 
+  id        String      @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     quantity Float
-    product Product?
+    product Product ?
 }
 
 model Discount {

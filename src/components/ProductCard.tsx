@@ -32,7 +32,7 @@ const ProductCard = ({
       <div
         className={`${
           slider ? "relative h-[500px] w-[400px] snap-start" : ""
-        } bg-gray-50 pb-2 text-gray-800`}
+        }  bg-gray-50 pb-2 text-gray-800`}
       >
         <div
           onMouseOver={() => setShowColorVariations(true)}
@@ -46,7 +46,7 @@ const ProductCard = ({
               <BsHeart className="h-6 w-6" />
             </div>
             <Image
-              className="relative bg-slate-200"
+              className="relative rounded-md bg-slate-200"
               width={800}
               height={800}
               src={

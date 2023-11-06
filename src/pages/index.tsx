@@ -70,14 +70,15 @@ const Hero = () => (
 const EventSlider = () => {
   const { data: products, isLoading: isGettingProducts } =
     api.product.getAll.useQuery({
-      color: ["RED"],
+      collectionId: 1,
+      color: undefined,
       size: undefined,
       slug: undefined,
       sort: undefined,
       type: undefined,
     });
   return (
-    <section className="flex w-full items-center gap-16  py-8">
+    <section className="flex w-full items-center gap-16 ">
       <div className="">
         <h2 className="text-5xl font-extrabold">Cozy up!</h2>
         <div className="h-4"></div>
@@ -97,7 +98,7 @@ const EventSlider = () => {
 const Trending = () => {
   const { data: products, isLoading: isGettingProducts } =
     api.product.getAll.useQuery({
-      color: ["WHITE"],
+      color: undefined,
       size: undefined,
       slug: undefined,
       sort: undefined,
@@ -118,11 +119,21 @@ const Trending = () => {
 
 const Promotions = () => (
   <section className="grid w-full gap-4 lg:grid-cols-[1fr,1fr]">
-    <Image height={800} src={bannerTShirts} alt="jejw" />
+    <Image height={800} src={bannerTShirts} alt="jejw" className="rounded-md" />
     <div>
-      <Image height={392} src={bannerJackets} alt="jejw" />
+      <Image
+        height={392}
+        src={bannerJackets}
+        alt="jejw"
+        className="rounded-md"
+      />
       <div className="h-4"></div>
-      <Image height={392} src={bannerSneakers} alt="jejw" />
+      <Image
+        height={392}
+        src={bannerSneakers}
+        alt="jejw"
+        className="rounded-md"
+      />
     </div>
   </section>
 );
@@ -131,7 +142,9 @@ export default function Home() {
   return (
     <section>
       <Hero />
+      <div className="h-4"></div>
       <EventSlider />
+      <div className="h-16"></div>
       <PromoSlider />
       <div className="h-16"></div>
       <Trending />
