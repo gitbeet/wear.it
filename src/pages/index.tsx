@@ -4,7 +4,6 @@ import { BsHandbag } from "react-icons/bs";
 import Carousel from "~/components/UI/MultiPageCarousel";
 import Image from "next/image";
 import { api } from "~/utils/api";
-import { formatCurrency } from "~/utilities/formatCurrency";
 import SinglePageSlider from "~/components/UI/SinglePageSlider";
 import bannerJackets from "../../public/assets/banner-small-jackets.jpg";
 import bannerSneakers from "../../public/assets/banner-small--sneakers.jpg";
@@ -77,7 +76,7 @@ const EventSlider = () => {
       size: undefined,
       slug: undefined,
       sort: undefined,
-      type: undefined,
+      type: ["MEN", "WOMEN"],
     });
   return (
     <section className="flex w-full items-center gap-16 ">
@@ -103,7 +102,7 @@ const Trending = () => {
       size: undefined,
       slug: undefined,
       sort: undefined,
-      type: undefined,
+      type: ["MEN", "WOMEN"],
     });
   return (
     <section>

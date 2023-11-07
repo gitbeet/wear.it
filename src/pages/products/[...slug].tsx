@@ -2,6 +2,7 @@ import type { CategoryType, ProductColor, ProductSize } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useState, useMemo } from "react";
 import ColorFilter from "~/components/Filters/ColorFilter";
+import PriceFilter from "~/components/Filters/PriceFilter";
 import SizeFilter from "~/components/Filters/SizeFilter";
 import SortSelectMenu from "~/components/Filters/SortSelectMenu";
 import ToggleFilters from "~/components/Filters/ToggleFilters";
@@ -122,11 +123,13 @@ const ProductsPage = () => {
   const [showFilters, setShowFilters] = useState(true);
   const [showSort, setShowSort] = useState(false);
   const router = useRouter();
-  const { color, size, slug, sort } = router.query as {
+  const { color, size, slug, sort, priceFrom, priceTo } = router.query as {
     color: string | string[] | undefined;
     size: string | string[] | undefined;
     slug: string[] | undefined;
-    sort: "newest" | "high-to-low" | "low-to-high";
+    sort: "newest" | "high-to-low" | "low-to-high" | undefined;
+    priceFrom: string | undefined;
+    priceTo: string | undefined;
   };
 
   const queryInput = useMemo(
@@ -139,13 +142,15 @@ const ProductsPage = () => {
       sort,
       skip: (currentPage - 1) * pageSize,
       pageSize,
+      priceFrom:
+        typeof priceFrom === "string" ? parseInt(priceFrom) : undefined,
+      priceTo: typeof priceTo === "string" ? parseInt(priceTo) : undefined,
     }),
-    [color, size, slug, sort, currentPage],
+    [color, size, slug, sort, currentPage, priceFrom, priceTo],
   );
 
   const { data, isLoading } = api.product.getAll.useQuery(queryInput);
-  // if (isLoading) return <LoadingPage />;
-  // if (!data) return <h1>Something went wrong</h1>;
+
   return (
     <main>
       <section className="flex justify-end gap-8 pt-16  ">
@@ -155,12 +160,27 @@ const ProductsPage = () => {
         />
         <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
       </section>
+      {!data && (
+        <p className="h-4 w-32 animate-pulse rounded-full bg-gray-400"></p>
+      )}
+      {data && (
+        <p className="pb-8 pl-8 text-xl">
+          <span className="font-bold">{data.totalProducts}</span>
+          {` Product${data.totalProducts > 1 ? "s" : ""} found`}
+        </p>
+      )}
       <section className="flex gap-4 overflow-hidden pt-8">
         <div
           className={`${
             showFilters ? "" : "-ml-64"
           } k  min-w-[250px] transition-all duration-500`}
         >
+          {data && (
+            <PriceFilter
+              min={data.minPrice._min.price ?? 0}
+              max={data.maxPrice._max.price ?? 10000}
+            />
+          )}
           <SizeFilter />
           <ColorFilter />
         </div>

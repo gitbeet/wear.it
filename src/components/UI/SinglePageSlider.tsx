@@ -31,9 +31,8 @@ const SinglePageSlider = ({ slides }: Props) => {
       {slides.map((slide, i) => {
         const isVisible = i === currentSlide;
         return (
-          <>
+          <div key={i}>
             <Image
-              key={i}
               fill
               objectFit="cover"
               className={`absolute z-0 bg-slate-200 ${
@@ -52,7 +51,7 @@ const SinglePageSlider = ({ slides }: Props) => {
               </h2>
               <div className="w-fit">{slide.button}</div>
             </div>
-          </>
+          </div>
         );
       })}
       <button

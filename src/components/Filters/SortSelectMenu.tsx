@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { chevronIcon } from "public/assets/icons";
 import type { Dispatch, SetStateAction } from "react";
 import { useRouterQuery } from "~/hooks/useRouterQuery";

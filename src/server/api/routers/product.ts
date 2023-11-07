@@ -1,6 +1,11 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import z from "zod";
-import { CategoryType, ProductColor, ProductSize } from "@prisma/client";
+import {
+  CategoryType,
+  Prisma,
+  ProductColor,
+  ProductSize,
+} from "@prisma/client";
 export const productRouter = createTRPCRouter({
   getSingleProduct: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -45,6 +50,8 @@ export const productRouter = createTRPCRouter({
         sort: z.enum(["newest", "high-to-low", "low-to-high"]).optional(),
         skip: z.number().optional(),
         pageSize: z.number().positive().optional(),
+        priceFrom: z.number().nonnegative().optional(),
+        priceTo: z.number().nonnegative().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -57,9 +64,15 @@ export const productRouter = createTRPCRouter({
         slug,
         sort = "newest",
         pageSize,
+        priceFrom = 0,
+        priceTo = 100000,
       } = input;
 
-      const where = {
+      const where: Prisma.ProductWhereInput = {
+        price: {
+          gte: priceFrom,
+          lte: priceTo,
+        },
         collectionId,
         category: {
           slug,
@@ -81,37 +94,72 @@ export const productRouter = createTRPCRouter({
             : undefined,
       };
 
-      const [products, totalProducts] = await ctx.db.$transaction([
-        ctx.db.product.findMany({
-          where,
-          include: {
-            images: true,
-            discount: {
-              select: {
-                discountPercent: true,
-              },
-            },
-            category: {
-              select: {
-                name: true,
-                slug: true,
-              },
-            },
-          },
-          take: pageSize,
-          skip,
-          orderBy:
-            sort === "newest"
-              ? { createdAt: "desc" }
-              : sort === "high-to-low"
-              ? { price: "desc" }
-              : sort === "low-to-high"
-              ? { price: "asc" }
-              : { name: "asc" },
-        }),
-        ctx.db.product.count({ where }),
-      ]);
+      const aggregateWhere: Prisma.ProductWhereInput = {
+        collectionId,
+        category: {
+          slug,
+        },
+        types: {
+          hasSome: type,
+        },
+        colors:
+          color.length > 0
+            ? {
+                hasSome: color,
+              }
+            : undefined,
+        sizes:
+          size.length > 0
+            ? {
+                hasSome: size,
+              }
+            : undefined,
+      };
 
-      return { products, totalProducts };
+      const [products, totalProducts, minPrice, maxPrice] =
+        await ctx.db.$transaction([
+          ctx.db.product.findMany({
+            where,
+            include: {
+              images: true,
+              discount: {
+                select: {
+                  discountPercent: true,
+                },
+              },
+              category: {
+                select: {
+                  name: true,
+                  slug: true,
+                },
+              },
+            },
+            take: pageSize,
+            skip,
+            orderBy:
+              sort === "newest"
+                ? { createdAt: "desc" }
+                : sort === "high-to-low"
+                ? { price: "desc" }
+                : sort === "low-to-high"
+                ? { price: "asc" }
+                : { name: "asc" },
+          }),
+          ctx.db.product.count({ where }),
+          ctx.db.product.aggregate({
+            where: aggregateWhere,
+            _min: {
+              price: true,
+            },
+          }),
+          ctx.db.product.aggregate({
+            where: aggregateWhere,
+            _max: {
+              price: true,
+            },
+          }),
+        ]);
+
+      return { products, totalProducts, minPrice, maxPrice };
     }),
 });
