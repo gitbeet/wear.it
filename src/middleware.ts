@@ -13,6 +13,9 @@ export default authMiddleware({
     "/products/(.*)",
     "/product/(.*)",
     "/(api|trpc)(.*)",
+    "/sign-up",
+    "/sign-in",
+    "/forgot-password",
   ],
 });
 

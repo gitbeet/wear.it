@@ -7,6 +7,7 @@ import ShoppingBagModal from "./Cart/ShoppingBagModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "./Logo";
 import { useUser, SignInButton, SignOutButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
@@ -74,7 +75,13 @@ const Nav = () => {
             >
               <BsPerson className="h-5 w-5 text-gray-700" />
             </div>
-            <p>{isSignedIn ? <SignOutButton /> : <SignInButton />}</p>
+            <p>
+              {!isSignedIn ? (
+                <Link href="/sign-up">Sign in</Link>
+              ) : (
+                <SignOutButton />
+              )}
+            </p>
           </div>
         </div>
       </div>
