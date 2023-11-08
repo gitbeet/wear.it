@@ -161,7 +161,7 @@ const ProductsPage = () => {
         <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
       </section>
       {!data && (
-        <p className="h-4 w-32 animate-pulse rounded-full bg-gray-400"></p>
+        <p className="ml-8 h-4 w-36 animate-pulse rounded-full bg-gray-400"></p>
       )}
       {data && (
         <p className="pb-8 pl-8 text-xl">

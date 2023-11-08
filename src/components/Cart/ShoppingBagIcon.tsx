@@ -6,7 +6,10 @@ const ShoppingBagIcon = () => {
   return (
     <>
       <Link href="/cart">
-        <div role="button" className="relative">
+        <div
+          role="button"
+          className="relative  rounded-full bg-transparent  p-2.5 hover:bg-gray-300"
+        >
           <BsHandbag className="h-5  w-5" />
           {shoppingBag.length > 0 && (
             <div className="absolute -left-1.5 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-teal-500 text-white">
