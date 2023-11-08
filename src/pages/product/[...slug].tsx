@@ -35,15 +35,44 @@ const Product = ({
   const { data: productData, isLoading: isGettingProductData } =
     api.product.getSingleProduct.useQuery({ id });
 
-  // Check if color query is valid and if not change it to the product default color
+  const primaryColor = productData?.colors[0];
+
   useEffect(() => {
-    const primaryColor = productData?.colors[0];
-    const isColorValid =
-      productData?.colors.findIndex((color) => color === selectedColor) !== -1;
-    if (!isColorValid && primaryColor) {
-      void handleColor(primaryColor);
+    if (!primaryColor) return;
+    if (!router.query.slug?.[1]) {
+      void router.push(
+        `/product/${productData?.id}/${primaryColor}`,
+        undefined,
+        {
+          shallow: false,
+          scroll: true,
+        },
+      );
+      return;
     }
-  }, [productData]);
+    const isColorValid =
+      productData?.colors.findIndex(
+        (color) => color === router.query.slug?.[1],
+      ) !== -1;
+    if (!isColorValid) {
+      void router.push(
+        `/product/${productData?.id}/${primaryColor}`,
+        undefined,
+        {
+          shallow: false,
+          scroll: true,
+        },
+      );
+      return;
+    }
+    setSelectedColor(router.query.slug[1] as ProductColor);
+  }, [
+    productData?.colors,
+    router.query,
+    primaryColor,
+    router,
+    productData?.id,
+  ]);
 
   if (isGettingProductData) return <LoadingPage />;
   if (!productData) return <h1>Something went wrong.</h1>;
@@ -67,9 +96,8 @@ const Product = ({
   );
 
   async function handleColor(color: ProductColor) {
-    setSelectedColor(color);
     await router.push(`/product/${productData?.id}/${color}`, undefined, {
-      shallow: true,
+      shallow: false,
       scroll: true,
     });
   }

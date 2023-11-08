@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { BsHeart } from "react-icons/bs";
 import { formatCurrency } from "~/utilities/formatCurrency";
@@ -23,6 +24,26 @@ const ProductCard = ({
           (product.price * product.discount?.discountPercent) / 100
       : product.price,
   );
+
+  const router = useRouter();
+
+  // const goToLink = () => {
+  //   void router.push(
+  //     {
+  //       pathname: `/product/${product.id}`,
+  //       // pathname: `/product/${product.id}?color=${product.images.find(
+  //       //   (image) => image.id === currentImage,
+  //       // )?.color}`,
+  //       query: {
+  //         color: product.images.find((image) => image.id === currentImage)
+  //           ?.color,
+  //       },
+  //     },
+  //     undefined,
+  //     { shallow: false, scroll: true },
+  //   );
+  // };
+
   return (
     <Link
       href={`/product/${product.id}/${product.images.find(
@@ -30,6 +51,7 @@ const ProductCard = ({
       )?.color}`}
     >
       <div
+        // onClick={goToLink}
         className={`${
           slider ? "relative h-[500px] w-[400px] snap-start" : ""
         }  bg-gray-50 pb-2 text-gray-800`}
