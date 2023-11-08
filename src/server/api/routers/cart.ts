@@ -49,4 +49,37 @@ export const cartRouter = createTRPCRouter({
         },
       });
     }),
+  addItem: privateProcedure
+    .input(z.object({ productId: z.string(), quantity: z.number().positive() }))
+    .mutation(async ({ ctx, input }) => {
+      const { db, userId } = ctx;
+      const { productId, quantity } = input;
+      const shoppingSession = await db.shoppingSession.findUnique({
+        where: {
+          userId,
+        },
+      });
+      if (!shoppingSession) {
+        await db.shoppingSession.create({
+          data: {
+            userId,
+            cartItems: {
+              create: {
+                quantity,
+                productId,
+              },
+            },
+            total: 0,
+          },
+        });
+      } else {
+        await db.cartItem.create({
+          data: {
+            quantity,
+            productId,
+            sessionId: shoppingSession.id,
+          },
+        });
+      }
+    }),
 });

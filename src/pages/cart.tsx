@@ -14,6 +14,12 @@ const Cart = () => {
       void ctx.invalidate();
     },
   });
+
+  const { mutate: add, isLoading: isAdding } = api.cart.addItem.useMutation({
+    onSuccess: () => {
+      void ctx.invalidate();
+    },
+  });
   const { shoppingBag } = useShoppingBagContext();
   const subtotal = shoppingBag.reduce((acc, x) => {
     const calculatedPrice = x.discount?.discountPercent
@@ -32,6 +38,14 @@ const Cart = () => {
           <button onClick={() => mutate({ id: item.id })}>Remove</button>
         </h1>
       ))}
+
+      <button
+        onClick={() =>
+          add({ quantity: 2, productId: "clomyt4u10000v9xwb18qzb0m" })
+        }
+      >
+        Add
+      </button>
       {/* {shoppingBag.length < 1 ? (
         <h1>Your bag is empty.</h1>
       ) : (
