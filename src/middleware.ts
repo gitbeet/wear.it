@@ -16,6 +16,8 @@ export default authMiddleware({
     "/sign-up",
     "/sign-in",
     "/forgot-password",
+    "/cart",
+    "/favorites",
   ],
 });
 
