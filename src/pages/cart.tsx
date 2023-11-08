@@ -1,10 +1,13 @@
+import { useUser } from "@clerk/nextjs";
 import React from "react";
 import BagItem from "~/components/Cart/BagItem";
 import Button from "~/components/UI/Button";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
+import { api } from "~/utils/api";
 
 const Cart = () => {
+  const { data, isLoading } = api.cart.getByUserId.useQuery();
   const { shoppingBag } = useShoppingBagContext();
   const subtotal = shoppingBag.reduce((acc, x) => {
     const calculatedPrice = x.discount?.discountPercent
@@ -17,7 +20,12 @@ const Cart = () => {
   const totalCost = subtotal + shippingCost + taxes;
   return (
     <section className="mx-auto max-w-[1200px] pt-24">
-      {shoppingBag.length < 1 ? (
+      {data?.cartItems.map((item) => (
+        <h1 key={item.id}>
+          {item.product.name} - {item.quantity}
+        </h1>
+      ))}
+      {/* {shoppingBag.length < 1 ? (
         <h1>Your bag is empty.</h1>
       ) : (
         <section className="grid grid-cols-[2.5fr,1fr] gap-16">
@@ -63,7 +71,7 @@ const Cart = () => {
             <Button text="Checkout" onClick={() => void 0} />
           </div>
         </section>
-      )}
+      )} */}
     </section>
   );
 };

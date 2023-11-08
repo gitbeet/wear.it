@@ -13,6 +13,7 @@ const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   const { user, isLoaded, isSignedIn } = useUser();
+  console.log(user?.id);
   return (
     <nav className="bg-slate-50 ">
       <div className="relative z-50 bg-slate-50   ">
