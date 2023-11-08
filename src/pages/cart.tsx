@@ -7,7 +7,13 @@ import { formatCurrency } from "~/utilities/formatCurrency";
 import { api } from "~/utils/api";
 
 const Cart = () => {
-  const { data, isLoading } = api.cart.getByUserId.useQuery();
+  const ctx = api.useUtils();
+  const { data, isLoading: isGettingCart } = api.cart.getByUserId.useQuery();
+  const { mutate, isLoading: isDeleting } = api.cart.removeItem.useMutation({
+    onSuccess: () => {
+      void ctx.invalidate();
+    },
+  });
   const { shoppingBag } = useShoppingBagContext();
   const subtotal = shoppingBag.reduce((acc, x) => {
     const calculatedPrice = x.discount?.discountPercent
@@ -23,6 +29,7 @@ const Cart = () => {
       {data?.cartItems.map((item) => (
         <h1 key={item.id}>
           {item.product.name} - {item.quantity}
+          <button onClick={() => mutate({ id: item.id })}>Remove</button>
         </h1>
       ))}
       {/* {shoppingBag.length < 1 ? (
