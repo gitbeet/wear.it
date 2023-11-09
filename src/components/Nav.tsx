@@ -6,14 +6,15 @@ import { BsHeart, BsPerson, BsSearch } from "react-icons/bs";
 import ShoppingBagModal from "./Cart/ShoppingBagModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "./Logo";
-import { useUser, SignInButton, SignOutButton } from "@clerk/nextjs";
+import { useUser, SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
+import NavIcon from "./NavIcon";
+import FavoritesNavIcon from "./FavoritesNavIcon";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
-  const { user, isLoaded, isSignedIn } = useUser();
-  console.log(user?.id);
+  const { user, isSignedIn } = useUser();
   return (
     <nav className="bg-slate-50 ">
       <div className="relative z-50 bg-slate-50   ">
@@ -63,19 +64,14 @@ const Nav = () => {
               <BsSearch className="absolute left-2 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
               <input className="h-full w-40  rounded-full border border-slate-200 bg-slate-100 pl-8" />
             </div>
-            <div
-              role="button"
-              className="flex items-center justify-center rounded-full bg-transparent p-2.5 hover:bg-gray-300"
-            >
-              <BsHeart className=" h-5 w-5" />
-            </div>
+            <FavoritesNavIcon />
             <ShoppingBagIcon />
-            <div
-              role="button"
-              className="flex items-center justify-center rounded-full bg-transparent p-2.5 hover:bg-gray-300"
-            >
-              <BsPerson className="h-5 w-5 text-gray-700" />
-            </div>
+            <NavIcon
+              icon={<BsPerson className="h-5 w-5" />}
+              link="/"
+              loading={false}
+              number={0}
+            />
             <p>
               {!isSignedIn ? (
                 <Link href="/sign-up">Sign in</Link>

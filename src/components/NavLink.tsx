@@ -11,14 +11,16 @@ interface Props {
 
 const NavLink = ({ link, text, onMouseOver, onMouseLeave, onClick }: Props) => {
   return (
-    <li
-      onClick={onClick}
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
-      className={`cursor-pointer  border-b-[5px] border-b-transparent  p-4 text-slate-700 hover:border-b-gray-800 hover:text-gray-900`}
-    >
-      <Link href={link}>{text}</Link>
-    </li>
+    <Link href={link}>
+      <li
+        onClick={onClick}
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+        className={`cursor-pointer  border-b-[5px] border-b-transparent  p-4 text-slate-700 hover:border-b-gray-900 hover:text-gray-900`}
+      >
+        {text}
+      </li>
+    </Link>
   );
 };
 

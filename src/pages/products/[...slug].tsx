@@ -27,7 +27,7 @@ export const SkeletonCard = ({ slider = false }: { slider?: boolean }) => {
       <div className="min-h-[4rem] overflow-hidden pl-4">
         <p className="h-4 w-3/4 rounded-full bg-gray-400"></p>
         <div className="h-1"></div>
-        <p className="h-4 w-16 rounded-full bg-gray-400 text-gray-500"></p>
+        <p className="h-4 w-16 rounded-full bg-gray-400"></p>
       </div>
     </div>
   );

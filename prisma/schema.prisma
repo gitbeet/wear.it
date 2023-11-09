@@ -72,9 +72,20 @@ model Product {
   collectionId Int?
   inventory ProductInventory @relation(fields: [inventoryId] , references: [id])
   inventoryId String @unique
+  favorite Favorite[]
   images ProductImage[] 
   cartItems CartItem[]
   @@index([name])
+}
+
+model Favorite {
+  id String @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product Product @relation(fields: [productId] , references: [id])
+  productId String
+  color ProductColor
+  userId String
 }
 
 model Collection {

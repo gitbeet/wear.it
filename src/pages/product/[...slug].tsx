@@ -13,7 +13,7 @@ import { colorOptions } from "~/components/Filters/ColorFilter";
 import type { ProductSize, ProductColor } from "@prisma/client";
 import Button from "~/components/UI/Button";
 import ImageGallery from "~/components/Product/ImageGallery";
-import { BsHandbag, BsHeart } from "react-icons/bs";
+import { BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -24,6 +24,14 @@ const Product = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { setShowBagModal } = useModalsContext();
   const ctx = api.useUtils();
+  const { data: userFavorites, isLoading: isGettingFavorites } =
+    api.favorite.getByUserId.useQuery();
+  const { mutate: addToFavorites, isLoading: isFaving } =
+    api.favorite.favorite.useMutation({
+      onSuccess: () => {
+        void ctx.invalidate();
+      },
+    });
   const { mutate, isLoading: isAddingToCart } = api.cart.addItem.useMutation({
     onSuccess: () => {
       void ctx.invalidate();
@@ -107,6 +115,11 @@ const Product = ({
       scroll: true,
     });
   }
+
+  const isFavorited =
+    userFavorites?.findIndex(
+      (fav) => fav.color === selectedColor && fav.productId === productData.id,
+    ) !== -1;
 
   return (
     <div>
@@ -224,12 +237,19 @@ const Product = ({
               }}
               icon={<BsHandbag />}
             />
-            <Button
-              text="Add to Favorites"
-              onClick={() => void 0}
-              ghost
-              icon={<BsHeart />}
-            />
+            {selectedColor && (
+              <Button
+                text={isFavorited ? "Added to favorites" : "Add to Favorites"}
+                onClick={() =>
+                  addToFavorites({
+                    color: selectedColor,
+                    productId: productData.id,
+                  })
+                }
+                ghost
+                icon={isFavorited ? <BsHeartFill /> : <BsHeart />}
+              />
+            )}
           </div>
 
           <div>
