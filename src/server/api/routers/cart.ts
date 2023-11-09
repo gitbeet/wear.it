@@ -1,11 +1,13 @@
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, privateProcedure } from "../trpc";
 import z from "zod";
+import { ProductColor, ProductSize } from "@prisma/client";
+import { TRPCClientError } from "@trpc/client";
 
 export const cartRouter = createTRPCRouter({
   getByUserId: privateProcedure.query(async ({ ctx }) => {
     const { userId, db } = ctx;
-    const cart = await db.shoppingSession.findUnique({
+    const shoppingSession = await db.shoppingSession.findUnique({
       where: {
         userId: userId,
       },
@@ -13,13 +15,41 @@ export const cartRouter = createTRPCRouter({
         cartItems: {
           select: {
             id: true,
-            product: true,
+            product: {
+              select: {
+                id: true,
+              },
+            },
             quantity: true,
+            color: true,
+            size: true,
           },
         },
       },
     });
-    return cart;
+
+    if (!shoppingSession) {
+      const newSession = await db.shoppingSession.create({
+        data: {
+          total: 0,
+          userId,
+        },
+        include: {
+          cartItems: {
+            select: {
+              id: true,
+              product: true,
+              quantity: true,
+              color: true,
+              size: true,
+            },
+          },
+        },
+      });
+      return newSession;
+    }
+
+    return shoppingSession;
   }),
   removeItem: privateProcedure
     .input(z.object({ id: z.string() }))
@@ -50,10 +80,18 @@ export const cartRouter = createTRPCRouter({
       });
     }),
   addItem: privateProcedure
-    .input(z.object({ productId: z.string(), quantity: z.number().positive() }))
+    .input(
+      z.object({
+        productId: z.string(),
+        quantity: z.number().positive().optional(),
+        type: z.enum(["INCREMENT", "DECREMENT"]),
+        size: z.nativeEnum(ProductSize),
+        color: z.nativeEnum(ProductColor),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const { db, userId } = ctx;
-      const { productId, quantity } = input;
+      const { productId, quantity = 1, type, size, color } = input;
       const shoppingSession = await db.shoppingSession.findUnique({
         where: {
           userId,
@@ -67,17 +105,95 @@ export const cartRouter = createTRPCRouter({
               create: {
                 quantity,
                 productId,
+                color,
+                size,
               },
             },
             total: 0,
           },
         });
       } else {
-        await db.cartItem.create({
-          data: {
-            quantity,
+        const isProductAlreadyInCart = await db.cartItem.findFirst({
+          where: {
             productId,
-            sessionId: shoppingSession.id,
+            size,
+            color,
+          },
+        });
+
+        if (!isProductAlreadyInCart) {
+          await db.cartItem.create({
+            data: {
+              quantity,
+              productId,
+              sessionId: shoppingSession.id,
+              color,
+              size,
+            },
+          });
+        } else {
+          await db.cartItem.update({
+            where: {
+              id: isProductAlreadyInCart.id,
+            },
+
+            data: {
+              quantity:
+                type === "INCREMENT"
+                  ? { increment: quantity }
+                  : { decrement: quantity },
+            },
+          });
+        }
+      }
+    }),
+  modifyItem: privateProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        size: z.nativeEnum(ProductSize).optional(),
+        quantity: z.number().positive().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { db, userId } = ctx;
+      const { size: inputSize, quantity: inputQuantity, id } = input;
+
+      const cartItem = await db.cartItem.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          shoppingSession: {
+            select: {
+              userId: true,
+            },
+          },
+        },
+      });
+
+      if (userId !== cartItem?.shoppingSession.userId) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+
+      if (inputSize) {
+        await db.cartItem.update({
+          where: {
+            id,
+          },
+          data: {
+            size: inputSize,
+          },
+        });
+      }
+
+      if (inputQuantity) {
+        await db.cartItem.update({
+          where: {
+            id,
+          },
+          data: {
+            quantity: inputQuantity,
           },
         });
       }

@@ -15,6 +15,9 @@ interface Props {
   color: ProductColor;
   index: number;
   modal?: boolean;
+  product: {
+    id: string;
+  };
 }
 
 const BagItem = ({
@@ -23,11 +26,26 @@ const BagItem = ({
   quantity,
   size,
   index,
+  product,
   modal = false,
 }: Props) => {
+  const ctx = api.useUtils();
+  const { mutate: modify, isLoading: isModifying } =
+    api.cart.modifyItem.useMutation({
+      onSuccess: () => {
+        void ctx.invalidate();
+      },
+    });
+
+  const { mutate: remove, isLoading: isRemoving } =
+    api.cart.removeItem.useMutation({
+      onSuccess: () => {
+        void ctx.invalidate();
+      },
+    });
   const { modifyBagItem, removeFromBag } = useShoppingBagContext();
   const { data: productData, isLoading: isGettingProductData } =
-    api.product.getSingleProduct.useQuery({ id });
+    api.product.getSingleProduct.useQuery({ id: product.id });
   if (isGettingProductData) return <LoadingSpinner />;
   if (!productData) return <h1>Something went wrong.</h1>;
   const { name, category, sizes, discount, price, images } = productData;
@@ -57,7 +75,10 @@ const BagItem = ({
         <div>
           <div className="flex justify-between gap-4">
             <div>
-              <Link className="font-semibold" href={`/product/${id}`}>
+              <Link
+                className="font-semibold"
+                href={`/product/${product.id}/${color}`}
+              >
                 <p className={`${modal ? "max-w-[320px]" : ""} line-clamp-1`}>
                   {name}
                 </p>
@@ -156,6 +177,20 @@ const BagItem = ({
                 <BsTrash className="h-5 w-5" />
                 <span className="pl-2">Remove</span>
               </div>
+              <div
+                onClick={() => remove({ id })}
+                role="button"
+                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
+              >
+                <BsTrash className="h-5 w-5" />
+                <span className="pl-2">Remove (trpc)</span>
+              </div>
+              <button onClick={() => modify({ id, quantity: 7 })}>
+                Set quantity
+              </button>
+              <button onClick={() => modify({ id, size: "S" })}>
+                Set size
+              </button>
             </div>
           )}
         </div>

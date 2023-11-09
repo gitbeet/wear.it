@@ -25,6 +25,9 @@ const Product = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { setShowBagModal } = useModalsContext();
   const { addToBag } = useShoppingBagContext();
+
+  const { mutate, isLoading } = api.cart.addItem.useMutation();
+
   const router = useRouter();
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
     color as ProductColor,
@@ -219,6 +222,20 @@ const Product = ({
             <Button
               text="Add to Bag"
               onClick={handleAddToBag}
+              icon={<BsHandbag />}
+            />
+            <Button
+              text="Add to Bag (trpc)"
+              onClick={() => {
+                if (!selectedColor || !selectedSize) return;
+                mutate({
+                  color: selectedColor,
+                  size: selectedSize,
+                  productId: productData.id,
+                  quantity: 1,
+                  type: "INCREMENT",
+                });
+              }}
               icon={<BsHandbag />}
             />
             <Button
