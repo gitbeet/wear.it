@@ -5,6 +5,7 @@ import { formatCurrency } from "~/utilities/formatCurrency";
 import Image from "next/image";
 import { type ChangeEvent } from "react";
 import Link from "next/link";
+import { useShoppingBagContext } from "~/context/shoppingBagContext";
 
 interface Props {
   cartItem: RouterOutputs["cart"]["getByUserId"]["cartItems"][number];
@@ -13,6 +14,7 @@ interface Props {
 
 const BagItem = ({ cartItem, modal = false }: Props) => {
   const ctx = api.useUtils();
+  const { isFetching } = useShoppingBagContext();
   const { mutate: modify, isLoading: isModifying } =
     api.cart.modifyItem.useMutation({
       onSuccess: () => {
@@ -105,7 +107,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                 <div className="flex gap-2 text-gray-600">
                   <p>Sizes</p>
                   <select
-                    disabled={isModifying}
+                    disabled={isFetching}
                     className="bg-gray-200 pl-4"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                       modify({
@@ -123,7 +125,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                 <div className="flex gap-2 text-gray-600">
                   <p>Quantity</p>
                   <select
-                    disabled={isModifying}
+                    disabled={isFetching}
                     className="bg-gray-200 pl-4"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                       modify({
