@@ -1,34 +1,17 @@
-import type { ProductColor, ProductSize } from "@prisma/client";
+import type { ProductSize } from "@prisma/client";
 import { BsHeart, BsTrash } from "react-icons/bs";
-import { api } from "~/utils/api";
-import { LoadingSpinner } from "../loading";
+import { type RouterOutputs, api } from "~/utils/api";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import Image from "next/image";
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import { type ChangeEvent } from "react";
 import Link from "next/link";
 
 interface Props {
-  id: string;
-  quantity: number;
-  size: ProductSize;
-  color: ProductColor;
-  index: number;
+  cartItem: RouterOutputs["cart"]["getByUserId"]["cartItems"][number];
   modal?: boolean;
-  product: {
-    id: string;
-  };
 }
 
-const BagItem = ({
-  id,
-  color,
-  quantity,
-  size,
-  index,
-  product,
-  modal = false,
-}: Props) => {
+const BagItem = ({ cartItem, modal = false }: Props) => {
   const ctx = api.useUtils();
   const { mutate: modify, isLoading: isModifying } =
     api.cart.modifyItem.useMutation({
@@ -43,18 +26,24 @@ const BagItem = ({
         void ctx.invalidate();
       },
     });
-  const { modifyBagItem, removeFromBag } = useShoppingBagContext();
-  const { data: productData, isLoading: isGettingProductData } =
-    api.product.getSingleProduct.useQuery({ id: product.id });
-  if (isGettingProductData) return <LoadingSpinner />;
-  if (!productData) return <h1>Something went wrong.</h1>;
-  const { name, category, sizes, discount, price, images } = productData;
+  // const { data: productData, isLoading: isGettingProductData } =
+  //   api.product.getSingleProduct.useQuery({ id: });
+  const {
+    name,
+    category,
+    sizes,
+    discount,
+    price,
+    images,
+    id: productId,
+  } = cartItem.product;
+  const { color, id, quantity, size } = cartItem;
   const quantityArray = [...Array(10).keys()];
   const priceBeforeDiscount = formatCurrency(price);
   const priceAfterDiscount = formatCurrency(
     (discount?.discountPercent && discount.active
       ? price - (price * discount?.discountPercent) / 100
-      : price) * quantity,
+      : price) * cartItem.quantity,
   );
   const thumbnail = images.find((image) => image.color === color)?.imageURL;
   return (
@@ -77,7 +66,7 @@ const BagItem = ({
             <div>
               <Link
                 className="font-semibold"
-                href={`/product/${product.id}/${color}`}
+                href={`/product/${productId}/${color}`}
               >
                 <p className={`${modal ? "max-w-[320px]" : ""} line-clamp-1`}>
                   {name}
@@ -116,15 +105,12 @@ const BagItem = ({
                 <div className="flex gap-2 text-gray-600">
                   <p>Sizes</p>
                   <select
+                    disabled={isModifying}
                     className="bg-gray-200 pl-4"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      modifyBagItem(index, {
-                        color,
+                      modify({
                         id,
-                        quantity,
                         size: e.target.value as ProductSize,
-                        discount,
-                        price,
                       })
                     }
                     value={size}
@@ -137,15 +123,12 @@ const BagItem = ({
                 <div className="flex gap-2 text-gray-600">
                   <p>Quantity</p>
                   <select
+                    disabled={isModifying}
                     className="bg-gray-200 pl-4"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      modifyBagItem(index, {
-                        color,
+                      modify({
                         id,
                         quantity: parseInt(e.target.value),
-                        size,
-                        discount,
-                        price,
                       })
                     }
                     value={quantity}
@@ -162,34 +145,22 @@ const BagItem = ({
           {/* BTNS */}
           {!modal && (
             <div className="flex gap-8">
-              <div
+              <button
+                disabled={false}
                 role="button"
                 className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
               >
                 <BsHeart className="h-5 w-5" />
                 <span>Add to Favorites</span>
-              </div>
-              <div
-                onClick={() => removeFromBag(index)}
-                role="button"
-                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
-              >
-                <BsTrash className="h-5 w-5" />
-                <span className="pl-2">Remove</span>
-              </div>
-              <div
+              </button>
+
+              <button
+                disabled={isRemoving}
                 onClick={() => remove({ id })}
-                role="button"
-                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
+                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <BsTrash className="h-5 w-5" />
                 <span className="pl-2">Remove (trpc)</span>
-              </div>
-              <button onClick={() => modify({ id, quantity: 7 })}>
-                Set quantity
-              </button>
-              <button onClick={() => modify({ id, size: "S" })}>
-                Set size
               </button>
             </div>
           )}

@@ -1,55 +1,43 @@
-import { useUser } from "@clerk/nextjs";
 import React from "react";
 import BagItem from "~/components/Cart/BagItem";
 import Button from "~/components/UI/Button";
 import LoadingPage from "~/components/loading";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
-import { api } from "~/utils/api";
 
 const Cart = () => {
-  const ctx = api.useUtils();
-  const {
-    data,
-    isLoading: isGettingCart,
-    isError,
-    error,
-  } = api.cart.getByUserId.useQuery();
-  const { mutate, isLoading: isDeleting } = api.cart.removeItem.useMutation({
-    onSuccess: () => {
-      void ctx.invalidate();
-    },
-  });
+  const { cart, isGettingCart } = useShoppingBagContext();
+  if (isGettingCart) return <LoadingPage />;
+  if (!cart) return <h1>Something went wrong.Please try again</h1>;
+  const subtotal = cart.cartItems.reduce((acc, x) => {
+    const { discount, price } = x.product;
+    // check if discount available and active
+    const discounted = discount?.discountPercent && discount.active;
+    // price without discount
+    let calculatedPrice = price * x.quantity;
+    if (discounted) {
+      // apply discount if exists
+      calculatedPrice =
+        (price - (price * discount?.discountPercent) / 100) * x.quantity;
+    }
 
-  const { mutate: add, isLoading: isAdding } = api.cart.addItem.useMutation({
-    onSuccess: () => {
-      void ctx.invalidate();
-    },
-  });
-  const { shoppingBag } = useShoppingBagContext();
-  const subtotal = shoppingBag.reduce((acc, x) => {
-    const calculatedPrice = x.discount?.discountPercent
-      ? x.price - (x.price * x.discount?.discountPercent) / 100
-      : x.price;
     return acc + calculatedPrice;
   }, 0);
   const shippingCost = subtotal > 100 ? 0 : 15;
   const taxes = (subtotal + shippingCost) * 0.21;
   const totalCost = subtotal + shippingCost + taxes;
-  if (isGettingCart) return <LoadingPage />;
-  console.log(data?.cartItems);
   return (
     <section>
       <section className="grid grid-cols-[2.5fr,1fr] gap-16 pt-32">
         <div className="w-full ">
           <h2 className="text-2xl font-semibold">Bag</h2>
           <div className="h-8"></div>
-          {data?.cartItems && data.cartItems.length < 1 && (
+          {cart?.cartItems && cart.cartItems.length < 1 && (
             <p>Your bag is empty</p>
           )}
           <div>
-            {data?.cartItems?.map((item, i) => (
-              <BagItem key={item.id} {...item} index={i} />
+            {cart?.cartItems?.map((item) => (
+              <BagItem key={item.id} cartItem={item} />
             ))}
           </div>
         </div>
@@ -61,7 +49,7 @@ const Cart = () => {
               <tr>
                 <td>Subtotal</td>
                 <td className="py-1.5 text-right font-bold">
-                  {formatCurrency(subtotal)}
+                  {formatCurrency(subtotal ?? 0)}
                 </td>
               </tr>
               <tr>

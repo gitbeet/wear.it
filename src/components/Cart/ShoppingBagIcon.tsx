@@ -1,10 +1,7 @@
-import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { BsHandbag } from "react-icons/bs";
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import { api } from "~/utils/api";
 const ShoppingBagIcon = () => {
-  const { shoppingBag } = useShoppingBagContext();
   const { data, isLoading } = api.cart.getItemsCount.useQuery();
   const totalCount = data?.cartItems.reduce((acc, x) => acc + x.quantity, 0);
   return (
@@ -16,9 +13,11 @@ const ShoppingBagIcon = () => {
         >
           <BsHandbag className="h-5  w-5" />
 
-          <div className="absolute left-1 top-6 flex h-5 w-5 items-center justify-center rounded-full bg-teal-500 text-white">
-            <p className="text-xs">{totalCount}</p>
-          </div>
+          {!isLoading && (
+            <div className="absolute left-1 top-6 flex h-5 w-5 items-center justify-center rounded-full bg-teal-500 text-white">
+              <p className="text-xs">{totalCount}</p>
+            </div>
+          )}
         </div>
       </Link>
     </>

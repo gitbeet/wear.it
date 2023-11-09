@@ -1,7 +1,4 @@
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import Button from "../UI/Button";
-import BagItem from "./BagItem";
-import { LoadingSpinner } from "../loading";
 import { IoMdClose } from "react-icons/io";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useModalsContext } from "~/context/modalsContext";
@@ -9,14 +6,10 @@ import { useRouter } from "next/router";
 const ShoppingBagModal = () => {
   const router = useRouter();
   const { showBagModal, setShowBagModal } = useModalsContext();
-  const { shoppingBag } = useShoppingBagContext();
-  const numberOfItems = shoppingBag.length;
-  //   Get the last product in the cart
-  const product = shoppingBag[shoppingBag.length - 1];
 
   return (
     <>
-      {showBagModal && product && (
+      {showBagModal && (
         <div className="absolute right-8 z-30  min-w-[450px]  bg-gray-50 px-8 pb-8 pt-4">
           <div className="flex w-full justify-between">
             <p className="flex items-center gap-1 font-semibold">
@@ -30,10 +23,10 @@ const ShoppingBagModal = () => {
               className="relative  h-5 w-5"
             />
           </div>
-          <BagItem modal {...product} index={1} />
+          {/* <BagItem modal   /> */}
           <div className="flex gap-2 ">
             <Button
-              text={`View Bag (${numberOfItems})`}
+              text={`View Bag (${2})`}
               onClick={async () => {
                 setShowBagModal(false);
                 await router.push("/cart");

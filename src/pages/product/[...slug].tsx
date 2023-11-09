@@ -16,24 +16,27 @@ import ImageGallery from "~/components/Product/ImageGallery";
 import { BsHandbag, BsHeart } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
+import { useShoppingBagContext } from "~/context/shoppingBagContext";
 const Product = ({
   id,
   color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { setShowBagModal } = useModalsContext();
-  const { addToBag } = useShoppingBagContext();
-
-  const { mutate, isLoading } = api.cart.addItem.useMutation();
+  const ctx = api.useUtils();
+  const { mutate, isLoading: isAddingToCart } = api.cart.addItem.useMutation({
+    onSuccess: () => {
+      void ctx.invalidate();
+    },
+  });
 
   const router = useRouter();
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
     color as ProductColor,
   );
   const [selectedSize, setSelectedSize] = useState<ProductSize | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   const { data: productData, isLoading: isGettingProductData } =
     api.product.getSingleProduct.useQuery({ id });
@@ -104,23 +107,6 @@ const Product = ({
       scroll: true,
     });
   }
-
-  const handleAddToBag = () => {
-    if (!selectedSize) {
-      setError("Please select a size");
-      return;
-    }
-    if (!selectedColor) return;
-    addToBag({
-      id,
-      color: selectedColor,
-      quantity: 1,
-      size: selectedSize,
-      discount,
-      price,
-    });
-    setShowBagModal(true);
-  };
 
   return (
     <div>
@@ -196,7 +182,7 @@ const Product = ({
                   role="button"
                   onClick={() => {
                     setSelectedSize(s);
-                    setError(null);
+                    setError(false);
                   }}
                   className={`${
                     s === selectedSize
@@ -220,14 +206,14 @@ const Product = ({
           </div>
           <div className="flex flex-col gap-4 pt-4">
             <Button
+              disabled={isAddingToCart}
               text="Add to Bag"
-              onClick={handleAddToBag}
-              icon={<BsHandbag />}
-            />
-            <Button
-              text="Add to Bag (trpc)"
               onClick={() => {
-                if (!selectedColor || !selectedSize) return;
+                if (!selectedColor) return;
+                if (!selectedSize) {
+                  setError(true);
+                  return;
+                }
                 mutate({
                   color: selectedColor,
                   size: selectedSize,

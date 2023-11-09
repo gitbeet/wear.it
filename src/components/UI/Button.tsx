@@ -3,11 +3,19 @@ interface Props {
   onClick: () => void;
   ghost?: boolean;
   icon?: JSX.Element;
+  disabled?: boolean;
 }
 
-const Button = ({ text, onClick, icon, ghost = false }: Props) => {
+const Button = ({
+  text,
+  onClick,
+  icon,
+  ghost = false,
+  disabled = false,
+}: Props) => {
   return (
     <button
+      disabled={disabled}
       className={`${
         ghost
           ? "border-gray-500 bg-transparent text-gray-800 hover:border-gray-800"

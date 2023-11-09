@@ -1,8 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, privateProcedure } from "../trpc";
 import z from "zod";
-import { ProductColor, ProductSize } from "@prisma/client";
-import { TRPCClientError } from "@trpc/client";
+import { Prisma, ProductColor, ProductSize } from "@prisma/client";
 
 export const cartRouter = createTRPCRouter({
   getItemsCount: privateProcedure.query(async ({ ctx }) => {
@@ -22,6 +21,47 @@ export const cartRouter = createTRPCRouter({
     return totalCount;
   }),
   getByUserId: privateProcedure.query(async ({ ctx }) => {
+    const include: Prisma.ProductInclude = {
+      cartItems: {
+        select: {
+          id: true,
+          product: {
+            select: {
+              id: true,
+              discount: {
+                select: {
+                  active: true,
+                  discountPercent: true,
+                },
+              },
+              images: {
+                select: {
+                  color: true,
+                  imageURL: true,
+                },
+              },
+              name: true,
+              price: true,
+              sizes: true,
+              colors: true,
+              category: {
+                select: {
+                  name: true,
+                  slug: true,
+                },
+              },
+            },
+          },
+          quantity: true,
+          color: true,
+          size: true,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      },
+    };
+
     const { userId, db } = ctx;
     const shoppingSession = await db.shoppingSession.findUnique({
       where: {
@@ -34,11 +74,36 @@ export const cartRouter = createTRPCRouter({
             product: {
               select: {
                 id: true,
+                discount: {
+                  select: {
+                    active: true,
+                    discountPercent: true,
+                  },
+                },
+                images: {
+                  select: {
+                    color: true,
+                    imageURL: true,
+                  },
+                },
+                name: true,
+                price: true,
+                sizes: true,
+                colors: true,
+                category: {
+                  select: {
+                    name: true,
+                    slug: true,
+                  },
+                },
               },
             },
             quantity: true,
             color: true,
             size: true,
+          },
+          orderBy: {
+            createdAt: "asc",
           },
         },
       },
@@ -54,10 +119,39 @@ export const cartRouter = createTRPCRouter({
           cartItems: {
             select: {
               id: true,
-              product: true,
+              product: {
+                select: {
+                  id: true,
+                  discount: {
+                    select: {
+                      active: true,
+                      discountPercent: true,
+                    },
+                  },
+                  images: {
+                    select: {
+                      color: true,
+                      imageURL: true,
+                    },
+                  },
+                  name: true,
+                  price: true,
+                  sizes: true,
+                  colors: true,
+                  category: {
+                    select: {
+                      name: true,
+                      slug: true,
+                    },
+                  },
+                },
+              },
               quantity: true,
               color: true,
               size: true,
+            },
+            orderBy: {
+              createdAt: "asc",
             },
           },
         },

@@ -1,5 +1,6 @@
-import type { ProductColor, ProductSize } from "@prisma/client";
-import { createContext, useContext, useState } from "react";
+import { UseMutateFunction } from "@tanstack/react-query";
+import { createContext, useContext } from "react";
+import { type RouterOutputs, api } from "~/utils/api";
 
 const shopingBagContext = createContext<BagContextType | null>(null);
 
@@ -11,59 +12,48 @@ export const useShoppingBagContext = () => {
   return context;
 };
 
-type ShoppingBagProduct = {
-  id: string;
-  quantity: number;
-  color: ProductColor;
-  size: ProductSize;
-  discount: { discountPercent: number; active: boolean } | null;
-  price: number;
-};
-
 type BagContextType = {
-  shoppingBag: ShoppingBagProduct[];
-  addToBag: (data: ShoppingBagProduct) => void;
-  modifyBagItem: (index: number, data: ShoppingBagProduct) => void;
-  removeFromBag: (index: number) => void;
+  cart: RouterOutputs["cart"]["getByUserId"] | undefined;
+  isGettingCart: boolean;
 };
 
 const ShoppingBagProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const [shoppingBag, setShoppingBag] = useState<ShoppingBagProduct[]>([]);
+  // const [shoppingBag, setShoppingBag] = useState<ShoppingBagProduct[]>([]);
+  const { data: cart, isLoading: isGettingCart } =
+    api.cart.getByUserId.useQuery();
 
-  const addToBag = (data: ShoppingBagProduct) => {
-    const { color, id, quantity, size, discount, price } = data;
-    setShoppingBag((prev) => {
-      const itemIndex = prev.findIndex((item) => {
-        return item.id === id && item.color === color && item.size === size;
-      });
-      console.log(itemIndex);
-      return itemIndex === -1
-        ? [...prev, { id, color, size, quantity, discount, price }]
-        : prev.map((item) =>
-            item.id === id && item.color === color && item.size === size
-              ? { ...item, quantity: item.quantity + 1 }
-              : item,
-          );
-    });
-    console.log(shoppingBag);
-  };
+  // const addToBag = (data: ShoppingBagProduct) => {
+  //   const { color, id, quantity, size, discount, price } = data;
+  //   setShoppingBag((prev) => {
+  //     const itemIndex = prev.findIndex((item) => {
+  //       return item.id === id && item.color === color && item.size === size;
+  //     });
+  //     console.log(itemIndex);
+  //     return itemIndex === -1
+  //       ? [...prev, { id, color, size, quantity, discount, price }]
+  //       : prev.map((item) =>
+  //           item.id === id && item.color === color && item.size === size
+  //             ? { ...item, quantity: item.quantity + 1 }
+  //             : item,
+  //         );
+  //   });
+  //   console.log(shoppingBag);
+  // };
 
-  const modifyBagItem = (index: number, data: ShoppingBagProduct) => {
-    setShoppingBag((prev) =>
-      prev.map((item, i) => (i === index ? data : item)),
-    );
-  };
+  // const modifyBagItem = (index: number, data: ShoppingBagProduct) => {
+  //   setShoppingBag((prev) =>
+  //     prev.map((item, i) => (i === index ? data : item)),
+  //   );
+  // };
 
-  const removeFromBag = (index: number) => {
-    setShoppingBag((prev) => prev.filter((_, i) => i !== index));
-  };
+  // const removeFromBag = (index: number) => {
+  //   setShoppingBag((prev) => prev.filter((_, i) => i !== index));
+  // };
 
   return (
-    <shopingBagContext.Provider
-      value={{ shoppingBag, addToBag, modifyBagItem, removeFromBag }}
-    >
+    <shopingBagContext.Provider value={{ cart, isGettingCart }}>
       {children}
     </shopingBagContext.Provider>
   );
