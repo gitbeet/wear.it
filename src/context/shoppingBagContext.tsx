@@ -1,5 +1,4 @@
-import { UseMutateFunction } from "@tanstack/react-query";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { type RouterOutputs, api } from "~/utils/api";
 
 const shopingBagContext = createContext<BagContextType | null>(null);
@@ -15,14 +14,26 @@ export const useShoppingBagContext = () => {
 type BagContextType = {
   cart: RouterOutputs["cart"]["getByUserId"] | undefined;
   isGettingCart: boolean;
+  isFetching: boolean;
+  totalCount: number;
 };
 
 const ShoppingBagProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
+  const [totalCount, setTotalCount] = useState(0);
   // const [shoppingBag, setShoppingBag] = useState<ShoppingBagProduct[]>([]);
-  const { data: cart, isLoading: isGettingCart } =
-    api.cart.getByUserId.useQuery();
+  const {
+    data: cart,
+    isLoading: isGettingCart,
+    isFetching,
+  } = api.cart.getByUserId.useQuery();
+
+  useEffect(() => {
+    const totalCount = cart?.cartItems.reduce((acc, x) => acc + x.quantity, 0);
+    if (!totalCount) return;
+    setTotalCount(totalCount);
+  }, [cart]);
 
   // const addToBag = (data: ShoppingBagProduct) => {
   //   const { color, id, quantity, size, discount, price } = data;
@@ -53,7 +64,9 @@ const ShoppingBagProvider: React.FC<React.PropsWithChildren> = ({
   // };
 
   return (
-    <shopingBagContext.Provider value={{ cart, isGettingCart }}>
+    <shopingBagContext.Provider
+      value={{ cart, isGettingCart, totalCount, isFetching }}
+    >
       {children}
     </shopingBagContext.Provider>
   );

@@ -3,13 +3,16 @@ import { IoMdClose } from "react-icons/io";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useModalsContext } from "~/context/modalsContext";
 import { useRouter } from "next/router";
+import { useShoppingBagContext } from "~/context/shoppingBagContext";
+import BagItem from "./BagItem";
 const ShoppingBagModal = () => {
   const router = useRouter();
   const { showBagModal, setShowBagModal } = useModalsContext();
-
+  const { cart, totalCount, isFetching } = useShoppingBagContext();
+  const cartItem = cart?.cartItems[cart.cartItems.length - 1];
   return (
     <>
-      {showBagModal && (
+      {showBagModal && cartItem && !isFetching && (
         <div className="absolute right-8 z-30  min-w-[450px]  bg-gray-50 px-8 pb-8 pt-4">
           <div className="flex w-full justify-between">
             <p className="flex items-center gap-1 font-semibold">
@@ -23,10 +26,10 @@ const ShoppingBagModal = () => {
               className="relative  h-5 w-5"
             />
           </div>
-          {/* <BagItem modal   /> */}
+          <BagItem modal cartItem={cartItem} />
           <div className="flex gap-2 ">
             <Button
-              text={`View Bag (${2})`}
+              text={`View Bag (${totalCount})`}
               onClick={async () => {
                 setShowBagModal(false);
                 await router.push("/cart");

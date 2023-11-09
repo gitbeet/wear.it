@@ -32,11 +32,9 @@ const Cart = () => {
         <div className="w-full ">
           <h2 className="text-2xl font-semibold">Bag</h2>
           <div className="h-8"></div>
-          {cart?.cartItems && cart.cartItems.length < 1 && (
-            <p>Your bag is empty</p>
-          )}
+          {cart.cartItems.length < 1 && <p>Your bag is empty</p>}
           <div>
-            {cart?.cartItems?.map((item) => (
+            {cart.cartItems.map((item) => (
               <BagItem key={item.id} cartItem={item} />
             ))}
           </div>

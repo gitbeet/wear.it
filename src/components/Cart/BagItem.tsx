@@ -160,7 +160,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                 className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <BsTrash className="h-5 w-5" />
-                <span className="pl-2">Remove (trpc)</span>
+                <span className="pl-2">Remove</span>
               </button>
             </div>
           )}

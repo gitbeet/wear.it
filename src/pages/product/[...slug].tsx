@@ -18,7 +18,6 @@ import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
 const Product = ({
   id,
   color,
@@ -28,6 +27,7 @@ const Product = ({
   const { mutate, isLoading: isAddingToCart } = api.cart.addItem.useMutation({
     onSuccess: () => {
       void ctx.invalidate();
+      setShowBagModal(true);
     },
   });
 
