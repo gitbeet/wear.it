@@ -1,8 +1,12 @@
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { BsHandbag } from "react-icons/bs";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
+import { api } from "~/utils/api";
 const ShoppingBagIcon = () => {
   const { shoppingBag } = useShoppingBagContext();
+  const { data, isLoading } = api.cart.getItemsCount.useQuery();
+  const totalCount = data?.cartItems.reduce((acc, x) => acc + x.quantity, 0);
   return (
     <>
       <Link href="/cart">
@@ -11,11 +15,10 @@ const ShoppingBagIcon = () => {
           className="relative  rounded-full bg-transparent  p-2.5 hover:bg-gray-300"
         >
           <BsHandbag className="h-5  w-5" />
-          {shoppingBag.length > 0 && (
-            <div className="absolute -left-1.5 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-teal-500 text-white">
-              <p className="text-xs">{shoppingBag.length}</p>
-            </div>
-          )}
+
+          <div className="absolute left-1 top-6 flex h-5 w-5 items-center justify-center rounded-full bg-teal-500 text-white">
+            <p className="text-xs">{totalCount}</p>
+          </div>
         </div>
       </Link>
     </>

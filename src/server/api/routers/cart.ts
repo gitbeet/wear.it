@@ -5,6 +5,22 @@ import { ProductColor, ProductSize } from "@prisma/client";
 import { TRPCClientError } from "@trpc/client";
 
 export const cartRouter = createTRPCRouter({
+  getItemsCount: privateProcedure.query(async ({ ctx }) => {
+    const { db, userId } = ctx;
+    const totalCount = await db.shoppingSession.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        cartItems: {
+          select: {
+            quantity: true,
+          },
+        },
+      },
+    });
+    return totalCount;
+  }),
   getByUserId: privateProcedure.query(async ({ ctx }) => {
     const { userId, db } = ctx;
     const shoppingSession = await db.shoppingSession.findUnique({
