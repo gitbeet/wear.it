@@ -17,6 +17,7 @@ export const favoriteRouter = createTRPCRouter({
             name: true,
             category: {
               select: {
+                types: true,
                 name: true,
                 slug: true,
               },

@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { BsHeart } from "react-icons/bs";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { type RouterOutputs } from "~/utils/api";
 
@@ -15,6 +16,8 @@ const ProductCard = ({
   product: Product;
   slider?: boolean;
 }) => {
+  const { isFavorited } = useFavoritesContext();
+
   const [showColorVariations, setShowColorVariations] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.images[0]?.id);
   const priceBeforeDiscount = formatCurrency(product.price);
@@ -24,25 +27,9 @@ const ProductCard = ({
           (product.price * product.discount?.discountPercent) / 100
       : product.price,
   );
-
-  const router = useRouter();
-
-  // const goToLink = () => {
-  //   void router.push(
-  //     {
-  //       pathname: `/product/${product.id}`,
-  //       // pathname: `/product/${product.id}?color=${product.images.find(
-  //       //   (image) => image.id === currentImage,
-  //       // )?.color}`,
-  //       query: {
-  //         color: product.images.find((image) => image.id === currentImage)
-  //           ?.color,
-  //       },
-  //     },
-  //     undefined,
-  //     { shallow: false, scroll: true },
-  //   );
-  // };
+  const currentImageColor = product.images.find(
+    (image) => image.id === currentImage,
+  )?.color;
 
   return (
     <Link
@@ -65,7 +52,14 @@ const ProductCard = ({
               role="button"
               className="absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-gray-50"
             >
-              <BsHeart className="h-6 w-6" />
+              {currentImageColor &&
+                isFavorited(currentImageColor, product.id) && (
+                  <BsHeartFill className="h-6 w-6 text-gray-700" />
+                )}
+              {currentImageColor &&
+                !isFavorited(currentImageColor, product.id) && (
+                  <BsHeart className="h-6 w-6" />
+                )}
             </div>
             <Image
               className="relative rounded-md bg-slate-200"

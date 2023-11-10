@@ -16,7 +16,7 @@ const Nav = () => {
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   const { isSignedIn } = useUser();
   return (
-    <nav className=" ">
+    <nav>
       <div className="relative z-50 bg-gray-50">
         {/* <div className="w-full bg-gray-700 py-1 text-sm text-gray-100">
           <div className="mx-auto flex max-w-[1600px] justify-end gap-2">
@@ -25,7 +25,7 @@ const Nav = () => {
           </div>
         </div> */}
 
-        <div className="relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
+        <div className="relative mx-auto flex max-w-[1600px] items-center justify-between py-3">
           <Logo />
           <ul
             role="navigation"
@@ -66,12 +66,12 @@ const Nav = () => {
             </div>
             <FavoritesNavIcon />
             <ShoppingBagIcon />
-            <NavIcon
+            {/* <NavIcon
               icon={<BsPerson className="h-5 w-5" />}
               link="/"
               loading={false}
               number={0}
-            />
+            /> */}
             <p>
               {!isSignedIn ? (
                 <Link href="/sign-up">Sign in</Link>
