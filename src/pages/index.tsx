@@ -12,14 +12,7 @@ const sliderPromos = [
   {
     title: "-35% OFF your first order",
     image: "/assets/promo-image-first-order.jpg",
-    button: (
-      <Button
-        ghost
-        text="Sign up now"
-        // icon={<BsHandbag className="h-5 w-5" />}
-        onClick={() => void 0}
-      />
-    ),
+    button: <Button ghost text="Sign up now" onClick={() => void 0} />,
   },
   {
     title: `FREE shipping on orders over $90`,

@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import MegaMenu from "./MegaMenu";
 import NavLink from "./NavLink";
 import ShoppingBagIcon from "./Cart/ShoppingBagIcon";
-import { BsHeart, BsPerson, BsSearch } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 import ShoppingBagModal from "./Cart/ShoppingBagModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "./Logo";
 import { useUser, SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
-import NavIcon from "./NavIcon";
 import FavoritesNavIcon from "./FavoritesNavIcon";
 
 const Nav = () => {
@@ -74,7 +73,7 @@ const Nav = () => {
             /> */}
             <p>
               {!isSignedIn ? (
-                <Link href="/sign-up">Sign in</Link>
+                <Link href="/sign-up">Sign up</Link>
               ) : (
                 <SignOutButton />
               )}

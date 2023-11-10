@@ -1,6 +1,6 @@
 interface Props {
   text: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   ghost?: boolean;
   icon?: JSX.Element;
   disabled?: boolean;

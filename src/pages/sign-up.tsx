@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { InputField } from "./sign-in";
+import { BsEnvelope, BsKey } from "react-icons/bs";
+import Button from "~/components/UI/Button";
 
 export default function SignUpForm() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -59,30 +62,42 @@ export default function SignUpForm() {
   };
 
   return (
-    <div>
+    <section>
+      <div className="h-16"></div>
+      <h1 className="font-display text-center text-6xl font-black">
+        Become a member
+      </h1>
+      <div className="h-24"></div>
       {!pendingVerification && (
-        <form>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              onChange={(e) => setEmailAddress(e.target.value)}
-              id="email"
-              name="email"
-              type="email"
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              id="password"
-              name="password"
-              type="password"
-            />
-          </div>
-          <button onClick={handleSubmit}>Sign up</button>
-          <p>
-            Already have an account? <Link href="/sign-in">Sign in</Link>
+        <form className="mx-auto max-w-[400px]">
+          <InputField
+            placeholder="johndoe@email.com"
+            onChange={(e) => setEmailAddress(e.target.value)}
+            label="Email"
+            name="email"
+            type="email"
+            value={emailAddress}
+            icon={<BsEnvelope className="h-8 w-8" />}
+          />
+          <div className="h-6"></div>
+          <InputField
+            placeholder="•••••••"
+            onChange={(e) => setPassword(e.target.value)}
+            label="Password"
+            name="password"
+            type="password"
+            value={password}
+            icon={<BsKey className="h-8 w-8" />}
+          />
+          <div className="h-8"></div>
+
+          <Button onClick={handleSubmit} text="Sign up" />
+          <div className="h-4"></div>
+          <p className="px-4">
+            Already have an account?{" "}
+            <Link className="pl-1 font-bold text-teal-500" href="/sign-in">
+              Sign in
+            </Link>
           </p>
         </form>
       )}
@@ -98,6 +113,6 @@ export default function SignUpForm() {
           </form>
         </div>
       )}
-    </div>
+    </section>
   );
 }
