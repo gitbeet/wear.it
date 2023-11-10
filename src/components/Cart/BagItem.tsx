@@ -1,11 +1,12 @@
 import type { ProductSize } from "@prisma/client";
-import { BsHeart, BsTrash } from "react-icons/bs";
+import { BsHeart, BsHeartFill, BsTrash } from "react-icons/bs";
 import { type RouterOutputs, api } from "~/utils/api";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import Image from "next/image";
 import { type ChangeEvent } from "react";
 import Link from "next/link";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
+import { useFavoritesContext } from "~/context/favoritesContext";
 
 interface Props {
   cartItem: RouterOutputs["cart"]["getByUserId"]["cartItems"][number];
@@ -14,7 +15,14 @@ interface Props {
 
 const BagItem = ({ cartItem, modal = false }: Props) => {
   const ctx = api.useUtils();
+  const { isFavorited } = useFavoritesContext();
   const { isFetching } = useShoppingBagContext();
+  const { mutate: addToFavorites, isLoading: isFaving } =
+    api.favorite.favorite.useMutation({
+      onSuccess: () => {
+        void ctx.invalidate();
+      },
+    });
   const { mutate: modify, isLoading: isModifying } =
     api.cart.modifyItem.useMutation({
       onSuccess: () => {
@@ -48,6 +56,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
       : price) * cartItem.quantity,
   );
   const thumbnail = images.find((image) => image.color === color)?.imageURL;
+  const isItemFavorited = isFavorited(color, productId);
   return (
     <div
       className={`${
@@ -148,12 +157,27 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
           {!modal && (
             <div className="flex gap-8">
               <button
-                disabled={false}
+                disabled={isFaving}
+                onClick={() => {
+                  if (isItemFavorited) {
+                    addToFavorites({ color, productId });
+                  }
+                  if (!isItemFavorited) {
+                    addToFavorites({ color, productId });
+                    remove({ id });
+                  }
+                }}
                 role="button"
                 className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
               >
-                <BsHeart className="h-5 w-5" />
-                <span>Add to Favorites</span>
+                {isItemFavorited ? (
+                  <BsHeartFill className="h-5 w-5" />
+                ) : (
+                  <BsHeart className="h-5 w-5" />
+                )}
+                <span>
+                  {isItemFavorited ? "Added to Favorites" : "Add to Favorites"}
+                </span>
               </button>
 
               <button

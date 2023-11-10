@@ -18,14 +18,14 @@ import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
+import { useFavoritesContext } from "~/context/favoritesContext";
 const Product = ({
   id,
   color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { setShowBagModal } = useModalsContext();
   const ctx = api.useUtils();
-  const { data: userFavorites, isLoading: isGettingFavorites } =
-    api.favorite.getByUserId.useQuery();
+  const { isFavorited } = useFavoritesContext();
   const { mutate: addToFavorites, isLoading: isFaving } =
     api.favorite.favorite.useMutation({
       onSuccess: () => {
@@ -116,10 +116,7 @@ const Product = ({
     });
   }
 
-  const isFavorited =
-    userFavorites?.findIndex(
-      (fav) => fav.color === selectedColor && fav.productId === productData.id,
-    ) !== -1;
+  const isItemFavorited = isFavorited(selectedColor, productData.id);
 
   return (
     <div>
@@ -239,7 +236,9 @@ const Product = ({
             />
             {selectedColor && (
               <Button
-                text={isFavorited ? "Added to favorites" : "Add to Favorites"}
+                text={
+                  isItemFavorited ? "Added to favorites" : "Add to Favorites"
+                }
                 onClick={() =>
                   addToFavorites({
                     color: selectedColor,
@@ -247,7 +246,7 @@ const Product = ({
                   })
                 }
                 ghost
-                icon={isFavorited ? <BsHeartFill /> : <BsHeart />}
+                icon={isItemFavorited ? <BsHeartFill /> : <BsHeart />}
               />
             )}
           </div>

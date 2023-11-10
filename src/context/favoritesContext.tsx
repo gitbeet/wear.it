@@ -1,3 +1,4 @@
+import { type ProductColor } from "@prisma/client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { type RouterOutputs, api } from "~/utils/api";
 
@@ -15,6 +16,7 @@ type BagContextType = {
   favorites: RouterOutputs["favorite"]["getByUserId"] | undefined;
   isGettingFavorites: boolean;
   isFetching: boolean;
+  isFavorited: (color: ProductColor | null, productId: string) => boolean;
 };
 
 const FavoritesProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -24,9 +26,17 @@ const FavoritesProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     isFetching,
   } = api.favorite.getByUserId.useQuery();
 
+  const isFavorited = (color: ProductColor | null, productId: string) => {
+    return (
+      favorites?.findIndex(
+        (fav) => fav.color === color && fav.productId === productId,
+      ) !== -1
+    );
+  };
+
   return (
     <favoritesContext.Provider
-      value={{ favorites, isGettingFavorites, isFetching }}
+      value={{ favorites, isGettingFavorites, isFetching, isFavorited }}
     >
       {children}
     </favoritesContext.Provider>

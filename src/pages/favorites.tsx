@@ -10,7 +10,13 @@ const Favorites = () => {
   const { data, isLoading } = api.favorite.getByUserId.useQuery();
   return (
     <section>
-      <div>{data?.map((fav) => <h1 key={fav.id}>{fav.productId}</h1>)}</div>
+      <div>
+        {data?.map((fav) => (
+          <h1 key={fav.id}>
+            {fav.product.name} - {fav.color}
+          </h1>
+        ))}
+      </div>
     </section>
   );
 };

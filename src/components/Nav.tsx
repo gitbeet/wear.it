@@ -14,10 +14,10 @@ import FavoritesNavIcon from "./FavoritesNavIcon";
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
   return (
-    <nav className="bg-slate-50 ">
-      <div className="relative z-50 bg-slate-50   ">
+    <nav className=" ">
+      <div className="relative z-50 bg-gray-50">
         {/* <div className="w-full bg-gray-700 py-1 text-sm text-gray-100">
           <div className="mx-auto flex max-w-[1600px] justify-end gap-2">
             <a className="">info@efashion.com</a>
@@ -62,7 +62,7 @@ const Nav = () => {
           <div className="flex items-center gap-1 ">
             <div className="pointer-events-none relative h-8 pr-4">
               <BsSearch className="absolute left-2 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-              <input className="h-full w-40  rounded-full border border-slate-200 bg-slate-100 pl-8" />
+              <input className="h-full w-40  rounded-full border border-gray-200 bg-gray-100 pl-8" />
             </div>
             <FavoritesNavIcon />
             <ShoppingBagIcon />
