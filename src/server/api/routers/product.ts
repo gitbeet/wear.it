@@ -148,9 +148,18 @@ export const productRouter = createTRPCRouter({
           lte: priceTo,
         },
         collectionId,
-        category: {
-          slug,
-        },
+        category: slug
+          ? {
+              OR: [
+                {
+                  parent: {
+                    slug,
+                  },
+                },
+                { slug },
+              ],
+            }
+          : undefined,
         types: {
           hasSome: type,
         },

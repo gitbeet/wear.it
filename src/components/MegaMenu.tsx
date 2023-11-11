@@ -50,9 +50,9 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           >
             {categories.map((category) => (
               <div key={category.id}>
-                {/* <Link href={`/${lowerCaseType}/${category.slug}`}> */}
-                <p className="font-bold ">{category.name}</p>
-                {/* </Link> */}
+                <Link href={`/products/${lowerCaseType}/${category.slug}`}>
+                  <p className="font-bold  hover:underline">{category.name}</p>
+                </Link>
                 <div className="h-4"></div>
                 <ul>
                   {category.children
