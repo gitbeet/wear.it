@@ -20,7 +20,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
   };
 
   return (
-    <div className="relative z-50 ">
+    <div className="relative z-20 ">
       <div
         onClick={() => setShowSort((prev) => !prev)}
         role="listbox"

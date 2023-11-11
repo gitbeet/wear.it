@@ -18,7 +18,10 @@ const Favorites = () => {
   const { data, isLoading } = api.favorite.getByUserId.useQuery();
   return (
     <section>
-      <div className="flex max-w-[900px]  gap-2 pt-32">
+      <div className="h-16"></div>
+      <h1 className="font-display text-center text-5xl font-black">Wishlist</h1>
+      <div className="h-24"></div>
+      <div className="mx-auto flex  max-w-[900px] gap-4">
         {data?.map((fav) => {
           const { color, id, product, productId } = fav;
           const isItemFavorited = isFavorited(color, productId);
@@ -49,8 +52,8 @@ const Favorites = () => {
                     <Link href={`/product/${productId}/${color}`}>
                       <Image
                         className="relative rounded-md bg-slate-200"
-                        width={400}
-                        height={400}
+                        width={300}
+                        height={300}
                         src={
                           product.images.find((image) => image.color === color)
                             ?.imageURL ?? ""

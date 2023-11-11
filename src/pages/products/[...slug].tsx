@@ -88,18 +88,22 @@ const Pagination = ({
           Page
         </label>
         <select
+          disabled={totalPages < 2}
           id="pagination"
           className="pl-4"
-          value={currentPage}
+          value={currentPage ?? 1}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             setCurrentPage(parseInt(e.target.value))
           }
         >
-          {[...Array(totalPages).keys()].map((el) => (
+          {[...Array(totalPages < 2 ? 1 : totalPages).keys()].map((el) => (
             <option key={el + 1}>{el + 1}</option>
           ))}
         </select>
-        <span className="pl-2 text-gray-600"> of {totalPages}</span>
+        <span className="pl-2 text-gray-600">
+          {" "}
+          of {totalPages < 2 ? 1 : totalPages}
+        </span>
       </div>
       <p
         role="button"
@@ -192,15 +196,14 @@ const ProductsPage = () => {
           <Products products={data.products} />
         )}
       </section>
+
       <div className="mx-auto">
-        {data?.totalProducts && (
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalProducts={data.totalProducts}
-            pageSize={pageSize}
-          />
-        )}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalProducts={data?.totalProducts ?? 0}
+          pageSize={pageSize}
+        />
       </div>
     </main>
   );

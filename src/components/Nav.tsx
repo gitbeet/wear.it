@@ -1,29 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import MegaMenu from "./MegaMenu";
 import NavLink from "./NavLink";
 import ShoppingBagIcon from "./Cart/ShoppingBagIcon";
-import { BsSearch } from "react-icons/bs";
 import ShoppingBagModal from "./Cart/ShoppingBagModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "./Logo";
 import { useUser, SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
 import FavoritesNavIcon from "./FavoritesNavIcon";
+import Search from "./Search";
+import SearchResults from "./SearchResults";
+import { api } from "~/utils/api";
+import debounce from "just-debounce-it";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
+  const [showSearchResults, setShowSearchResults] = useState(false);
   const { isSignedIn } = useUser();
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+
+  const {
+    data: searchResults,
+    isLoading: isSearching,
+    refetch,
+  } = api.product.searchProduct.useQuery(
+    { query: debouncedQuery },
+    {
+      enabled: true,
+      refetchOnWindowFocus: false, // Prevents refetch on window focus
+      refetchOnMount: false, // Prevents initial automatic refetch on mount
+    },
+  );
+
+  const getDebouncedResults = useCallback(
+    debounce((val: string) => {
+      setDebouncedQuery(val);
+      setShowSearchResults(true);
+    }, 500),
+    [],
+  );
+
+  const handleCloseButton = () => {
+    setDebouncedQuery("");
+    setQuery("");
+    setShowSearchResults(false);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (value.length < 1) {
+      setDebouncedQuery("");
+      setQuery("");
+      setShowSearchResults(false);
+    }
+    setQuery(value);
+    getDebouncedResults(value);
+  };
+
   return (
     <nav>
-      <div className="relative z-50 bg-gray-50">
+      <div className="relative z-50 border-b bg-gray-50">
         {/* <div className="w-full bg-gray-700 py-1 text-sm text-gray-100">
           <div className="mx-auto flex max-w-[1600px] justify-end gap-2">
             <a className="">info@efashion.com</a>
             <a className="">048 155 22</a>
           </div>
         </div> */}
-
         <div className="relative mx-auto flex max-w-[1600px] items-center justify-between py-3">
           <Logo />
           <ul
@@ -58,29 +102,35 @@ const Nav = () => {
             <NavLink link="/products/kids" text="Kids" />
             <NavLink link="/contact" text="Contact" />
           </ul>
-          <div className="flex items-center gap-1 ">
-            <div className="pointer-events-none relative h-8 pr-4">
-              <BsSearch className="absolute left-2 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-              <input className="h-full w-40  rounded-full border border-gray-200 bg-gray-100 pl-8" />
-            </div>
+          <div className="flex items-center">
+            <Search
+              handleCloseButton={handleCloseButton}
+              input={query}
+              handleSearch={handleSearch}
+            />
+            <div className="w-7"></div>
             <FavoritesNavIcon />
             <ShoppingBagIcon />
-            {/* <NavIcon
-              icon={<BsPerson className="h-5 w-5" />}
-              link="/"
-              loading={false}
-              number={0}
-            /> */}
-            <p>
+            <div
+              role="button"
+              className="ml-3 rounded-sm border border-gray-300 px-4 py-1"
+            >
               {!isSignedIn ? (
                 <Link href="/sign-up">Sign up</Link>
               ) : (
                 <SignOutButton />
               )}
-            </p>
+            </div>
           </div>
         </div>
       </div>
+      {searchResults && (
+        <SearchResults
+          show={showSearchResults}
+          setShow={setShowSearchResults}
+          results={searchResults}
+        />
+      )}
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
       <ShoppingBagModal />
     </nav>

@@ -2,11 +2,51 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import z from "zod";
 import {
   CategoryType,
-  Prisma,
+  type Prisma,
   ProductColor,
   ProductSize,
 } from "@prisma/client";
 export const productRouter = createTRPCRouter({
+  searchProduct: publicProcedure
+    .input(z.object({ query: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { db } = ctx;
+      const { query } = input;
+      if (query.length < 1) return;
+      const results = await db.product.findMany({
+        where: {
+          OR: [
+            {
+              name: {
+                contains: query,
+              },
+            },
+            {
+              description: {
+                contains: query,
+              },
+            },
+            {
+              category: {
+                name: {
+                  contains: query,
+                },
+              },
+            },
+          ],
+        },
+        include: {
+          images: {
+            select: {
+              imageURL: true,
+            },
+            take: 1,
+          },
+        },
+      });
+
+      return results;
+    }),
   getSingleProduct: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {

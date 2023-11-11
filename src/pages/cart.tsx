@@ -60,7 +60,7 @@ const Summary = () => {
           </tr>
         </tbody>
       </table>
-      <div className="h-8 border-b border-gray-300"></div>
+      <div className="h-8"></div>
       <Button text="Checkout" onClick={() => void 0} />
     </section>
   );
@@ -97,7 +97,7 @@ const CartItems = () => {
 
 const Cart = () => {
   return (
-    <section className="grid grid-cols-[2.5fr,1fr] gap-16 pt-32">
+    <section className="mx-auto grid max-w-[1400px] grid-cols-[2fr,1fr] gap-16 pt-32">
       <CartItems />
       <Summary />
     </section>
