@@ -13,35 +13,67 @@ export const productRouter = createTRPCRouter({
       const { db } = ctx;
       const { query } = input;
       if (query.length < 1) return;
+      const tags = query.split(" ");
       const results = await db.product.findMany({
         where: {
           OR: [
             {
               name: {
-                contains: query,
+                in: tags,
+                mode: "insensitive",
               },
             },
             {
               description: {
-                contains: query,
+                in: tags,
+                mode: "insensitive",
               },
             },
             {
               category: {
                 name: {
-                  contains: query,
+                  in: tags,
+                  mode: "insensitive",
+                },
+              },
+            },
+            {
+              colors: {
+                some: {
+                  name: {
+                    in: tags,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+            {
+              sizes: {
+                some: {
+                  name: {
+                    in: tags,
+                    mode: "insensitive",
+                  },
                 },
               },
             },
           ],
         },
         include: {
-          images: {
+          images: true,
+          discount: {
             select: {
-              imageURL: true,
+              discountPercent: true,
             },
-            take: 1,
           },
+          category: {
+            select: {
+              name: true,
+              slug: true,
+            },
+          },
+          colors: true,
+          sizes: true,
         },
       });
 
@@ -75,6 +107,8 @@ export const productRouter = createTRPCRouter({
               color: true,
             },
           },
+          colors: true,
+          sizes: true,
         },
       });
       return product;
@@ -123,13 +157,21 @@ export const productRouter = createTRPCRouter({
         colors:
           color.length > 0
             ? {
-                hasSome: color,
+                some: {
+                  color: {
+                    in: color,
+                  },
+                },
               }
             : undefined,
         sizes:
           size.length > 0
             ? {
-                hasSome: size,
+                some: {
+                  size: {
+                    in: size,
+                  },
+                },
               }
             : undefined,
       };
@@ -145,13 +187,21 @@ export const productRouter = createTRPCRouter({
         colors:
           color.length > 0
             ? {
-                hasSome: color,
+                some: {
+                  color: {
+                    in: color,
+                  },
+                },
               }
             : undefined,
         sizes:
           size.length > 0
             ? {
-                hasSome: size,
+                some: {
+                  size: {
+                    in: size,
+                  },
+                },
               }
             : undefined,
       };
@@ -173,6 +223,8 @@ export const productRouter = createTRPCRouter({
                   slug: true,
                 },
               },
+              colors: true,
+              sizes: true,
             },
             take: pageSize,
             skip,

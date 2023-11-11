@@ -1,32 +1,35 @@
-import Image from "next/image";
 import { type RouterOutputs } from "~/utils/api";
+import ProductCard from "./ProductCard";
 
 interface Props {
   show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
   results: RouterOutputs["product"]["searchProduct"];
+  onClose: () => void;
 }
 
-const SearchResults = ({ show, setShow, results }: Props) => {
+const SearchResults = ({ show, results, onClose }: Props) => {
   return (
     show &&
     results && (
-      <div className="absolute z-50 h-[400px] w-full bg-gray-50">
-        {results.length < 1 && <h1>No results found</h1>}
-        {results.length > 0 &&
-          results.map((res) => (
-            <div key={res.id}>
-              <p>{res.name}</p>
-              <Image
-                width={150}
-                height={150}
-                src={res.images[0]?.imageURL ?? ""}
-                alt="prod image"
-              />
-              <p>{res.price}</p>
-            </div>
-          ))}
-      </div>
+      <>
+        <section className="absolute z-50 flex w-full bg-gray-50 px-16 py-8 shadow-lg">
+          {results.length < 1 && <h1>No results found</h1>}
+          <div className="flex gap-4">
+            {results.length > 0 &&
+              results.map((product) => (
+                <ProductCard key={product.id} product={product} type="SEARCH" />
+              ))}
+          </div>
+        </section>
+        <div
+          onClick={onClose}
+          className={`${
+            show
+              ? "bg-gray-900/40 backdrop-blur "
+              : "pointer-events-none opacity-0"
+          }  fixed inset-0 z-20  min-h-screen transition-all duration-300 `}
+        ></div>
+      </>
     )
   );
 };

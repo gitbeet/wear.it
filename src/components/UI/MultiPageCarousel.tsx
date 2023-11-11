@@ -100,7 +100,9 @@ const Carousel = ({
           <h1>Something went wrong</h1>
         ) : (
           products.map((product) => {
-            return <ProductCard slider key={product.id} product={product} />;
+            return (
+              <ProductCard type="SLIDER" key={product.id} product={product} />
+            );
           })
         )}
       </div>

@@ -127,7 +127,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                     value={size}
                   >
                     {sizes.map((s, i) => (
-                      <option key={i}>{s}</option>
+                      <option key={i}>{s.size}</option>
                     ))}
                   </select>
                 </div>

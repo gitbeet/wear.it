@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
@@ -11,10 +10,10 @@ type Product = RouterOutputs["product"]["getAll"]["products"][number];
 
 const ProductCard = ({
   product,
-  slider = false,
+  type = "PRODUCTS",
 }: {
   product: Product;
-  slider?: boolean;
+  type: "PRODUCTS" | "SLIDER" | "SEARCH";
 }) => {
   const { isFavorited } = useFavoritesContext();
 
@@ -31,6 +30,8 @@ const ProductCard = ({
     (image) => image.id === currentImage,
   )?.color;
 
+  const imageSize = type === "PRODUCTS" || type === "SLIDER" ? 800 : 300;
+
   return (
     <Link
       href={`/product/${product.id}/${product.images.find(
@@ -38,10 +39,9 @@ const ProductCard = ({
       )?.color}`}
     >
       <div
-        // onClick={goToLink}
         className={`${
-          slider ? "relative h-[500px] w-[400px] snap-start" : ""
-        }  bg-gray-50 pb-2 text-gray-800`}
+          type === "SLIDER" && "relative h-[500px] w-[400px] snap-start"
+        } bg-gray-50 pb-2 text-gray-800`}
       >
         <div
           onMouseOver={() => setShowColorVariations(true)}
@@ -63,8 +63,8 @@ const ProductCard = ({
             </div>
             <Image
               className="relative rounded-md bg-slate-200"
-              width={800}
-              height={800}
+              width={imageSize}
+              height={imageSize}
               src={
                 product.images.find((image) => image.id === currentImage)
                   ?.imageURL ?? ""
@@ -76,8 +76,9 @@ const ProductCard = ({
                 <p className="font-display w-fit rounded-sm bg-teal-500 px-1 font-bold text-white">
                   -{product.discount.discountPercent}%
                 </p>
+                <div className="h-1.5"></div>
                 <div className=" flex gap-2 ">
-                  <p className="font-display py-1 text-gray-500 line-through">
+                  <p className="font-display bg-gray-50  px-3 py-1  text-gray-500 line-through">
                     {priceBeforeDiscount}
                   </p>
                   <p className="font-display w-fit bg-gray-50 px-3 py-1 font-bold text-pink-500">
@@ -99,7 +100,7 @@ const ProductCard = ({
           >
             {product.colors.map((color, i) => {
               const image = product.images.find(
-                (image) => image.color === color,
+                (image) => image.color === color.color,
               );
               return (
                 <Image
@@ -109,7 +110,7 @@ const ProductCard = ({
                   height={48}
                   key={i}
                   src={image?.imageURL ?? ""}
-                  alt={`${color} variation`}
+                  alt={`${color.color} variation`}
                 />
               );
             })}

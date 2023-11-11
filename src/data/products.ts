@@ -3,14 +3,20 @@ import { v4 as uuid } from "uuid";
 
 type ProductType = Prisma.ProductCreateInput;
 
-export const winterHat = {
+export const winterHat: ProductType = {
   name: "Cozy Patterned Woolen Winter Hat",
   description:
     "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
   types: ["MEN"],
   price: 79,
-  colors: ["RED", "BLUE", "BLACK"],
-  sizes: ["S", "M", "L"],
+  // colors: ["RED", "BLUE", "BLACK"],
+  colors: {
+    connect: [3, 5, 2].map((id) => ({ id })),
+  },
+  // sizes: ["S", "M", "L"],
+  sizes: {
+    connect: [2, 3, 4].map((id) => ({ id })),
+  },
   SKU: uuid(),
   collection: {
     connect: {
@@ -72,8 +78,14 @@ export const products: ProductType[] = [
       "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
     types: ["MEN"],
     price: 79,
-    colors: ["RED", "BLUE", "BLACK"],
-    sizes: ["S", "M", "L"],
+    // colors: ["RED", "BLUE", "BLACK"],
+    colors: {
+      connect: [3, 5, 2].map((id) => ({ id })),
+    },
+    // sizes: ["S", "M", "L"],
+    sizes: {
+      connect: [2, 3, 4].map((id) => ({ id })),
+    },
     SKU: uuid(),
     collection: {
       connect: {
@@ -135,8 +147,14 @@ export const products: ProductType[] = [
     description: "Coolest leggings ever!",
     types: ["WOMEN"],
     price: 96,
-    colors: ["PURPLE"],
-    sizes: ["S", "M", "L", "XL"],
+    // colors: ["PURPLE"],
+    colors: {
+      connect: [1].map((id) => ({ id })),
+    },
+    // sizes: ["S", "M", "L","XL"],
+    sizes: {
+      connect: [2, 3, 4, 5].map((id) => ({ id })),
+    },
     SKU: uuid(),
     discount: {
       connect: {
@@ -169,8 +187,14 @@ export const products: ProductType[] = [
     description: "This is the coolest t-shirt ever",
     types: ["MEN"],
     price: 150,
-    colors: ["WHITE"],
-    sizes: ["XS", "S", "M", "L", "XL"],
+    // colors: ["WHITE"],
+    colors: {
+      connect: [6].map((id) => ({ id })),
+    },
+    // sizes: ["S", "M", "L","XL"],
+    sizes: {
+      connect: [1, 2, 3, 4, 5].map((id) => ({ id })),
+    },
     SKU: uuid(),
     category: {
       connect: {

@@ -104,6 +104,8 @@ const Nav = () => {
           </ul>
           <div className="flex items-center">
             <Search
+              onFocus={() => setShowSearchResults(true)}
+              onBlur={() => setShowSearchResults(false)}
               handleCloseButton={handleCloseButton}
               input={query}
               handleSearch={handleSearch}
@@ -124,13 +126,13 @@ const Nav = () => {
           </div>
         </div>
       </div>
-      {searchResults && (
-        <SearchResults
-          show={showSearchResults}
-          setShow={setShowSearchResults}
-          results={searchResults}
-        />
-      )}
+
+      <SearchResults
+        onClose={() => setShowSearchResults(false)}
+        show={showSearchResults}
+        results={searchResults}
+      />
+
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
       <ShoppingBagModal />
     </nav>

@@ -49,7 +49,7 @@ const Product = ({
   const { data: productData, isLoading: isGettingProductData } =
     api.product.getSingleProduct.useQuery({ id });
 
-  const primaryColor = productData?.colors[0];
+  const primaryColor = productData?.colors[0]?.color;
 
   useEffect(() => {
     if (!primaryColor) return;
@@ -66,7 +66,7 @@ const Product = ({
     }
     const isColorValid =
       productData?.colors.findIndex(
-        (color) => color === router.query.slug?.[1],
+        (color) => color.color === router.query.slug?.[1],
       ) !== -1;
     if (!isColorValid) {
       void router.push(
@@ -160,12 +160,12 @@ const Product = ({
                   key={i}
                   role="button"
                   onClick={async () => {
-                    await handleColor(c);
+                    await handleColor(c.color);
                   }}
                   className={`h-8 w-8 rounded-full ${colorOptions.find(
-                    (option) => option.name === c,
+                    (option) => option.name === c.color,
                   )?.color} border-[2px] outline outline-2 ${
-                    selectedColor === c
+                    selectedColor === c.color
                       ? "border-gray-100 outline-gray-500 "
                       : "border-gray-200 outline-transparent "
                   }`}
@@ -191,17 +191,17 @@ const Product = ({
                 <span
                   role="button"
                   onClick={() => {
-                    setSelectedSize(s);
+                    setSelectedSize(s.size);
                     setError(false);
                   }}
                   className={`${
-                    s === selectedSize
+                    s.size === selectedSize
                       ? "border-gray-800  text-gray-800"
                       : "border-gray-300  text-gray-500"
                   } font-display w-16 rounded-[3px] border py-2 text-center font-bold`}
                   key={i}
                 >
-                  {s}
+                  {s.size}
                 </span>
               ))}
             </div>
@@ -276,6 +276,7 @@ export const getServerSideProps = async (
     router: appRouter,
     ctx: {
       db,
+      userId: null,
     },
     transformer: SuperJSON,
   });

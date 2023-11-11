@@ -44,6 +44,8 @@ enum ProductColor {
   PINK
 }
 
+
+
 enum CollectionSeason {
   SPRING
   SUMMER
@@ -64,8 +66,8 @@ model Product {
   category ProductCategory @relation(fields: [categoryId] , references: [id])
   categoryId Int
   types CategoryType[]
-  sizes ProductSize[]
-  colors ProductColor[]
+  sizes SizeDetails[]
+  colors ColorDetails[]
   discount Discount? @relation(fields: [discountId] , references: [id])
   discountId Int?
   collection Collection? @relation(fields: [collectionId] , references: [id])
@@ -82,7 +84,7 @@ model Favorite {
   id String @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  product Product @relation(fields: [productId] , references: [id])
+  product Product @relation(fields: [productId] , references: [id] , onDelete: Cascade)
   productId String
   color ProductColor
   userId String
@@ -96,6 +98,21 @@ model Collection {
   year Int
   season CollectionSeason
   products Product[]
+}
+
+model ColorDetails {
+  id Int @id 
+  name String @unique
+  color ProductColor @unique
+  products Product[]
+}
+
+model SizeDetails {
+  id Int @id 
+  name String @unique
+  size ProductSize @unique
+    products Product[]
+
 }
 
 model ProductImage {
@@ -121,7 +138,7 @@ model ProductCategory {
 }
 
 model ProductInventory {
-  id        String      @id @default(cuid())
+    id        String      @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     quantity Float
@@ -204,9 +221,9 @@ model CartItem {
   quantity Int
   size ProductSize
   color ProductColor
-  shoppingSession ShoppingSession @relation(fields: [sessionId] , references: [id])
+  shoppingSession ShoppingSession @relation(fields: [sessionId] , references: [id] , onDelete: Cascade)
   sessionId String
-  product Product @relation(fields: [productId] , references: [id])
+  product Product @relation(fields: [productId] , references: [id] , onDelete: Cascade)
   productId String
 }
 
