@@ -26,7 +26,7 @@ const SignInPage: NextPage = () => {
       .then((_) => {
         setSuccessfulCreation(true);
       })
-      .catch((err) => console.error("error", err.errors[0].longMessage));
+      .catch(() => console.error("Error Occured (fix error message later)"));
   }
 
   async function reset(e: SyntheticEvent) {
@@ -47,7 +47,7 @@ const SignInPage: NextPage = () => {
           console.log(result);
         }
       })
-      .catch((err) => console.error("error", err.errors[0].longMessage));
+      .catch(() => console.error("Error Occured (fix error message later)"));
   }
 
   return (
