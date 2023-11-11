@@ -191,9 +191,18 @@ export const productRouter = createTRPCRouter({
 
       const aggregateWhere: Prisma.ProductWhereInput = {
         collectionId,
-        category: {
-          slug,
-        },
+        category: slug
+          ? {
+              OR: [
+                {
+                  parent: {
+                    slug,
+                  },
+                },
+                { slug },
+              ],
+            }
+          : undefined,
         types: {
           hasSome: type,
         },
