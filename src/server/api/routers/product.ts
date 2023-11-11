@@ -13,51 +13,55 @@ export const productRouter = createTRPCRouter({
       const { db } = ctx;
       const { query } = input;
       if (query.length < 1) return;
-      const tags = query.split(" ");
+      const tags = query.split(" ").filter(Boolean);
       const results = await db.product.findMany({
         where: {
-          OR: [
-            {
-              name: {
-                in: tags,
-                mode: "insensitive",
-              },
-            },
-            {
-              description: {
-                in: tags,
-                mode: "insensitive",
-              },
-            },
-            {
-              category: {
-                name: {
-                  in: tags,
-                  mode: "insensitive",
-                },
-              },
-            },
-            {
-              colors: {
-                some: {
+          OR: tags.map((tag) => {
+            return {
+              OR: [
+                {
                   name: {
-                    in: tags,
+                    contains: tag,
                     mode: "insensitive",
                   },
                 },
-              },
-            },
-            {
-              sizes: {
-                some: {
-                  name: {
-                    in: tags,
+                {
+                  description: {
+                    contains: tag,
                     mode: "insensitive",
                   },
                 },
-              },
-            },
-          ],
+                {
+                  category: {
+                    name: {
+                      contains: tag,
+                      mode: "insensitive",
+                    },
+                  },
+                },
+                {
+                  colors: {
+                    some: {
+                      name: {
+                        contains: tag,
+                        mode: "insensitive",
+                      },
+                    },
+                  },
+                },
+                {
+                  sizes: {
+                    some: {
+                      name: {
+                        contains: tag,
+                        mode: "insensitive",
+                      },
+                    },
+                  },
+                },
+              ],
+            };
+          }),
         },
         include: {
           images: true,
