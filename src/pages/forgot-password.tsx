@@ -47,7 +47,9 @@ const SignInPage: NextPage = () => {
           console.log(result);
         }
       })
-      .catch(() => console.error("Error Occured (fix error message later)"));
+      .catch(() =>
+        console.error("An error has occured (fix error message later)"),
+      );
   }
 
   return (

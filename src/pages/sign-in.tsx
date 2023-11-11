@@ -75,7 +75,7 @@ export default function SignInForm() {
         console.log(result);
       }
     } catch (err: unknown) {
-      console.error("error", err.errors[0].message);
+      console.error("An error has occured (fix error message later)");
     }
   };
 
