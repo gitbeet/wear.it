@@ -13,7 +13,7 @@ import { colorOptions } from "~/components/Filters/ColorFilter";
 import type { ProductSize, ProductColor } from "@prisma/client";
 import Button from "~/components/UI/Button";
 import ImageGallery from "~/components/Product/ImageGallery";
-import { BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
+import { BsChevronDown, BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -23,6 +23,7 @@ import Rating from "~/components/Rating";
 import Review from "~/components/Comment";
 import CreateReviewWizard from "~/components/CreateCommentWizard";
 import { useUser } from "@clerk/nextjs";
+import { FaChevronDown } from "react-icons/fa";
 const Product = ({
   id,
   color,
@@ -48,12 +49,13 @@ const Product = ({
       productId: id,
     });
 
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
 
   const hasUserCommented =
     reviews?.findIndex((review) => review.author.id === user?.id) !== -1;
 
   const router = useRouter();
+  const [showReviews, setShowReviews] = useState(false);
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
     color as ProductColor,
   );
@@ -65,8 +67,8 @@ const Product = ({
 
   const primaryColor = productData?.colors[0]?.color;
 
-  const totalReviewsCount = reviews?.length;
-  const totalScore = reviews?.reduce((acc, x) => acc + x.review.rate, 0);
+  const totalReviewsCount = reviews?.length ?? 1;
+  const totalScore = reviews?.reduce((acc, x) => acc + x.review.rate, 0) ?? 0;
   const averageReviewsRating = totalScore / totalReviewsCount;
 
   useEffect(() => {
@@ -134,23 +136,189 @@ const Product = ({
     });
   }
 
+  const handleSize = (size: ProductSize) => {
+    setSelectedSize(size);
+    setError(false);
+  };
+
+  const handleAddToBag = () => {
+    if (!selectedColor) return;
+    if (!selectedSize) {
+      setError(true);
+      return;
+    }
+    mutate({
+      color: selectedColor,
+      size: selectedSize,
+      productId: productData.id,
+      quantity: 1,
+      type: "INCREMENT",
+    });
+  };
+
+  const handleAddToFavorites = () => {
+    if (!selectedColor) return;
+    addToFavorites({
+      color: selectedColor,
+      productId: productData.id,
+    });
+  };
   const isItemFavorited = isFavorited(selectedColor, productData.id);
+  const favoriteButtonText = isItemFavorited
+    ? "Added to favorites"
+    : "Add to Favorites";
+  const favoriteButtonIcon = isItemFavorited ? <BsHeartFill /> : <BsHeart />;
+
+  const colorsSection = (
+    <div>
+      <p className="font-display text-2xl font-semibold">Colors</p>
+      <div className="h-2"></div>
+      <div className="flex gap-2">
+        {colors.map((c, i) => {
+          const tailwindColor = colorOptions.find(
+            (option) => option.name === c.color,
+          )?.color;
+          return (
+            <div
+              key={i}
+              role="button"
+              onClick={async () => {
+                await handleColor(c.color);
+              }}
+              className={`h-8 w-8 rounded-full ${tailwindColor} border-[2px] outline outline-2 ${
+                selectedColor === c.color
+                  ? "border-gray-100 outline-gray-500 "
+                  : "border-gray-200 outline-transparent "
+              }`}
+            ></div>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  const reviewsSection = (
+    <div>
+      <div className="flex items-center justify-between border-b border-gray-300 pb-4">
+        <p className="text-2xl font-semibold">Reviews ({totalReviewsCount})</p>
+        <div className="flex items-center gap-8">
+          <div className=" flex items-center gap-2">
+            <p className="flex gap-1">
+              <span>{averageReviewsRating?.toFixed(1)}</span>
+            </p>
+            <Rating
+              handleRate={() => void 0}
+              isHoverable={false}
+              averageRating={averageReviewsRating}
+            />
+          </div>
+          <FaChevronDown
+            role="button"
+            onClick={() => setShowReviews((prev) => !prev)}
+            className={`${
+              showReviews && "rotate-180"
+            } h-5 w-5 transition-transform duration-300`}
+          />
+        </div>
+      </div>
+      <div className="h-4"></div>
+      {!hasUserCommented && isSignedIn && <CreateReviewWizard productId={id} />}
+      {showReviews && (
+        <div className="pl-2">
+          {reviews?.map((review) => (
+            <Review key={review.review.id} review={review} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
+  const sizesSection = (
+    <div>
+      <p
+        className={`${
+          error ? "text-red-500" : "text-gray-800"
+        } text-2xl font-semibold`}
+      >
+        Select Size
+      </p>
+      <div className="h-4"></div>
+      <div
+        className={`${
+          error ? "border-red-500" : "border-transparent"
+        } flex w-fit gap-2 rounded-sm border`}
+      >
+        {sizes.map((s, i) => (
+          <span
+            role="button"
+            onClick={() => handleSize(s.size)}
+            className={`${
+              s.size === selectedSize
+                ? "border-gray-800  text-gray-800"
+                : "border-gray-300  text-gray-500"
+            } w-16 rounded-[3px] border py-2 text-center font-display font-bold`}
+            key={i}
+          >
+            {s.size}
+          </span>
+        ))}
+      </div>
+
+      <p
+        className={`${
+          error ? "visible" : "pointer-events-none invisible"
+        } pt-2 text-sm text-red-500`}
+      >
+        Please select a size
+      </p>
+    </div>
+  );
+  const buttonsSection = (
+    <div className="flex flex-col gap-4 pt-4">
+      <Button
+        text="Add to Bag"
+        icon={<BsHandbag />}
+        onClick={handleAddToBag}
+        disabled={isAddingToCart}
+      />
+      <Button
+        text={favoriteButtonText}
+        icon={favoriteButtonIcon}
+        onClick={handleAddToFavorites}
+        disabled={isFaving}
+        ghost
+      />
+    </div>
+  );
+
+  const descriptionSection = (
+    <div>
+      <p className="text-2xl font-semibold">Description</p>
+      <div className="h-2"></div>
+      <p className="pl-2 font-light">{description}</p>
+    </div>
+  );
+
+  const selectedColorImages = images.filter(
+    (image) => image.color === selectedColor,
+  );
+
+  const linkToCategory = `/products/${types[0]?.toLowerCase()}/${
+    category.slug
+  }`;
+
   return (
     <div>
       <section className="mx-auto max-w-[1200px] justify-between px-8 pt-24  lg:flex">
-        {/* IMAGE BLOCK */}
         <ImageGallery
-          images={images.filter((image) => image.color === selectedColor)}
+          images={selectedColorImages}
           selectedColor={selectedColor}
         />
-        {/* INFO BLOCK */}
         <div className="flex w-[450px] flex-col gap-6">
           <div>
             <p className="text-2xl font-semibold">{name}</p>
             <div className="h-1"></div>
-            <Link
-              href={`/products/${types[0]?.toLowerCase()}/${category.slug}`}
-            >
+            <Link href={linkToCategory}>
               <p className="text-gray-500">{category.name}</p>
             </Link>
           </div>
@@ -168,142 +336,17 @@ const Product = ({
               </span>
             )}
           </div>
-          <div>
-            <p className="font-display text-2xl font-semibold">Colors</p>
-            <div className="h-2"></div>
-            <div className="flex gap-2">
-              {colors.map((c, i) => (
-                <div
-                  key={i}
-                  role="button"
-                  onClick={async () => {
-                    await handleColor(c.color);
-                  }}
-                  className={`h-8 w-8 rounded-full ${colorOptions.find(
-                    (option) => option.name === c.color,
-                  )?.color} border-[2px] outline outline-2 ${
-                    selectedColor === c.color
-                      ? "border-gray-100 outline-gray-500 "
-                      : "border-gray-200 outline-transparent "
-                  }`}
-                ></div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p
-              className={`${
-                error ? "text-red-500" : "text-gray-800"
-              } text-2xl font-semibold`}
-            >
-              Select Size
-            </p>
-            <div className="h-4"></div>
-            <div
-              className={`${
-                error ? "border-red-500" : "border-transparent"
-              } flex w-fit gap-2 rounded-sm border`}
-            >
-              {sizes.map((s, i) => (
-                <span
-                  role="button"
-                  onClick={() => {
-                    setSelectedSize(s.size);
-                    setError(false);
-                  }}
-                  className={`${
-                    s.size === selectedSize
-                      ? "border-gray-800  text-gray-800"
-                      : "border-gray-300  text-gray-500"
-                  } w-16 rounded-[3px] border py-2 text-center font-display font-bold`}
-                  key={i}
-                >
-                  {s.size}
-                </span>
-              ))}
-            </div>
-
-            <p
-              className={`${
-                error ? "visible" : "pointer-events-none invisible"
-              } pt-2 text-sm text-red-500`}
-            >
-              Please select a size
-            </p>
-          </div>
-          <div className="flex flex-col gap-4 pt-4">
-            <Button
-              disabled={isAddingToCart}
-              text="Add to Bag"
-              onClick={() => {
-                if (!selectedColor) return;
-                if (!selectedSize) {
-                  setError(true);
-                  return;
-                }
-                mutate({
-                  color: selectedColor,
-                  size: selectedSize,
-                  productId: productData.id,
-                  quantity: 1,
-                  type: "INCREMENT",
-                });
-              }}
-              icon={<BsHandbag />}
-            />
-            {selectedColor && (
-              <Button
-                text={
-                  isItemFavorited ? "Added to favorites" : "Add to Favorites"
-                }
-                onClick={() =>
-                  addToFavorites({
-                    color: selectedColor,
-                    productId: productData.id,
-                  })
-                }
-                ghost
-                icon={isItemFavorited ? <BsHeartFill /> : <BsHeart />}
-              />
-            )}
-          </div>
-
-          <div>
-            <p className="text-2xl font-semibold">Description</p>
-            <div className="h-2"></div>
-            <p className="pl-2 font-light">{description}</p>
-          </div>
-          <div>
-            <div className="flex items-center justify-between border-b border-gray-300 pb-4">
-              <p className="text-2xl font-semibold">
-                Reviews ({totalReviewsCount})
-              </p>
-              <div className="flex items-center gap-2">
-                <p className="flex gap-1">
-                  <span>{averageReviewsRating?.toFixed(1)}</span>
-                </p>
-                <Rating
-                  handleRate={() => void 0}
-                  isHoverable={false}
-                  averageRating={averageReviewsRating}
-                />
-              </div>
-            </div>
-            <div className="h-4"></div>
-            {!hasUserCommented && <CreateReviewWizard productId={id} />}
-            <div>
-              <div className="pl-2">
-                {reviews?.map((review) => (
-                  <Review key={review.review.id} review={review} />
-                ))}
-              </div>
-            </div>
-          </div>
+          {colorsSection}
+          {sizesSection}
+          {buttonsSection}
+          {descriptionSection}
+          {reviewsSection}
         </div>
       </section>
       <div className="h-32"></div>
-      {/* RECCOMENDED BLOCK */}
-      <section className="h-[300px] w-full border border-black"></section>
+      <section className="w-full">
+        <p className="text-2xl font-semibold">You might also like</p>
+      </section>
     </div>
   );
 };
