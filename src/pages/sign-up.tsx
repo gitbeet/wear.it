@@ -3,11 +3,12 @@ import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { InputField } from "./sign-in";
-import { BsEnvelope, BsKey } from "react-icons/bs";
+import { BsEnvelope, BsKey, BsPerson } from "react-icons/bs";
 import Button from "~/components/UI/Button";
 
 export default function SignUpForm() {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [username, setUsername] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
@@ -24,6 +25,7 @@ export default function SignUpForm() {
       await signUp.create({
         emailAddress,
         password,
+        username,
       });
 
       // send the email.
@@ -64,12 +66,22 @@ export default function SignUpForm() {
   return (
     <section>
       <div className="h-16"></div>
-      <h1 className="font-display text-center text-6xl font-black">
+      <h1 className="text-center font-display text-6xl font-black">
         Become a member
       </h1>
       <div className="h-24"></div>
       {!pendingVerification && (
         <form className="mx-auto max-w-[400px]">
+          <InputField
+            placeholder="johndoe123"
+            onChange={(e) => setUsername(e.target.value)}
+            label="Username"
+            name="username"
+            type="text"
+            value={username}
+            icon={<BsPerson className="h-8 w-8" />}
+          />
+          <div className="h-6"></div>
           <InputField
             placeholder="johndoe@email.com"
             onChange={(e) => setEmailAddress(e.target.value)}

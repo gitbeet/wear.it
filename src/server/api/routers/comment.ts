@@ -1,17 +1,10 @@
 import { clerkClient } from "@clerk/nextjs";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, privateProcedure, publicProcedure } from "../trpc";
 import z from "zod";
 import { User } from "@clerk/nextjs/dist/types/server";
 import { TRPCError } from "@trpc/server";
 
 const filterUserData = (user: User) => {
-  //   if (!user.username && !user.firstName) {
-  //     throw new TRPCError({
-  //       code: "INTERNAL_SERVER_ERROR",
-  //       message: "Author for post not found (filterUserData)",
-  //     });
-  //   }
-
   return {
     id: user.id,
     username: user.username ?? "Unknown user",
@@ -60,5 +53,43 @@ export const commentRouter = createTRPCRouter({
         },
       });
       return addUserDataToComments(comments);
+    }),
+  deleteComment: privateProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { db, userId } = ctx;
+      const { id } = input;
+
+      const comment = await db.userComment.findFirst({
+        where: {
+          id,
+        },
+      });
+
+      if (comment?.userId !== userId) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+
+      await db.userComment.delete({
+        where: {
+          id,
+        },
+      });
+    }),
+  createComment: privateProcedure
+    .input(z.object({ content: z.string(), productId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { db, userId } = ctx;
+      const { content, productId } = input;
+
+      const comment = await db.userComment.create({
+        data: {
+          content,
+          userId,
+          productId,
+        },
+      });
+
+      return comment;
     }),
 });

@@ -21,6 +21,7 @@ import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import Rating from "~/components/Rating";
 import Comment from "~/components/Comment";
+import CreateCommentWizard from "~/components/CreateCommentWizard";
 const Product = ({
   id,
   color,
@@ -273,9 +274,8 @@ const Product = ({
               productId={productData.id}
             />
           </div>
+          <CreateCommentWizard productId={id} />
           <div>
-            <p className="text-2xl font-semibold">Comments</p>
-            <div className="h-4"></div>
             <div className="pl-2">
               {comments?.map((comment) => (
                 <Comment key={comment.comment.id} comment={comment} />
