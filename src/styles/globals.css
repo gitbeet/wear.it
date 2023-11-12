@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.padding-x {
+  @apply px-4 md:px-8;
+}
+
+.padding-section {
+  @apply py-8;
+}
+
 /* ----------- CSS RESET ----------- */
 
 /* Box sizing rules */

@@ -13,7 +13,7 @@ import { colorOptions } from "~/components/Filters/ColorFilter";
 import type { ProductSize, ProductColor } from "@prisma/client";
 import Button from "~/components/UI/Button";
 import ImageGallery from "~/components/Product/ImageGallery";
-import { BsChevronDown, BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
+import { BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -24,6 +24,8 @@ import Review from "~/components/Comment";
 import CreateReviewWizard from "~/components/CreateCommentWizard";
 import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
+import Carousel from "~/components/UI/MultiPageCarousel";
+
 const Product = ({
   id,
   color,
@@ -43,6 +45,9 @@ const Product = ({
       setShowBagModal(true);
     },
   });
+
+  const { data: reccomendedProducts, isLoading: isGettingReccomended } =
+    api.product.getAll.useQuery({ collectionId: undefined, color: undefined });
 
   const { data: reviews, isLoading: isGettingReviews } =
     api.review.getReviewsByProductId.useQuery({
@@ -67,9 +72,13 @@ const Product = ({
 
   const primaryColor = productData?.colors[0]?.color;
 
-  const totalReviewsCount = reviews?.length ?? 1;
-  const totalScore = reviews?.reduce((acc, x) => acc + x.review.rate, 0) ?? 0;
-  const averageReviewsRating = totalScore / totalReviewsCount;
+  const totalReviewsCount = reviews?.length ?? undefined;
+  const totalScore =
+    reviews?.reduce((acc, x) => acc + x.review.rate, 0) ?? undefined;
+  const averageReviewsRating =
+    !totalReviewsCount || !totalScore
+      ? undefined
+      : totalScore / totalReviewsCount;
 
   useEffect(() => {
     if (!primaryColor) return;
@@ -274,7 +283,7 @@ const Product = ({
     </div>
   );
   const buttonsSection = (
-    <div className="flex flex-col gap-4 pt-4">
+    <div className="flex flex-col gap-4 ">
       <Button
         text="Add to Bag"
         icon={<BsHandbag />}
@@ -308,13 +317,13 @@ const Product = ({
   }`;
 
   return (
-    <div>
-      <section className="mx-auto max-w-[1200px] justify-between px-8 pt-24  lg:flex">
+    <>
+      <section className="mx-auto max-w-[1200px] justify-between px-8 pt-24 lg:flex">
         <ImageGallery
           images={selectedColorImages}
           selectedColor={selectedColor}
         />
-        <div className="flex w-[450px] flex-col gap-6">
+        <div className="flex flex-col gap-8 md:w-[450px]">
           <div>
             <p className="text-2xl font-semibold">{name}</p>
             <div className="h-1"></div>
@@ -343,11 +352,22 @@ const Product = ({
           {reviewsSection}
         </div>
       </section>
-      <div className="h-32"></div>
-      <section className="w-full">
-        <p className="text-2xl font-semibold">You might also like</p>
+      <div className="h-24"></div>
+      <section className="padding-x">
+        <h2 className="font-display text-2xl font-black">
+          You might also like
+        </h2>
+        <div className="h-12"></div>
+
+        <div className=" w-full overflow-hidden">
+          <Carousel
+            products={reccomendedProducts?.products}
+            isLoading={isGettingReccomended}
+          />
+        </div>
       </section>
-    </div>
+      <div className="h-32"></div>
+    </>
   );
 };
 

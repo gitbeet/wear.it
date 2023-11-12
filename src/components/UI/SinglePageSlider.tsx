@@ -46,7 +46,7 @@ const SinglePageSlider = ({ slides }: Props) => {
                 isVisible ? "opacity-100" : "opacity-0"
               } absolute left-1/2 top-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-8 transition-[opacity] duration-1000`}
             >
-              <h2 className="font-display text-center text-5xl font-black uppercase text-gray-900">
+              <h2 className="px-14 text-center font-display text-3xl font-black uppercase text-gray-900 md:px-0 md:text-5xl">
                 {slide.title}
               </h2>
               <div className="w-fit">{slide.button}</div>

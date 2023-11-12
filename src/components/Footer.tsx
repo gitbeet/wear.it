@@ -7,7 +7,7 @@ import { FaFacebookF } from "react-icons/fa";
 const Footer = () => {
   return (
     <section className="relative h-96 bg-gray-200 ">
-      <div className="mx-auto max-w-[1600px] py-8">
+      <div className="padding-x mx-auto max-w-[1600px] py-8">
         <Logo />
         <div className="flex gap-3">
           <div

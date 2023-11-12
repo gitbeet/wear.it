@@ -62,17 +62,11 @@ const Nav = () => {
   return (
     <nav>
       <div className="relative z-50 border-b bg-gray-50">
-        {/* <div className="w-full bg-gray-700 py-1 text-sm text-gray-100">
-          <div className="mx-auto flex max-w-[1600px] justify-end gap-2">
-            <a className="">info@efashion.com</a>
-            <a className="">048 155 22</a>
-          </div>
-        </div> */}
-        <div className="relative mx-auto flex max-w-[1600px] items-center justify-between py-3">
+        <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-3">
           <Logo />
           <ul
             role="navigation"
-            className="absolute left-1/2 flex -translate-x-1/2 cursor-pointer justify-center"
+            className="absolute left-1/2 hidden -translate-x-1/2 cursor-pointer justify-center lg:flex"
           >
             <NavLink link="/" text="Home" />
             <NavLink
@@ -110,15 +104,15 @@ const Nav = () => {
               input={query}
               handleSearch={handleSearch}
             />
-            <div className="w-7"></div>
+            <div className="hidden w-7 md:block"></div>
             <FavoritesNavIcon />
             <ShoppingBagIcon />
             <div
               role="button"
-              className="ml-3 rounded-sm border border-gray-300 px-4 py-1"
+              className="ml-3 rounded-sm border border-gray-300 px-2 py-1"
             >
               {!isSignedIn ? (
-                <Link href="/sign-up">Sign up</Link>
+                <Link href="/sign-up">Sign in</Link>
               ) : (
                 <SignOutButton />
               )}

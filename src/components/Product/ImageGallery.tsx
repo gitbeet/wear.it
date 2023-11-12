@@ -19,22 +19,7 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
     (image) => image.color === selectedColor,
   );
   return (
-    <div className="flex items-start gap-4">
-      <div className="flex flex-col gap-2">
-        {filteredImages.map((image, i) => (
-          <Image
-            onMouseOver={() => setCurrentImage(i)}
-            className={`${
-              i === currentImage ? "border-gray-400" : "border-gray-200"
-            } rounded-sm border bg-slate-200`}
-            key={image.id}
-            width={64}
-            height={64}
-            src={image.imageURL}
-            alt="Product image gallery item"
-          />
-        ))}
-      </div>
+    <div className="items-start gap-4 md:flex md:flex-row-reverse">
       <div className="relative">
         <Image
           className=" bg-slate-200"
@@ -61,6 +46,21 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
         >
           <FiChevronLeft className="text-gray-80 h-8 w-8 rotate-180" />
         </div>
+      </div>
+      <div className="flex gap-2 md:flex-col">
+        {filteredImages.map((image, i) => (
+          <Image
+            onMouseOver={() => setCurrentImage(i)}
+            className={`${
+              i === currentImage ? "border-gray-400" : "border-gray-200"
+            } rounded-sm border bg-slate-200`}
+            key={image.id}
+            width={64}
+            height={64}
+            src={image.imageURL}
+            alt="Product image gallery item"
+          />
+        ))}
       </div>
     </div>
   );

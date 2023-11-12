@@ -32,7 +32,7 @@ const PromoSlider = () => <SinglePageSlider slides={sliderPromos} />;
 
 const Hero = () => (
   <section className="relative w-full  overflow-hidden py-24">
-    <div className="relative z-10 ">
+    <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-extrabold">
         Ready for winter?
       </h1>
@@ -53,7 +53,7 @@ const Hero = () => (
       <Image
         fill
         objectFit="cover"
-        className="ml-auto"
+        className="ml-auto opacity-50 lg:opacity-100"
         src={heroImage}
         alt="Hero section image"
       />
@@ -72,8 +72,8 @@ const EventSlider = () => {
       type: ["MEN", "WOMEN"],
     });
   return (
-    <section className="flex w-full items-center gap-16 ">
-      <div className="">
+    <section className="padding-x  w-full items-center gap-16  md:flex">
+      <div>
         <h2 className="font-display text-5xl font-extrabold">Cozy up!</h2>
         <div className="h-4"></div>
         <p className="text-xl font-light text-gray-700">
@@ -99,8 +99,8 @@ const Trending = () => {
     });
   return (
     <section>
-      <h2 className="font-display text-2xl font-black">Trending</h2>
-      <div className="h-8"></div>
+      <h2 className="padding-x font-display text-2xl font-black">Trending</h2>
+      <div className="h-12"></div>
 
       <div className="w-full overflow-hidden">
         <Carousel products={products?.products} isLoading={isGettingProducts} />
@@ -110,7 +110,7 @@ const Trending = () => {
 };
 
 const Promotions = () => (
-  <section className="grid w-full gap-4 lg:grid-cols-[1fr,1fr]">
+  <section className="padding-x grid w-full gap-4 lg:grid-cols-[1fr,1fr]">
     <Image height={800} src={bannerTShirts} alt="jejw" className="rounded-md" />
     <div>
       <Image
@@ -134,7 +134,7 @@ export default function Home() {
   return (
     <section>
       <Hero />
-      <div className="h-4"></div>
+      <div className="h-12 md:h-4"></div>
       <EventSlider />
       <div className="h-16"></div>
       <PromoSlider />
