@@ -119,10 +119,8 @@ const Product = ({
   }
 
   const isItemFavorited = isFavorited(selectedColor, productData.id);
-  const rating =
-    ratings.length < 1
-      ? undefined
-      : ratings.reduce((acc, rating) => acc + rating.rate, 0) / ratings.length;
+  const totalRatingsCount = ratings.length;
+  const averageRating = ratings.reduce((acc, rating) => acc + rating.rate, 0);
   return (
     <div>
       <section className="mx-auto max-w-[1200px] justify-between px-8 pt-24  lg:flex">
@@ -261,9 +259,13 @@ const Product = ({
             <div className="h-2"></div>
             <p className="pl-2 font-light">{description}</p>
           </div>
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between">
             <p className="text-2xl font-semibold">Reviews (420)</p>
-            <Rating rating={rating} />
+            <Rating
+              totalRatingCount={totalRatingsCount}
+              averageRating={averageRating}
+              productId={productData.id}
+            />
           </div>
         </div>
       </section>
