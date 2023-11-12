@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
+import Rating from "~/components/Rating";
 const Product = ({
   id,
   color,
@@ -100,6 +101,7 @@ const Product = ({
     images,
     discount,
     types,
+    ratings,
   } = productData;
 
   const priceBeforeDiscount = formatCurrency(price);
@@ -117,10 +119,13 @@ const Product = ({
   }
 
   const isItemFavorited = isFavorited(selectedColor, productData.id);
-
+  const rating =
+    ratings.length < 1
+      ? undefined
+      : ratings.reduce((acc, rating) => acc + rating.rate, 0) / ratings.length;
   return (
     <div>
-      <section className="mx-auto flex max-w-[1200px] justify-between  pt-24">
+      <section className="mx-auto max-w-[1200px] justify-between px-8 pt-24  lg:flex">
         {/* IMAGE BLOCK */}
         <ImageGallery
           images={images.filter((image) => image.color === selectedColor)}
@@ -198,7 +203,7 @@ const Product = ({
                     s.size === selectedSize
                       ? "border-gray-800  text-gray-800"
                       : "border-gray-300  text-gray-500"
-                  } font-display w-16 rounded-[3px] border py-2 text-center font-bold`}
+                  } w-16 rounded-[3px] border py-2 text-center font-display font-bold`}
                   key={i}
                 >
                   {s.size}
@@ -256,7 +261,10 @@ const Product = ({
             <div className="h-2"></div>
             <p className="pl-2 font-light">{description}</p>
           </div>
-          <p className="text-2xl font-semibold">Reviews (420)</p>
+          <div className="flex justify-between">
+            <p className="text-2xl font-semibold">Reviews (420)</p>
+            <Rating rating={rating} />
+          </div>
         </div>
       </section>
       <div className="h-32"></div>

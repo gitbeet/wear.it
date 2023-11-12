@@ -113,6 +113,11 @@ export const productRouter = createTRPCRouter({
           },
           colors: true,
           sizes: true,
+          ratings: {
+            select: {
+              rate: true,
+            },
+          },
         },
       });
       return product;

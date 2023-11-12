@@ -77,7 +77,16 @@ model Product {
   favorite Favorite[]
   images ProductImage[] 
   cartItems CartItem[]
+  ratings UserRating[]
   @@index([name])
+}         
+
+model UserRating  {
+  id String @id @default(cuid())
+  product Product @relation(fields: [productId], references: [id] , onDelete: Cascade )
+  productId String
+  userId String @unique
+  rate Int
 }
 
 model Favorite {
@@ -136,6 +145,8 @@ model ProductCategory {
   children ProductCategory[] @relation(name: "ParentChild")
   products Product[]
 }
+
+
 
 model ProductInventory {
     id        String      @id @default(cuid())

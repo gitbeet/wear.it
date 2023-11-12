@@ -17,10 +17,10 @@ const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-
+  console.log(user?.id);
   const {
     data: searchResults,
     isLoading: isSearching,

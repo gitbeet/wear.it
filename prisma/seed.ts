@@ -34,6 +34,8 @@ const main = async () => {
   await prisma.collection.deleteMany();
   await prisma.favorite.deleteMany();
   await prisma.shoppingSession.deleteMany();
+  await prisma.colorDetails.deleteMany();
+  await prisma.sizeDetails.deleteMany();
 
   const createCategories = prisma.productCategory.createMany({
     data: productCategories,
