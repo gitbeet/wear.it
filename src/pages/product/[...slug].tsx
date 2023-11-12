@@ -66,10 +66,8 @@ const Product = ({
   const primaryColor = productData?.colors[0]?.color;
 
   const totalReviewsCount = reviews?.length;
-  const averageReviewsRating = reviews?.reduce(
-    (acc, x) => acc + x.review.rate,
-    0,
-  );
+  const totalScore = reviews?.reduce((acc, x) => acc + x.review.rate, 0);
+  const averageReviewsRating = totalScore / totalReviewsCount;
 
   useEffect(() => {
     if (!primaryColor) return;
