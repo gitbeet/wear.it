@@ -4,43 +4,53 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import { BsTrash } from "react-icons/bs";
 import { api, type RouterOutputs } from "~/utils/api";
+import Rating from "./Rating";
 
 dayjs.extend(relativeTime);
 
 interface Props {
-  comment: RouterOutputs["comment"]["getCommentsByProductId"][number];
+  review: RouterOutputs["review"]["getReviewsByProductId"][number];
 }
 
-const Comment = ({ comment }: Props) => {
+const Review = ({ review }: Props) => {
   const { user } = useUser();
   const ctx = api.useUtils();
-  const { mutate: deleteComment, isLoading: isDeletingComment } =
-    api.comment.deleteComment.useMutation({
+  const { mutate: deleteReview, isLoading: isDeletingReview } =
+    api.review.deleteReview.useMutation({
       onSuccess: () => ctx.invalidate(),
     });
   return (
-    <div className="grid grid-cols-[64px,1fr] gap-4">
+    <div className="grid grid-cols-[64px,1fr] gap-4 py-4">
       <Image
         className="shrink-0"
-        src={comment.author.profilePicture}
+        src={review.author.profilePicture}
         width={64}
         height={64}
-        alt={`${comment.author.username}'s profile picture`}
+        alt={`${review.author.username}'s profile picture`}
       />
       <div>
-        <p>{comment.author.username}</p>
+        <div className="flex justify-between">
+          <p>{review.author.username}</p>
+          <Rating
+            size="SMALL"
+            averageRating={review.review.rate}
+            isHoverable={false}
+            handleRate={() => void 0}
+          />
+        </div>
+
         <div className="h-2"></div>
-        <p className="font-light">{comment.comment.content}</p>
+        <p className="font-light">{review.review.comment}</p>
         <div className="h-2"></div>
         <p className="text-right text-gray-500">
-          {dayjs(comment.comment.createdAt).fromNow()}
+          {dayjs(review.review.createdAt).fromNow()}
         </p>
         <div className="h-4"></div>
-        {user?.id === comment.author.id && (
+        {user?.id === review.author.id && (
           <div className="flex w-full justify-end">
-            <button disabled={isDeletingComment}>
+            <button disabled={isDeletingReview}>
               <BsTrash
-                onClick={() => deleteComment({ id: comment.comment.id })}
+                onClick={() => deleteReview({ id: review.review.id })}
                 role="button"
                 className="h-5 w-5 text-gray-800"
               />
@@ -52,4 +62,4 @@ const Comment = ({ comment }: Props) => {
   );
 };
 
-export default Comment;
+export default Review;

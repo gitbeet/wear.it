@@ -3,6 +3,7 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { api } from "~/utils/api";
 
 type StarType = "EMPTY" | "HALF" | "FULL";
+type StarSize = "SMALL" | "LARGE";
 
 const Star = ({
   index,
@@ -12,6 +13,7 @@ const Star = ({
   isHovered,
   rating,
   onClick,
+  size,
 }: {
   index: number;
   isHoverable: boolean;
@@ -19,9 +21,10 @@ const Star = ({
   hoverRating: number;
   onClick: () => void;
   onHover: () => void;
-  rating: number | null;
+  rating: number | undefined;
+  size: StarSize;
 }) => {
-  const starSize = "h-5 w-5";
+  const starSize = size === "LARGE" ? "h-5 w-5" : "h-4 w-4";
   const type: StarType =
     isHovered && isHoverable
       ? hoverRating > index - 1
@@ -63,44 +66,33 @@ const Star = ({
 };
 
 interface Props {
-  averageRating: number | null;
-  productId: string;
-  totalRatingCount: number;
+  averageRating: number | undefined;
+  isHoverable: boolean;
+  handleRate: (rating: number) => void;
+  size?: StarSize;
 }
 
-const Rating = ({ averageRating, productId, totalRatingCount }: Props) => {
-  const ctx = api.useUtils();
+const Rating = ({
+  averageRating,
+  isHoverable,
+  handleRate,
+  size = "LARGE",
+}: Props) => {
   const [hoverRating, setHoverRating] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const { data: userRating, isLoading: isGettingUserRating } =
-    api.rating.getByUserId.useQuery();
-  const { mutate: rateProduct, isLoading: isRatingProduct } =
-    api.rating.rate.useMutation({
-      onSuccess: () => ctx.invalidate(),
-    });
 
-  const handleRateProduct = () => {
-    rateProduct({ productId, rate: hoverRating + 1 });
-  };
-  // if no user rating, you can hover
-  const isHoverable = !!!userRating;
-  const formattedRating = averageRating?.toFixed(1);
   return (
     <div
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="flex items-center gap-2"
     >
-      <p className="flex gap-1">
-        <span>{formattedRating}</span>
-
-        <span className="font-light text-gray-600">({totalRatingCount})</span>
-      </p>
       <div className="flex">
         {[...Array(5).keys()].map((value) => {
           return (
             <Star
-              onClick={handleRateProduct}
+              size={size}
+              onClick={() => handleRate(value + 1)}
               key={value}
               index={value}
               isHoverable={isHoverable}

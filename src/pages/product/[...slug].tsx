@@ -20,8 +20,9 @@ import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import Rating from "~/components/Rating";
-import Comment from "~/components/Comment";
-import CreateCommentWizard from "~/components/CreateCommentWizard";
+import Review from "~/components/Comment";
+import CreateReviewWizard from "~/components/CreateCommentWizard";
+import { useUser } from "@clerk/nextjs";
 const Product = ({
   id,
   color,
@@ -42,10 +43,15 @@ const Product = ({
     },
   });
 
-  const { data: comments, isLoading: isGettingComments } =
-    api.comment.getCommentsByProductId.useQuery({
-      productId: "clovfbt9y0000v9qo9zfz8h6z",
+  const { data: reviews, isLoading: isGettingReviews } =
+    api.review.getReviewsByProductId.useQuery({
+      productId: id,
     });
+
+  const { user } = useUser();
+
+  const hasUserCommented =
+    reviews?.findIndex((review) => review.author.id === user?.id) !== -1;
 
   const router = useRouter();
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
@@ -58,6 +64,12 @@ const Product = ({
     api.product.getSingleProduct.useQuery({ id });
 
   const primaryColor = productData?.colors[0]?.color;
+
+  const totalReviewsCount = reviews?.length;
+  const averageReviewsRating = reviews?.reduce(
+    (acc, x) => acc + x.review.rate,
+    0,
+  );
 
   useEffect(() => {
     if (!primaryColor) return;
@@ -108,7 +120,6 @@ const Product = ({
     images,
     discount,
     types,
-    ratings,
   } = productData;
 
   const priceBeforeDiscount = formatCurrency(price);
@@ -126,8 +137,6 @@ const Product = ({
   }
 
   const isItemFavorited = isFavorited(selectedColor, productData.id);
-  const totalRatingsCount = ratings.length;
-  const averageRating = ratings.reduce((acc, rating) => acc + rating.rate, 0);
   return (
     <div>
       <section className="mx-auto max-w-[1200px] justify-between px-8 pt-24  lg:flex">
@@ -266,20 +275,30 @@ const Product = ({
             <div className="h-2"></div>
             <p className="pl-2 font-light">{description}</p>
           </div>
-          <div className="flex items-center justify-between">
-            <p className="text-2xl font-semibold">Reviews (420)</p>
-            <Rating
-              totalRatingCount={totalRatingsCount}
-              averageRating={averageRating}
-              productId={productData.id}
-            />
-          </div>
-          <CreateCommentWizard productId={id} />
           <div>
-            <div className="pl-2">
-              {comments?.map((comment) => (
-                <Comment key={comment.comment.id} comment={comment} />
-              ))}
+            <div className="flex items-center justify-between border-b border-gray-300 pb-4">
+              <p className="text-2xl font-semibold">
+                Reviews ({totalReviewsCount})
+              </p>
+              <div className="flex items-center gap-2">
+                <p className="flex gap-1">
+                  <span>{averageReviewsRating?.toFixed(1)}</span>
+                </p>
+                <Rating
+                  handleRate={() => void 0}
+                  isHoverable={false}
+                  averageRating={averageReviewsRating}
+                />
+              </div>
+            </div>
+            <div className="h-4"></div>
+            {!hasUserCommented && <CreateReviewWizard productId={id} />}
+            <div>
+              <div className="pl-2">
+                {reviews?.map((review) => (
+                  <Review key={review.review.id} review={review} />
+                ))}
+              </div>
             </div>
           </div>
         </div>

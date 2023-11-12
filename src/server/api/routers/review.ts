@@ -3,6 +3,7 @@ import { createTRPCRouter, privateProcedure, publicProcedure } from "../trpc";
 import z from "zod";
 import { User } from "@clerk/nextjs/dist/types/server";
 import { TRPCError } from "@trpc/server";
+import { UserReview } from "@prisma/client";
 
 const filterUserData = (user: User) => {
   return {
@@ -12,24 +13,15 @@ const filterUserData = (user: User) => {
   };
 };
 
-type Comment = {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  content: string;
-  productId: string;
-  userId: string;
-};
-
-const addUserDataToComments = async (comments: Comment[]) => {
+const addUserDataToComments = async (reviews: UserReview[]) => {
   const users = (
     await clerkClient.users.getUserList({
-      userId: comments.map((comment) => comment.userId),
+      userId: reviews.map((review) => review.userId),
     })
   ).map(filterUserData);
 
-  return comments.map((comment) => {
-    const author = users.find((user) => user.id === comment.userId);
+  return reviews.map((review) => {
+    const author = users.find((user) => user.id === review.userId);
     if (!author) {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
@@ -37,30 +29,30 @@ const addUserDataToComments = async (comments: Comment[]) => {
       });
     }
 
-    return { comment, author: { ...author, username: author.username } };
+    return { review, author: { ...author, username: author.username } };
   });
 };
 
-export const commentRouter = createTRPCRouter({
-  getCommentsByProductId: publicProcedure
+export const reviewRouter = createTRPCRouter({
+  getReviewsByProductId: publicProcedure
     .input(z.object({ productId: z.string() }))
     .query(async ({ ctx, input }) => {
       const { db } = ctx;
       const { productId } = input;
-      const comments = await db.userComment.findMany({
+      const comments = await db.userReview.findMany({
         where: {
           productId,
         },
       });
       return addUserDataToComments(comments);
     }),
-  deleteComment: privateProcedure
+  deleteReview: privateProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { db, userId } = ctx;
       const { id } = input;
 
-      const comment = await db.userComment.findFirst({
+      const comment = await db.userReview.findFirst({
         where: {
           id,
         },
@@ -70,26 +62,33 @@ export const commentRouter = createTRPCRouter({
         throw new TRPCError({ code: "UNAUTHORIZED" });
       }
 
-      await db.userComment.delete({
+      await db.userReview.delete({
         where: {
           id,
         },
       });
     }),
-  createComment: privateProcedure
-    .input(z.object({ content: z.string(), productId: z.string() }))
+  createReview: privateProcedure
+    .input(
+      z.object({
+        rate: z.number(),
+        comment: z.string(),
+        productId: z.string(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const { db, userId } = ctx;
-      const { content, productId } = input;
+      const { comment, productId, rate } = input;
 
-      const comment = await db.userComment.create({
+      const review = await db.userReview.create({
         data: {
-          content,
+          rate,
+          comment,
           userId,
           productId,
         },
       });
 
-      return comment;
+      return review;
     }),
 });
