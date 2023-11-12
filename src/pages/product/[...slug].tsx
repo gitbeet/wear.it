@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import Rating from "~/components/Rating";
+import Comment from "~/components/Comment";
 const Product = ({
   id,
   color,
@@ -39,6 +40,11 @@ const Product = ({
       setShowBagModal(true);
     },
   });
+
+  const { data: comments, isLoading: isGettingComments } =
+    api.comment.getCommentsByProductId.useQuery({
+      productId: "clovfbt9y0000v9qo9zfz8h6z",
+    });
 
   const router = useRouter();
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
@@ -266,6 +272,15 @@ const Product = ({
               averageRating={averageRating}
               productId={productData.id}
             />
+          </div>
+          <div>
+            <p className="text-2xl font-semibold">Comments</p>
+            <div className="h-4"></div>
+            <div className="pl-2">
+              {comments?.map((comment) => (
+                <Comment key={comment.comment.id} comment={comment} />
+              ))}
+            </div>
           </div>
         </div>
       </section>

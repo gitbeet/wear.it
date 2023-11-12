@@ -118,6 +118,14 @@ export const productRouter = createTRPCRouter({
               rate: true,
             },
           },
+          comments: {
+            select: {
+              id: true,
+              createdAt: true,
+              content: true,
+              userId: true,
+            },
+          },
         },
       });
       return product;
