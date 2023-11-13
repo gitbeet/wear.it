@@ -99,8 +99,8 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
 
   const nameAndCategory = !showColorVariations && (
-    <div className="min-h-[4rem] self-start overflow-hidden pl-4">
-      <p className="font-semibold">{product.name}</p>
+    <div className="min-h-[4rem] self-start overflow-hidden pl-4 ">
+      <p className="line-clamp-1 font-semibold">{product.name}</p>
       <div className="h-1"></div>
       <p className="text-gray-500">{product.category.name}</p>
     </div>
