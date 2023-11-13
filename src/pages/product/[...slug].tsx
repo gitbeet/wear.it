@@ -24,7 +24,7 @@ import Review from "~/components/Comment";
 import CreateReviewWizard from "~/components/CreateCommentWizard";
 import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
-import Carousel from "~/components/UI/MultiPageCarousel";
+import ProductCardCarousel from "~/components/ProductCardCarousel";
 
 const Product = ({
   id,
@@ -360,7 +360,7 @@ const Product = ({
         <div className="h-12"></div>
 
         <div className=" w-full overflow-hidden">
-          <Carousel
+          <ProductCardCarousel
             products={reccomendedProducts?.products}
             isLoading={isGettingReccomended}
           />

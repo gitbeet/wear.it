@@ -99,7 +99,7 @@ const Nav = () => {
           <div className="flex items-center">
             <Search
               onFocus={() => setShowSearchResults(true)}
-              onBlur={() => setShowSearchResults(false)}
+              onBlur={() => void 0}
               handleCloseButton={handleCloseButton}
               input={query}
               handleSearch={handleSearch}

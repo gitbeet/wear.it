@@ -1,13 +1,13 @@
 import heroImage from "../../public/assets/landing-page--hero.jpg";
 import Button from "~/components/UI/Button";
 import { BsHandbag } from "react-icons/bs";
-import Carousel from "~/components/UI/MultiPageCarousel";
 import Image from "next/image";
 import { api } from "~/utils/api";
 import SinglePageSlider from "~/components/UI/SinglePageSlider";
 import bannerJackets from "../../public/assets/banner-small-jackets.jpg";
 import bannerSneakers from "../../public/assets/banner-small--sneakers.jpg";
 import bannerTShirts from "../../public/assets/banner-large--tShirts.jpg";
+import ProductCardCarousel from "~/components/ProductCardCarousel";
 const sliderPromos = [
   {
     title: "-35% OFF your first order",
@@ -82,7 +82,10 @@ const EventSlider = () => {
       </div>
 
       <div className="w-full overflow-hidden">
-        <Carousel products={products?.products} isLoading={isGettingProducts} />
+        <ProductCardCarousel
+          products={products?.products}
+          isLoading={isGettingProducts}
+        />
       </div>
     </section>
   );
@@ -103,7 +106,10 @@ const Trending = () => {
       <div className="h-12"></div>
 
       <div className="w-full overflow-hidden">
-        <Carousel products={products?.products} isLoading={isGettingProducts} />
+        <ProductCardCarousel
+          products={products?.products}
+          isLoading={isGettingProducts}
+        />
       </div>
     </section>
   );

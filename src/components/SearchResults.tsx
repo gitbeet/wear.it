@@ -17,7 +17,9 @@ const SearchResults = ({ show, results, onClose }: Props) => {
           <div className="mx-auto flex w-full max-w-[1600px] gap-4">
             {results.length > 0 &&
               results.map((product) => (
-                <ProductCard key={product.id} product={product} type="SEARCH" />
+                <div key={product.id} className="w-[350px]">
+                  <ProductCard product={product} />
+                </div>
               ))}
           </div>
         </section>

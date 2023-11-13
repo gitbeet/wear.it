@@ -11,7 +11,7 @@ const Products = ({ products }: Props) => {
   return (
     <div className="grid w-full grow content-start gap-2  md:grid-cols-3  ">
       {products.map((product) => (
-        <ProductCard type="PRODUCTS" key={product.id} product={product} />
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
