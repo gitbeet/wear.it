@@ -121,7 +121,7 @@ const Pagination = ({
 };
 
 const ProductsPage = () => {
-  const pageSize = 1;
+  const pageSize = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
   const [showFilters, setShowFilters] = useState(true);

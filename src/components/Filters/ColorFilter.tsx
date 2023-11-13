@@ -16,8 +16,11 @@ export const colorOptions: ColorOption[] = [
   { id: 5, name: "ORANGE", color: "bg-orange-500" },
   { id: 6, name: "WHITE", color: "bg-white" },
   { id: 7, name: "GREEN", color: "bg-green-500" },
-  { id: 8, name: "PINK", color: "bg-pink-500" },
+  { id: 8, name: "PINK", color: "bg-pink-300" },
   { id: 9, name: "BROWN", color: "bg-amber-900" },
+  { id: 10, name: "YELLOW", color: "bg-yellow-500" },
+  { id: 11, name: "GRAY", color: "bg-gray-600" },
+  { id: 12, name: "BEIGE", color: "bg-yellow-600" },
 ];
 
 const ColorFilter = () => {

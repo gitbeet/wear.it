@@ -12,9 +12,9 @@ const SearchResults = ({ show, results, onClose }: Props) => {
     show &&
     results && (
       <>
-        <section className="absolute z-50 flex w-full bg-gray-50 px-16 py-8 shadow-lg">
+        <section className="absolute z-50 flex w-full bg-gray-50 px-16 py-12 shadow-lg">
           {results.length < 1 && <h1>No results found</h1>}
-          <div className="flex gap-4">
+          <div className="mx-auto flex w-full max-w-[1600px] gap-4">
             {results.length > 0 &&
               results.map((product) => (
                 <ProductCard key={product.id} product={product} type="SEARCH" />

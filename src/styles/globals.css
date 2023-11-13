@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .padding-x {
-  @apply px-4 md:px-8;
+  @apply px-4 md:px-8 lg:px-0;
 }
 
 .padding-section {
@@ -17,6 +17,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  /* outline: 1px solid red; */
 }
 
 /* Remove default margin */

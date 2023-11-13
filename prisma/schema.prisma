@@ -42,6 +42,9 @@ enum ProductColor {
   BROWN
   GREEN
   PINK
+  YELLOW
+  GRAY
+  BEIGE
 }
 
 

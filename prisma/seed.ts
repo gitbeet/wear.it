@@ -14,6 +14,9 @@ const colors: { id: number; color: ProductColor }[] = [
   { id: 7, color: "BROWN" },
   { id: 8, color: "GREEN" },
   { id: 9, color: "PINK" },
+  { id: 10, color: "YELLOW" },
+  { id: 11, color: "GRAY" },
+  { id: 12, color: "BEIGE" },
 ];
 
 const sizes: { id: number; size: ProductSize }[] = [

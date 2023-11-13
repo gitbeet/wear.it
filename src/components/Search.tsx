@@ -35,7 +35,7 @@ const Search = ({
           className="h-full w-56  rounded-full border border-gray-200 bg-gray-100 px-10"
         />
       </div>
-      <BsSearch className="m-3 h-5 w-5 text-gray-700" />
+      <BsSearch className="m-3 h-5 w-5 text-gray-700 lg:hidden" />
     </>
   );
 };

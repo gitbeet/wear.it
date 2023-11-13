@@ -30,7 +30,8 @@ const ProductCard = ({
     (image) => image.id === currentImage,
   )?.color;
 
-  const imageSize = type === "PRODUCTS" || type === "SLIDER" ? 800 : 300;
+  // const imageSize = type === "PRODUCTS" || type === "SLIDER" ? 800 : 300;
+  const imageSize = 800;
 
   return (
     <Link
@@ -39,9 +40,11 @@ const ProductCard = ({
       )?.color}`}
     >
       <div
-        className={`${
-          type === "SLIDER" && "relative h-[500px] w-[400px] snap-start"
-        } bg-gray-50 pb-2 text-gray-800`}
+        className={`${type === "SLIDER" && "relative  w-[375px] snap-start"}
+        
+        ${
+          type === "SEARCH" && "w-[325px]"
+        } rounded-sm border border-transparent bg-gray-50 pb-2 text-gray-800 hover:border-gray-300`}
       >
         <div
           onMouseOver={() => setShowColorVariations(true)}
@@ -62,7 +65,7 @@ const ProductCard = ({
                 )}
             </div>
             <Image
-              className="relative rounded-md bg-slate-200"
+              className="relative rounded-md bg-slate-100"
               width={imageSize}
               height={imageSize}
               src={
@@ -73,21 +76,21 @@ const ProductCard = ({
             />
             {product.discount ? (
               <div className="absolute bottom-2 left-4 text-gray-900">
-                <p className="font-display w-fit rounded-sm bg-teal-500 px-1 font-bold text-white">
+                <p className="w-fit rounded-sm bg-teal-500 px-1 font-display font-bold text-white">
                   -{product.discount.discountPercent}%
                 </p>
                 <div className="h-1.5"></div>
                 <div className=" flex gap-2 ">
-                  <p className="font-display bg-gray-50  px-3 py-1  text-gray-500 line-through">
+                  <p className="bg-gray-50 px-3  py-1 font-display  text-gray-500 line-through">
                     {priceBeforeDiscount}
                   </p>
-                  <p className="font-display w-fit bg-gray-50 px-3 py-1 font-bold text-pink-500">
+                  <p className="w-fit bg-gray-50 px-3 py-1 font-display font-bold text-pink-500">
                     {priceAfterDiscount}
                   </p>
                 </div>
               </div>
             ) : (
-              <p className="font-display absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-bold">
+              <p className="absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-display font-bold">
                 {priceBeforeDiscount}
               </p>
             )}
