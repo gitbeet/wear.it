@@ -122,13 +122,20 @@ const Trending = () => {
 
 const Promotions = () => (
   <section className="padding-x grid w-full gap-4 lg:grid-cols-[1fr,1fr]">
-    <Image height={800} src={bannerTShirts} alt="jejw" className="rounded-md" />
+    <Image
+      height={800}
+      src={bannerTShirts}
+      alt="jejw"
+      className="rounded-md"
+      placeholder="blur"
+    />
     <div>
       <Image
         height={392}
         src={bannerJackets}
         alt="jejw"
         className="rounded-md"
+        placeholder="blur"
       />
       <div className="h-4"></div>
       <Image
@@ -136,6 +143,7 @@ const Promotions = () => (
         src={bannerSneakers}
         alt="jejw"
         className="rounded-md"
+        placeholder="blur"
       />
     </div>
   </section>
