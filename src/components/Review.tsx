@@ -47,11 +47,7 @@ const Review = ({ review }: Props) => {
         <p
           ref={commentRef}
           className={`${
-            showFullText &&
-            commentRef.current &&
-            commentRef.current.scrollHeight > 96
-              ? "max-h-none"
-              : "max-h-[6rem]  overflow-hidden"
+            showFullText ? "max-h-none" : "max-h-[6rem]  overflow-hidden"
           }`}
         >
           {review.review.comment}
