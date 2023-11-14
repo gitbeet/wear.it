@@ -15,7 +15,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
   const lowerCaseType = type?.toLowerCase() ?? "men";
   return (
     <>
-      {isGettingCategories ? (
+      {isGettingCategories && show ? (
         <section
           onMouseOver={() => setShow(true)}
           onMouseLeave={() => setShow(false)}
@@ -23,7 +23,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
             show ? "" : "-translate-y-full"
           }hidden absolute  z-30 h-[500px] w-full bg-gray-50 transition-transform   duration-[300] ease-in-out lg:block`}
         ></section>
-      ) : !categories ? (
+      ) : !categories && show ? (
         <section
           onMouseOver={() => setShow(true)}
           onMouseLeave={() => setShow(false)}
@@ -36,46 +36,50 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           </p>
         </section>
       ) : (
-        <section
-          onMouseOver={() => setShow(true)}
-          onMouseLeave={() => setShow(false)}
-          className={` ${
-            show ? "" : "-translate-y-full"
-          } absolute z-30 hidden w-full bg-gray-50 transition-transform   duration-[300] ease-in-out lg:block`}
-        >
-          <div
-            className={`${
-              show ? "opacity-100" : "-translate-y-16 opacity-0"
-            } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
+        categories && (
+          <section
+            onMouseOver={() => setShow(true)}
+            onMouseLeave={() => setShow(false)}
+            className={` ${
+              show ? "" : "-translate-y-full"
+            } absolute z-30 hidden w-full bg-gray-50 transition-transform   duration-[300] ease-in-out lg:block`}
           >
-            {categories.map((category) => (
-              <div key={category.id}>
-                <Link href={`/products/${lowerCaseType}/${category.slug}`}>
-                  <p className="font-bold  hover:underline">{category.name}</p>
-                </Link>
-                <div className="h-4"></div>
-                <ul>
-                  {category.children
-                    .filter((subcategory) =>
-                      subcategory.types.some((type) =>
-                        type.toLowerCase().includes(lowerCaseType),
-                      ),
-                    )
-                    .map((subcategory) => (
-                      <Link
-                        key={subcategory.id}
-                        href={`/products/${lowerCaseType}/${subcategory.slug}`}
-                      >
-                        <li className="pb-2 text-gray-600 hover:underline">
-                          {subcategory.name}
-                        </li>
-                      </Link>
-                    ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
+            <div
+              className={`${
+                show ? "opacity-100" : "-translate-y-16 opacity-0"
+              } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
+            >
+              {categories.map((category) => (
+                <div key={category.id}>
+                  <Link href={`/products/${lowerCaseType}/${category.slug}`}>
+                    <p className="font-bold  hover:underline">
+                      {category.name}
+                    </p>
+                  </Link>
+                  <div className="h-4"></div>
+                  <ul>
+                    {category.children
+                      .filter((subcategory) =>
+                        subcategory.types.some((type) =>
+                          type.toLowerCase().includes(lowerCaseType),
+                        ),
+                      )
+                      .map((subcategory) => (
+                        <Link
+                          key={subcategory.id}
+                          href={`/products/${lowerCaseType}/${subcategory.slug}`}
+                        >
+                          <li className="pb-2 text-gray-600 hover:underline">
+                            {subcategory.name}
+                          </li>
+                        </Link>
+                      ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
       )}
       <div
         className={`${

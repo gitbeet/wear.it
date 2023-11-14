@@ -1,4 +1,4 @@
-import heroImage from "../../public/assets/landing-page--hero.jpg";
+import heroImage from "../../public/assets/landing-page--hero-2.jpg";
 import heroImageBlur from "../../public/assets/landing-page--hero-blur.jpg";
 import Button from "~/components/UI/Button";
 import { BsHandbag } from "react-icons/bs";
@@ -9,6 +9,7 @@ import bannerJackets from "../../public/assets/banner-small-jackets.jpg";
 import bannerSneakers from "../../public/assets/banner-small--sneakers.jpg";
 import bannerTShirts from "../../public/assets/banner-large--tShirts.jpg";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
+import { FaSnowflake } from "react-icons/fa";
 const sliderPromos = [
   {
     title: "-35% OFF your first order",
@@ -38,7 +39,7 @@ const Hero = () => (
   <section className="relative w-full  overflow-hidden py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-extrabold">
-        Ready for winter?
+        <span className="">Ready</span> for winter?
       </h1>
       <div className="h-8"></div>
       <p className="max-w-lg text-xl font-light text-gray-700">
@@ -79,7 +80,10 @@ const EventSlider = () => {
   return (
     <section className="padding-x  w-full items-center gap-16  md:flex">
       <div>
-        <h2 className="font-display text-5xl font-extrabold">Cozy up!</h2>
+        <h2 className="flex items-center gap-2">
+          <FaSnowflake className="inline h-8 w-8" />
+          <p className="font-display text-5xl font-extrabold">Cozy up!</p>
+        </h2>
         <div className="h-4"></div>
         <p className="text-xl font-light text-gray-700">
           Get Comfy with Our Winter Selection
