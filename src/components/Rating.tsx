@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { api } from "~/utils/api";
 
 type StarType = "EMPTY" | "HALF" | "FULL";
 type StarSize = "SMALL" | "LARGE";
@@ -24,7 +23,7 @@ const Star = ({
   rating: number | undefined;
   size: StarSize;
 }) => {
-  const starSize = size === "LARGE" ? "h-5 w-5" : "h-4 w-4";
+  const starSize = size === "LARGE" ? "h-5 w-5" : "h-3 w-3";
   const type: StarType =
     isHovered && isHoverable
       ? hoverRating > index - 1

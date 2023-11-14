@@ -20,7 +20,7 @@ import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import Rating from "~/components/Rating";
-import Review from "~/components/Comment";
+import Review from "~/components/Review";
 import CreateReviewWizard from "~/components/CreateCommentWizard";
 import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
@@ -208,7 +208,7 @@ const Product = ({
 
   const reviewsSection = (
     <div>
-      <div className="flex items-center justify-between border-b border-gray-300 pb-4">
+      <div className="flex items-center justify-between border-b border-gray-300 pb-6">
         <p className="text-2xl font-semibold">Reviews ({totalReviewsCount})</p>
         <div className="flex items-center gap-8">
           <div className=" flex items-center gap-2">

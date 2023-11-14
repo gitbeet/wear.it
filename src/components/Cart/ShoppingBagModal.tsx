@@ -18,7 +18,7 @@ const ShoppingBagModal = () => {
             <p className="flex items-center gap-1 font-semibold">
               <BsFillCheckCircleFill className="text-teal-500" />
 
-              <span className="text-sm">Added bag</span>
+              <span className="text-sm">Added to bag</span>
             </p>
             <IoMdClose
               onClick={() => setShowBagModal(false)}

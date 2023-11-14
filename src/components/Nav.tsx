@@ -112,7 +112,7 @@ const Nav = () => {
               className="ml-3 rounded-sm border border-gray-300 px-2 py-1"
             >
               {!isSignedIn ? (
-                <Link href="/sign-up">Sign in</Link>
+                <Link href="/sign-in">Sign in</Link>
               ) : (
                 <SignOutButton />
               )}

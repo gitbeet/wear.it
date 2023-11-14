@@ -78,7 +78,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
 
   const prices = product.discount ? (
-    <div className="absolute bottom-2 left-4 text-gray-900">
+    <div className="absolute bottom-2 left-4 text-gray-900 transition-transform duration-300 group-hover:-translate-y-1.5">
       <p className="w-fit rounded-sm bg-teal-500 px-1 font-display font-bold text-white">
         -{product.discount.discountPercent}%
       </p>
@@ -93,7 +93,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       </div>
     </div>
   ) : (
-    <p className="absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-display font-bold">
+    <p className="absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-display font-bold transition-transform duration-300 group-hover:-translate-y-1.5">
       {priceBeforeDiscount}
     </p>
   );
@@ -111,7 +111,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       href={`/product/${product.id}/${product.images.find(
         (image) => image.id === currentImage,
       )?.color}`}
-      className={`flex flex-col items-center justify-center rounded-sm  bg-gray-50 p-1 text-gray-800`}
+      className={`group flex flex-col items-center justify-center  rounded-sm bg-gray-50 p-1 text-gray-800`}
       onMouseOver={() => setShowColorVariations(true)}
       onMouseLeave={() => setShowColorVariations(false)}
     >

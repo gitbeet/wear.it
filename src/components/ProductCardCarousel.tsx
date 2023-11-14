@@ -4,29 +4,31 @@ import { type RouterOutputs } from "~/utils/api";
 import ProductCard from "../components/ProductCard";
 type Product = RouterOutputs["product"]["getAll"]["products"][number];
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-    partialVisibilityGutter: 40,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
-
 const ProductCardCarousel = ({
   products,
   isLoading,
+  tabletItems = 2,
+  desktopItems = 4,
 }: {
   products: Product[] | undefined;
   isLoading: boolean;
+  tabletItems?: number;
+  desktopItems?: number;
 }) => {
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: desktopItems,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: tabletItems,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
   return !products || isLoading ? (
     <Carousel responsive={responsive}>
       {[...Array(12).keys()].map((bone) => (

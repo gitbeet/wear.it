@@ -36,6 +36,7 @@ const PriceSlider = ({ min, max }: { min: number; max: number }) => {
             {formatCurrency(max)}
           </p>
           <ReactSlider
+            step={0.01}
             min={min}
             max={max}
             onChange={(e) => {

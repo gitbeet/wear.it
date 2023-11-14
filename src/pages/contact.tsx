@@ -2,9 +2,10 @@ import ProductCardCarousel from "~/components/ProductCardCarousel";
 import { api } from "~/utils/api";
 
 const Contact = () => {
-  const { data, isLoading } = api.product.getAll.useQuery({});
   return (
-    <ProductCardCarousel products={data?.products} isLoading={isLoading} />
+    <div className="flex h-screen w-full items-center justify-center">
+      <h1 className="font-display text-5xl font-black">Contact</h1>
+    </div>
   );
 };
 
