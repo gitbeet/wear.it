@@ -48,7 +48,7 @@ const Review = ({ review }: Props) => {
           ref={commentRef}
           className={`${
             showFullText ? "max-h-none" : "max-h-[6rem]  overflow-hidden"
-          } break-all   `}
+          }  break-all`}
         >
           {review.review.comment}
         </p>
