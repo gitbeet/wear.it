@@ -19,15 +19,18 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
     (image) => image.color === selectedColor,
   );
   return (
-    <div className="items-start gap-4 md:flex md:flex-row-reverse">
-      <div className="relative">
-        <Image
-          className=" bg-slate-200"
-          src={images[currentImage]?.imageURL ?? ""}
-          alt="Product image"
-          width={550}
-          height={550}
-        />
+    <div className="flex w-full flex-col items-start gap-4 md:flex-row-reverse">
+      <div className="relative w-full">
+        <div className="aspect-square w-full ">
+          <Image
+            fill
+            objectFit="fill"
+            sizes="(max-width: 1024px) 100vw, 600px"
+            className=" bg-slate-200"
+            src={images[currentImage]?.imageURL ?? ""}
+            alt="Product image"
+          />
+        </div>
         <div
           onClick={() => setCurrentImage((prev) => (prev < 1 ? 0 : prev - 1))}
           role="button"

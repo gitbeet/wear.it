@@ -23,7 +23,7 @@ const Star = ({
   rating: number | undefined;
   size: StarSize;
 }) => {
-  const starSize = size === "LARGE" ? "h-5 w-5" : "h-3 w-3";
+  const starSize = size === "LARGE" ? "h-4 w-4" : "h-3 w-3";
   const type: StarType =
     isHovered && isHoverable
       ? hoverRating > index - 1

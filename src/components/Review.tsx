@@ -24,7 +24,7 @@ const Review = ({ review }: Props) => {
     });
 
   return (
-    <div className="grid grid-cols-[64px,1fr] gap-4 py-4">
+    <div className="grid  grid-cols-[64px,1fr] gap-4 py-4 ">
       <Image
         className="shrink-0 rounded-sm"
         src={review.author.profilePicture}
@@ -33,7 +33,7 @@ const Review = ({ review }: Props) => {
         alt={`${review.author.username}'s profile picture`}
       />
       <div>
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <p className="text-gray-700">{review.author.username}</p>
           <Rating
             size="SMALL"
@@ -48,7 +48,7 @@ const Review = ({ review }: Props) => {
           ref={commentRef}
           className={`${
             showFullText ? "max-h-none" : "max-h-[6rem]  overflow-hidden"
-          }`}
+          } break-all   `}
         >
           {review.review.comment}
         </p>

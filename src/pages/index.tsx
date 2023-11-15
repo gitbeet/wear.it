@@ -10,6 +10,7 @@ import bannerSneakers from "../../public/assets/banner-small--sneakers.jpg";
 import bannerTShirts from "../../public/assets/banner-large--tShirts.jpg";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
 import { FaSnowflake } from "react-icons/fa";
+import SectionSpacer from "~/components/UI/SectionSpacer";
 const sliderPromos = [
   {
     title: "-35% OFF your first order",
@@ -156,15 +157,15 @@ export default function Home() {
   return (
     <section>
       <Hero />
-      <div className="h-12 md:h-4"></div>
+      <SectionSpacer />
       <EventSlider />
-      <div className="h-8 md:h-16"></div>
+      <SectionSpacer />
       <PromoSlider />
-      <div className="h-8 md:h-16"></div>
+      <SectionSpacer />
       <Trending />
-      <div className="h-8 md:h-16"></div>
+      <SectionSpacer />
       <Promotions />
-      <div className="h-8 md:h-16"></div>
+      <SectionSpacer />
     </section>
   );
 }

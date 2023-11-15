@@ -21,10 +21,11 @@ import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import Rating from "~/components/Rating";
 import Review from "~/components/Review";
-import CreateReviewWizard from "~/components/CreateCommentWizard";
+import CreateReviewWizard from "~/components/CreateReviewWizard";
 import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
+import SectionSpacer from "~/components/UI/SectionSpacer";
 
 const Product = ({
   id,
@@ -208,9 +209,9 @@ const Product = ({
 
   const reviewsSection = (
     <div>
-      <div className="flex items-center justify-between border-b border-gray-300 pb-6">
+      <div className="flex items-center justify-between">
         <p className="text-2xl font-semibold">Reviews ({totalReviewsCount})</p>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4">
           <div className=" flex items-center gap-2">
             <p className="flex gap-1">
               <span>{averageReviewsRating?.toFixed(1)}</span>
@@ -226,7 +227,7 @@ const Product = ({
             onClick={() => setShowReviews((prev) => !prev)}
             className={`${
               showReviews && "rotate-180"
-            } h-5 w-5 transition-transform duration-300`}
+            } h-4 w-4 transition-transform duration-300`}
           />
         </div>
       </div>
@@ -255,7 +256,7 @@ const Product = ({
       <div
         className={`${
           error ? "border-red-500" : "border-transparent"
-        } flex w-fit gap-2 rounded-sm border`}
+        } flex w-fit flex-wrap gap-2 rounded-sm border`}
       >
         {sizes.map((s, i) => (
           <span
@@ -318,12 +319,14 @@ const Product = ({
 
   return (
     <>
-      <section className="mx-auto max-w-[1200px] justify-between px-8 pt-24 lg:flex">
-        <ImageGallery
-          images={selectedColorImages}
-          selectedColor={selectedColor}
-        />
-        <div className="flex flex-col gap-8 md:w-[450px]">
+      <section className="padding-x mx-auto flex max-w-[1200px] flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
+        <div className="w-full self-start">
+          <ImageGallery
+            images={selectedColorImages}
+            selectedColor={selectedColor}
+          />
+        </div>
+        <div className="flex shrink-0 flex-col gap-8 md:w-[450px]">
           <div>
             <p className="text-2xl font-semibold">{name}</p>
             <div className="h-1"></div>
@@ -352,7 +355,7 @@ const Product = ({
           {reviewsSection}
         </div>
       </section>
-      <div className="h-24"></div>
+      <SectionSpacer />
       <section className="padding-x">
         <h2 className="font-display text-2xl font-black">
           You might also like
@@ -367,7 +370,7 @@ const Product = ({
           />
         </div>
       </section>
-      <div className="h-32"></div>
+      <SectionSpacer />
     </>
   );
 };
