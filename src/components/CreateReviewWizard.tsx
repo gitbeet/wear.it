@@ -20,26 +20,26 @@ const CreateReviewWizard = ({ productId }: { productId: string }) => {
   const [errorMessage, setErrorMessage] = useState({ review: "", rate: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
-    const isThereAWordTooLong =
-      comment.split(" ").findIndex((word) => word.length > 20) !== -1;
     e.preventDefault();
-    let error = false;
-    if (isThereAWordTooLong) {
-      setErrorMessage((prev) => ({
-        ...prev,
-        review: "There's a word that is too long.",
-      }));
-      error = true;
-    }
+    // const isThereAWordTooLong =
+    //   comment.split(" ").findIndex((word) => word.length > 20) !== -1;
+    // let error = false;
+    // if (isThereAWordTooLong) {
+    //   setErrorMessage((prev) => ({
+    //     ...prev,
+    //     review: "There's a word that is too long.",
+    //   }));
+    //   error = true;
+    // }
     if (!comment) {
       setErrorMessage((prev) => ({ ...prev, review: "Cannot be blank" }));
-      error = true;
+      // error = true;
     }
     if (!rate) {
       setErrorMessage((prev) => ({ ...prev, rate: "Please rate the item" }));
-      error = true;
+      // error = true;
     }
-    if (error || !comment || !rate) return;
+    if (!comment || !rate) return;
     post({ productId, comment, rate });
   };
 

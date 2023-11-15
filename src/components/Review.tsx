@@ -14,8 +14,16 @@ interface Props {
 }
 
 const Review = ({ review }: Props) => {
-  const [showFullText, setShowFullText] = useState(false);
   const commentRef = useRef<HTMLParagraphElement | null>(null);
+  const [showFullText, setShowFullText] = useState(false);
+  const [showButton, setShowButton] = useState(
+    commentRef.current && commentRef.current.scrollHeight > 96,
+  );
+
+  useEffect(() => {
+    setShowButton(commentRef.current && commentRef.current.scrollHeight > 96);
+  }, [commentRef]);
+
   const { user } = useUser();
   const ctx = api.useUtils();
   const { mutate: deleteReview, isLoading: isDeletingReview } =
@@ -24,7 +32,7 @@ const Review = ({ review }: Props) => {
     });
 
   return (
-    <div className="grid  grid-cols-[64px,1fr] gap-4 py-4 ">
+    <div className="items grid grid-cols-[64px,1fr]  justify-center gap-4 py-4 ">
       <Image
         className="shrink-0 rounded-sm"
         src={review.author.profilePicture}
@@ -33,7 +41,7 @@ const Review = ({ review }: Props) => {
         alt={`${review.author.username}'s profile picture`}
       />
       <div>
-        <div className="flex justify-between ">
+        <div className="flex justify-between  ">
           <p className="text-gray-700">{review.author.username}</p>
           <Rating
             size="SMALL"
@@ -48,12 +56,12 @@ const Review = ({ review }: Props) => {
           ref={commentRef}
           className={`${
             showFullText ? "max-h-none" : "max-h-[6rem]  overflow-hidden"
-          }  break-all`}
+          }  max-w-[calc(100vw-64px-32px-16px-8px)] break-words md:max-w-[calc(100vw-64px-32px-16px-32px)] lg:max-w-[362px]`}
         >
           {review.review.comment}
         </p>
         <div className="h-1"></div>
-        {commentRef.current && commentRef.current.scrollHeight > 96 && (
+        {showButton && (
           <p
             role="button"
             onClick={() => setShowFullText((prev) => !prev)}

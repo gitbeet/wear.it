@@ -326,7 +326,7 @@ const Product = ({
             selectedColor={selectedColor}
           />
         </div>
-        <div className="flex shrink-0 flex-col gap-8 md:w-[450px]">
+        <div className="flex shrink-0 flex-col gap-8 lg:w-[450px]">
           <div>
             <p className="text-2xl font-semibold">{name}</p>
             <div className="h-1"></div>
