@@ -32,7 +32,7 @@ const sliderPromos = [
 const PromoSlider = () => <SinglePageSlider slides={sliderPromos} />;
 
 const Hero = () => (
-  <section className="relative w-full  overflow-hidden py-24">
+  <section className="relative w-full  overflow-hidden py-16 lg:py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-extrabold">
         <span className="">Ready</span> for winter?
@@ -54,7 +54,7 @@ const Hero = () => (
       <Image
         fill
         objectFit="cover"
-        className="ml-auto opacity-50 lg:opacity-100"
+        className="ml-auto"
         src={heroImage}
         alt="Hero section image"
         placeholder="blur"
@@ -74,13 +74,14 @@ const EventSlider = () => {
       type: ["MEN", "WOMEN"],
     });
   return (
-    <section className="padding-x  w-full items-center gap-16  md:flex">
+    <section className="padding-x flex w-full flex-col items-start gap-6 md:flex-row md:items-center lg:gap-16">
       <div>
         <h2 className="flex items-center gap-2">
           <FaSnowflake className="inline h-8 w-8" />
-          <p className="font-display text-5xl font-extrabold">Cozy up!</p>
+          <p className="shrink-0 font-display text-5xl font-extrabold">
+            Cozy up!
+          </p>
         </h2>
-        <div className="h-4"></div>
         <p className="text-xl font-light text-gray-700">
           Get Comfy with Our Winter Selection
         </p>
@@ -88,7 +89,7 @@ const EventSlider = () => {
 
       <div className="w-full overflow-hidden">
         <ProductCardCarousel
-          desktopItems={3.5}
+          numberOfItems={{ desktop: 3.5, desktopSmall: 2.5, tablet: 1.5 }}
           products={products?.products}
           isLoading={isGettingProducts}
         />
@@ -109,10 +110,11 @@ const Trending = () => {
   return (
     <section>
       <h2 className="padding-x font-display text-2xl font-black">Trending</h2>
-      <div className="h-12"></div>
+      <div className="h-6 md:h-12"></div>
 
       <div className="w-full overflow-hidden">
         <ProductCardCarousel
+          numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 2 }}
           products={products?.products}
           isLoading={isGettingProducts}
         />
@@ -126,7 +128,7 @@ const Promotions = () => (
     <Image
       height={800}
       src={bannerTShirts}
-      alt="jejw"
+      alt="Up to -60% on womens t-shirts"
       className="rounded-md"
       placeholder="blur"
     />
@@ -134,7 +136,7 @@ const Promotions = () => (
       <Image
         height={392}
         src={bannerJackets}
-        alt="jejw"
+        alt="Browse jackets under 65%"
         className="rounded-md"
         placeholder="blur"
       />
@@ -142,7 +144,7 @@ const Promotions = () => (
       <Image
         height={392}
         src={bannerSneakers}
-        alt="jejw"
+        alt="Browse seakers from 30$"
         className="rounded-md"
         placeholder="blur"
       />
@@ -156,13 +158,13 @@ export default function Home() {
       <Hero />
       <div className="h-12 md:h-4"></div>
       <EventSlider />
-      <div className="h-16"></div>
+      <div className="h-8 md:h-16"></div>
       <PromoSlider />
-      <div className="h-16"></div>
+      <div className="h-8 md:h-16"></div>
       <Trending />
-      <div className="h-16"></div>
+      <div className="h-8 md:h-16"></div>
       <Promotions />
-      <div className="h-16"></div>
+      <div className="h-8 md:h-16"></div>
     </section>
   );
 }

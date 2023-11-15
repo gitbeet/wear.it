@@ -1,6 +1,3 @@
-import ProductCardCarousel from "~/components/ProductCardCarousel";
-import { api } from "~/utils/api";
-
 const Contact = () => {
   return (
     <div className="flex h-screen w-full items-center justify-center">

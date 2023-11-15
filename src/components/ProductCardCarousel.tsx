@@ -7,22 +7,28 @@ type Product = RouterOutputs["product"]["getAll"]["products"][number];
 const ProductCardCarousel = ({
   products,
   isLoading,
-  tabletItems = 2,
-  desktopItems = 4,
+  numberOfItems,
 }: {
   products: Product[] | undefined;
   isLoading: boolean;
-  tabletItems?: number;
-  desktopItems?: number;
+  numberOfItems: {
+    tablet: number;
+    desktopSmall: number;
+    desktop: number;
+  };
 }) => {
   const responsive = {
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: desktopItems,
+      breakpoint: { max: 3000, min: 1280 },
+      items: numberOfItems.desktop,
+    },
+    desktopSmall: {
+      breakpoint: { max: 1280, min: 1024 },
+      items: numberOfItems.desktopSmall,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: tabletItems,
+      items: numberOfItems.tablet,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },

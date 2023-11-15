@@ -361,6 +361,7 @@ const Product = ({
 
         <div className=" w-full overflow-hidden">
           <ProductCardCarousel
+            numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 2 }}
             products={reccomendedProducts?.products}
             isLoading={isGettingReccomended}
           />
