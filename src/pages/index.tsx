@@ -1,4 +1,4 @@
-import heroImage from "../../public/assets/landing-page--hero-2.jpg";
+import heroImage from "../../public/assets/hero-3.jpg";
 import heroImageBlur from "../../public/assets/landing-page--hero-blur.jpg";
 import Button from "~/components/UI/Button";
 import { BsHandbag } from "react-icons/bs";
@@ -83,6 +83,7 @@ const EventSlider = () => {
             Cozy up!
           </p>
         </h2>
+        <div className="h-4"></div>
         <p className="text-xl font-light text-gray-700">
           Get Comfy with Our Winter Selection
         </p>
@@ -157,7 +158,7 @@ export default function Home() {
   return (
     <section>
       <Hero />
-      <SectionSpacer />
+      <div className="h-4 md:h-8"></div>
       <EventSlider />
       <SectionSpacer />
       <PromoSlider />

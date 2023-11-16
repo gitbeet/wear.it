@@ -20,7 +20,7 @@ const PriceSlider = ({ min, max }: { min: number; max: number }) => {
   }, [priceFrom, priceTo]);
 
   return (
-    <div className="h-8 border-b p-8 pb-40">
+    <div className="h-8 border-b p-8 pb-40 pl-0">
       <header className="text-md font-semibold">Shop by Price</header>
       <div className="h-4"></div>
       <div>

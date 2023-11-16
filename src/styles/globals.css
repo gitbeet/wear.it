@@ -10,6 +10,62 @@
   @apply py-8;
 }
 
+.show-promo-item {
+  animation: show-promo-item 0.5s ease-in-out forwards;
+  transition: transform;
+}
+
+.hide-promo-item {
+  animation: hide-promo-item 0.5s ease-in-out forwards;
+  transition: transform;
+}
+
+.show-promo-item--reverse {
+  animation: show-promo-item--reverse 0.5s ease-in-out forwards;
+  transition: transform;
+}
+
+.hide-promo-item--reverse {
+  animation: hide-promo-item--reverse 0.5s ease-in-out forwards;
+  transition: transform;
+}
+
+@keyframes show-promo-item--reverse {
+  0% {
+    transform: translateX(30vw);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hide-promo-item--reverse {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-30vw);
+  }
+}
+
+@keyframes show-promo-item {
+  0% {
+    transform: translateX(-30vw);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hide-promo-item {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(30vw);
+  }
+}
+
 /* ----------- CSS RESET ----------- */
 
 /* Box sizing rules */

@@ -156,7 +156,7 @@ const ProductsPage = () => {
   const { data, isLoading } = api.product.getAll.useQuery(queryInput);
 
   return (
-    <main>
+    <main className="padding-x">
       <section className="flex justify-end gap-8 pt-16  ">
         <ToggleFilters
           setShowFilters={setShowFilters}
@@ -168,7 +168,7 @@ const ProductsPage = () => {
         <p className="ml-8 h-4 w-36 animate-pulse rounded-full bg-gray-400"></p>
       )}
       {data && (
-        <p className="pb-8 pl-8 text-xl">
+        <p className="pb-8  text-xl">
           <span className="font-bold">{data.totalProducts}</span>
           {` Product${data.totalProducts > 1 ? "s" : ""} found`}
         </p>

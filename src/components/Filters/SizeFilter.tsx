@@ -23,7 +23,7 @@ const SizeFilter = () => {
   };
 
   return (
-    <div className="border-b border-gray-300 p-8">
+    <div className="border-b border-gray-300 p-8 pl-0">
       <p className="font-bold">Sizes</p>
       <div className="h-4"></div>
       <div className="flex flex-col gap-1 pl-4">

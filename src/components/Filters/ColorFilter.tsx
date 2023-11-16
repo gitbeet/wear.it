@@ -46,7 +46,7 @@ const ColorFilter = () => {
     }
   };
   return (
-    <div className="border-b  border-gray-300 p-8">
+    <div className="border-b  border-gray-300 p-8 pl-0">
       <p className="font-bold">Colors</p>
       <div className="h-4"></div>
       <div className="grid grid-cols-3 items-center justify-center gap-4">
