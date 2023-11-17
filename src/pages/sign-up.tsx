@@ -107,7 +107,7 @@ export default function SignUpForm() {
           <div className="h-4"></div>
           <p className="px-4">
             Already have an account?{" "}
-            <Link className="pl-1 font-bold text-teal-500" href="/sign-in">
+            <Link className="pl-1 font-bold text-violet-500" href="/sign-in">
               Sign in
             </Link>
           </p>

@@ -60,7 +60,7 @@ const PriceSlider = ({ min, max }: { min: number; max: number }) => {
             renderThumb={(props) => (
               <div
                 {...props}
-                className="absolute -top-1 h-4 w-4 rounded-full bg-teal-500 "
+                className="absolute -top-1 h-4 w-4 rounded-full bg-violet-500 "
               ></div>
             )}
             renderTrack={(props, state) => (

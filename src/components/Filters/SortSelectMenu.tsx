@@ -24,7 +24,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
       <div
         onClick={() => setShowSort((prev) => !prev)}
         role="listbox"
-        className="flex cursor-pointer items-center gap-2 font-semibold text-gray-800"
+        className="flex cursor-pointer items-center gap-2 font-semibold text-slate-800"
       >
         <span>Sort by</span>
         <div
@@ -39,7 +39,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
       <div
         className={`${
           showSort ? "" : "opacity-0"
-        } absolute left-4 flex w-max -translate-x-1/2 flex-col gap-2  rounded-lg bg-gray-50 p-6 text-right font-semibold transition-all duration-500`}
+        } absolute left-4 flex w-max -translate-x-1/2 flex-col gap-2  rounded-lg bg-slate-50 p-6 text-right font-semibold transition-all duration-500`}
       >
         <p
           onClick={() => handleChangeSort("newest")}

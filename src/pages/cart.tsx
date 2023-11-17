@@ -52,7 +52,7 @@ const Summary = () => {
               {formatCurrency(taxes)}
             </td>
           </tr>
-          <tr className="border-t border-gray-300 ">
+          <tr className="border-t border-slate-300 ">
             <td>Total</td>
             <td className="py-2 text-right font-bold">
               {formatCurrency(totalCost)}
@@ -71,7 +71,7 @@ const CartItems = () => {
   if (isGettingCart)
     return (
       <div className="w-full">
-        <h2 className="w-fit rounded-full bg-gray-400 text-2xl leading-none text-transparent">
+        <h2 className="w-fit rounded-full bg-slate-400 text-2xl leading-none text-transparent">
           Bag
         </h2>
         <div className="h-8"></div>

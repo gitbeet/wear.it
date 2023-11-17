@@ -19,9 +19,9 @@ const Favorites = () => {
   return (
     <section>
       <div className="h-16"></div>
-      <h1 className="font-display text-center text-5xl font-black">Wishlist</h1>
-      <div className="h-24"></div>
-      <div className="mx-auto flex  max-w-[900px] gap-4">
+      <h1 className="text-center font-display text-5xl font-black">Wishlist</h1>
+      <div className="h-12"></div>
+      <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fill,minmax(250px,1fr))]  items-start justify-start   gap-4">
         {data?.map((fav) => {
           const { color, id, product, productId } = fav;
           const isItemFavorited = isFavorited(color, productId);
@@ -34,68 +34,66 @@ const Favorites = () => {
               : product.price,
           );
           return (
-            <div key={id}>
-              <div className={`bg-gray-50 pb-2 text-gray-800`}>
-                <div>
-                  <div className="relative">
-                    <div
-                      onClick={() => addToFavorites({ color, productId })}
-                      role="button"
-                      className="absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-gray-50"
-                    >
-                      {isItemFavorited ? (
-                        <BsHeartFill className="h-6 w-6" />
-                      ) : (
-                        <BsHeart className="h-6 w-6" />
-                      )}
-                    </div>
-                    <Link href={`/product/${productId}/${color}`}>
-                      <Image
-                        className="relative rounded-md bg-slate-200"
-                        width={300}
-                        height={300}
-                        src={
-                          product.images.find((image) => image.color === color)
-                            ?.imageURL ?? ""
-                        }
-                        alt="Product image"
-                      />
-                    </Link>
-                    {product.discount ? (
-                      <div className="absolute bottom-2 left-4 text-gray-900">
-                        <p className="font-display w-fit rounded-sm bg-teal-500 px-1 font-bold text-white">
-                          -{product.discount.discountPercent}%
-                        </p>
-                        <div className=" flex gap-2 ">
-                          <p className="font-display py-1 text-gray-500 line-through">
-                            {priceBeforeDiscount}
-                          </p>
-                          <p className="font-display w-fit bg-gray-50 px-3 py-1 font-bold text-pink-500">
-                            {priceAfterDiscount}
-                          </p>
-                        </div>
-                      </div>
-                    ) : (
-                      <p className="font-display absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-bold">
+            <div key={id} className={`w-full bg-slate-50 pb-2 text-slate-800`}>
+              <div className="relative w-full">
+                <div
+                  onClick={() => addToFavorites({ color, productId })}
+                  role="button"
+                  className="absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-slate-50"
+                >
+                  {isItemFavorited ? (
+                    <BsHeartFill className="h-6 w-6" />
+                  ) : (
+                    <BsHeart className="h-6 w-6" />
+                  )}
+                </div>
+                <Link href={`/product/${productId}/${color}`}>
+                  <div className="relative aspect-square w-full">
+                    <Image
+                      fill
+                      objectFit="contain"
+                      className="absolute rounded-md bg-slate-200"
+                      src={
+                        product.images.find((image) => image.color === color)
+                          ?.imageURL ?? ""
+                      }
+                      alt="Product image"
+                    />
+                  </div>
+                </Link>
+                {product.discount ? (
+                  <div className="absolute bottom-2 left-4 text-slate-900">
+                    <p className="w-fit rounded-sm bg-violet-500 px-1 font-display font-bold text-white">
+                      -{product.discount.discountPercent}%
+                    </p>
+                    <div className=" flex gap-2 ">
+                      <p className="py-1 font-display text-slate-500 line-through">
                         {priceBeforeDiscount}
                       </p>
-                    )}
+                      <p className="w-fit bg-slate-50 px-3 py-1 font-display font-bold text-pink-500">
+                        {priceAfterDiscount}
+                      </p>
+                    </div>
                   </div>
-                  <div className="h-4"></div>
-                  <div className="min-h-[4rem] overflow-hidden pl-4">
-                    <Link href={`/product/${productId}/${color}`}>
-                      <p className="font-semibold">{product.name}</p>
-                    </Link>
-                    <div className="h-1"></div>
-                    <Link
-                      href={`products/${product.category.types[0]?.toLowerCase()}/${
-                        product.category.slug
-                      }`}
-                    >
-                      <p className="text-gray-500">{product.category.name}</p>
-                    </Link>
-                  </div>
-                </div>
+                ) : (
+                  <p className="absolute bottom-2 left-4 w-fit bg-slate-50 px-3 py-1 font-display font-bold">
+                    {priceBeforeDiscount}
+                  </p>
+                )}
+              </div>
+              <div className="h-4"></div>
+              <div className="min-h-[4rem] overflow-hidden pl-4">
+                <Link href={`/product/${productId}/${color}`}>
+                  <p className="line-clamp-1 font-semibold">{product.name}</p>
+                </Link>
+                <div className="h-1"></div>
+                <Link
+                  href={`products/${product.category.types[0]?.toLowerCase()}/${
+                    product.category.slug
+                  }`}
+                >
+                  <p className="text-slate-500">{product.category.name}</p>
+                </Link>
               </div>
             </div>
           );

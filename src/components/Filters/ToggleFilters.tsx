@@ -11,7 +11,7 @@ const ToggleFilters = ({ showFilters, setShowFilters }: Props) => {
     <div
       onClick={() => setShowFilters((prev) => !prev)}
       role="button"
-      className="flex items-center gap-2 font-semibold text-gray-800"
+      className="flex items-center gap-2 font-semibold text-slate-800"
     >
       <span>{showFilters ? "Hide" : "Show"} Filters</span>
       {filtersIcon}

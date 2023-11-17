@@ -4,22 +4,22 @@ import React from "react";
 interface Props {
   link: string;
   icon: JSX.Element;
-  number: number;
-  loading: boolean;
+  number?: number;
+  loading?: boolean;
 }
 
-const NavIcon = ({ link, icon, number, loading }: Props) => {
+const NavIcon = ({ link, icon, number = 0, loading }: Props) => {
   return (
     <>
       <Link href={link}>
         <div
           role="button"
-          className="group  relative z-0 rounded-full  bg-transparent p-3 hover:bg-gray-300"
+          className="group  relative z-0 rounded-full  bg-transparent p-3 hover:bg-slate-300"
         >
           {icon}
 
           {!loading && number > 0 && (
-            <div className="outline-3 absolute left-1.5 top-6  flex h-[17px] w-[17px] items-center justify-center rounded-full bg-teal-500 text-white outline outline-white group-hover:outline-gray-300">
+            <div className="outline-3 absolute left-1.5 top-6  flex h-[17px] w-[17px] items-center justify-center rounded-full bg-violet-500 text-white outline outline-white group-hover:outline-slate-300">
               <p className="text-[11px]">{number}</p>
             </div>
           )}

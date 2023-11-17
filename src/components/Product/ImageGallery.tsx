@@ -36,7 +36,7 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
           role="button"
           className="absolute left-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-100 p-2 text-center"
         >
-          <FiChevronLeft className="h-8 w-8 text-gray-800" />
+          <FiChevronLeft className="h-8 w-8 text-slate-800" />
         </div>
         <div
           onClick={() =>
@@ -47,7 +47,7 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
           role="button"
           className="absolute left-[calc(100%-1rem)] top-1/2 flex h-12 w-12 -translate-x-full -translate-y-1/2 items-center justify-center rounded-full bg-slate-100 p-2 text-center"
         >
-          <FiChevronLeft className="text-gray-80 h-8 w-8 rotate-180" />
+          <FiChevronLeft className="text-slate-80 h-8 w-8 rotate-180" />
         </div>
       </div>
       <div className="flex gap-2 md:flex-col">
@@ -55,7 +55,7 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
           <Image
             onMouseOver={() => setCurrentImage(i)}
             className={`${
-              i === currentImage ? "border-gray-400" : "border-gray-200"
+              i === currentImage ? "border-slate-400" : "border-slate-200"
             } rounded-sm border bg-slate-200`}
             key={image.id}
             width={64}

@@ -42,7 +42,7 @@ const Review = ({ review }: Props) => {
       />
       <div>
         <div className="flex justify-between  ">
-          <p className="text-gray-700">{review.author.username}</p>
+          <p className="text-slate-700">{review.author.username}</p>
           <Rating
             size="SMALL"
             averageRating={review.review.rate}
@@ -65,13 +65,13 @@ const Review = ({ review }: Props) => {
           <p
             role="button"
             onClick={() => setShowFullText((prev) => !prev)}
-            className={`font-semibold text-gray-800 underline hover:text-gray-500`}
+            className={`font-semibold text-slate-800 underline hover:text-slate-500`}
           >
             {showFullText ? "Less" : "More"}
           </p>
         )}
         <div className="h-2"></div>
-        <p className="text-right text-gray-500">
+        <p className="text-right text-slate-500">
           {dayjs(review.review.createdAt).fromNow()}
         </p>
         <div className="h-4"></div>
@@ -81,7 +81,7 @@ const Review = ({ review }: Props) => {
               <BsTrash
                 onClick={() => deleteReview({ id: review.review.id })}
                 role="button"
-                className="h-5 w-5 text-gray-800"
+                className="h-5 w-5 text-slate-800"
               />
             </button>
           </div>

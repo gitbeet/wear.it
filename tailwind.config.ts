@@ -12,6 +12,9 @@ export default {
         display: "Montserrat, sans-serif",
         body: "Open Sans, sans-serif",
       },
+      // colors: {
+      //   primary: "#ffffff",
+      // },
     },
   },
   plugins: [],

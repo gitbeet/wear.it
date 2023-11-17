@@ -26,16 +26,16 @@ const Search = ({
             className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2"
           />
         )}
-        <BsSearch className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
+        <BsSearch className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
         <input
           onFocus={onFocus}
           onBlur={onBlur}
           value={input}
           onChange={handleSearch}
-          className="h-full w-56  rounded-full border border-gray-200 bg-gray-100 px-10"
+          className="h-full w-56  rounded-full border border-slate-200 bg-slate-100 px-10"
         />
       </div>
-      <BsSearch className="m-3 h-5 w-5 text-gray-700 lg:hidden" />
+      <BsSearch className="m-3 h-5 w-5 text-slate-700 lg:hidden" />
     </>
   );
 };

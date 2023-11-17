@@ -18,7 +18,7 @@ const SinglePageSlider = ({ slides }: Props) => {
 
   useEffect(() => {
     if (touched) return;
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
   }, [touched, nextSlide]);
 
@@ -35,19 +35,19 @@ const SinglePageSlider = ({ slides }: Props) => {
             <Image
               fill
               objectFit="cover"
-              className={`absolute z-0 bg-slate-200 ${
-                isVisible ? "opacity-75" : "opacity-0"
-              } rounded-md transition-opacity duration-1000`}
+              className={`absolute z-0  ${
+                isVisible ? "opacity-50" : "opacity-0"
+              } rounded-mdtransition-opacity duration-[750ms]`}
               src={slide.image ?? ""}
               alt="Slide background"
             />
             <div
               className={`${
                 isVisible ? "opacity-100" : "opacity-0"
-              } absolute left-1/2 top-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-8 transition-[opacity] duration-1000`}
+              } absolute left-1/2 top-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-8 transition-[opacity] duration-[750ms]`}
             >
-              <h2 className="px-14 text-center font-display text-3xl font-black uppercase text-gray-900 md:px-0 md:text-5xl">
-                {slide.title}
+              <h2 className="px-14 text-center font-display text-3xl font-black uppercase text-slate-900 md:px-0 md:text-5xl">
+                <span className="">{slide.title}</span>
               </h2>
               <div className="w-fit">{slide.button}</div>
             </div>
@@ -63,7 +63,7 @@ const SinglePageSlider = ({ slides }: Props) => {
         role="button"
         className="absolute left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-100 p-2 text-center disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <FiChevronLeft className="h-8 w-8 text-gray-800" />
+        <FiChevronLeft className="h-8 w-8 text-slate-800" />
       </button>
       <button
         disabled={disabledRight}
@@ -73,7 +73,7 @@ const SinglePageSlider = ({ slides }: Props) => {
         }}
         className="absolute left-[calc(100%-1rem)] top-1/2 z-20 flex h-12 w-12 -translate-x-full -translate-y-1/2 items-center justify-center rounded-full  bg-slate-100 p-2 text-center disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <FiChevronLeft className="text-gray-80 h-8 w-8 rotate-180" />
+        <FiChevronLeft className="text-slate-80 h-8 w-8 rotate-180" />
       </button>
     </div>
   );

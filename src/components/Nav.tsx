@@ -12,6 +12,8 @@ import Search from "./Search";
 import SearchResults from "./SearchResults";
 import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
+import { BsPerson } from "react-icons/bs";
+import NavIcon from "./NavIcon";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
@@ -61,7 +63,7 @@ const Nav = () => {
 
   return (
     <nav>
-      <div className="relative z-50 border-b  bg-gray-50">
+      <div className="relative z-50 border-b  bg-slate-50">
         <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
           <Logo />
           <ul
@@ -107,14 +109,17 @@ const Nav = () => {
             <div className="hidden w-7 md:block"></div>
             <FavoritesNavIcon />
             <ShoppingBagIcon />
-            <div
-              role="button"
-              className="ml-3 rounded-sm border border-gray-300 px-2 py-1"
-            >
+            <div role="button" className="ml-3">
               {!isSignedIn ? (
                 <Link href="/sign-in">Sign in</Link>
               ) : (
-                <SignOutButton />
+                <SignOutButton>
+                  <div className="flex items-center gap-2">
+                    Hello,
+                    <span className="text-violet-500"> {user.username} </span>
+                    <BsPerson className="h-5 w-5" />
+                  </div>
+                </SignOutButton>
               )}
             </div>
           </div>

@@ -27,17 +27,17 @@ export const InputField = ({
   return (
     <div className="relative">
       <label
-        className="absolute -top-3 left-14 z-10 bg-gray-50 px-4  text-gray-400"
+        className="absolute -top-3 left-14 z-10 bg-slate-50 px-4  text-slate-400"
         htmlFor="email"
       >
         {label}
       </label>
-      <div className="absolute left-5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-gray-300">
+      <div className="absolute left-5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-slate-300">
         {icon}
       </div>
       <input
         placeholder={placeholder}
-        className="h-16 w-full rounded-full  border border-gray-300 bg-gray-50 pl-[72px] focus:border-transparent focus:outline focus:outline-teal-200"
+        className="h-16 w-full rounded-full  border border-slate-300 bg-slate-50 pl-[72px] focus:border-transparent focus:outline focus:outline-violet-200"
         onChange={onChange}
         id={name}
         name={name}
@@ -83,7 +83,7 @@ export default function SignInForm() {
     <section>
       <div className="h-16"></div>
 
-      <h1 className="font-display text-center text-6xl font-black">
+      <h1 className="text-center font-display text-6xl font-black">
         Welcome back
       </h1>
       <div className="h-24"></div>
@@ -123,8 +123,8 @@ export default function SignInForm() {
           </Link>
           <br />
           <div className="h-1 "></div>
-          <span className="font-light text-gray-800">Not a member yet?</span>
-          <Link href="/sign-up" className="pl-1 font-bold text-teal-500">
+          <span className="font-light text-slate-800">Not a member yet?</span>
+          <Link href="/sign-up" className="pl-1 font-bold text-violet-500">
             Sign up
           </Link>
         </div>

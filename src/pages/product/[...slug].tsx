@@ -197,8 +197,8 @@ const Product = ({
               }}
               className={`h-8 w-8 rounded-full ${tailwindColor} border-[2px] outline outline-2 ${
                 selectedColor === c.color
-                  ? "border-gray-100 outline-gray-500 "
-                  : "border-gray-200 outline-transparent "
+                  ? "border-slate-100 outline-purple-400 "
+                  : "border-slate-200 outline-transparent "
               }`}
             ></div>
           );
@@ -208,7 +208,7 @@ const Product = ({
   );
 
   const reviewsSection = (
-    <div>
+    <div role="button" onClick={() => setShowReviews((prev) => !prev)}>
       <div className="flex items-center justify-between">
         <p className="text-2xl font-semibold">Reviews ({totalReviewsCount})</p>
         <div className="flex items-center gap-4">
@@ -224,7 +224,6 @@ const Product = ({
           </div>
           <FaChevronDown
             role="button"
-            onClick={() => setShowReviews((prev) => !prev)}
             className={`${
               showReviews && "rotate-180"
             } h-4 w-4 transition-transform duration-300`}
@@ -247,7 +246,7 @@ const Product = ({
     <div>
       <p
         className={`${
-          error ? "text-red-500" : "text-gray-800"
+          error ? "text-red-500" : "text-slate-800"
         } text-2xl font-semibold`}
       >
         Select Size
@@ -264,8 +263,8 @@ const Product = ({
             onClick={() => handleSize(s.size)}
             className={`${
               s.size === selectedSize
-                ? "border-gray-800  text-gray-800"
-                : "border-gray-300  text-gray-500"
+                ? "border-slate-800  text-slate-800"
+                : "border-slate-300  text-slate-500"
             } w-16 rounded-[3px] border py-2 text-center font-display font-bold`}
             key={i}
           >
@@ -331,19 +330,19 @@ const Product = ({
             <p className="text-2xl font-semibold">{name}</p>
             <div className="h-1"></div>
             <Link href={linkToCategory}>
-              <p className="text-gray-500">{category.name}</p>
+              <p className="text-slate-500">{category.name}</p>
             </Link>
           </div>
           <div className="font-display">
             {discount && discount?.active && (
-              <p className="w-fit rounded-sm bg-teal-500 px-2 py-1 text-xl font-black text-gray-100 ">
+              <p className="w-fit rounded-sm bg-violet-500 px-2 py-1 text-xl font-black text-slate-100 ">
                 -{discount?.discountPercent}%
               </p>
             )}
             <div className="h-1"></div>
             <span className="text-2xl font-bold">{priceAfterDiscount}</span>
             {discount && discount?.active && (
-              <span className="pl-2 text-xl  text-gray-500 line-through">
+              <span className="pl-2 text-xl  text-slate-500 line-through">
                 {priceBeforeDiscount}
               </span>
             )}

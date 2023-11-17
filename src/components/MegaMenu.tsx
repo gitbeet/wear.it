@@ -21,7 +21,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           onMouseLeave={() => setShow(false)}
           className={` ${
             show ? "" : "-translate-y-full"
-          }hidden absolute  z-30 h-[500px] w-full bg-gray-50 transition-transform   duration-[300] ease-in-out lg:block`}
+          }hidden absolute  z-30 h-[500px] w-full bg-slate-50 transition-transform   duration-[300] ease-in-out lg:block`}
         ></section>
       ) : !categories && show ? (
         <section
@@ -29,7 +29,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
           onMouseLeave={() => setShow(false)}
           className={` ${
             show ? "" : "-translate-y-full"
-          }hidden absolute z-30 h-[500px]  w-full items-center   justify-center bg-gray-50 transition-transform duration-[300] ease-in-out lg:flex`}
+          }hidden absolute z-30 h-[500px]  w-full items-center   justify-center bg-slate-50 transition-transform duration-[300] ease-in-out lg:flex`}
         >
           <p className="text-center">
             Something Went Wrong. Please Refresh the page
@@ -42,7 +42,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
             onMouseLeave={() => setShow(false)}
             className={` ${
               show ? "" : "-translate-y-full"
-            } absolute z-30 hidden w-full bg-gray-50 transition-transform   duration-[300] ease-in-out lg:block`}
+            } absolute z-30 hidden w-full bg-slate-50 transition-transform   duration-[300] ease-in-out lg:block`}
           >
             <div
               className={`${
@@ -69,7 +69,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
                           key={subcategory.id}
                           href={`/products/${lowerCaseType}/${subcategory.slug}`}
                         >
-                          <li className="pb-2 text-gray-600 hover:underline">
+                          <li className="pb-2 text-slate-600 hover:underline">
                             {subcategory.name}
                           </li>
                         </Link>
@@ -83,7 +83,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
       )}
       <div
         className={`${
-          show ? "bg-gray-900/40 backdrop-blur" : "opacity-0"
+          show ? "bg-slate-900/40 backdrop-blur" : "opacity-0"
         } pointer-events-none fixed inset-0 z-20  min-h-screen transition-all duration-500 `}
       ></div>
     </>

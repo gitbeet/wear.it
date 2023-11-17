@@ -23,7 +23,7 @@ const SizeFilter = () => {
   };
 
   return (
-    <div className="border-b border-gray-300 p-8 pl-0">
+    <div className="border-b border-slate-300 p-8 pl-0">
       <p className="font-bold">Sizes</p>
       <div className="h-4"></div>
       <div className="flex flex-col gap-1 pl-4">
@@ -41,7 +41,7 @@ const SizeFilter = () => {
               />
               <label
                 className={`${
-                  isIncluded ? "text-gray-800" : "text-gray-600"
+                  isIncluded ? "text-slate-800" : "text-slate-600"
                 } text-sm font-semibold `}
                 htmlFor={size}
               >

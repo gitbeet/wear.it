@@ -39,10 +39,14 @@ const ProductCard = ({ product }: { product: Product }) => {
   const favoriteButton = (
     <div
       role="button"
-      className="absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-gray-50"
+      className={`border ${
+        currentImageColor && isFavorited(currentImageColor, product.id)
+          ? "border-violet-500 border-opacity-25"
+          : "border-transparent"
+      } absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-slate-50 pt-1`}
     >
       {currentImageColor && isFavorited(currentImageColor, product.id) && (
-        <BsHeartFill className="h-6 w-6 text-gray-700" />
+        <BsHeartFill className="h-6 w-6 text-violet-500" />
       )}
       {currentImageColor && !isFavorited(currentImageColor, product.id) && (
         <BsHeart className="h-6 w-6" />
@@ -78,22 +82,22 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
 
   const prices = product.discount ? (
-    <div className="absolute bottom-2 left-4 text-gray-900 transition-transform duration-300 group-hover:-translate-y-1.5">
+    <div className="absolute bottom-2 left-4 text-slate-900 transition-transform duration-300 group-hover:-translate-y-1.5">
       <p className="w-fit rounded-sm bg-teal-500 px-1 font-display font-bold text-white">
         -{product.discount.discountPercent}%
       </p>
       <div className="h-1.5"></div>
       <div className=" flex gap-2 ">
-        <p className="bg-gray-50 px-3  py-1 font-display  text-gray-500 line-through">
+        <p className="bg-slate-50 px-3  py-1 font-display  text-slate-500 line-through">
           {priceBeforeDiscount}
         </p>
-        <p className="w-fit bg-gray-50 px-3 py-1 font-display font-bold text-pink-500">
+        <p className="w-fit bg-slate-50 px-3 py-1 font-display font-bold text-pink-500">
           {priceAfterDiscount}
         </p>
       </div>
     </div>
   ) : (
-    <p className="absolute bottom-2 left-4 w-fit bg-gray-50 px-3 py-1 font-display font-bold transition-transform duration-300 group-hover:-translate-y-1.5">
+    <p className="absolute bottom-2 left-4 w-fit bg-slate-50 px-3 py-1 font-display font-bold transition-transform duration-300 group-hover:-translate-y-1.5">
       {priceBeforeDiscount}
     </p>
   );
@@ -102,7 +106,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     <div className="min-h-[4rem] self-start overflow-hidden pl-4 ">
       <p className="line-clamp-1 font-semibold">{product.name}</p>
       <div className="h-1"></div>
-      <p className="text-gray-500">{product.category.name}</p>
+      <p className="text-slate-500">{product.category.name}</p>
     </div>
   );
 
@@ -111,7 +115,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       href={`/product/${product.id}/${product.images.find(
         (image) => image.id === currentImage,
       )?.color}`}
-      className={`group flex flex-col items-center justify-center  rounded-sm bg-gray-50 p-1 text-gray-800`}
+      className={`group flex flex-col items-center justify-center  rounded-sm bg-slate-50 p-1 text-slate-800`}
       onMouseOver={() => setShowColorVariations(true)}
       onMouseLeave={() => setShowColorVariations(false)}
     >

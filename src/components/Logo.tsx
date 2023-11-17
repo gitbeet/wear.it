@@ -1,10 +1,12 @@
 import Link from "next/link";
 
-const Logo = () => (
+const Logo = ({ light }: { light?: boolean }) => (
   <Link href="/">
     <h1
-      className="flex items-center rounded-md 
-  py-1  font-display text-xl  font-black text-gray-800"
+      className={`${
+        light ? "text-slate-50" : "text-slate-800"
+      } flex items-center rounded-md 
+  py-1  font-display text-xl  font-black`}
     >
       Logo
     </h1>

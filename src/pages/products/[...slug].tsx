@@ -14,20 +14,20 @@ export const SkeletonCard = ({ slider = false }: { slider?: boolean }) => {
     <div
       className={`${
         slider ? "relative min-h-[500px] min-w-[400px] snap-start" : ""
-      }  animate-pulse bg-gray-50 pb-2  text-gray-800`}
+      }  animate-pulse bg-slate-50 pb-2  text-slate-800`}
     >
       <div>
         <div className="relative">
-          <div className="absolute bottom-4 right-4 z-10  h-10 w-10   rounded-full bg-gray-400"></div>
+          <div className="absolute bottom-4 right-4 z-10  h-10 w-10   rounded-full bg-slate-400"></div>
           <div className="relative aspect-square w-full bg-slate-200" />
-          <p className="absolute bottom-2 left-4 h-4 w-16 rounded-full bg-gray-400"></p>
+          <p className="absolute bottom-2 left-4 h-4 w-16 rounded-full bg-slate-400"></p>
         </div>
       </div>
       <div className="h-4"></div>
       <div className="min-h-[4rem] overflow-hidden pl-4">
-        <p className="h-4 w-3/4 rounded-full bg-gray-400"></p>
+        <p className="h-4 w-3/4 rounded-full bg-slate-400"></p>
         <div className="h-1"></div>
-        <p className="h-4 w-16 rounded-full bg-gray-400"></p>
+        <p className="h-4 w-16 rounded-full bg-slate-400"></p>
       </div>
     </div>
   );
@@ -37,19 +37,19 @@ const Skeleton = () => {
   return (
     <section className="grid w-full grow content-start gap-2  md:grid-cols-3  ">
       {[...Array(12).keys()].map((bone) => (
-        <div key={bone} className=" animate-pulse bg-gray-100 pb-2">
+        <div key={bone} className=" animate-pulse bg-slate-100 pb-2">
           <div>
             <div className="relative">
-              <div className="absolute bottom-4 right-4 z-10  h-10 w-10   rounded-full bg-gray-400"></div>
+              <div className="absolute bottom-4 right-4 z-10  h-10 w-10   rounded-full bg-slate-400"></div>
               <div className="relative aspect-square w-full bg-slate-200" />
-              <p className="absolute bottom-2 left-4 h-4 w-16 rounded-full bg-gray-400"></p>
+              <p className="absolute bottom-2 left-4 h-4 w-16 rounded-full bg-slate-400"></p>
             </div>
           </div>
           <div className="h-4"></div>
           <div className="min-h-[4rem] overflow-hidden pl-4">
-            <p className="h-4 w-3/4 rounded-full bg-gray-400"></p>
+            <p className="h-4 w-3/4 rounded-full bg-slate-400"></p>
             <div className="h-1"></div>
-            <p className="h-4 w-16 rounded-full bg-gray-400 text-gray-500"></p>
+            <p className="h-4 w-16 rounded-full bg-slate-400 text-slate-500"></p>
           </div>
         </div>
       ))}
@@ -77,14 +77,14 @@ const Pagination = ({
       <p
         role="button"
         className={`${
-          currentPage <= 1 ? "cursor-default text-gray-500" : "text-gray-800"
+          currentPage <= 1 ? "cursor-default text-slate-500" : "text-slate-800"
         } font-semibold`}
         onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : 1))}
       >
         Previous
       </p>
       <div className="flex items-center">
-        <label htmlFor="pagination" className=" pr-2 text-gray-600">
+        <label htmlFor="pagination" className=" pr-2 text-slate-600">
           Page
         </label>
         <select
@@ -100,7 +100,7 @@ const Pagination = ({
             <option key={el + 1}>{el + 1}</option>
           ))}
         </select>
-        <span className="pl-2 text-gray-600">
+        <span className="pl-2 text-slate-600">
           {" "}
           of {totalPages < 2 ? 1 : totalPages}
         </span>
@@ -108,7 +108,7 @@ const Pagination = ({
       <p
         role="button"
         className={`${
-          !isThereNextPage ? "cursor-default text-gray-500" : "text-gray-800"
+          !isThereNextPage ? "cursor-default text-slate-500" : "text-slate-800"
         } font-semibold`}
         onClick={() =>
           setCurrentPage((prev) => (isThereNextPage ? prev + 1 : prev))
@@ -165,7 +165,7 @@ const ProductsPage = () => {
         <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
       </section>
       {!data && (
-        <p className="ml-8 h-4 w-36 animate-pulse rounded-full bg-gray-400"></p>
+        <p className="ml-8 h-4 w-36 animate-pulse rounded-full bg-slate-400"></p>
       )}
       {data && (
         <p className="pb-8  text-xl">

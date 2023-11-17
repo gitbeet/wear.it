@@ -19,7 +19,7 @@ export const colorOptions: ColorOption[] = [
   { id: 8, name: "PINK", color: "bg-pink-300" },
   { id: 9, name: "BROWN", color: "bg-amber-900" },
   { id: 10, name: "YELLOW", color: "bg-yellow-500" },
-  { id: 11, name: "GRAY", color: "bg-gray-600" },
+  { id: 11, name: "GRAY", color: "bg-slate-600" },
   { id: 12, name: "BEIGE", color: "bg-yellow-600" },
 ];
 
@@ -46,7 +46,7 @@ const ColorFilter = () => {
     }
   };
   return (
-    <div className="border-b  border-gray-300 p-8 pl-0">
+    <div className="border-b  border-slate-300 p-8 pl-0">
       <p className="font-bold">Colors</p>
       <div className="h-4"></div>
       <div className="grid grid-cols-3 items-center justify-center gap-4">
@@ -65,13 +65,13 @@ const ColorFilter = () => {
                   option.color
                 } border-[2px] outline outline-2 ${
                   isIncluded
-                    ? "border-gray-100 outline-gray-500 "
-                    : "border-gray-200 outline-transparent "
+                    ? "border-slate-100 outline-slate-500 "
+                    : "border-slate-200 outline-transparent "
                 }`}
               ></div>
               <p
                 className={`${
-                  isIncluded ? "text-gray-800" : "text-gray-600"
+                  isIncluded ? "text-slate-800" : "text-slate-600"
                 } text-sm font-semibold `}
               >
                 {option.name.charAt(0) + lowerCaseName.slice(1)}

@@ -60,7 +60,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
   return (
     <div
       className={`${
-        !modal ? " border-b border-gray-300" : ""
+        !modal ? " border-b border-slate-300" : ""
       } flex w-full gap-4 py-6`}
     >
       <Image
@@ -83,20 +83,20 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                   {name}
                 </p>
               </Link>
-              <p className="text-gray-600">{category.name}</p>
+              <p className="text-slate-600">{category.name}</p>
             </div>
             {!modal && <p className="font-bold">{priceAfterDiscount}</p>}
           </div>
           <div className="h-2"></div>
-          <div className="text-gray-600">
-            Color: <span className="text-gray-500">{color}</span>
+          <div className="text-slate-600">
+            Color: <span className="text-slate-500">{color}</span>
           </div>
         </div>
         {/* BOTTOM */}
         <div>
           {/* SIZE & QTY */}
           {modal && (
-            <div className="flex gap-2 text-gray-600">
+            <div className="flex gap-2 text-slate-600">
               <p>Size</p>
               <span>{size}</span>
             </div>
@@ -104,7 +104,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
           {modal && (
             <p>
               <span className="font-bold">{priceAfterDiscount}</span>{" "}
-              <span className="pl-2 text-gray-500 line-through">
+              <span className="pl-2 text-slate-500 line-through">
                 {priceBeforeDiscount}
               </span>
             </p>
@@ -113,11 +113,11 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
           {!modal && (
             <>
               <div className="flex gap-12">
-                <div className="flex gap-2 text-gray-600">
+                <div className="flex gap-2 text-slate-600">
                   <p>Sizes</p>
                   <select
                     disabled={isFetching}
-                    className="bg-gray-200 pl-4"
+                    className="bg-slate-200 pl-4"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                       modify({
                         id,
@@ -131,11 +131,11 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                     ))}
                   </select>
                 </div>
-                <div className="flex gap-2 text-gray-600">
+                <div className="flex gap-2 text-slate-600">
                   <p>Quantity</p>
                   <select
                     disabled={isFetching}
-                    className="bg-gray-200 pl-4"
+                    className="bg-slate-200 pl-4"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                       modify({
                         id,
@@ -168,7 +168,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                   }
                 }}
                 role="button"
-                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800"
+                className="flex items-center gap-2 text-slate-600 transition-colors duration-150 hover:text-slate-800"
               >
                 {isItemFavorited ? (
                   <BsHeartFill className="h-5 w-5" />
@@ -183,7 +183,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
               <button
                 disabled={isRemoving}
                 onClick={() => remove({ id })}
-                className="flex items-center gap-2 text-gray-600 transition-colors duration-150 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-2 text-slate-600 transition-colors duration-150 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <BsTrash className="h-5 w-5" />
                 <span className="pl-2">Remove</span>
