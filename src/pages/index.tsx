@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 import bannerJackets from "../../public/assets/banner-small-jackets-2.jpg";
 import bannerSneakers from "../../public/assets/banner-small--sneakers-2.jpg";
 import bannerTShirts from "../../public/assets/banner-large--tShirts-2.jpg";
+import bannerJacketsMale from "../../public/assets/banner-jackets-square.jpg";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
 import { FaSnowflake } from "react-icons/fa";
 import SectionSpacer from "~/components/UI/SectionSpacer";
@@ -33,7 +34,8 @@ const Hero = () => (
   <section className="relative w-full  overflow-hidden py-16 lg:py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-black">
-        <span className=" bg-gradient-to-r from-violet-600 via-indigo-500 to-slate-800 bg-clip-text text-transparent">
+        <span className=" bg-gradient-to-r from-violet-500 via-indigo-500 to-slate-800 bg-clip-text text-transparent">
+          {/* <span className=" bg-gradient-to-r from-red-500 via-pink-500  to-indigo-600 bg-clip-text text-transparent"> */}
           Ready for
         </span>
         <span> winter?</span>
@@ -79,7 +81,7 @@ const EventSlider = () => {
     <section className="padding-x flex w-full flex-col items-start gap-6 md:flex-row md:items-center lg:gap-16">
       <div>
         <h2 className="flex items-center gap-2">
-          <FaSnowflake className="inline h-8 w-8 text-violet-500" />
+          <FaSnowflake className="inline h-8 w-8 text-indigo-500" />
           <p className="shrink-0 font-display text-5xl font-extrabold">
             Cozy up!
           </p>
@@ -170,7 +172,8 @@ export default function Home() {
       <div className="h-4 md:h-8"></div>
       <EventSlider />
       <SectionSpacer />
-      <div className="padding-x flex flex-col items-center justify-center gap-8 bg-gradient-to-t from-violet-500 via-indigo-500  to-violet-600 py-16 text-slate-50 md:bg-gradient-to-r">
+      {/* <div className="padding-x flex flex-col items-center justify-center gap-8 bg-gradient-to-t from-violet-500 via-pink-500  to-indigo-600 py-16 text-slate-50 md:bg-gradient-to-r"> */}
+      <div className="padding-x flex flex-col items-center justify-center gap-8 bg-gradient-to-br from-violet-500 to-indigo-500 py-16  text-slate-50 md:bg-gradient-to-tr md:via-indigo-500 md:to-violet-500">
         <div className="space-y-4">
           <p className="text-center font-display text-5xl font-black">
             BECOME A MEMBER <br /> AND SAVE UP TO 70%

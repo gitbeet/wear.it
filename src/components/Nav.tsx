@@ -116,7 +116,7 @@ const Nav = () => {
                 <SignOutButton>
                   <div className="flex items-center gap-2">
                     Hello,
-                    <span className="text-violet-500"> {user.username} </span>
+                    <span className="text-indigo-500"> {user.username} </span>
                     <BsPerson className="h-5 w-5" />
                   </div>
                 </SignOutButton>

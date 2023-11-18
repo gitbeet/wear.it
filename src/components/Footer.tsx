@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <section className="  bg-gradient-to-br from-violet-500  to-indigo-600  pt-12 text-slate-50">
+    <section className="  bg-gradient-to-br from-violet-500  to-indigo-500  pt-12 text-slate-50">
       <div className="padding-x mx-auto flex max-w-[1600px] flex-wrap justify-between pb-20">
         <Logo light />
         <nav className="space-y-2">

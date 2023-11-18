@@ -34,18 +34,14 @@ const Favorites = () => {
               : product.price,
           );
           return (
-            <div key={id} className={`w-full bg-slate-50 pb-2 text-slate-800`}>
+            <div key={id} className={`pb-200 w-full bg-slate-50`}>
               <div className="relative w-full">
                 <div
                   onClick={() => addToFavorites({ color, productId })}
                   role="button"
-                  className="absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-slate-50"
+                  className={`absolute bottom-4  right-4 z-10 flex h-10 w-10 items-center justify-center  rounded-full border border-indigo-100 bg-slate-50`}
                 >
-                  {isItemFavorited ? (
-                    <BsHeartFill className="h-6 w-6" />
-                  ) : (
-                    <BsHeart className="h-6 w-6" />
-                  )}
+                  <BsHeartFill className="h-6 w-6  text-indigo-400" />
                 </div>
                 <Link href={`/product/${productId}/${color}`}>
                   <div className="relative aspect-square w-full">

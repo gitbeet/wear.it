@@ -19,7 +19,7 @@ const NavIcon = ({ link, icon, number = 0, loading }: Props) => {
           {icon}
 
           {!loading && number > 0 && (
-            <div className="outline-3 absolute left-1.5 top-6  flex h-[17px] w-[17px] items-center justify-center rounded-full bg-violet-500 text-white outline outline-white group-hover:outline-slate-300">
+            <div className="outline-3 absolute left-1.5 top-6  flex h-[17px] w-[17px] items-center justify-center rounded-full bg-indigo-400 text-white outline outline-white group-hover:outline-slate-300">
               <p className="text-[11px]">{number}</p>
             </div>
           )}

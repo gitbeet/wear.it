@@ -97,9 +97,10 @@ const CartItems = () => {
 
 const Cart = () => {
   return (
-    <section className="mx-auto grid max-w-[1400px] grid-cols-[2fr,1fr] gap-16 pt-32">
+    <section className="padding-x mx-auto grid max-w-[1400px] gap-16 pt-16 md:pt-24 lg:grid-cols-[2fr,1fr]">
       <CartItems />
       <Summary />
+      <div className="h-12"></div>
     </section>
   );
 };

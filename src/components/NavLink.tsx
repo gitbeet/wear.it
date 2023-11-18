@@ -16,7 +16,7 @@ const NavLink = ({ link, text, onMouseOver, onMouseLeave, onClick }: Props) => {
         onClick={onClick}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
-        className={`cursor-pointer p-4  font-bold text-slate-800 hover:text-violet-500`}
+        className={`cursor-pointer  border-[5px]  border-transparent p-4  font-bold text-slate-800 hover:border-t-indigo-400 hover:text-indigo-400`}
       >
         {text}
       </li>

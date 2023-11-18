@@ -1,8 +1,33 @@
-import Carousel from "react-multi-carousel";
+import Carousel, { ArrowProps, ResponsiveType } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { type RouterOutputs } from "~/utils/api";
 import ProductCard from "../components/ProductCard";
+import { FiChevronRight } from "react-icons/fi";
 type Product = RouterOutputs["product"]["getAll"]["products"][number];
+
+const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
+  return (
+    <div className="absolute right-0 flex -translate-x-full items-center justify-center rounded-full bg-indigo-500/70 p-1 text-slate-50  ">
+      <FiChevronRight
+        className=" h-8 w-8 "
+        role="button"
+        onClick={() => onClick?.()}
+      />
+    </div>
+  );
+};
+
+const CustomLeftArrow = ({ onClick, ...rest }: ArrowProps) => {
+  return (
+    <div className="absolute left-0 flex translate-x-full items-center justify-center rounded-full bg-indigo-500/70 p-1 text-slate-50  ">
+      <FiChevronRight
+        className=" h-8 w-8 rotate-180 "
+        role="button"
+        onClick={() => onClick?.()}
+      />
+    </div>
+  );
+};
 
 const ProductCardCarousel = ({
   products,
@@ -17,7 +42,7 @@ const ProductCardCarousel = ({
     desktop: number;
   };
 }) => {
-  const responsive = {
+  const responsive: ResponsiveType = {
     desktop: {
       breakpoint: { max: 3000, min: 1280 },
       items: numberOfItems.desktop,
@@ -36,7 +61,11 @@ const ProductCardCarousel = ({
     },
   };
   return !products || isLoading ? (
-    <Carousel responsive={responsive}>
+    <Carousel
+      responsive={responsive}
+      customRightArrow={<CustomRightArrow />}
+      customLeftArrow={<CustomLeftArrow />}
+    >
       {[...Array(12).keys()].map((bone) => (
         <div
           key={bone}
@@ -59,7 +88,16 @@ const ProductCardCarousel = ({
       ))}
     </Carousel>
   ) : (
-    <Carousel responsive={responsive}>
+    <Carousel
+      responsive={responsive}
+      autoPlay
+      autoPlaySpeed={5000}
+      infinite
+      customTransition="all 1.2s"
+      removeArrowOnDeviceType={["mobile", "tablet"]}
+      customRightArrow={<CustomRightArrow />}
+      customLeftArrow={<CustomLeftArrow />}
+    >
       {products?.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

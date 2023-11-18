@@ -61,19 +61,26 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
     <div
       className={`${
         !modal ? " border-b border-slate-300" : ""
-      } flex w-full gap-4 py-6`}
+      } flex w-full items-start gap-4 py-6 sm:items-center`}
     >
-      <Image
-        width={modal ? 128 : 196}
-        height={modal ? 128 : 196}
-        src={thumbnail ?? ""}
-        alt="Product thumbnail"
-        className="bg-slate-200"
-      />
+      <div
+        className={`relative ${
+          modal ? "sm:w-32" : "sm:w-48"
+        } aspect-square w-28`}
+      >
+        <Image
+          fill
+          objectFit="contain"
+          src={thumbnail ?? ""}
+          alt="Product thumbnail"
+          className="absolute "
+        />
+      </div>
+
       <div className="flex w-full flex-col justify-between">
         {/* TOP */}
         <div>
-          <div className="flex justify-between gap-4">
+          <div className="flex flex-col-reverse justify-between gap-4 sm:flex-row">
             <div>
               <Link
                 className="font-semibold"
@@ -91,6 +98,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
           <div className="text-slate-600">
             Color: <span className="text-slate-500">{color}</span>
           </div>
+          <div className="h-2"></div>
         </div>
         {/* BOTTOM */}
         <div>
@@ -112,7 +120,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
 
           {!modal && (
             <>
-              <div className="flex gap-12">
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
                 <div className="flex gap-2 text-slate-600">
                   <p>Sizes</p>
                   <select
@@ -155,7 +163,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
           )}
           {/* BTNS */}
           {!modal && (
-            <div className="flex gap-8">
+            <div className="flex flex-col gap-2 sm:flex-row sm:gap-8">
               <button
                 disabled={isFaving}
                 onClick={() => {

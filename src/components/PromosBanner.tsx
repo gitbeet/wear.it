@@ -31,7 +31,7 @@ export const PromosBanner = ({
     return (
       <FiChevronRight
         role="button"
-        className="absolute right-0 h-6 w-6 -translate-x-full  text-slate-50"
+        className="absolute right-0  h-6 w-6 -translate-x-full text-slate-50  "
         onClick={() => onClick?.()}
       />
     );
@@ -41,15 +41,17 @@ export const PromosBanner = ({
     return (
       <FiChevronRight
         role="button"
-        className="absolute   h-6 w-6 rotate-180  border-white text-slate-50 "
+        className="absolute  h-6   w-6 rotate-180 border-white  text-slate-50  "
         onClick={() => onClick?.()}
       />
     );
   };
 
   return (
-    <div className="w-full bg-gradient-to-r from-violet-500 via-indigo-500 to-violet-500 text-slate-50">
+    // <div className="w-full bg-gradient-to-r from-orange-400 via-pink-500 to-orange-500 text-slate-50">
+    <div className="w-full bg-gradient-to-r from-violet-500 to-indigo-500 text-slate-50 md:via-indigo-500 md:to-violet-500">
       <Carousel
+        removeArrowOnDeviceType={["tablet", "mobile"]}
         className="relative mx-auto w-[min(95%,700px)] py-1.5"
         customRightArrow={<CustomRightArrow />}
         customLeftArrow={<CustomLeftArrow />}

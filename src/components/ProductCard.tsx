@@ -41,12 +41,12 @@ const ProductCard = ({ product }: { product: Product }) => {
       role="button"
       className={`border ${
         currentImageColor && isFavorited(currentImageColor, product.id)
-          ? "border-violet-500 border-opacity-25"
+          ? "border-indigo-100"
           : "border-transparent"
       } absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-slate-50 pt-1`}
     >
       {currentImageColor && isFavorited(currentImageColor, product.id) && (
-        <BsHeartFill className="h-6 w-6 text-violet-500" />
+        <BsHeartFill className="h-6 w-6 text-indigo-400" />
       )}
       {currentImageColor && !isFavorited(currentImageColor, product.id) && (
         <BsHeart className="h-6 w-6" />
