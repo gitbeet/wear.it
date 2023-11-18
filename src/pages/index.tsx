@@ -112,8 +112,8 @@ const Trending = () => {
       type: ["MEN", "WOMEN"],
     });
   return (
-    <section>
-      <h2 className="padding-x font-display text-2xl font-black">Trending</h2>
+    <section className="padding-x">
+      <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-6 md:h-12"></div>
 
       <div className="w-full overflow-hidden">

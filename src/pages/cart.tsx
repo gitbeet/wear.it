@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import BagItem from "~/components/Cart/BagItem";
 import Button from "~/components/UI/Button";
@@ -61,7 +62,11 @@ const Summary = () => {
         </tbody>
       </table>
       <div className="h-8"></div>
-      <Button text="Checkout" onClick={() => void 0} />
+      <Button disabled text="Guest Checkout" onClick={() => void 0} />
+      <div className="h-4"></div>
+      <Link href="/checkout">
+        <Button text="Member Checkout" onClick={() => void 0} />
+      </Link>
     </section>
   );
 };

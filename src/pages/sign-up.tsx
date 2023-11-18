@@ -1,22 +1,47 @@
+import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { InputField } from "./sign-in";
-import { BsEnvelope, BsKey, BsPerson } from "react-icons/bs";
 import Button from "~/components/UI/Button";
+import FormField from "~/components/FormField";
+
+export type SignUpValidationType = z.infer<typeof signUpValidationSchema>;
+
+const signUpValidationSchema = z
+  .object({
+    username: z.string().min(1, { message: "Username required" }),
+    emailAddress: z.string().email().min(1, { message: "Email required" }),
+    password: z.string().min(8, { message: "Password too short" }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: "Password confirmation required" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match",
+  });
 
 export default function SignUpForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<SignUpValidationType>({
+    resolver: zodResolver(signUpValidationSchema),
+  });
+
   const { isLoaded, signUp, setActive } = useSignUp();
-  const [username, setUsername] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
   const router = useRouter();
+
   // start the sign up process.
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<SignUpValidationType> = async (data) => {
+    const { emailAddress, password, username } = data;
     if (!isLoaded) {
       return;
     }
@@ -69,45 +94,58 @@ export default function SignUpForm() {
       <h1 className="text-center font-display text-6xl font-black">
         Become a member
       </h1>
-      <div className="h-24"></div>
+      <div className="h-16"></div>
       {!pendingVerification && (
-        <form className="mx-auto max-w-[400px]">
-          <InputField
-            placeholder="johndoe123"
-            onChange={(e) => setUsername(e.target.value)}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mx-auto max-w-[400px]"
+        >
+          <div className="h-8"></div>
+          <FormField
+            error={errors.username?.message}
             label="Username"
             name="username"
+            placeholder="johndoe123"
+            register={register}
             type="text"
-            value={username}
-            icon={<BsPerson className="h-8 w-8" />}
-          />
-          <div className="h-6"></div>
-          <InputField
-            placeholder="johndoe@email.com"
-            onChange={(e) => setEmailAddress(e.target.value)}
-            label="Email"
-            name="email"
-            type="email"
-            value={emailAddress}
-            icon={<BsEnvelope className="h-8 w-8" />}
-          />
-          <div className="h-6"></div>
-          <InputField
-            placeholder="•••••••"
-            onChange={(e) => setPassword(e.target.value)}
-            label="Password"
-            name="password"
-            type="password"
-            value={password}
-            icon={<BsKey className="h-8 w-8" />}
           />
           <div className="h-8"></div>
+          <FormField
+            error={errors.emailAddress?.message}
+            label="Email"
+            name="emailAddress"
+            placeholder="johndoe123@email.com"
+            register={register}
+            type="email"
+          />
+          <div className="h-8"></div>
+          <FormField
+            error={errors.password?.message}
+            label="Password"
+            name="password"
+            placeholder="•••••••••••"
+            register={register}
+            type="password"
+          />
+          <div className="h-8"></div>
+          <FormField
+            error={errors.confirmPassword?.message}
+            label="Confirm Password"
+            name="confirmPassword"
+            placeholder="•••••••••••"
+            register={register}
+            type="password"
+          />
+          <div className="h-12"></div>
 
-          <Button onClick={handleSubmit} text="Sign up" />
+          <Button onClick={() => void 0} text="Sign up" />
           <div className="h-4"></div>
           <p className="px-4">
             Already have an account?{" "}
-            <Link className="pl-1 font-bold text-indigo-500" href="/sign-in">
+            <Link
+              className="pl-1 font-bold text-indigo-500 underline"
+              href="/sign-in"
+            >
               Sign in
             </Link>
           </p>

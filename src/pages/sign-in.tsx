@@ -3,7 +3,7 @@ import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Button from "~/components/UI/Button";
-import { BsEnvelope, BsKey, BsLock } from "react-icons/bs";
+import { BsEnvelope, BsKey } from "react-icons/bs";
 
 interface InputFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,7 +11,7 @@ interface InputFieldProps {
   name: string;
   type: "text" | "email" | "password" | "number";
   value: string;
-  icon: JSX.Element;
+  icon?: JSX.Element;
   placeholder?: string;
 }
 
@@ -27,17 +27,17 @@ export const InputField = ({
   return (
     <div className="relative">
       <label
-        className="absolute -top-3 left-14 z-10 bg-slate-50 px-4  text-slate-400"
+        className="absolute -top-3 left-12 z-10 rounded-full bg-slate-50  px-4 font-semibold text-slate-500"
         htmlFor="email"
       >
         {label}
       </label>
-      <div className="absolute left-5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-slate-300">
+      <div className="absolute left-5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center text-indigo-300">
         {icon}
       </div>
       <input
         placeholder={placeholder}
-        className="h-16 w-full rounded-full  border border-slate-300 bg-slate-50 pl-[72px] focus:border-transparent focus:outline focus:outline-violet-200"
+        className="h-14 w-full rounded-full  border border-slate-300 bg-slate-50 pl-[72px] placeholder:text-slate-300 focus:border-indigo-400"
         onChange={onChange}
         id={name}
         name={name}
@@ -98,7 +98,7 @@ export default function SignInForm() {
           }
           type="email"
         />
-        <div className="h-6"></div>
+        <div className="h-8"></div>
         <InputField
           placeholder="•••••••"
           icon={<BsKey className="h-8 w-8" />}
@@ -110,7 +110,7 @@ export default function SignInForm() {
           }
           type="password"
         />
-        <div className="h-8"></div>
+        <div className="h-12"></div>
         <Button onClick={handleSubmit} text="Sign in" />
         <div className="h-4"></div>
         <div className="px-4">
@@ -123,7 +123,10 @@ export default function SignInForm() {
           <br />
           <div className="h-1 "></div>
           <span className="font-light text-slate-800">Not a member yet?</span>
-          <Link href="/sign-up" className="pl-1 font-bold text-indigo-500">
+          <Link
+            href="/sign-up"
+            className="pl-1 font-bold text-indigo-500 underline"
+          >
             Sign up
           </Link>
         </div>
