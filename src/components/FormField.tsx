@@ -1,11 +1,14 @@
 import React from "react";
 import { type UseFormRegister } from "react-hook-form";
+import { type SignInValidationType } from "~/pages/sign-in";
 import { type SignUpValidationType } from "~/pages/sign-up";
 
 interface Props {
-  register: UseFormRegister<SignUpValidationType>;
+  register: ReturnType<
+    UseFormRegister<SignUpValidationType | SignInValidationType>
+  >;
   label: string;
-  name: keyof SignUpValidationType;
+  name: keyof SignUpValidationType | keyof SignInValidationType;
   type: string;
   placeholder: string;
   error: string | undefined;
@@ -46,7 +49,7 @@ const FormField = ({
         placeholder={placeholder}
         id={name}
         type={type}
-        {...register(name)}
+        {...register}
       />
     </div>
   );

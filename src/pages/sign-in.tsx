@@ -1,61 +1,36 @@
+import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Button from "~/components/UI/Button";
 import { BsEnvelope, BsKey } from "react-icons/bs";
+import FormField from "~/components/FormField";
 
-interface InputFieldProps {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  label: string;
-  name: string;
-  type: "text" | "email" | "password" | "number";
-  value: string;
-  icon?: JSX.Element;
-  placeholder?: string;
-}
+export type SignInValidationType = z.infer<typeof signInValidationSchema>;
 
-export const InputField = ({
-  onChange,
-  label,
-  name,
-  type,
-  value,
-  icon,
-  placeholder = "",
-}: InputFieldProps) => {
-  return (
-    <div className="relative">
-      <label
-        className="absolute -top-3 left-12 z-10 rounded-full bg-slate-50  px-4 font-semibold text-slate-500"
-        htmlFor="email"
-      >
-        {label}
-      </label>
-      <div className="absolute left-5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center text-indigo-300">
-        {icon}
-      </div>
-      <input
-        placeholder={placeholder}
-        className="h-14 w-full rounded-full  border border-slate-300 bg-slate-50 pl-[72px] placeholder:text-slate-300 focus:border-indigo-400"
-        onChange={onChange}
-        id={name}
-        name={name}
-        type={type}
-        value={value}
-      />
-    </div>
-  );
-};
+const signInValidationSchema = z.object({
+  emailAddress: z.string().min(1, { message: "Email required" }).email(),
+  password: z.string().min(1, { message: "Password is required" }),
+});
 
 export default function SignInForm() {
   const { isLoaded, signIn, setActive } = useSignIn();
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInValidationType>({
+    resolver: zodResolver(signInValidationSchema),
+  });
+
   // start the sign In process.
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<SignInValidationType> = async (data) => {
+    const { emailAddress, password } = data;
     if (!isLoaded) {
       return;
     }
@@ -86,32 +61,28 @@ export default function SignInForm() {
         Welcome back
       </h1>
       <div className="h-24"></div>
-      <form className="mx-auto max-w-[400px]">
-        <InputField
+      <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[400px]">
+        <FormField
           placeholder="johndoe@email.com"
           icon={<BsEnvelope className="h-8 w-8" />}
-          value={emailAddress}
           label="Email"
-          name="email"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmailAddress(e.target.value)
-          }
-          type="email"
+          type="text"
+          name="emailAddress"
+          register={register("emailAddress")}
+          error={errors.emailAddress?.message}
         />
         <div className="h-8"></div>
-        <InputField
+        <FormField
           placeholder="•••••••"
           icon={<BsKey className="h-8 w-8" />}
-          value={password}
           label="Password"
           name="password"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
           type="password"
+          register={register("password")}
+          error={errors.password?.message}
         />
         <div className="h-12"></div>
-        <Button onClick={handleSubmit} text="Sign in" />
+        <Button text="Sign in" onClick={() => void 0} />
         <div className="h-4"></div>
         <div className="px-4">
           <Link

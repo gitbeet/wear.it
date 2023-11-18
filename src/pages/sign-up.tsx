@@ -21,10 +21,10 @@ export type SignUpValidationType = z.infer<typeof signUpValidationSchema>;
 const signUpValidationSchema = z
   .object({
     username: z.string().min(1, { message: "Username required" }),
-    emailAddress: z.string().email().min(1, { message: "Email required" }),
+    emailAddress: z.string().min(1, { message: "Email required" }).email(),
     password: z
       .string()
-      .min(1, { message: "Password is required" })
+      .min(1, { message: "Password required" })
       .min(8, { message: "Password too short" }),
     confirmPassword: z
       .string()
@@ -130,7 +130,7 @@ export default function SignUpForm() {
             label="Username"
             name="username"
             placeholder="johndoe123"
-            register={register}
+            register={register("username")}
             type="text"
             icon={<BsPerson className="h-8 w-8" />}
           />
@@ -140,8 +140,8 @@ export default function SignUpForm() {
             label="Email"
             name="emailAddress"
             placeholder="johndoe123@email.com"
-            register={register}
-            type="email"
+            register={register("emailAddress")}
+            type="text"
             icon={<BsEnvelope className="h-8 w-8" />}
           />
           <div className="h-8"></div>
@@ -150,7 +150,7 @@ export default function SignUpForm() {
             label="Password"
             name="password"
             placeholder="•••••••••••"
-            register={register}
+            register={register("password")}
             type="password"
             icon={<BsKey className="h-8 w-8" />}
           />
@@ -160,7 +160,7 @@ export default function SignUpForm() {
             label="Confirm Password"
             name="confirmPassword"
             placeholder="•••••••••••"
-            register={register}
+            register={register("confirmPassword")}
             type="password"
             icon={confirmPasswordIcon}
           />
