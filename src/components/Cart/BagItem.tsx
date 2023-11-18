@@ -179,7 +179,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                 className="flex items-center gap-2 text-slate-600 transition-colors duration-150 hover:text-slate-800"
               >
                 {isItemFavorited ? (
-                  <BsHeartFill className="h-5 w-5" />
+                  <BsHeartFill className="h-5 w-5 text-indigo-400" />
                 ) : (
                   <BsHeart className="h-5 w-5" />
                 )}

@@ -18,7 +18,7 @@ const Search = ({
 }) => {
   return (
     <>
-      <div className="relative hidden h-10 lg:block">
+      <div className=" group relative hidden h-10 lg:block">
         {input.length > 1 && (
           <VscChromeClose
             onClick={handleCloseButton}
@@ -26,16 +26,16 @@ const Search = ({
             className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2"
           />
         )}
-        <BsSearch className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+        <FiSearch className="absolute left-2 top-1/2  h-6 w-6 -translate-y-1/2 text-slate-400 transition-colors duration-150 group-focus-within:text-indigo-400" />
         <input
           onFocus={onFocus}
           onBlur={onBlur}
           value={input}
           onChange={handleSearch}
-          className="h-full w-56  rounded-full border border-slate-200 bg-slate-100 px-10"
+          className=" h-full w-56 rounded-full border border-slate-200 bg-slate-100 px-10 transition-colors duration-150 "
         />
       </div>
-      <BsSearch className="m-3 h-5 w-5 text-slate-700 lg:hidden" />
+      <FiSearch className="m-3 h-5 w-5 text-slate-700 lg:hidden" />
     </>
   );
 };

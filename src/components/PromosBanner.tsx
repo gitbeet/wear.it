@@ -21,7 +21,7 @@ export const PromosBanner = ({
     return (
       <FiChevronRight
         role="button"
-        className="absolute right-0  h-6 w-6 -translate-x-full text-slate-50  "
+        className="absolute right-0  h-6 w-6  text-slate-50  "
         onClick={() => onClick?.()}
       />
     );
@@ -38,10 +38,10 @@ export const PromosBanner = ({
   };
 
   return (
-    <div className="w-full bg-gradient-to-r from-violet-500 to-indigo-500 text-slate-50 md:via-indigo-500 md:to-violet-500">
+    <div className="relative z-50 flex w-full items-center justify-center bg-gradient-to-r from-violet-500 to-indigo-500 text-slate-50 md:via-indigo-500 md:to-violet-500">
       <Carousel
         removeArrowOnDeviceType={["tablet", "mobile"]}
-        className="mx-auto w-[min(95%,700px)] py-1.5"
+        className="w-[min(95%,700px)] py-1.5 md:py-2"
         customRightArrow={<CustomRightArrow />}
         customLeftArrow={<CustomLeftArrow />}
         infinite
@@ -50,7 +50,10 @@ export const PromosBanner = ({
         responsive={responsive}
       >
         {promos.map((banner, i) => (
-          <div className="text-center text-sm font-semibold" key={i}>
+          <div
+            className="px-8 text-center text-sm font-semibold sm:px-8"
+            key={i}
+          >
             <p>{banner.text}</p>
             <Link className="text-xs font-bold underline" href={banner.link}>
               {banner.linkText}

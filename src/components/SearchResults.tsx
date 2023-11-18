@@ -12,15 +12,24 @@ const SearchResults = ({ show, results, onClose }: Props) => {
     show &&
     results && (
       <>
-        <section className="absolute z-50 flex w-full bg-slate-50 px-16 py-12 shadow-lg">
-          {results.length < 1 && <h1>No results found</h1>}
-          <div className="mx-auto flex w-full max-w-[1600px] gap-4">
-            {results.length > 0 &&
-              results.map((product) => (
-                <div key={product.id} className="w-[350px]">
-                  <ProductCard product={product} />
-                </div>
-              ))}
+        <section className="absolute z-50 w-full bg-slate-50  shadow-lg">
+          <div className="padding-x mx-auto flex w-full max-w-[1600px] flex-col  py-12">
+            {results.length < 1 && <h1>No results found</h1>}
+            <p
+              role="button"
+              onClick={onClose}
+              className="relative self-end font-bold"
+            >
+              Close
+            </p>
+            <div className="mx-auto flex w-full  gap-4">
+              {results.length > 0 &&
+                results.map((product) => (
+                  <div key={product.id} className="w-[290px]">
+                    <ProductCard product={product} />
+                  </div>
+                ))}
+            </div>
           </div>
         </section>
         <div

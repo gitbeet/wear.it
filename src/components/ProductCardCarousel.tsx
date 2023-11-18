@@ -90,7 +90,7 @@ const ProductCardCarousel = ({
     <Carousel
       responsive={responsive}
       autoPlay
-      autoPlaySpeed={5000}
+      autoPlaySpeed={3500}
       infinite
       transitionDuration={1000}
       customTransition="transform 1s ease-in-out"

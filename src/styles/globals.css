@@ -10,6 +10,10 @@
   @apply py-8;
 }
 
+input {
+  @apply focus:border-2 focus:border-indigo-400  focus:outline-none;
+}
+
 .show-promo-item {
   animation: show-promo-item 0.5s ease-in-out forwards;
   transition: transform;

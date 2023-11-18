@@ -13,8 +13,8 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`bg-slate-50 font-body text-slate-800`}>
-        <Nav />
         <PromosBanner promos={bannerPromos} />
+        <Nav />
         <section className="mx-auto min-h-[100dvh] max-w-[1600px] ">
           {children}
         </section>
