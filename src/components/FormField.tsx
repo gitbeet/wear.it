@@ -9,6 +9,7 @@ interface Props {
   type: string;
   placeholder: string;
   error: string | undefined;
+  icon?: JSX.Element;
 }
 
 const FormField = ({
@@ -18,6 +19,7 @@ const FormField = ({
   placeholder = "",
   register,
   error,
+  icon,
 }: Props) => {
   return (
     <div className="relative">
@@ -34,6 +36,9 @@ const FormField = ({
           {error}
         </p>
       )}
+      <div className="absolute left-5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center text-indigo-300">
+        {icon}
+      </div>
       <input
         className={`${
           error ? "border-red-500" : " border-slate-300 focus:border-indigo-400"

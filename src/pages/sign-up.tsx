@@ -7,6 +7,14 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Button from "~/components/UI/Button";
 import FormField from "~/components/FormField";
+import {
+  BsDashCircle,
+  BsEnvelope,
+  BsFillCheckCircleFill,
+  BsKey,
+  BsPerson,
+  BsXCircleFill,
+} from "react-icons/bs";
 
 export type SignUpValidationType = z.infer<typeof signUpValidationSchema>;
 
@@ -14,7 +22,10 @@ const signUpValidationSchema = z
   .object({
     username: z.string().min(1, { message: "Username required" }),
     emailAddress: z.string().email().min(1, { message: "Email required" }),
-    password: z.string().min(8, { message: "Password too short" }),
+    password: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .min(8, { message: "Password too short" }),
     confirmPassword: z
       .string()
       .min(1, { message: "Password confirmation required" }),
@@ -29,7 +40,7 @@ export default function SignUpForm() {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
+    watch,
   } = useForm<SignUpValidationType>({
     resolver: zodResolver(signUpValidationSchema),
   });
@@ -88,6 +99,19 @@ export default function SignUpForm() {
     }
   };
 
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
+  const passwordsMatch = password === confirmPassword;
+
+  const confirmPasswordIcon =
+    !password?.length && !confirmPassword?.length ? (
+      <BsDashCircle className="h-8 w-8 " />
+    ) : passwordsMatch ? (
+      <BsFillCheckCircleFill className="h-8 w-8 text-teal-500" />
+    ) : (
+      <BsXCircleFill className="h-8 w-8 text-red-500" />
+    );
+
   return (
     <section className="padding-x">
       <div className="h-16"></div>
@@ -108,6 +132,7 @@ export default function SignUpForm() {
             placeholder="johndoe123"
             register={register}
             type="text"
+            icon={<BsPerson className="h-8 w-8" />}
           />
           <div className="h-8"></div>
           <FormField
@@ -117,6 +142,7 @@ export default function SignUpForm() {
             placeholder="johndoe123@email.com"
             register={register}
             type="email"
+            icon={<BsEnvelope className="h-8 w-8" />}
           />
           <div className="h-8"></div>
           <FormField
@@ -126,6 +152,7 @@ export default function SignUpForm() {
             placeholder="•••••••••••"
             register={register}
             type="password"
+            icon={<BsKey className="h-8 w-8" />}
           />
           <div className="h-8"></div>
           <FormField
@@ -135,6 +162,7 @@ export default function SignUpForm() {
             placeholder="•••••••••••"
             register={register}
             type="password"
+            icon={confirmPasswordIcon}
           />
           <div className="h-12"></div>
 
