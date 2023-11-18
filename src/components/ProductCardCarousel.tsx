@@ -7,7 +7,7 @@ type Product = RouterOutputs["product"]["getAll"]["products"][number];
 
 const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
   return (
-    <div className="absolute right-0 flex -translate-x-full items-center justify-center rounded-full bg-indigo-500/70 p-1 text-slate-50  ">
+    <div className="absolute right-0 flex -translate-x-full items-center justify-center rounded-full bg-indigo-400/90 p-1 text-slate-50  ">
       <FiChevronRight
         className=" h-8 w-8 "
         role="button"
@@ -19,7 +19,7 @@ const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
 
 const CustomLeftArrow = ({ onClick, ...rest }: ArrowProps) => {
   return (
-    <div className="absolute left-0 flex translate-x-full items-center justify-center rounded-full bg-indigo-500/70 p-1 text-slate-50  ">
+    <div className="absolute left-0 flex translate-x-full items-center justify-center rounded-full bg-indigo-400/90 p-1 text-slate-50  ">
       <FiChevronRight
         className=" h-8 w-8 rotate-180 "
         role="button"

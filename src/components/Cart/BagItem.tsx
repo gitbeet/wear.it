@@ -176,14 +176,14 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
                   }
                 }}
                 role="button"
-                className="flex items-center gap-2 text-slate-600 transition-colors duration-150 hover:text-slate-800"
+                className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800"
               >
                 {isItemFavorited ? (
                   <BsHeartFill className="h-5 w-5 text-indigo-400" />
                 ) : (
                   <BsHeart className="h-5 w-5" />
                 )}
-                <span>
+                <span className={isItemFavorited ? "text-indigo-400" : ""}>
                   {isItemFavorited ? "Added to Favorites" : "Add to Favorites"}
                 </span>
               </button>
@@ -191,7 +191,7 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
               <button
                 disabled={isRemoving}
                 onClick={() => remove({ id })}
-                className="flex items-center gap-2 text-slate-600 transition-colors duration-150 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <BsTrash className="h-5 w-5" />
                 <span className="pl-2">Remove</span>
