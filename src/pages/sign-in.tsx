@@ -80,9 +80,8 @@ export default function SignInForm() {
   };
 
   return (
-    <section>
+    <section className="padding-x">
       <div className="h-16"></div>
-
       <h1 className="text-center font-display text-6xl font-black">
         Welcome back
       </h1>
@@ -124,7 +123,7 @@ export default function SignInForm() {
           <br />
           <div className="h-1 "></div>
           <span className="font-light text-slate-800">Not a member yet?</span>
-          <Link href="/sign-up" className="pl-1 font-bold text-violet-500">
+          <Link href="/sign-up" className="pl-1 font-bold text-indigo-500">
             Sign up
           </Link>
         </div>

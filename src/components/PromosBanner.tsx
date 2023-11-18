@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { FiChevronRight } from "react-icons/fi";
 import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 import { type ArrowProps } from "react-multi-carousel/lib/types";
 
 export const PromosBanner = ({
@@ -9,20 +11,8 @@ export const PromosBanner = ({
   promos: { text: string; link: string; linkText: string }[];
 }) => {
   const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1280 },
-      items: 1,
-    },
-    desktopSmall: {
-      breakpoint: { max: 1280, min: 1024 },
-      items: 1,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
+    allSizes: {
+      breakpoint: { max: 10000, min: 0 },
       items: 1,
     },
   };
@@ -48,11 +38,10 @@ export const PromosBanner = ({
   };
 
   return (
-    // <div className="w-full bg-gradient-to-r from-orange-400 via-pink-500 to-orange-500 text-slate-50">
     <div className="w-full bg-gradient-to-r from-violet-500 to-indigo-500 text-slate-50 md:via-indigo-500 md:to-violet-500">
       <Carousel
         removeArrowOnDeviceType={["tablet", "mobile"]}
-        className="relative mx-auto w-[min(95%,700px)] py-1.5"
+        className="mx-auto w-[min(95%,700px)] py-1.5"
         customRightArrow={<CustomRightArrow />}
         customLeftArrow={<CustomLeftArrow />}
         infinite

@@ -64,7 +64,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <section>
+    <section className="padding-x">
       <div className="h-16"></div>
       <h1 className="text-center font-display text-6xl font-black">
         Become a member
@@ -107,7 +107,7 @@ export default function SignUpForm() {
           <div className="h-4"></div>
           <p className="px-4">
             Already have an account?{" "}
-            <Link className="pl-1 font-bold text-violet-500" href="/sign-in">
+            <Link className="pl-1 font-bold text-indigo-500" href="/sign-in">
               Sign in
             </Link>
           </p>

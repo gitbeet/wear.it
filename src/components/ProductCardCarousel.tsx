@@ -63,8 +63,7 @@ const ProductCardCarousel = ({
   return !products || isLoading ? (
     <Carousel
       responsive={responsive}
-      customRightArrow={<CustomRightArrow />}
-      customLeftArrow={<CustomLeftArrow />}
+      removeArrowOnDeviceType={["mobile", "tablet", "desktop"]}
     >
       {[...Array(12).keys()].map((bone) => (
         <div

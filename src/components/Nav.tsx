@@ -14,6 +14,8 @@ import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
 import { BsPerson } from "react-icons/bs";
 import NavIcon from "./NavIcon";
+import { PromosBanner } from "./PromosBanner";
+import { bannerPromos } from "./promosData";
 
 const Nav = () => {
   const [type, setType] = useState<"men" | "women" | null>(null);
@@ -125,7 +127,6 @@ const Nav = () => {
           </div>
         </div>
       </div>
-
       <SearchResults
         onClose={() => setShowSearchResults(false)}
         show={showSearchResults}
