@@ -92,7 +92,8 @@ const ProductCardCarousel = ({
       autoPlay
       autoPlaySpeed={5000}
       infinite
-      customTransition="all 1.2s"
+      transitionDuration={1000}
+      customTransition="transform 1s ease-in-out"
       removeArrowOnDeviceType={["mobile", "tablet"]}
       customRightArrow={<CustomRightArrow />}
       customLeftArrow={<CustomLeftArrow />}
