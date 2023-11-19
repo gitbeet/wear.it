@@ -65,7 +65,7 @@ const Nav = () => {
 
   return (
     <nav>
-      <div className="relative z-50 border-b  bg-slate-50">
+      <div className="relative z-50  bg-slate-50 shadow-md shadow-indigo-600/5">
         <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
           <Logo />
           <ul

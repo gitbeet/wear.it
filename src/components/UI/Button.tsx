@@ -25,9 +25,9 @@ const Button = ({
       className={`${
         ghost
           ? light
-            ? "border-slate-100 bg-transparent text-slate-50 hover:border-slate-50 hover:bg-slate-100 hover:text-violet-500"
+            ? "border-slate-100 bg-transparent text-slate-50 hover:border-slate-50 hover:bg-slate-100 hover:text-indigo-500"
             : "border-slate-300 bg-transparent text-slate-800 hover:border-slate-800"
-          : "border-transparent bg-slate-700 text-slate-50 hover:bg-slate-600"
+          : "border-transparent bg-slate-700 text-slate-50 shadow-md shadow-slate-800/10 hover:bg-slate-600"
       } flex ${
         width === "FULL" ? "w-full" : "w-fit"
       }  min-w-fit items-center justify-center rounded-full border ${

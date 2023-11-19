@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
