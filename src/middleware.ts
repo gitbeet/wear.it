@@ -19,6 +19,9 @@ export default authMiddleware({
     "/cart",
     "/favorites",
     "/checkout",
+    "/api/create-payment-intent/route",
+    "/api/create-payment-intent/index",
+    "/api/create-payment-intent/",
   ],
 });
 

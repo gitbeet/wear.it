@@ -7,7 +7,7 @@ import SummarySkeleton from "~/components/skeletons/SummarySkeleton";
 import { useShoppingBagContext } from "~/context/shoppingBagContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 
-const Summary = () => {
+export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
   const { cart, isGettingCart } = useShoppingBagContext();
   if (isGettingCart) return <SummarySkeleton />;
 
@@ -30,8 +30,8 @@ const Summary = () => {
   const taxes = (subtotal + shippingCost) * 0.21;
   const totalCost = subtotal + shippingCost + taxes;
   return (
-    <section>
-      <h2 className="text-2xl font-semibold ">Summary</h2>
+    <section className="">
+      <h2 className="text-2xl font-semibold leading-none">Summary</h2>
       <div className="h-8"></div>
       <table className="w-full ">
         <tbody>
@@ -62,16 +62,25 @@ const Summary = () => {
         </tbody>
       </table>
       <div className="h-8"></div>
-      <Button disabled text="Guest Checkout" onClick={() => void 0} />
-      <div className="h-4"></div>
-      <Link href="/checkout">
-        <Button text="Member Checkout" onClick={() => void 0} />
-      </Link>
+      {page === "cart" && (
+        <>
+          <Button disabled text="Guest Checkout" onClick={() => void 0} />
+          <div className="h-4"></div>
+          <Link href="/checkout">
+            <Button text="Member Checkout" onClick={() => void 0} />
+          </Link>
+        </>
+      )}
+      {page === "checkout" && <Button text="Pay now" onClick={() => void 0} />}
     </section>
   );
 };
 
-export const CartItems = () => {
+export const CartItems = ({
+  page = "cart",
+}: {
+  page?: "cart" | "checkout";
+}) => {
   const { cart, isGettingCart } = useShoppingBagContext();
   if (isGettingCart)
     return (
@@ -88,10 +97,12 @@ export const CartItems = () => {
   if (!cart) return <h1>Something went wrong.Please try again</h1>;
   return (
     <div className="w-full ">
-      <h2 className="text-2xl font-semibold">Bag</h2>
-      <div className="h-8"></div>
       {cart.cartItems.length < 1 && <p>Your bag is empty</p>}
       <div>
+        <h2 className="w-fit rounded-full  text-2xl font-bold leading-none text-slate-800">
+          {page === "cart" ? "Bag" : "Your order"}
+        </h2>
+        <div className="h-8"></div>
         {cart.cartItems.map((item) => (
           <BagItem key={item.id} cartItem={item} />
         ))}
