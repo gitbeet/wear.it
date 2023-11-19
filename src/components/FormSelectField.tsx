@@ -30,7 +30,7 @@ const FormSelectField = ({
   required = false,
 }: Props) => {
   return (
-    <div className="relative">
+    <div className="relative w-[min(100%,256px)]">
       <label
         className={`${
           error ? "text-red-500" : "text-slate-900"

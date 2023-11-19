@@ -17,6 +17,7 @@ import FormSelectField from "~/components/FormSelectField";
 // Phone field
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { CartItems } from "./cart";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -94,8 +95,8 @@ const Checkout = () => {
   }, [cityData, setValue]);
 
   return (
-    <section className="padding-x max-w-[1600px] pt-16">
-      <section className="space-y-10">
+    <section className="padding-x max-w-[1600px] py-16">
+      <section className="space-y-8">
         <h2 className="pb-4 text-2xl font-semibold">Billing information</h2>
         {/* Client info */}
         <div className="flex w-full gap-8">
@@ -118,47 +119,94 @@ const Checkout = () => {
             required
           />
         </div>
+        <div className="w-[min(100%,256px)]">
+          <FormField
+            label="Company name (optional)"
+            type="text"
+            name="lastName"
+            placeholder="Acme LLC."
+            register={register("lastName")}
+            error={errors.lastName?.message}
+          />
+        </div>
+        <div className="flex flex-wrap gap-x-4 gap-y-8">
+          <FormSelectField
+            data={countryData.map((country) => country.name)}
+            label="Country"
+            name="country"
+            error={errors.country?.message}
+            register={register("country")}
+            required
+          />
+          <FormSelectField
+            data={stateData?.map((state) => state.name)}
+            label="State"
+            name="state"
+            error={errors.state?.message}
+            register={register("state")}
+            required
+          />
+          <FormSelectField
+            data={cityData?.map((city) => city.name)}
+            label="City"
+            name="city"
+            error={errors.city?.message}
+            register={register("city")}
+            required
+          />
+        </div>
         <FormField
-          label="Company name (optional)"
-          type="text"
-          name="lastName"
-          placeholder="Acme LLC."
-          register={register("lastName")}
-          error={errors.lastName?.message}
-        />
-        <FormSelectField
-          data={countryData.map((country) => country.name)}
-          label="Country"
-          name="country"
-          error={errors.country?.message}
-          register={register("country")}
-          required
-        />
-        <FormSelectField
-          data={stateData?.map((state) => state.name)}
-          label="State"
-          name="state"
-          error={errors.state?.message}
-          register={register("state")}
-          required
-        />
-        <FormSelectField
-          data={cityData?.map((city) => city.name)}
-          label="City"
-          name="city"
-          error={errors.city?.message}
-          register={register("city")}
-          required
-        />
-        <FormField
-          label="Postcode/ZIP"
-          name="postCode"
+          label="Address"
+          name="streetAddress"
           error={errors.postCode?.message}
-          placeholder="30003"
+          placeholder="8, Wall str."
           type="text"
-          register={register("postCode")}
+          register={register("streetAddress")}
           required
         />
+        <div className="flex justify-start gap-4">
+          <div className="w-32">
+            <FormField
+              label="Postcode/ZIP"
+              name="postCode"
+              error={errors.postCode?.message}
+              placeholder="30003"
+              type="text"
+              register={register("postCode")}
+              required
+            />
+          </div>
+          <div className="relative">
+            <label
+              className={`${
+                errors.phone?.message ? "text-red-500" : "text-slate-900"
+              }   relative -top-2 font-bold `}
+              htmlFor="phone"
+            >
+              Phone
+              <span className="pl-1 text-red-500">*</span>
+            </label>
+            <PhoneInput
+              inputStyle={{
+                backgroundColor: "rgb(241 245 249)",
+                borderColor: "rgb(226 232 240) ,",
+                height: "2.5rem",
+                fontSize: "1rem",
+                fontFamily: "Open Sans",
+              }}
+              value={phoneNumber}
+              onChange={(phone) => setValue("phone", phone)}
+              country={countryData
+                .find((country) => country.name === selectedCountry)
+                ?.isoCode.toLowerCase()}
+            />
+            {errors.phone?.message && (
+              <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
+                {errors.phone?.message}
+              </p>
+            )}
+          </div>
+        </div>
         <FormField
           label="Email"
           name="emailAddress"
@@ -168,30 +216,15 @@ const Checkout = () => {
           register={register("emailAddress")}
           required
         />
-        <div className="relative">
-          <label
-            className={`${
-              errors.phone?.message ? "text-red-500" : "text-slate-900"
-            }   relative -top-2 font-bold `}
-            htmlFor="phone"
-          >
-            Phone
-            <span className="pl-1 text-red-500">*</span>
-          </label>
-          <PhoneInput
-            containerStyle={{}}
-            value={phoneNumber}
-            onChange={(phone) => setValue("phone", phone)}
-            country={countryData
-              .find((country) => country.name === selectedCountry)
-              ?.isoCode.toLowerCase()}
-          />
-          {errors.phone?.message && (
-            <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
-              {errors.phone?.message}
-            </p>
-          )}
-        </div>
+      </section>
+      <div className="h-16"></div>
+      <section>
+        <h2 className="pb-4 text-2xl font-semibold">Payment Method</h2>
+      </section>
+      <div className="h-16"></div>
+      <section>
+        <h2 className="pb-4 text-2xl font-semibold">Your order</h2>
+        <CartItems />
       </section>
     </section>
   );

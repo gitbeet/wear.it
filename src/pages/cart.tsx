@@ -71,7 +71,7 @@ const Summary = () => {
   );
 };
 
-const CartItems = () => {
+export const CartItems = () => {
   const { cart, isGettingCart } = useShoppingBagContext();
   if (isGettingCart)
     return (
