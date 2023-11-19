@@ -35,7 +35,7 @@ const FormField = ({
   required = false,
 }: Props) => {
   return fancy ? (
-    <div className="relative">
+    <div className="relative grow">
       <label
         className={`${
           error ? "text-red-500" : "text-slate-600"
@@ -64,7 +64,7 @@ const FormField = ({
       />
     </div>
   ) : (
-    <div className="relative">
+    <div className="relative grow">
       <label
         className={`${
           error ? "text-red-500" : "text-slate-900"

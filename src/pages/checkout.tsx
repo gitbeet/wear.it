@@ -59,6 +59,7 @@ const Checkout = () => {
 
   const selectedCountry = watch("country");
   const selectedState = watch("state");
+  const phoneNumber = watch("phone");
 
   useEffect(() => {
     const currentCountry = countryData.find(
@@ -93,100 +94,105 @@ const Checkout = () => {
   }, [cityData, setValue]);
 
   return (
-    <section className="padding-x max-w-[1600px] space-y-10 pt-16">
-      {/* Client info */}
-      <div className="flex w-full gap-8">
+    <section className="padding-x max-w-[1600px] pt-16">
+      <section className="space-y-10">
+        <h2 className="pb-4 text-2xl font-semibold">Billing information</h2>
+        {/* Client info */}
+        <div className="flex w-full gap-8">
+          <FormField
+            label="First name"
+            type="text"
+            name="firstName"
+            placeholder="John"
+            register={register("firstName")}
+            error={errors.firstName?.message}
+            required
+          />
+          <FormField
+            label="Last name"
+            type="text"
+            name="lastName"
+            placeholder="Doe"
+            register={register("lastName")}
+            error={errors.lastName?.message}
+            required
+          />
+        </div>
         <FormField
-          label="First name"
-          type="text"
-          name="firstName"
-          placeholder="John"
-          register={register("firstName")}
-          error={errors.firstName?.message}
-          required
-        />
-        <FormField
-          label="Last name"
+          label="Company name (optional)"
           type="text"
           name="lastName"
-          placeholder="Doe"
+          placeholder="Acme LLC."
           register={register("lastName")}
           error={errors.lastName?.message}
+        />
+        <FormSelectField
+          data={countryData.map((country) => country.name)}
+          label="Country"
+          name="country"
+          error={errors.country?.message}
+          register={register("country")}
           required
         />
-      </div>
-      <FormField
-        label="Company name (optional)"
-        type="text"
-        name="lastName"
-        placeholder="Acme LLC."
-        register={register("lastName")}
-        error={errors.lastName?.message}
-      />
-      <FormSelectField
-        data={countryData.map((country) => country.name)}
-        label="Country"
-        name="country"
-        error={errors.country?.message}
-        register={register("country")}
-        required
-      />
-      <FormSelectField
-        data={stateData?.map((state) => state.name)}
-        label="State"
-        name="state"
-        error={errors.state?.message}
-        register={register("state")}
-        required
-      />
-      <FormSelectField
-        data={cityData?.map((city) => city.name)}
-        label="City"
-        name="city"
-        error={errors.city?.message}
-        register={register("city")}
-        required
-      />
-      <FormField
-        label="Postcode/ZIP"
-        name="postCode"
-        error={errors.postCode?.message}
-        placeholder="30003"
-        type="text"
-        register={register("postCode")}
-        required
-      />
-      <FormField
-        label="Email"
-        name="emailAddress"
-        error={errors.phone?.message}
-        placeholder="johndoe123@mail.com"
-        type="text"
-        register={register("emailAddress")}
-        required
-      />
-      <div className="relative">
-        <label
-          className={`${
-            errors.phone?.message ? "text-red-500" : "text-slate-900"
-          }   relative -top-2 font-bold `}
-          htmlFor="phone"
-        >
-          Phone
-          <span className="pl-1 text-red-500">*</span>
-        </label>
-        <PhoneInput
-          containerStyle={{}}
-          country={countryData
-            .find((country) => country.name === selectedCountry)
-            ?.isoCode.toLowerCase()}
+        <FormSelectField
+          data={stateData?.map((state) => state.name)}
+          label="State"
+          name="state"
+          error={errors.state?.message}
+          register={register("state")}
+          required
         />
-        {errors.phone?.message && (
-          <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
-            {errors.phone?.message}
-          </p>
-        )}
-      </div>
+        <FormSelectField
+          data={cityData?.map((city) => city.name)}
+          label="City"
+          name="city"
+          error={errors.city?.message}
+          register={register("city")}
+          required
+        />
+        <FormField
+          label="Postcode/ZIP"
+          name="postCode"
+          error={errors.postCode?.message}
+          placeholder="30003"
+          type="text"
+          register={register("postCode")}
+          required
+        />
+        <FormField
+          label="Email"
+          name="emailAddress"
+          error={errors.phone?.message}
+          placeholder="johndoe123@mail.com"
+          type="text"
+          register={register("emailAddress")}
+          required
+        />
+        <div className="relative">
+          <label
+            className={`${
+              errors.phone?.message ? "text-red-500" : "text-slate-900"
+            }   relative -top-2 font-bold `}
+            htmlFor="phone"
+          >
+            Phone
+            <span className="pl-1 text-red-500">*</span>
+          </label>
+          <PhoneInput
+            containerStyle={{}}
+            value={phoneNumber}
+            onChange={(phone) => setValue("phone", phone)}
+            country={countryData
+              .find((country) => country.name === selectedCountry)
+              ?.isoCode.toLowerCase()}
+          />
+          {errors.phone?.message && (
+            <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
+              {errors.phone?.message}
+            </p>
+          )}
+        </div>
+      </section>
     </section>
   );
 };
