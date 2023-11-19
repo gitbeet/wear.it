@@ -3,15 +3,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import FormField from "~/components/FormField";
 import { useState, useEffect } from "react";
+
+// Country/State/City fields
 import {
   City,
   State,
   Country,
   type ICity,
   type IState,
-  type ICountry,
 } from "country-state-city";
 import FormSelectField from "~/components/FormSelectField";
+
+// Phone field
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -32,7 +37,10 @@ const clientDataSchema = z.object({
     .string()
     .min(1, { message: "Phone number required" })
     .regex(phoneRegex, "Invalid phone number"),
-  email: z.string().min(1, { message: "Email address required" }).email(),
+  emailAddress: z
+    .string()
+    .min(1, { message: "Email address required" })
+    .email(),
 });
 
 const Checkout = () => {
@@ -85,7 +93,7 @@ const Checkout = () => {
   }, [cityData, setValue]);
 
   return (
-    <section className="padding-x max-w-[1600px] space-y-8 pt-16">
+    <section className="padding-x max-w-[1600px] space-y-10 pt-16">
       {/* Client info */}
       <div className="flex w-full gap-8">
         <FormField
@@ -94,7 +102,7 @@ const Checkout = () => {
           name="firstName"
           placeholder="John"
           register={register("firstName")}
-          error={"First name required"}
+          error={errors.firstName?.message}
           required
         />
         <FormField
@@ -121,6 +129,7 @@ const Checkout = () => {
         name="country"
         error={errors.country?.message}
         register={register("country")}
+        required
       />
       <FormSelectField
         data={stateData?.map((state) => state.name)}
@@ -128,6 +137,7 @@ const Checkout = () => {
         name="state"
         error={errors.state?.message}
         register={register("state")}
+        required
       />
       <FormSelectField
         data={cityData?.map((city) => city.name)}
@@ -135,7 +145,48 @@ const Checkout = () => {
         name="city"
         error={errors.city?.message}
         register={register("city")}
+        required
       />
+      <FormField
+        label="Postcode/ZIP"
+        name="postCode"
+        error={errors.postCode?.message}
+        placeholder="30003"
+        type="text"
+        register={register("postCode")}
+        required
+      />
+      <FormField
+        label="Email"
+        name="emailAddress"
+        error={errors.phone?.message}
+        placeholder="johndoe123@mail.com"
+        type="text"
+        register={register("emailAddress")}
+        required
+      />
+      <div className="relative">
+        <label
+          className={`${
+            errors.phone?.message ? "text-red-500" : "text-slate-900"
+          }   relative -top-2 font-bold `}
+          htmlFor="phone"
+        >
+          Phone
+          <span className="pl-1 text-red-500">*</span>
+        </label>
+        <PhoneInput
+          containerStyle={{}}
+          country={countryData
+            .find((country) => country.name === selectedCountry)
+            ?.isoCode.toLowerCase()}
+        />
+        {errors.phone?.message && (
+          <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
+            {errors.phone?.message}
+          </p>
+        )}
+      </div>
     </section>
   );
 };

@@ -43,7 +43,7 @@ const FormField = ({
         htmlFor="email"
       >
         {label}
-        {required && <span className="pl-0.5 text-red-500">*</span>}
+        {required && <span className="pl-1 text-red-500">*</span>}
       </label>
       {error && (
         <p className="absolute bottom-0 right-12 translate-y-1/2 rounded-full bg-slate-50 px-2 text-sm font-bold text-red-500">
@@ -68,14 +68,14 @@ const FormField = ({
       <label
         className={`${
           error ? "text-red-500" : "text-slate-900"
-        }   relative -top-1 font-bold `}
+        }   relative -top-2 font-bold `}
         htmlFor="email"
       >
         {label}
         {required && <span className="pl-0.5 text-red-500">*</span>}
       </label>
       {error && (
-        <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
+        <p className="absolute -top-2 right-0  rounded-full  text-sm font-bold text-red-500">
           {error}
         </p>
       )}

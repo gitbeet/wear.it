@@ -27,7 +27,6 @@ const FormSelectField = ({
   register,
   error,
   data,
-  //   value,
   required = false,
 }: Props) => {
   return (
@@ -35,11 +34,11 @@ const FormSelectField = ({
       <label
         className={`${
           error ? "text-red-500" : "text-slate-900"
-        }   relative -top-1 font-bold `}
+        }   relative -top-2 font-bold `}
         htmlFor="email"
       >
         {label}
-        {required && <span className="pl-0.5 text-red-500">*</span>}
+        {required && <span className="pl-1 text-red-500">*</span>}
       </label>
       {error && (
         <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
