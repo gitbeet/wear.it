@@ -3,13 +3,13 @@ import { IoMdClose } from "react-icons/io";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useModalsContext } from "~/context/modalsContext";
 import { useRouter } from "next/router";
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
-import BagItem from "./BagItem";
-const ShoppingBagModal = () => {
+import { useCartContext } from "~/context/cartContext";
+import CartItem from "./CartItem";
+const CartModal = () => {
   const router = useRouter();
   const { showBagModal, setShowBagModal } = useModalsContext();
-  const { cart, totalCount, isFetching } = useShoppingBagContext();
-  const cartItem = cart?.cartItems[cart.cartItems.length - 1];
+  const { dbCart, totalCount, isFetching } = useCartContext();
+  const cartItem = dbCart?.cartItems[dbCart.cartItems.length - 1];
   return (
     <>
       {showBagModal && cartItem && !isFetching && (
@@ -26,7 +26,7 @@ const ShoppingBagModal = () => {
               className="relative  h-5 w-5"
             />
           </div>
-          <BagItem modal cartItem={cartItem} />
+          <CartItem modal cartItem={cartItem} />
           <div className="flex gap-2 ">
             <Button
               text={`View Bag (${totalCount})`}
@@ -52,4 +52,4 @@ const ShoppingBagModal = () => {
   );
 };
 
-export default ShoppingBagModal;
+export default CartModal;

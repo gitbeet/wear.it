@@ -1,11 +1,22 @@
-import { createTRPCRouter, privateProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  privateProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import z from "zod";
 import { ProductColor } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 
 export const favoriteRouter = createTRPCRouter({
-  getByUserId: privateProcedure.query(async ({ ctx }) => {
-    const { db, userId } = ctx;
-
+  getByUserId: publicProcedure.query(async ({ ctx }) => {
+    const { db, userId: loggedUserId, guestUserId } = ctx;
+    const userId = loggedUserId ?? guestUserId ?? undefined;
+    if (typeof userId === "undefined") {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "No user identifier found",
+      });
+    }
     const favorites = await db.favorite.findMany({
       where: {
         userId,
@@ -44,12 +55,19 @@ export const favoriteRouter = createTRPCRouter({
     });
     return favorites;
   }),
-  favorite: privateProcedure
+  favorite: publicProcedure
     .input(
       z.object({ productId: z.string(), color: z.nativeEnum(ProductColor) }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { db, userId } = ctx;
+      const { db, userId: loggedUserId, guestUserId } = ctx;
+      const userId = loggedUserId ?? guestUserId ?? undefined;
+      if (typeof userId === "undefined") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No user identifier found",
+        });
+      }
       const { productId, color } = input;
 
       const favAlreadyExists = await db.favorite.findFirst({

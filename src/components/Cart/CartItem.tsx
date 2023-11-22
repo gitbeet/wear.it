@@ -5,7 +5,7 @@ import { formatCurrency } from "~/utilities/formatCurrency";
 import Image from "next/image";
 import { type ChangeEvent } from "react";
 import Link from "next/link";
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
+import { useCartContext } from "~/context/cartContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 
 interface Props {
@@ -13,10 +13,10 @@ interface Props {
   modal?: boolean;
 }
 
-const BagItem = ({ cartItem, modal = false }: Props) => {
+const CartItem = ({ cartItem, modal = false }: Props) => {
   const ctx = api.useUtils();
   const { isFavorited } = useFavoritesContext();
-  const { isFetching } = useShoppingBagContext();
+  const { isFetching } = useCartContext();
   const { mutate: addToFavorites, isLoading: isFaving } =
     api.favorite.favorite.useMutation({
       onSuccess: () => {
@@ -204,4 +204,4 @@ const BagItem = ({ cartItem, modal = false }: Props) => {
   );
 };
 
-export default BagItem;
+export default CartItem;

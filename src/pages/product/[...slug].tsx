@@ -197,7 +197,7 @@ const Product = ({
               }}
               className={`h-8 w-8 rounded-full ${tailwindColor} border-[2px] outline outline-2 ${
                 selectedColor === c.color
-                  ? "border-slate-100 outline-purple-400 "
+                  ? "border-slate-100 outline-indigo-300 "
                   : "border-slate-200 outline-transparent "
               }`}
             ></div>
@@ -335,7 +335,7 @@ const Product = ({
           </div>
           <div className="font-display">
             {discount && discount?.active && (
-              <p className="w-fit rounded-sm bg-violet-500 px-2 py-1 text-xl font-black text-slate-100 ">
+              <p className="w-fit rounded-sm bg-teal-500 px-2 py-1 text-xl font-black text-slate-100 ">
                 -{discount?.discountPercent}%
               </p>
             )}

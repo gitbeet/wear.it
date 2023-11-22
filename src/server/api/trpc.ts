@@ -51,6 +51,9 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
 
   // get request
   const { req } = opts;
+
+  const guestUserId = req.cookies["session-id"];
+
   // get session of the request
   const sesh = getAuth(req);
 
@@ -59,6 +62,7 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   return {
     db,
     userId,
+    guestUserId,
   };
 };
 

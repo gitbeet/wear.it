@@ -1,11 +1,18 @@
 import { TRPCError } from "@trpc/server";
-import { createTRPCRouter, privateProcedure } from "../trpc";
+import { createTRPCRouter, privateProcedure, publicProcedure } from "../trpc";
 import z from "zod";
-import { Prisma, ProductColor, ProductSize } from "@prisma/client";
+import { ProductColor, ProductSize } from "@prisma/client";
 
 export const cartRouter = createTRPCRouter({
-  getItemsCount: privateProcedure.query(async ({ ctx }) => {
-    const { db, userId } = ctx;
+  getItemsCount: publicProcedure.query(async ({ ctx }) => {
+    const { db, userId: loggedUserId, guestUserId } = ctx;
+    const userId = loggedUserId ?? guestUserId ?? undefined;
+    if (typeof userId === "undefined") {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "No user identifier found",
+      });
+    }
     const totalCount = await db.shoppingSession.findUnique({
       where: {
         userId,
@@ -20,49 +27,15 @@ export const cartRouter = createTRPCRouter({
     });
     return totalCount;
   }),
-  getByUserId: privateProcedure.query(async ({ ctx }) => {
-    const include: Prisma.ProductInclude = {
-      cartItems: {
-        select: {
-          id: true,
-          product: {
-            select: {
-              id: true,
-              discount: {
-                select: {
-                  active: true,
-                  discountPercent: true,
-                },
-              },
-              images: {
-                select: {
-                  color: true,
-                  imageURL: true,
-                },
-              },
-              name: true,
-              price: true,
-              sizes: true,
-              colors: true,
-              category: {
-                select: {
-                  name: true,
-                  slug: true,
-                },
-              },
-            },
-          },
-          quantity: true,
-          color: true,
-          size: true,
-        },
-        orderBy: {
-          createdAt: "asc",
-        },
-      },
-    };
-
-    const { userId, db } = ctx;
+  getByUserId: publicProcedure.query(async ({ ctx }) => {
+    const { userId: loggedUserId, guestUserId, db } = ctx;
+    const userId = loggedUserId ?? guestUserId ?? undefined;
+    if (typeof userId === "undefined") {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "No user identifier found",
+      });
+    }
     const shoppingSession = await db.shoppingSession.findUnique({
       where: {
         userId: userId,
@@ -161,11 +134,18 @@ export const cartRouter = createTRPCRouter({
 
     return shoppingSession;
   }),
-  removeItem: privateProcedure
+  removeItem: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;
-      const { db, userId } = ctx;
+      const { userId: loggedUserId, guestUserId, db } = ctx;
+      const userId = loggedUserId ?? guestUserId ?? undefined;
+      if (typeof userId === "undefined") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No user identifier found",
+        });
+      }
 
       const cartItem = await db.cartItem.findUnique({
         where: {
@@ -189,7 +169,7 @@ export const cartRouter = createTRPCRouter({
         },
       });
     }),
-  addItem: privateProcedure
+  addItem: publicProcedure
     .input(
       z.object({
         productId: z.string(),
@@ -200,7 +180,14 @@ export const cartRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { db, userId } = ctx;
+      const { userId: loggedUserId, guestUserId, db } = ctx;
+      const userId = loggedUserId ?? guestUserId ?? undefined;
+      if (typeof userId === "undefined") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No user identifier found",
+        });
+      }
       const { productId, quantity = 1, type, size, color } = input;
       const shoppingSession = await db.shoppingSession.findUnique({
         where: {
@@ -257,7 +244,7 @@ export const cartRouter = createTRPCRouter({
         }
       }
     }),
-  modifyItem: privateProcedure
+  modifyItem: publicProcedure
     .input(
       z.object({
         id: z.string(),
@@ -266,7 +253,14 @@ export const cartRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { db, userId } = ctx;
+      const { userId: loggedUserId, guestUserId, db } = ctx;
+      const userId = loggedUserId ?? guestUserId ?? undefined;
+      if (typeof userId === "undefined") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No user identifier found",
+        });
+      }
       const { size: inputSize, quantity: inputQuantity, id } = input;
 
       const cartItem = await db.cartItem.findUnique({

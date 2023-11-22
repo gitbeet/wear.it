@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
 import MegaMenu from "./MegaMenu";
 import NavLink from "./NavLink";
-import ShoppingBagIcon from "./Cart/ShoppingBagIcon";
-import ShoppingBagModal from "./Cart/ShoppingBagModal";
+import CartIcon from "./Cart/CartIcon";
+import CartModal from "./Cart/CartModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "./Logo";
-import { useUser, SignOutButton } from "@clerk/nextjs";
+import { useUser, SignOutButton, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import FavoritesNavIcon from "./FavoritesNavIcon";
 import Search from "./Search";
@@ -16,8 +16,11 @@ import { BsPerson } from "react-icons/bs";
 import NavIcon from "./NavIcon";
 import { PromosBanner } from "./PromosBanner";
 import { bannerPromos } from "./promosData";
+import { useRouter } from "next/router";
 
 const Nav = () => {
+  const { signOut } = useClerk();
+  const router = useRouter();
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -110,18 +113,20 @@ const Nav = () => {
             />
             <div className="hidden w-7 md:block"></div>
             <FavoritesNavIcon />
-            <ShoppingBagIcon />
+            <CartIcon />
             <div role="button" className="ml-3">
               {!isSignedIn ? (
                 <Link href="/sign-in">Sign in</Link>
               ) : (
-                <SignOutButton>
-                  <div className="flex items-center gap-2">
-                    Hello,
-                    <span className="text-indigo-500"> {user.username} </span>
-                    <BsPerson className="h-5 w-5" />
-                  </div>
-                </SignOutButton>
+                <div
+                  role="button"
+                  className="flex items-center gap-2"
+                  onClick={() => signOut(() => router.push("/"))}
+                >
+                  Hello,
+                  <span className="text-indigo-500"> {user.username} </span>
+                  <BsPerson className="h-5 w-5" />
+                </div>
               )}
             </div>
           </div>
@@ -134,7 +139,7 @@ const Nav = () => {
       />
 
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
-      <ShoppingBagModal />
+      <CartModal />
     </nav>
   );
 };

@@ -1,18 +1,18 @@
 import Link from "next/link";
 import React from "react";
-import BagItem from "~/components/Cart/BagItem";
+import CartItem from "~/components/Cart/CartItem";
 import Button from "~/components/UI/Button";
 import BagItemSkeleton from "~/components/skeletons/BagItemSkeleton";
 import SummarySkeleton from "~/components/skeletons/SummarySkeleton";
-import { useShoppingBagContext } from "~/context/shoppingBagContext";
+import { useCartContext } from "~/context/cartContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 
 export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
-  const { cart, isGettingCart } = useShoppingBagContext();
+  const { dbCart, isGettingCart } = useCartContext();
   if (isGettingCart) return <SummarySkeleton />;
 
-  if (!cart) return <h1>Something went wrong.Please try again</h1>;
-  const subtotal = cart.cartItems.reduce((acc, x) => {
+  if (!dbCart) return <h1>Something went wrong.Please try again</h1>;
+  const subtotal = dbCart.cartItems.reduce((acc, x) => {
     const { discount, price } = x.product;
     // check if discount available and active
     const discounted = discount?.discountPercent && discount.active;
@@ -81,7 +81,7 @@ export const CartItems = ({
 }: {
   page?: "cart" | "checkout";
 }) => {
-  const { cart, isGettingCart } = useShoppingBagContext();
+  const { dbCart, isGettingCart } = useCartContext();
   if (isGettingCart)
     return (
       <div className="w-full">
@@ -94,17 +94,17 @@ export const CartItems = ({
         ))}
       </div>
     );
-  if (!cart) return <h1>Something went wrong.Please try again</h1>;
+  if (!dbCart) return <h1>Something went wrong.Please try again</h1>;
   return (
     <div className="w-full ">
-      {cart.cartItems.length < 1 && <p>Your bag is empty</p>}
+      {dbCart.cartItems.length < 1 && <p>Your bag is empty</p>}
       <div>
         <h2 className="w-fit rounded-full  text-2xl font-bold leading-none text-slate-800">
           {page === "cart" ? "Bag" : "Your order"}
         </h2>
         <div className="h-8"></div>
-        {cart.cartItems.map((item) => (
-          <BagItem key={item.id} cartItem={item} />
+        {dbCart.cartItems.map((item) => (
+          <CartItem key={item.id} cartItem={item} />
         ))}
       </div>
     </div>

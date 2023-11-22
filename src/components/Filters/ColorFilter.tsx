@@ -71,8 +71,8 @@ const ColorFilter = () => {
               ></div>
               <p
                 className={`${
-                  isIncluded ? "text-slate-800" : "text-slate-600"
-                } text-sm font-semibold `}
+                  isIncluded ? "text-slate-900" : "text-slate-600"
+                } text-sm `}
               >
                 {option.name.charAt(0) + lowerCaseName.slice(1)}
               </p>
