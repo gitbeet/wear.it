@@ -384,6 +384,7 @@ export const getServerSideProps = async (
     router: appRouter,
     ctx: {
       db,
+      guestUserId: undefined,
       userId: null,
     },
     transformer: SuperJSON,

@@ -64,10 +64,10 @@ export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
       <div className="h-8"></div>
       {page === "cart" && (
         <>
-          <Button disabled text="Guest Checkout" onClick={() => void 0} />
-          <div className="h-4"></div>
+          {/* <Button disabled text="Guest Checkout" onClick={() => void 0} />
+          <div className="h-4"></div> */}
           <Link href="/checkout">
-            <Button text="Member Checkout" onClick={() => void 0} />
+            <Button text="Buy now" onClick={() => void 0} />
           </Link>
         </>
       )}
