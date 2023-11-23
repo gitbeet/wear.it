@@ -34,6 +34,11 @@ const Product = ({
   const { setShowBagModal } = useModalsContext();
   const ctx = api.useUtils();
   const { isFavorited } = useFavoritesContext();
+  const { mutateAsync: addToHistory, isLoading: isAddingToHistory } =
+    api.history.addToHistory.useMutation({
+      onSuccess: () => setAddedToHistory(true),
+    });
+  const [addedtoHistory, setAddedToHistory] = useState(false);
   const { mutate: addToFavorites, isLoading: isFaving } =
     api.favorite.favorite.useMutation({
       onSuccess: () => {
@@ -80,6 +85,12 @@ const Product = ({
     !totalReviewsCount || !totalScore
       ? undefined
       : totalScore / totalReviewsCount;
+
+  useEffect(() => {
+    if (!productData || addedtoHistory || isAddingToHistory) return;
+    void addToHistory({ productId: productData.id });
+    setAddedToHistory(true);
+  }, [productData]);
 
   useEffect(() => {
     if (!primaryColor) return;

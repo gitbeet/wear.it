@@ -28,7 +28,6 @@ const FavoritesProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     isFetching,
     refetch,
   } = api.favorite.getByUserId.useQuery();
-  console.log("FAVORITES --- ", favorites);
   const isFavorited = (color: ProductColor | null, productId: string) => {
     if (!favorites) return false;
     return (

@@ -80,9 +80,8 @@ model Product {
   favorite Favorite[]
   images ProductImage[] 
   cartItems CartItem[]
-  // ratings UserRating[]
-  // comments UserComment[]
   reviews UserReview[]
+  historyItems HistoryItem[]
   @@index([name])
 }    
 
@@ -96,26 +95,6 @@ model UserReview  {
   comment String
   rate Int
 }
-
-// model UserComment {
-//   id String @id @default(cuid())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   content String
-//   product Product @relation(fields: [productId] , references: [id] , onDelete: Cascade)
-//   productId String
-//   userId String @unique
-// }
-
-// model UserRating  {
-//   id String @id @default(cuid())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   product Product @relation(fields: [productId], references: [id] , onDelete: Cascade )
-//   productId String
-//   userId String @unique
-//   rate Int
-// }
 
 model Favorite {
   id String @id @default(cuid())
@@ -273,4 +252,24 @@ model ShoppingSession {
   userId String @unique
   total Decimal
   cartItems CartItem[]
+}
+
+// HISTORY RELATED
+
+model ProductHistory {
+  id String @id @default(cuid())
+    createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId String @unique
+  items HistoryItem[]	
+}
+
+model HistoryItem {
+    id String @id @default(cuid())
+    createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+    productHistory ProductHistory @relation(fields: [historyId] ,references: [id] ,onDelete: Cascade)
+    historyId String
+    product Product @relation(fields: [productId] ,references: [id] ,onDelete: Cascade)
+    productId String
 }

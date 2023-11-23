@@ -12,6 +12,7 @@ const FavoritesNavIcon = () => {
       link="/favorites"
       loading={isGettingFavorites}
       number={totalFavorites ?? 0}
+      color="bg-pink-400"
     />
   );
 };

@@ -5,6 +5,7 @@ import { cartRouter } from "./routers/cart";
 import { favoriteRouter } from "./routers/favorite";
 
 import { reviewRouter } from "./routers/review";
+import { historyRouter } from "./routers/history";
 
 /**
  * This is the primary router for your server.
@@ -17,6 +18,7 @@ export const appRouter = createTRPCRouter({
   cart: cartRouter,
   favorite: favoriteRouter,
   review: reviewRouter,
+  history: historyRouter,
 });
 
 // export type definition of API

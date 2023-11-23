@@ -12,11 +12,11 @@ import Search from "./Search";
 import SearchResults from "./SearchResults";
 import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
-import { BsPerson } from "react-icons/bs";
-import NavIcon from "./NavIcon";
-import { PromosBanner } from "./PromosBanner";
-import { bannerPromos } from "./promosData";
+import { BsFilePerson, BsPerson } from "react-icons/bs";
+import { IoPersonOutline } from "react-icons/io5";
+
 import { useRouter } from "next/router";
+import NavIcon from "./NavIcon";
 
 const Nav = () => {
   const { signOut } = useClerk();
@@ -27,7 +27,6 @@ const Nav = () => {
   const { isSignedIn, user } = useUser();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  console.log(user?.id);
   const {
     data: searchResults,
     isLoading: isSearching,
@@ -114,9 +113,12 @@ const Nav = () => {
             <div className="hidden w-7 md:block"></div>
             <FavoritesNavIcon />
             <CartIcon />
-            <div role="button" className="ml-3">
+            <div role="button">
               {!isSignedIn ? (
-                <Link href="/sign-in">Sign in</Link>
+                <NavIcon
+                  icon={<IoPersonOutline className="h-5 w-5" />}
+                  link="/sign-in"
+                />
               ) : (
                 <div
                   role="button"
@@ -125,7 +127,7 @@ const Nav = () => {
                 >
                   Hello,
                   <span className="text-indigo-500"> {user.username} </span>
-                  <BsPerson className="h-5 w-5" />
+                  <IoPersonOutline className="h-5 w-5" />
                 </div>
               )}
             </div>

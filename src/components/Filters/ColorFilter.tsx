@@ -30,7 +30,6 @@ const ColorFilter = () => {
   const colorsQueryArray = [colorsQuery].flat(1).filter(Boolean);
 
   const handleColor = async (color: string) => {
-    console.log("Colors", colorsQueryArray);
     if (!colorsQueryArray.includes(color)) {
       const newColors = [...colorsQueryArray, color];
       await addQuery("color", newColors);

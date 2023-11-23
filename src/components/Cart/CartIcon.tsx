@@ -9,6 +9,7 @@ const CartIcon = () => {
       link="/cart"
       loading={isGettingCart}
       number={totalCount ?? 0}
+      color="bg-teal-400"
     />
   );
 };

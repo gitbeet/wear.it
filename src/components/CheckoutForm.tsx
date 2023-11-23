@@ -80,7 +80,6 @@ const CheckoutForm = () => {
     )?.isoCode;
     const currentState = stateData.find((state) => state.name === selectedState)
       ?.isoCode;
-    console.log(currentState);
     if (!currentCountry || !currentState) return;
     setCityData(City.getCitiesOfState(currentCountry, currentState));
   }, [selectedState, countryData, selectedCountry, stateData]);

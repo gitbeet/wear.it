@@ -115,14 +115,11 @@ const Trending = () => {
     <section className="padding-x">
       <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-6 md:h-12"></div>
-
-      <div className="w-full overflow-hidden">
-        <ProductCardCarousel
-          numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 2 }}
-          products={products?.products}
-          isLoading={isGettingProducts}
-        />
-      </div>
+      <ProductCardCarousel
+        numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 2 }}
+        products={products?.products}
+        isLoading={isGettingProducts}
+      />
     </section>
   );
 };
@@ -134,7 +131,7 @@ const Promotions = () => (
         sizes="(max-width: 1024px) 100vw, 792px"
         src={bannerTShirts}
         alt="Up to -60% on womens t-shirts"
-        className="rounded-md"
+        className="rounded-2xl"
         placeholder="blur"
       />
     </div>
@@ -146,7 +143,7 @@ const Promotions = () => (
         height={392}
         src={bannerJackets}
         alt="Browse jackets under 65%"
-        className="rounded-md"
+        className="rounded-2xl"
         placeholder="blur"
       />
 
@@ -157,7 +154,7 @@ const Promotions = () => (
         height={392}
         src={bannerSneakers}
         alt="Browse seakers from 30$"
-        className="rounded-md"
+        className="rounded-2xl"
         placeholder="blur"
       />
     </div>
@@ -165,7 +162,7 @@ const Promotions = () => (
 );
 
 const MemberDeals = () => (
-  <div className="padding-x flex flex-col items-center justify-center gap-8 bg-gradient-to-br from-violet-500 to-indigo-500 py-16  text-slate-50 md:bg-gradient-to-tr md:via-indigo-500 md:to-violet-500">
+  <div className="padding-x flex flex-col items-center justify-center gap-8 bg-gradient-to-br from-violet-500 to-indigo-500 py-16 text-slate-50  md:bg-gradient-to-tr md:via-indigo-500 md:to-violet-500 2xl:rounded-xl">
     <div className="space-y-4">
       <p className="text-center font-display text-5xl font-black">
         BECOME A MEMBER <br /> AND SAVE UP TO 70%

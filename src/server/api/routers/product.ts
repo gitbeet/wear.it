@@ -6,6 +6,7 @@ import {
   ProductColor,
   ProductSize,
 } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 export const productRouter = createTRPCRouter({
   searchProduct: publicProcedure
     .input(z.object({ query: z.string() }))
@@ -87,6 +88,15 @@ export const productRouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       const { id } = input;
+      const { db, userId: loggedUserId, guestUserId } = ctx;
+      const userId = loggedUserId ?? guestUserId ?? undefined;
+      if (typeof userId === "undefined") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No user identifier found",
+        });
+      }
+
       const product = await ctx.db.product.findUnique({
         where: {
           id,
@@ -120,7 +130,44 @@ export const productRouter = createTRPCRouter({
           // },
         },
       });
-      return product;
+
+      const existingHistory = await ctx.db.productHistory.findFirst({
+        where: {
+          userId,
+        },
+        include: {
+          items: {
+            select: {
+              productId: true,
+            },
+          },
+        },
+      });
+
+      if (!existingHistory) {
+        await ctx.db.productHistory.create({
+          data: {
+            userId,
+            items: {
+              create: {
+                productId: id,
+              },
+            },
+          },
+        });
+        return product;
+      }
+      if (
+        existingHistory.items.findIndex((item) => item.productId === id) !== -1
+      )
+        return product;
+
+      await db.historyItem.create({
+        data: {
+          productId: id,
+          historyId: existingHistory.id,
+        },
+      });
     }),
   getAll: publicProcedure
     .input(

@@ -6,6 +6,7 @@ import BagItemSkeleton from "~/components/skeletons/BagItemSkeleton";
 import SummarySkeleton from "~/components/skeletons/SummarySkeleton";
 import { useCartContext } from "~/context/cartContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
+import { RecentlyViewed } from "./favorites";
 
 export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
   const { dbCart, isGettingCart } = useCartContext();
@@ -112,11 +113,27 @@ export const CartItems = ({
 };
 
 const Cart = () => {
-  return (
+  const { dbCart } = useCartContext();
+  return dbCart?.cartItems && dbCart.cartItems.length > 0 ? (
     <section className="padding-x mx-auto grid max-w-[1400px] gap-16 pt-16 md:pt-24 lg:grid-cols-[2fr,1fr]">
       <CartItems />
       <Summary />
       <div className="h-12"></div>
+    </section>
+  ) : (
+    <section>
+      <div className="h-16 md:h-24"></div>
+      <div className="flex flex-col items-center">
+        <h1 className="font-display text-5xl font-black text-slate-800">Bag</h1>
+        <div className="h-4"></div>
+        <p>Your bag is currently empty.</p>
+        <div className="h-8"></div>
+        <Link href="/">
+          <Button text="Continue shopping" onClick={() => void 0} width="FIT" />
+        </Link>
+      </div>
+      <div className="h-16"></div>
+      <RecentlyViewed />
     </section>
   );
 };
