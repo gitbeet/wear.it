@@ -1,10 +1,11 @@
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { BsHeartFill } from "react-icons/bs";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
 import { formatCurrency } from "~/utilities/formatCurrency";
-import { RouterOutputs, api } from "~/utils/api";
+import { type RouterOutputs, api } from "~/utils/api";
 
 type FavoriteType = RouterOutputs["favorite"]["getByUserId"][number];
 
@@ -98,8 +99,14 @@ const FavoritesGrid = () => {
 };
 
 export const RecentlyViewed = () => {
-  const { data, isLoading } = api.history.getByUserId.useQuery();
-  console.log("recent items: ", data);
+  const { isSignedIn } = useUser();
+
+  const { data, isLoading, refetch } = api.history.getByUserId.useQuery();
+
+  useEffect(() => {
+    void refetch();
+  }, [isSignedIn]);
+
   return (
     <div className="padding-x">
       <h2 className="font-display text-2xl font-black">Recently viewed</h2>
@@ -122,6 +129,7 @@ const Favorites = () => {
       <FavoritesGrid />
       <div className="h-16"></div>
       <RecentlyViewed />
+      <div className="h-16"></div>
     </section>
   );
 };

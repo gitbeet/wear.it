@@ -92,7 +92,7 @@ export const historyRouter = createTRPCRouter({
       if (itemIndex) {
         const dateTime = new Date();
 
-        const recreatedItem = await db.historyItem.update({
+        await db.historyItem.update({
           where: {
             id: itemIndex.id,
           },
