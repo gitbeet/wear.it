@@ -97,7 +97,7 @@ export const productRouter = createTRPCRouter({
         });
       }
 
-      const product = await ctx.db.product.findUnique({
+      const product = await db.product.findUnique({
         where: {
           id,
         },
@@ -123,51 +123,48 @@ export const productRouter = createTRPCRouter({
           },
           colors: true,
           sizes: true,
-          // reviews: {
-          //   select: {
-          //     rate: true,
-          //   },
-          // },
         },
       });
 
-      const existingHistory = await ctx.db.productHistory.findFirst({
-        where: {
-          userId,
-        },
-        include: {
-          items: {
-            select: {
-              productId: true,
-            },
-          },
-        },
-      });
+      return product;
 
-      if (!existingHistory) {
-        await ctx.db.productHistory.create({
-          data: {
-            userId,
-            items: {
-              create: {
-                productId: id,
-              },
-            },
-          },
-        });
-        return product;
-      }
-      if (
-        existingHistory.items.findIndex((item) => item.productId === id) !== -1
-      )
-        return product;
+      // const existingHistory = await ctx.db.productHistory.findFirst({
+      //   where: {
+      //     userId,
+      //   },
+      //   include: {
+      //     items: {
+      //       select: {
+      //         productId: true,
+      //       },
+      //     },
+      //   },
+      // });
 
-      await db.historyItem.create({
-        data: {
-          productId: id,
-          historyId: existingHistory.id,
-        },
-      });
+      // if (!existingHistory) {
+      //   await ctx.db.productHistory.create({
+      //     data: {
+      //       userId,
+      //       items: {
+      //         create: {
+      //           productId: id,
+      //         },
+      //       },
+      //     },
+      //   });
+      //   return product;
+      // }
+      // if (
+      //   existingHistory.items.findIndex((item) => item.productId === id) !== -1
+      // )
+      //   return product;
+
+      // await db.historyItem.create({
+      //   data: {
+      //     productId: id,
+      //     historyId: existingHistory.id,
+      //   },
+      // });
     }),
   getAll: publicProcedure
     .input(

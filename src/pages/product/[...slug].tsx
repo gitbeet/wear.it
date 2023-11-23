@@ -31,50 +31,55 @@ const Product = ({
   id,
   color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { setShowBagModal } = useModalsContext();
+  const router = useRouter();
   const ctx = api.useUtils();
-  const { isFavorited } = useFavoritesContext();
+  const { user, isSignedIn } = useUser();
+
+  // Get product data
+  const { data: productData, isLoading: isGettingProductData } =
+    api.product.getSingleProduct.useQuery({ id });
+  // Add to history
   const { mutateAsync: addToHistory, isLoading: isAddingToHistory } =
     api.history.addToHistory.useMutation({
       onSuccess: () => setAddedToHistory(true),
     });
-  const [addedtoHistory, setAddedToHistory] = useState(false);
+
+  // Add to favorites
   const { mutate: addToFavorites, isLoading: isFaving } =
     api.favorite.favorite.useMutation({
       onSuccess: () => {
         void ctx.invalidate();
       },
     });
+  // Add to cart
   const { mutate, isLoading: isAddingToCart } = api.cart.addItem.useMutation({
     onSuccess: () => {
       void ctx.invalidate();
       setShowBagModal(true);
     },
   });
-
-  const { data: reccomendedProducts, isLoading: isGettingReccomended } =
-    api.product.getAll.useQuery({ collectionId: undefined, color: undefined });
-
+  // Get Reviews
   const { data: reviews, isLoading: isGettingReviews } =
     api.review.getReviewsByProductId.useQuery({
       productId: id,
     });
+  // Get reccomended products
+  const { data: reccomendedProducts, isLoading: isGettingReccomended } =
+    api.product.getAll.useQuery({ collectionId: undefined, color: undefined });
 
-  const { user, isSignedIn } = useUser();
+  const { setShowBagModal } = useModalsContext();
+  const { isFavorited } = useFavoritesContext();
 
   const hasUserCommented =
     reviews?.findIndex((review) => review.author.id === user?.id) !== -1;
 
-  const router = useRouter();
+  const [addedtoHistory, setAddedToHistory] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
     color as ProductColor,
   );
   const [selectedSize, setSelectedSize] = useState<ProductSize | null>(null);
   const [error, setError] = useState<boolean>(false);
-
-  const { data: productData, isLoading: isGettingProductData } =
-    api.product.getSingleProduct.useQuery({ id });
 
   const primaryColor = productData?.colors[0]?.color;
 
@@ -88,8 +93,21 @@ const Product = ({
 
   useEffect(() => {
     if (!productData || addedtoHistory || isAddingToHistory) return;
-    void addToHistory({ productId: productData.id });
-    setAddedToHistory(true);
+    async function add() {
+      if (!productData) return;
+      try {
+        await addToHistory({ productId: productData.id });
+        setAddedToHistory(true);
+      } catch (error) {
+        throw new Error("Unexpected error");
+      }
+    }
+
+    add()
+      .then(() => setAddedToHistory(true))
+      .catch((err) => console.log(err));
+
+    return () => void 0;
   }, [productData]);
 
   useEffect(() => {

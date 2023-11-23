@@ -39,7 +39,7 @@ export const historyRouter = createTRPCRouter({
             },
           },
           orderBy: {
-            createdAt: "asc",
+            createdAt: "desc",
           },
         },
       },
@@ -67,6 +67,7 @@ export const historyRouter = createTRPCRouter({
           items: {
             select: {
               productId: true,
+              id: true,
             },
           },
         },
@@ -85,12 +86,22 @@ export const historyRouter = createTRPCRouter({
         });
         return createHistory;
       }
-      if (
-        existingHistory.items.findIndex(
-          (item) => item.productId === productId,
-        ) !== -1
-      )
+      const itemIndex = existingHistory.items.find(
+        (item) => item.productId === productId,
+      );
+      if (itemIndex) {
+        const dateTime = new Date();
+
+        const recreatedItem = await db.historyItem.update({
+          where: {
+            id: itemIndex.id,
+          },
+          data: {
+            createdAt: dateTime,
+          },
+        });
         return;
+      }
       const addProduct = await db.historyItem.create({
         data: {
           productId,
