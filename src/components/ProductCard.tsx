@@ -49,7 +49,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         <BsHeartFill className="h-6 w-6 text-indigo-400" />
       )}
       {currentImageColor && !isFavorited(currentImageColor, product.id) && (
-        <BsHeart className="h-6 w-6" />
+        <BsHeart className="h-6 w-6 text-slate-600" />
       )}
     </div>
   );

@@ -29,7 +29,7 @@ const NavIcon = ({
             <div
               className={`${color} absolute right-1.5 top-6 flex  h-[17px] w-[17px] items-center justify-center rounded-full text-white outline outline-2 outline-white group-hover:outline-slate-300`}
             >
-              <p className="text-[11px] leading-none">{number}</p>
+              <p className="font-display text-[11px] leading-none">{number}</p>
             </div>
           )}
         </div>

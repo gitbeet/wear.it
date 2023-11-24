@@ -34,7 +34,7 @@ const Hero = () => (
   <section className="relative w-full  overflow-hidden py-16 lg:py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-black">
-        <span className=" bg-gradient-to-r from-violet-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent">
+        <span className="gradient-main-r bg-clip-text text-transparent">
           {/* <span className=" bg-gradient-to-r from-red-500 via-pink-500  to-indigo-600 bg-clip-text text-transparent"> */}
           Ready for winter?
         </span>
@@ -81,7 +81,7 @@ const EventSlider = () => {
       <div>
         <h2 className="flex items-center gap-2">
           <FaSnowflake className="inline h-8 w-8 text-indigo-500" />
-          <p className="to-slateviolet-500 shrink-0 bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text  py-1 font-display  text-5xl font-extrabold text-transparent">
+          <p className="shrink-0 bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text  py-1 font-display  text-5xl font-extrabold text-transparent">
             Cozy up!
           </p>
         </h2>
@@ -162,7 +162,7 @@ const Promotions = () => (
 );
 
 const MemberDeals = () => (
-  <div className="padding-x flex flex-col items-center justify-center gap-8 bg-gradient-to-br from-violet-500 to-indigo-500 py-16 text-slate-50  md:bg-gradient-to-tr md:via-indigo-500 md:to-violet-500 2xl:rounded-xl">
+  <div className="padding-x gradient-main-tr flex flex-col items-center justify-center gap-8 rounded-xl  py-16 text-slate-50">
     <div className="space-y-4">
       <p className="text-center font-display text-5xl font-black">
         BECOME A MEMBER <br /> AND SAVE UP TO 70%

@@ -10,6 +10,19 @@
   @apply py-8;
 }
 
+.gradient-main-r,
+.gradient-main-tr {
+  @apply from-violet-500 to-indigo-500 md:via-indigo-500 md:to-violet-500;
+}
+
+.gradient-main-r {
+  @apply bg-gradient-to-r;
+}
+
+.gradient-main-tr {
+  @apply bg-gradient-to-tr;
+}
+
 .show-promo-item {
   animation: show-promo-item 0.5s ease-in-out forwards;
   transition: transform;

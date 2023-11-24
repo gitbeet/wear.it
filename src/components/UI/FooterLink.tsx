@@ -3,9 +3,9 @@ import React from "react";
 
 const FooterLink = ({ link, linkText }: { link: string; linkText: string }) => {
   return (
-    <ul className="font-semibold text-slate-900 transition-colors duration-150 hover:text-slate-600">
+    <li className="w-fit text-sm font-semibold text-slate-500 transition-colors duration-150 hover:text-slate-400">
       <Link href={link}>{linkText}</Link>
-    </ul>
+    </li>
   );
 };
 

@@ -26,13 +26,13 @@ const Search = ({
             className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2"
           />
         )}
-        <FiSearch className="absolute left-2 top-1/2  h-6 w-6 -translate-y-1/2 text-slate-400 transition-colors duration-150 group-focus-within:text-indigo-400" />
+        <FiSearch className="absolute left-2 top-1/2  h-6 w-6 -translate-y-1/2 text-indigo-400" />
         <input
           onFocus={onFocus}
           onBlur={onBlur}
           value={input}
           onChange={handleSearch}
-          className=" h-full w-56 rounded-full border border-slate-200 bg-slate-100 px-10 outline-none transition-colors duration-150 focus:border-indigo-300"
+          className=" h-full w-56 rounded-full border-2 border-indigo-100 bg-slate-100 px-10 outline-none transition-colors duration-150 focus:border-indigo-200"
         />
       </div>
       <FiSearch className="m-3 h-5 w-5 text-slate-700 lg:hidden" />

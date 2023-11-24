@@ -15,28 +15,45 @@ import FooterLink from "./UI/FooterLink";
 
 const Footer = () => {
   return (
-    <section className=" border-t bg-slate-100   pt-12 text-slate-900">
-      <div className="padding-x mx-auto flex max-w-[1600px] flex-wrap justify-between pb-20">
-        <Logo />
-        <nav className="space-y-3">
+    <section className="border-t  border-indigo-100  bg-slate-100  pt-12 text-slate-900">
+      <div className="padding-x mx-auto flex max-w-[1600px] flex-wrap justify-start gap-8 pb-20">
+        <Link href="/" className="relative -top-2 grow">
+          <Logo />
+        </Link>
+        <ul className="grow space-y-3">
+          <p className="font-display font-bold text-slate-600">Navigation</p>
           <FooterLink link="/" linkText="Home" />
           <FooterLink link="/men" linkText="Men" />
           <FooterLink link="/women" linkText="Women" />
           <FooterLink link="/kids" linkText="Kids" />
-          <FooterLink link="/contact" linkText="Contact" />
-        </nav>
-        <nav className="space-y-3">
-          <FooterLink link="/" linkText="About us" />
-          <FooterLink link="/" linkText="Privacy policy" />
-        </nav>
-        <nav className="space-y-3">
           <FooterLink link="/sign-up" linkText="Become a member" />
           <FooterLink link="/sign-in" linkText="Sign in" />
           <FooterLink link="/cart" linkText="Your Bag" />
           <FooterLink link="/favorites" linkText="Wishlist" />
-        </nav>
-        <div className="flex flex-col items-center gap-6">
-          <p className="font-display text-lg font-semibold">Follow us</p>
+        </ul>
+        <ul className="grow space-y-3">
+          <p className="font-display font-bold text-slate-600">
+            About<span className="font-black text-indigo-400"> wear.it</span>
+          </p>
+          <FooterLink link="/" linkText="About us" />
+          <FooterLink link="/" linkText="Privacy policy" />
+          <FooterLink link="/" linkText="News" />
+          <FooterLink link="/" linkText="Careers" />
+          <FooterLink link="/" linkText="Purpose" />
+          <FooterLink link="/" linkText="Sustainability" />
+          <FooterLink link="/contact" linkText="Contact us" />
+        </ul>
+        <ul className="grow space-y-3">
+          <p className="font-display font-bold text-slate-600">
+            Promotions & discounts
+          </p>
+          <FooterLink link="/" linkText="Student" />
+          <FooterLink link="/" linkText="Military" />
+          <FooterLink link="/" linkText="Teacher" />
+          <FooterLink link="/" linkText="Birthday" />
+        </ul>
+        <div className="flex grow flex-col  gap-6">
+          <p className="font-display font-bold text-slate-600">Follow us</p>
           <div className="space-y-3 text-slate-800">
             <Icon icon={tiktokIcon} />
             <Icon icon={twitterIcon} />
@@ -45,9 +62,10 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="   py-2 ">
+      <div className="gradient-main-r py-2">
         <p className="text-center text-sm font-light text-slate-50">
-          Logo 2023©. All rights reserved.
+          <b className="font-display font-black">wear.it</b> 2023© All rights
+          reserved.
         </p>
       </div>
     </section>

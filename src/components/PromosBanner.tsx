@@ -38,7 +38,7 @@ export const PromosBanner = ({
   };
 
   return (
-    <div className="relative z-50 flex w-full items-center justify-center bg-gradient-to-r from-violet-500 to-indigo-500 text-slate-50 md:via-indigo-500 md:to-violet-500">
+    <div className="gradient-main-r relative z-50 flex w-full items-center justify-center text-slate-50">
       <Carousel
         removeArrowOnDeviceType={["tablet", "mobile"]}
         className="w-[min(95%,700px)] py-1.5 md:py-2"
