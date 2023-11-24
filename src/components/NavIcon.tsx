@@ -21,7 +21,7 @@ const NavIcon = ({
       <Link href={link ?? "#"}>
         <div
           role="button"
-          className="group  relative z-0 rounded-full  bg-transparent p-3 hover:bg-slate-300"
+          className="group  relative z-0 rounded-full  bg-transparent p-3 hover:bg-slate-200"
         >
           {icon}
 

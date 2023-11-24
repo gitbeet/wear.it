@@ -1,14 +1,17 @@
 import Link from "next/link";
+import { logoIcon } from "public/assets/icons";
 
 const Logo = ({ light }: { light?: boolean }) => (
   <Link href="/">
     <h1
       className={`${
-        light ? "text-slate-50" : "text-slate-800"
-      } flex items-center rounded-md 
-  py-1  font-display text-xl  font-black`}
+        light ? "text-indigo-500" : "text-slate-700"
+      } py-1s flex items-end gap-1`}
     >
-      Logo
+      <span className="text-indigo-400">{logoIcon}</span>
+      <span className="font-display text-xl font-bold leading-none">
+        wear<span className="text-indigo-400">.</span>it
+      </span>
     </h1>
   </Link>
 );
