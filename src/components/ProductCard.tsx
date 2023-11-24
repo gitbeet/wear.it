@@ -27,7 +27,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   const image = (
     <Image
       fill
-      className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200 group-hover:shadow-sm"
+      className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-100 group-hover:shadow-sm"
       src={
         product.images.find((image) => image.id === currentImage)?.imageURL ??
         ""

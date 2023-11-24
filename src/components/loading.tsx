@@ -6,7 +6,7 @@ export const LoadingSpinner = ({ size }: { size?: number }) => (
       width={size ?? 24}
       height={size ?? 24}
       aria-hidden="true"
-      className="mr-2 inline animate-spin fill-slate-700 text-slate-300"
+      className="mr-2 inline animate-spin fill-indigo-400 text-slate-300"
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

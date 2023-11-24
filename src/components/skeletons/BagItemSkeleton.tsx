@@ -88,11 +88,11 @@ const BagItemSkeleton = ({ modal = false }: { modal?: boolean }) => {
             <div className="flex gap-8">
               <div className="flex h-5 w-fit items-center rounded-full bg-slate-400  text-transparent">
                 <div className="h-5 w-5" />
-                <span>Add to Favorites</span>
+                <span>Add to Wishlist</span>
               </div>
               <div className="flex h-5 w-fit items-center rounded-full bg-slate-400  text-transparent">
                 <div className="h-5 w-5" />
-                <span>Add to Favorites</span>
+                <span>Add to Wishlist</span>
               </div>
             </div>
           )}

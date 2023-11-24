@@ -7,6 +7,7 @@ import SummarySkeleton from "~/components/skeletons/SummarySkeleton";
 import { useCartContext } from "~/context/cartContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { RecentlyViewed } from "./favorites";
+import LoadingPage from "~/components/loading";
 
 export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
   const { dbCart, isGettingCart } = useCartContext();
@@ -113,27 +114,55 @@ export const CartItems = ({
 };
 
 const Cart = () => {
-  const { dbCart } = useCartContext();
-  return dbCart?.cartItems && dbCart.cartItems.length > 0 ? (
-    <section className="padding-x mx-auto grid max-w-[1400px] gap-16 pt-16 md:pt-24 lg:grid-cols-[2fr,1fr]">
-      <CartItems />
-      <Summary />
-      <div className="h-12"></div>
-    </section>
-  ) : (
-    <section>
-      <div className="h-16 md:h-24"></div>
-      <div className="flex flex-col items-center">
-        <h1 className="font-display text-5xl font-black text-slate-800">Bag</h1>
-        <div className="h-4"></div>
-        <p>Your bag is currently empty.</p>
-        <div className="h-8"></div>
-        <Link href="/">
-          <Button text="Continue shopping" onClick={() => void 0} width="FIT" />
-        </Link>
+  const { dbCart, isGettingCart } = useCartContext();
+
+  const emptyCartContent = (
+    <div className="flex flex-col items-center ">
+      <div className="h-4"></div>
+      <p>Your bag is currently empty.</p>
+      <div className="h-8"></div>
+      <Link href="/">
+        <Button text="Continue shopping" onClick={() => void 0} width="FIT" />
+      </Link>
+    </div>
+  );
+
+  const cartContent = (
+    <>
+      <div className="padding-x mx-auto grid max-w-[1400px] gap-16 pt-16 md:pt-24 lg:grid-cols-[2fr,1fr]">
+        <CartItems />
+        <Summary />
       </div>
-      <div className="h-16"></div>
+    </>
+  );
+
+  const noDataContent = (
+    <>
+      <div className="h-12"></div>
+      <h1 className="text-lg">Something went wrong.Please refresh the page</h1>
+    </>
+  );
+
+  return (
+    <section>
+      <div className="h-12"></div>
+      <h1 className="text-center font-display text-5xl font-black text-slate-800">
+        Bag
+      </h1>
+      {isGettingCart ? (
+        <div className="relative py-24">
+          <LoadingPage />
+        </div>
+      ) : !dbCart ? (
+        noDataContent
+      ) : dbCart.cartItems.length < 1 ? (
+        emptyCartContent
+      ) : (
+        cartContent
+      )}
+      <div className="h-24"></div>
       <RecentlyViewed />
+      <div className="h-16"></div>
     </section>
   );
 };

@@ -4,8 +4,10 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { BsHeartFill } from "react-icons/bs";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
+import Button from "~/components/UI/Button";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { type RouterOutputs, api } from "~/utils/api";
+import LoadingPage from "~/components/loading";
 
 type FavoriteType = RouterOutputs["favorite"]["getByUserId"][number];
 
@@ -89,18 +91,58 @@ const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
 
 const FavoritesGrid = () => {
   const { data, isLoading } = api.favorite.getByUserId.useQuery();
-  if (isLoading) return <h1>loading</h1>;
-  if (!data) return <h1>Something went wrong</h1>;
+
+  const emptyWishlistContent = (
+    <>
+      <div className="h-4"></div>
+      <p>Your wishlist is currently empty.</p>
+      <div className="h-8"></div>
+      <Link href="/">
+        <Button text="Continue shopping" onClick={() => void 0} width="FIT" />
+      </Link>
+    </>
+  );
+
+  const wishListContent = (
+    <>
+      <div className="h-12"></div>
+      <div className=" grid  max-w-[1400px] grid-cols-[repeat(auto-fill,minmax(250px,1fr))]   items-start justify-start   gap-4">
+        {data?.map((fav) => <FavoriteItem key={fav.id} fav={fav} />)}
+      </div>
+    </>
+  );
+
+  const noDataContent = (
+    <>
+      <div className="h-12"></div>
+      <h1 className="text-lg">Something went wrong.Please refresh the page</h1>
+    </>
+  );
+
   return (
-    <div className="mx-auto grid  grid-cols-[repeat(auto-fill,minmax(250px,1fr))]  items-start justify-start   gap-4">
-      {data?.map((fav) => <FavoriteItem key={fav.id} fav={fav} />)}
-    </div>
+    <section>
+      <div className="flex flex-col items-center">
+        <h1 className="font-display text-5xl font-black text-slate-800">
+          Wishlist
+        </h1>
+        {isLoading ? (
+          <div className="relative py-24">
+            <LoadingPage />
+          </div>
+        ) : !data ? (
+          noDataContent
+        ) : data.length < 1 ? (
+          emptyWishlistContent
+        ) : (
+          wishListContent
+        )}
+      </div>
+    </section>
   );
 };
 
 export const RecentlyViewed = () => {
   const { isSignedIn } = useUser();
-
   const { data, isLoading, refetch } = api.history.getByUserId.useQuery();
 
   useEffect(() => {
@@ -123,11 +165,9 @@ export const RecentlyViewed = () => {
 const Favorites = () => {
   return (
     <section>
-      <div className="h-16"></div>
-      <h1 className="text-center font-display text-5xl font-black">Wishlist</h1>
       <div className="h-12"></div>
       <FavoritesGrid />
-      <div className="h-16"></div>
+      <div className="h-24"></div>
       <RecentlyViewed />
       <div className="h-16"></div>
     </section>

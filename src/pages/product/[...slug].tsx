@@ -43,7 +43,6 @@ const Product = ({
     api.history.addToHistory.useMutation({
       onSuccess: () => setAddedToHistory(true),
     });
-
   // Add to favorites
   const { mutate: addToFavorites, isLoading: isFaving } =
     api.favorite.favorite.useMutation({
@@ -204,8 +203,8 @@ const Product = ({
   };
   const isItemFavorited = isFavorited(selectedColor, productData.id);
   const favoriteButtonText = isItemFavorited
-    ? "Added to favorites"
-    : "Add to Favorites";
+    ? "Added to Wishlist"
+    : "Add to Wishlist";
   const favoriteButtonIcon = isItemFavorited ? <BsHeartFill /> : <BsHeart />;
 
   const colorsSection = (

@@ -184,7 +184,7 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
                   <BsHeart className="h-5 w-5" />
                 )}
                 <span className={isItemFavorited ? "text-indigo-400" : ""}>
-                  {isItemFavorited ? "Added to Favorites" : "Add to Favorites"}
+                  {isItemFavorited ? "Added to Wishlist" : "Add to Wishlist"}
                 </span>
               </button>
 

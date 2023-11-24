@@ -332,17 +332,17 @@ export const products: ProductType[] = [
           },
           {
             imageURL:
-              "/assets/product-images/women's-oversized-sweatshirt/women's-oversized-sweatshirt-slate-01.jpg",
+              "/assets/product-images/women's-oversized-sweatshirt/women's-oversized-sweatshirt-gray-01.jpg",
             color: "GRAY",
           },
           {
             imageURL:
-              "/assets/product-images/women's-oversized-sweatshirt/women's-oversized-sweatshirt-slate-02.jpg",
+              "/assets/product-images/women's-oversized-sweatshirt/women's-oversized-sweatshirt-gray-02.jpg",
             color: "GRAY",
           },
           {
             imageURL:
-              "/assets/product-images/women's-oversized-sweatshirt/women's-oversized-sweatshirt-slate-03.jpg",
+              "/assets/product-images/women's-oversized-sweatshirt/women's-oversized-sweatshirt-gray-03.jpg",
             color: "GRAY",
           },
         ],
