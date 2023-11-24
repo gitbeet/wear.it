@@ -185,8 +185,7 @@ const ProductsPage = () => {
               max={data.maxPrice._max.price ?? 10000}
             />
           )}
-          <p>{data?.minPrice._min.price ?? 0}</p>
-          <p>{data?.maxPrice._max.price ?? 0}</p>
+
           <SizeFilter />
           <ColorFilter />
         </div>

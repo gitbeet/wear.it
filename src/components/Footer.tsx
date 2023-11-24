@@ -4,6 +4,13 @@ import { BsTwitter, BsYoutube } from "react-icons/bs";
 import { TiSocialInstagram } from "react-icons/ti";
 import { FaFacebookF } from "react-icons/fa";
 import Link from "next/link";
+import {
+  facebookIcon,
+  instagramIcon,
+  tiktokIcon,
+  twitterIcon,
+} from "public/assets/icons";
+import Icon from "./UI/Icon";
 
 const Footer = () => {
   return (
@@ -71,30 +78,13 @@ const Footer = () => {
             </Link>
           </ul>
         </nav>
-        <div className="space-y-2">
-          <div
-            role="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-50 transition-colors duration-150 hover:bg-slate-200"
-          >
-            <BsTwitter className="h-5 w-5 text-violet-500" />
-          </div>
-          <div
-            role="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-50 transition-colors duration-150 hover:bg-slate-200"
-          >
-            <BsYoutube className="h-5 w-5 text-violet-500" />
-          </div>
-          <div
-            role="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-50 transition-colors duration-150 hover:bg-slate-200"
-          >
-            <TiSocialInstagram className="h-5 w-5 text-violet-500" />
-          </div>
-          <div
-            role="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-50 transition-colors duration-150 hover:bg-slate-200"
-          >
-            <FaFacebookF className="h-5 w-5 text-violet-500" />
+        <div className="flex flex-col items-center gap-6">
+          <p className="font-display text-lg font-semibold">Follow us</p>
+          <div className="space-y-3">
+            <Icon icon={tiktokIcon} />
+            <Icon icon={twitterIcon} />
+            <Icon icon={instagramIcon} />
+            <Icon icon={facebookIcon} />
           </div>
         </div>
       </div>

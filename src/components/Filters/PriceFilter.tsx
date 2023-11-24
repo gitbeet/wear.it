@@ -21,9 +21,6 @@ const PriceSlider = ({ min, max }: { min: number; max: number }) => {
 
   return (
     <div className="h-8 border-b p-8 pb-40 pl-0">
-      <p>
-        {displayPriceRange[0]} - {displayPriceRange[1]}
-      </p>
       <header className="text-md font-semibold">Shop by Price</header>
       <div className="h-4"></div>
       <div>
