@@ -9,8 +9,10 @@ import {
 type ModalsContextType = {
   showMegaMenu: boolean;
   showBagModal: boolean;
+  showMobileMenu: boolean;
   setShowMegaMenu: Dispatch<SetStateAction<boolean>>;
   setShowBagModal: Dispatch<SetStateAction<boolean>>;
+  setShowMobileMenu: Dispatch<SetStateAction<boolean>>;
 };
 
 const modalContext = createContext<ModalsContextType | null>(null);
@@ -24,9 +26,17 @@ export const useModalsContext = () => {
 const ModalsProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [showBagModal, setShowBagModal] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   return (
     <modalContext.Provider
-      value={{ showMegaMenu, showBagModal, setShowMegaMenu, setShowBagModal }}
+      value={{
+        showMegaMenu,
+        showBagModal,
+        setShowMegaMenu,
+        setShowBagModal,
+        showMobileMenu,
+        setShowMobileMenu,
+      }}
     >
       {children}
     </modalContext.Provider>

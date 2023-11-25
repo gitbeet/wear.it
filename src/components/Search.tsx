@@ -18,7 +18,7 @@ const Search = ({
 }) => {
   return (
     <>
-      <div className=" relative hidden h-9 lg:block">
+      <div className=" relative hidden h-9 md:block">
         {input.length > 1 && (
           <VscChromeClose
             onClick={handleCloseButton}
@@ -35,7 +35,7 @@ const Search = ({
           className="peer h-full w-60 rounded-full border border-indigo-100 bg-slate-100 px-10 outline-none transition-colors duration-150 focus:border-indigo-400 "
         />
       </div>
-      <FiSearch className="m-3 h-5 w-5 text-indigo-400 lg:hidden" />
+      <FiSearch className="m-3 h-5 w-5 text-indigo-400 md:hidden" />
     </>
   );
 };

@@ -35,7 +35,7 @@ export const SkeletonCard = ({ slider = false }: { slider?: boolean }) => {
 
 const Skeleton = () => {
   return (
-    <section className=" grid w-full grow content-start gap-2  md:grid-cols-3  ">
+    <section className="grid w-full grow content-start gap-2 sm:grid-cols-2 lg:grid-cols-3">
       {[...Array(12).keys()].map((bone) => (
         <div key={bone} className=" bg-slate-100 pb-2">
           <div>

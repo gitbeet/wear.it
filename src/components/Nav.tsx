@@ -5,28 +5,26 @@ import CartIcon from "./Cart/CartIcon";
 import CartModal from "./Cart/CartModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "./Logo";
-import { useUser, SignOutButton, useClerk } from "@clerk/nextjs";
-import Link from "next/link";
+import { useUser, useClerk } from "@clerk/nextjs";
 import FavoritesNavIcon from "./FavoritesNavIcon";
 import Search from "./Search";
 import SearchResults from "./SearchResults";
 import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
-import { BsFilePerson, BsPerson } from "react-icons/bs";
 import { IoPersonOutline } from "react-icons/io5";
-
 import { useRouter } from "next/router";
 import NavIcon from "./NavIcon";
 import { useCartContext } from "~/context/cartContext";
+import MobileMenuButton from "./MobileMenuButton";
+import MobileMenu from "./MobileMenu";
 
 const Nav = () => {
-  const { cookies } = useCartContext();
   const { signOut } = useClerk();
   const router = useRouter();
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const { isSignedIn, user, isLoaded } = useUser();
+  const { isSignedIn, user } = useUser();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const {
@@ -72,9 +70,10 @@ const Nav = () => {
       <div className="relative z-50  bg-slate-50 shadow-lg shadow-indigo-600/5">
         <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
           <Logo />
+
           <ul
             role="navigation"
-            className="absolute left-1/2 hidden -translate-x-1/2 cursor-pointer justify-center lg:flex"
+            className="absolute left-1/2 hidden -translate-x-1/2 cursor-pointer justify-center xl:flex"
           >
             <NavLink link="/" text="Home" />
             <NavLink
@@ -130,12 +129,14 @@ const Nav = () => {
                   <span className="font-light text-slate-600">Hello,</span>
                   <span className="font-bold text-indigo-400">
                     {" "}
-                    {user.username}{" "}
+                    {user.username}
                   </span>
                   <IoPersonOutline className="h-5 w-5" />
                 </div>
               )}
             </div>
+            <div className="w-3 xl:hidden"></div>
+            <MobileMenuButton />
           </div>
         </div>
       </div>
