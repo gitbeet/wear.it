@@ -79,9 +79,9 @@ const EventSlider = () => {
   return (
     <section className="padding-x flex w-full flex-col items-start gap-6 md:flex-row md:items-center lg:gap-16">
       <div>
-        <h2 className="flex items-center gap-2">
+        <h2 className="gradient-main-text-sm flex items-center  gap-2 py-1 font-display font-extrabold">
           <FaSnowflake className="inline h-8 w-8 text-indigo-500" />
-          <p className="shrink-0 bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text  py-1 font-display  text-5xl font-extrabold text-transparent">
+          <p className="shrink-0  py-1 font-display  text-5xl font-extrabold ">
             Cozy up!
           </p>
         </h2>
@@ -93,7 +93,7 @@ const EventSlider = () => {
 
       <div className="w-full overflow-hidden">
         <ProductCardCarousel
-          numberOfItems={{ desktop: 3.5, desktopSmall: 2.5, tablet: 1.5 }}
+          numberOfItems={{ desktop: 3.5, desktopSmall: 3.5, tablet: 2.5 }}
           products={products?.products}
           isLoading={isGettingProducts}
         />
@@ -116,7 +116,7 @@ const Trending = () => {
       <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-6 md:h-12"></div>
       <ProductCardCarousel
-        numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 2 }}
+        numberOfItems={{ desktop: 4, desktopSmall: 4, tablet: 3 }}
         products={products?.products}
         isLoading={isGettingProducts}
       />
@@ -162,7 +162,7 @@ const Promotions = () => (
 );
 
 const MemberDeals = () => (
-  <div className="padding-x gradient-main-tr flex flex-col items-center justify-center gap-8 rounded-xl  py-16 text-slate-50">
+  <div className="padding-x gradient-main-tr flex flex-col items-center justify-center gap-8 py-16  text-slate-50 3xl:rounded-xl">
     <div className="space-y-4">
       <p className="text-center font-display text-5xl font-black">
         BECOME A MEMBER <br /> AND SAVE UP TO 70%

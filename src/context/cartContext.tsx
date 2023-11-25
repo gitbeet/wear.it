@@ -1,12 +1,10 @@
 import { useUser } from "@clerk/nextjs";
 import { createContext, useContext, useState, useEffect } from "react";
 import { type RouterOutputs, api } from "~/utils/api";
-import { ProductColor, ProductSize } from "@prisma/client";
 import { useCookies } from "react-cookie";
 import { createId } from "@paralleldrive/cuid2";
 
 const cartContext = createContext<CartContextType | null>(null);
-
 export const useCartContext = () => {
   const context = useContext(cartContext);
   if (!context) {
@@ -16,15 +14,6 @@ export const useCartContext = () => {
 };
 
 export type CartType = RouterOutputs["cart"]["getByUserId"] | undefined;
-type CartItemProductType =
-  RouterOutputs["cart"]["getByUserId"]["cartItems"][number]["product"];
-
-type CartItemType = {
-  product: CartItemProductType;
-  color: ProductColor;
-  size: ProductSize;
-  quantity: number;
-};
 
 type CartContextType = {
   dbCart: CartType;
@@ -37,11 +26,9 @@ type CartContextType = {
 };
 
 const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["session-id"]);
-
+  const [cookies, setCookie] = useCookies(["session-id"]);
   const { isSignedIn } = useUser();
   const [totalCount, setTotalCount] = useState(0);
-  const ctx = api.useUtils();
   const {
     data: dbCart,
     isLoading: isGettingCart,
@@ -64,14 +51,17 @@ const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     const expirationDate = new Date();
+    const guestUserId = createId();
     expirationDate.setDate(expirationDate.getDate() + 30);
     !isSignedIn &&
       !cookies["session-id"] &&
-      setCookie("session-id", createId(), {
-        secure: true,
+      setCookie("session-id", guestUserId, {
         expires: expirationDate,
+        domain: "localhost:3000",
       });
-  }, [isSignedIn, setCookie, removeCookie, cookies]);
+
+    return () => void 0;
+  }, [isSignedIn]);
 
   return (
     <cartContext.Provider

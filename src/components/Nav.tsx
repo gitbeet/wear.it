@@ -17,14 +17,16 @@ import { IoPersonOutline } from "react-icons/io5";
 
 import { useRouter } from "next/router";
 import NavIcon from "./NavIcon";
+import { useCartContext } from "~/context/cartContext";
 
 const Nav = () => {
+  const { cookies } = useCartContext();
   const { signOut } = useClerk();
   const router = useRouter();
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn, user, isLoaded } = useUser();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const {
@@ -39,7 +41,7 @@ const Nav = () => {
       refetchOnMount: false, // Prevents initial automatic refetch on mount
     },
   );
-
+  console.log(user?.id);
   const getDebouncedResults = useCallback(
     debounce((val: string) => {
       setDebouncedQuery(val);
@@ -125,8 +127,11 @@ const Nav = () => {
                   className="flex items-center gap-2"
                   onClick={() => signOut(() => router.push("/"))}
                 >
-                  Hello,
-                  <span className="text-indigo-500"> {user.username} </span>
+                  <span className="font-light text-slate-600">Hello,</span>
+                  <span className="font-bold text-indigo-400">
+                    {" "}
+                    {user.username}{" "}
+                  </span>
                   <IoPersonOutline className="h-5 w-5" />
                 </div>
               )}
@@ -135,11 +140,11 @@ const Nav = () => {
         </div>
       </div>
       <SearchResults
+        query={debouncedQuery}
         onClose={() => setShowSearchResults(false)}
         show={showSearchResults}
         results={searchResults}
       />
-
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
       <CartModal />
     </nav>

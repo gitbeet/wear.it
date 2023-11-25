@@ -191,6 +191,7 @@ export default function SignUpForm() {
           </form>
         </div>
       )}
+      <div className="h-16"></div>
     </section>
   );
 }

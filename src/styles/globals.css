@@ -16,6 +16,10 @@
   @apply from-violet-500 to-indigo-500 md:via-indigo-500 md:to-violet-500;
 }
 
+.gradient-main-text-sm {
+  @apply from-indigo-500 to-violet-500;
+}
+
 .gradient-main-r {
   @apply bg-gradient-to-r;
 }
@@ -24,7 +28,8 @@
   @apply bg-gradient-to-tr;
 }
 
-.gradient-main-text {
+.gradient-main-text,
+.gradient-main-text-sm {
   @apply bg-gradient-to-r bg-clip-text  text-transparent;
 }
 

@@ -28,6 +28,7 @@ import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
 import SectionSpacer from "~/components/UI/SectionSpacer";
+import { useCartContext } from "~/context/cartContext";
 
 const productPageSkeleton = (
   <>
@@ -51,7 +52,7 @@ const productPageSkeleton = (
             -35%
           </p>
 
-          <div className="h-1"></div>
+          <div className="h-2"></div>
           <span className="w-fit rounded-full bg-slate-300 text-2xl leading-none text-transparent">
             $100 150%
           </span>
@@ -66,7 +67,7 @@ const productPageSkeleton = (
               return (
                 <div
                   key={i}
-                  className={`h-10 w-10 rounded-full border-[2px] bg-slate-300 `}
+                  className={`h-10 w-10 rounded-full bg-slate-300 `}
                 ></div>
               );
             })}
@@ -77,10 +78,10 @@ const productPageSkeleton = (
             Select Size
           </p>
           <div className="h-4"></div>
-          <div className={` flex w-fit flex-wrap gap-2 rounded-sm border`}>
+          <div className={` flex w-fit flex-wrap gap-2 rounded-sm `}>
             {[...Array(3).keys()].map((i) => (
               <span
-                className={` w-16 rounded-[3px] border bg-slate-300 py-2 text-center font-display text-transparent`}
+                className={` w-16 rounded-[3px]  bg-slate-300 py-2 text-center font-display text-transparent`}
                 key={i}
               >
                 XL
@@ -142,10 +143,13 @@ const Product = ({
   const router = useRouter();
   const ctx = api.useUtils();
   const { user, isSignedIn } = useUser();
-
+  const { cookies } = useCartContext();
   // Get product data
-  const { data: productData, isLoading: isGettingProductData } =
-    api.product.getSingleProduct.useQuery({ id });
+  const {
+    data: productData,
+    isLoading: isGettingProductData,
+    error: getProductError,
+  } = api.product.getSingleProduct.useQuery({ id });
   // Add to history
   const { mutateAsync: addToHistory, isLoading: isAddingToHistory } =
     api.history.addToHistory.useMutation({
@@ -255,7 +259,12 @@ const Product = ({
   ]);
 
   if (isGettingProductData) return productPageSkeleton;
-  if (!productData) return <h1>Something went wrong.</h1>;
+  if (!productData)
+    return (
+      <div>
+        <h1>{getProductError?.message ?? "Something went wrong."}</h1>
+      </div>
+    );
   const {
     colors,
     name,
@@ -344,7 +353,7 @@ const Product = ({
   );
 
   const reviewsSection = (
-    <div role="button" onClick={() => setShowReviews((prev) => !prev)}>
+    <div>
       <div className="flex items-center justify-between">
         <p className="text-2xl font-semibold">Reviews ({totalReviewsCount})</p>
         <div className="flex items-center gap-4">
@@ -359,6 +368,7 @@ const Product = ({
             />
           </div>
           <FaChevronDown
+            onClick={() => setShowReviews((prev) => !prev)}
             role="button"
             className={`${
               showReviews && "rotate-180"

@@ -20,9 +20,9 @@ const Footer = () => {
         <ul className="grow space-y-3">
           <p className="font-display font-bold text-slate-600">Navigation</p>
           <FooterLink link="/" linkText="Home" />
-          <FooterLink link="/men" linkText="Men" />
-          <FooterLink link="/women" linkText="Women" />
-          <FooterLink link="/kids" linkText="Kids" />
+          <FooterLink link="products/men" linkText="Men" />
+          <FooterLink link="products/women" linkText="Women" />
+          <FooterLink link="products/kids" linkText="Kids" />
           <FooterLink link="/sign-up" linkText="Become a member" />
           <FooterLink link="/sign-in" linkText="Sign in" />
           <FooterLink link="/cart" linkText="Your Bag" />
