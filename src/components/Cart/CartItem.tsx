@@ -36,8 +36,6 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
         void ctx.invalidate();
       },
     });
-  // const { data: productData, isLoading: isGettingProductData } =
-  //   api.product.getSingleProduct.useQuery({ id: });
   const {
     name,
     category,
@@ -124,8 +122,8 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
                 <div className="flex gap-2 text-slate-600">
                   <p>Sizes</p>
                   <select
-                    disabled={isFetching}
-                    className="bg-slate-200 pl-4"
+                    disabled={isFetching || isModifying}
+                    className="bg-slate-200 pl-4 disabled:opacity-50"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                       modify({
                         id,
@@ -142,8 +140,8 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
                 <div className="flex gap-2 text-slate-600">
                   <p>Quantity</p>
                   <select
-                    disabled={isFetching}
-                    className="bg-slate-200 pl-4"
+                    disabled={isFetching || isModifying}
+                    className="bg-slate-200 pl-4 disabled:opacity-50"
                     onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                       modify({
                         id,

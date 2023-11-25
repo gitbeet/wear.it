@@ -37,11 +37,11 @@ const Skeleton = () => {
   return (
     <section className="grid w-full grow content-start gap-2 sm:grid-cols-2 lg:grid-cols-3">
       {[...Array(12).keys()].map((bone) => (
-        <div key={bone} className=" bg-slate-100 pb-2">
+        <div key={bone} className="pb-2">
           <div>
             <div className="relative">
               <div className="absolute bottom-4 right-4 z-10  h-10 w-10   rounded-full bg-slate-300"></div>
-              <div className="relative aspect-square w-full bg-slate-200" />
+              <div className="relative aspect-square w-full rounded-lg bg-slate-200" />
               <p className="absolute bottom-2 left-4 h-4 w-16 rounded-full bg-slate-300"></p>
             </div>
           </div>

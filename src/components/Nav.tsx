@@ -14,9 +14,7 @@ import debounce from "just-debounce-it";
 import { IoPersonOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
 import NavIcon from "./NavIcon";
-import { useCartContext } from "~/context/cartContext";
 import MobileMenuButton from "./MobileMenuButton";
-import MobileMenu from "./MobileMenu";
 
 const Nav = () => {
   const { signOut } = useClerk();
@@ -39,7 +37,6 @@ const Nav = () => {
       refetchOnMount: false, // Prevents initial automatic refetch on mount
     },
   );
-  console.log(user?.id);
   const getDebouncedResults = useCallback(
     debounce((val: string) => {
       setDebouncedQuery(val);
