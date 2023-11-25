@@ -3,6 +3,32 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 
+export const ImageGallerySkeleton = ({
+  animate = true,
+}: {
+  animate?: boolean;
+}) => {
+  return (
+    <div
+      className={`{animate && "animate-pulse"} flex w-full flex-col items-start gap-4 md:flex-row-reverse`}
+    >
+      <div className="relative w-full">
+        <div className="aspect-square w-full bg-slate-200"></div>
+        <div className="absolute left-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-300 p-2 text-center"></div>
+        <div className="absolute left-[calc(100%-1rem)] top-1/2 flex h-12 w-12 -translate-x-full -translate-y-1/2 items-center justify-center rounded-full bg-slate-300 p-2 text-center"></div>
+      </div>
+      <div className="flex gap-2 md:flex-col">
+        {[...Array(3).keys()].map((i) => (
+          <div
+            className={` h-16 w-16 rounded-sm border bg-slate-200`}
+            key={i}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 interface Props {
   images: { id: string; imageURL: string; color: ProductColor }[];
   selectedColor: ProductColor | null;

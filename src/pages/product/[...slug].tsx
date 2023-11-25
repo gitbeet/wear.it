@@ -11,8 +11,10 @@ import { db } from "~/server/db";
 import LoadingPage from "~/components/loading";
 import { colorOptions } from "~/components/Filters/ColorFilter";
 import type { ProductSize, ProductColor } from "@prisma/client";
-import Button from "~/components/UI/Button";
-import ImageGallery from "~/components/Product/ImageGallery";
+import Button, { ButtonSkeleton } from "~/components/UI/Button";
+import ImageGallery, {
+  ImageGallerySkeleton,
+} from "~/components/Product/ImageGallery";
 import { BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
@@ -26,6 +28,112 @@ import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
 import ProductCardCarousel from "~/components/ProductCardCarousel";
 import SectionSpacer from "~/components/UI/SectionSpacer";
+
+const productPageSkeleton = (
+  <>
+    <section className="padding-x mx-auto flex max-w-[1200px] animate-pulse flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
+      <div className="w-full self-start">
+        <ImageGallerySkeleton animate={false} />
+      </div>
+      <div className="flex shrink-0  flex-col gap-8 lg:w-[450px]">
+        <div className="space-y-0.5">
+          <p className="w-fit rounded-full bg-slate-300 text-2xl font-semibold leading-none text-transparent">
+            Placeholder skeleton name
+          </p>
+          <div className="h-1"></div>
+
+          <p className="w-fit rounded-full bg-slate-300 leading-none text-transparent">
+            Placeholder skeleton category
+          </p>
+        </div>
+        <div className="space-y-1 font-display">
+          <p className="w-fit rounded-sm bg-slate-300 px-2 py-1 text-xl font-black text-transparent ">
+            -35%
+          </p>
+
+          <div className="h-1"></div>
+          <span className="w-fit rounded-full bg-slate-300 text-2xl leading-none text-transparent">
+            $100 150%
+          </span>
+        </div>
+        <div className="space-y-1">
+          <p className="w-fit rounded-full bg-slate-300 font-display text-2xl leading-none text-transparent">
+            Colors
+          </p>
+          <div className="h-2"></div>
+          <div className="flex gap-2">
+            {[...Array(3).keys()].map((i) => {
+              return (
+                <div
+                  key={i}
+                  className={`h-10 w-10 rounded-full border-[2px] bg-slate-300 `}
+                ></div>
+              );
+            })}
+          </div>
+        </div>
+        <div>
+          <p className="w-fit rounded-full bg-slate-300 text-2xl leading-none text-transparent">
+            Select Size
+          </p>
+          <div className="h-4"></div>
+          <div className={` flex w-fit flex-wrap gap-2 rounded-sm border`}>
+            {[...Array(3).keys()].map((i) => (
+              <span
+                className={` w-16 rounded-[3px] border bg-slate-300 py-2 text-center font-display text-transparent`}
+                key={i}
+              >
+                XL
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 ">
+          <ButtonSkeleton />
+          <ButtonSkeleton />
+        </div>
+
+        <div>
+          <p className="w-fit rounded-full bg-slate-300 font-display text-2xl leading-none text-transparent">
+            Description
+          </p>
+          <div className="h-3"></div>
+          <p className="w-full rounded-full bg-slate-300 font-light leading-none text-transparent">
+            test
+          </p>
+          <div className="h-1.5"></div>
+          <p className="w-full rounded-full bg-slate-300 font-light leading-none text-transparent">
+            test
+          </p>
+          <div className="h-1.5"></div>
+          <p className="w-full rounded-full bg-slate-300 font-light leading-none text-transparent">
+            test
+          </p>
+          <div className="h-1.5"></div>
+          <p className="w-full rounded-full bg-slate-300 font-light leading-none text-transparent">
+            test
+          </p>
+          <div className="h-1.5"></div>
+          <p className="w-3/4 rounded-full bg-slate-300 font-light leading-none text-transparent">
+            test
+          </p>
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between">
+            <p className="w-fit rounded-full bg-slate-300 font-display text-2xl leading-none text-transparent">
+              Reviews (100)
+            </p>
+            <div className="w-fit rounded-full bg-slate-300 font-display  leading-none text-transparent">
+              (5.0) ooooo
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <SectionSpacer />
+  </>
+);
 
 const Product = ({
   id,
@@ -146,7 +254,7 @@ const Product = ({
     productData?.id,
   ]);
 
-  if (isGettingProductData) return <LoadingPage />;
+  if (isGettingProductData) return productPageSkeleton;
   if (!productData) return <h1>Something went wrong.</h1>;
   const {
     colors,

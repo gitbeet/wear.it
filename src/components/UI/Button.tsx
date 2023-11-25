@@ -9,6 +9,28 @@ interface Props {
   light?: boolean;
 }
 
+export const ButtonSkeleton = ({
+  width = "FULL",
+  size = "MD",
+  animate = false,
+}: {
+  width?: "FULL" | "FIT";
+  size?: "SM" | "MD";
+  animate?: boolean;
+}) => (
+  <div
+    className={` flex ${
+      width === "FULL" ? "w-full" : "w-fit"
+    }  min-w-fit items-center justify-center rounded-full border ${
+      size === "SM" && "px-5 py-2.5"
+    }  ${size === "MD" && "px-8 py-4"}  ${
+      animate && "animate-pulse"
+    } bg-slate-300 font-semibold text-transparent transition-all duration-200 `}
+  >
+    Text
+  </div>
+);
+
 const Button = ({
   text,
   onClick,
