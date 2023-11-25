@@ -56,12 +56,13 @@ export default function SignInForm() {
   return (
     <section className="padding-x">
       <div className="h-16"></div>
-      <h1 className="text-center font-display text-6xl font-black">
+      <h1 className=" text-center font-display text-6xl font-black">
         Welcome back
       </h1>
       <div className="h-24"></div>
       <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[400px]">
         <FormField
+          autoFocus
           placeholder="johndoe@email.com"
           icon={<BsEnvelope className="h-8 w-8" />}
           label="Email"
@@ -84,10 +85,7 @@ export default function SignInForm() {
         <Button text="Sign in" onClick={() => void 0} />
         <div className="h-4"></div>
         <div className="px-4">
-          <Link
-            className="font-semibold text-orange-400"
-            href="/forgot-password"
-          >
+          <Link className="font-semibold text-teal-500" href="/forgot-password">
             Forgot Password?
           </Link>
           <br />

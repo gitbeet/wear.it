@@ -23,7 +23,7 @@ export const colorOptions: ColorOption[] = [
   { id: 12, name: "BEIGE", color: "bg-yellow-600" },
 ];
 
-const ColorFilter = () => {
+const ColorFilter = ({ loading }: { loading: boolean }) => {
   const router = useRouter();
   const { addQuery, removeQuery } = useRouterQuery();
   const { color: colorsQuery = [""] } = router.query;
@@ -45,36 +45,43 @@ const ColorFilter = () => {
     }
   };
   return (
-    <div className="border-b  border-slate-300 p-8 pl-0">
+    <div className=" p-8 pl-0">
       <p className="font-bold">Colors</p>
       <div className="h-4"></div>
-      <div className="grid grid-cols-3 items-center justify-center gap-4">
+      <div className="grid grid-cols-3 items-center justify-center gap-2.5">
         {colorOptions.map((option) => {
           const lowerCaseName = option.name.toLowerCase();
           const isIncluded = colorsQueryArray.includes(option.name);
           return (
             <div
               key={option.id}
-              className="flex w-full flex-col items-center justify-center gap-1 "
+              className="group flex w-full cursor-pointer flex-col items-center justify-center gap-1"
             >
-              <div
-                role="button"
+              <button
+                role="checkbox"
+                id={`color-filter-${option.name}`}
+                aria-checked={isIncluded}
                 onClick={() => handleColor(option.name)}
-                className={`aspect-square w-[1.625rem] rounded-full ${
+                className={` ${
+                  loading
+                    ? "pointer-events-none cursor-not-allowed opacity-25"
+                    : "cursor-pointer"
+                } aspect-square w-[1.625rem] rounded-full ${
                   option.color
                 } border-[2px] outline outline-2 ${
                   isIncluded
-                    ? "border-slate-100 outline-slate-500 "
+                    ? "border-slate-100 outline-indigo-400 "
                     : "border-slate-200 outline-transparent "
                 }`}
-              ></div>
-              <p
+              ></button>
+              <label
+                htmlFor={`color-filter-${option.name}`}
                 className={`${
-                  isIncluded ? "text-slate-900" : "text-slate-600"
-                } text-sm `}
+                  isIncluded ? "text-slate-800" : "text-slate-500"
+                } cursor-pointer text-sm font-semibold transition-colors duration-150 group-hover:text-slate-800`}
               >
                 {option.name.charAt(0) + lowerCaseName.slice(1)}
-              </p>
+              </label>
             </div>
           );
         })}

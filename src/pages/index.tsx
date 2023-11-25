@@ -34,7 +34,7 @@ const Hero = () => (
   <section className="relative w-full  overflow-hidden py-16 lg:py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-black">
-        <span className="gradient-main-r bg-clip-text text-transparent">
+        <span className="gradient-main-text">
           {/* <span className=" bg-gradient-to-r from-red-500 via-pink-500  to-indigo-600 bg-clip-text text-transparent"> */}
           Ready for winter?
         </span>

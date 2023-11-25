@@ -11,7 +11,8 @@
 }
 
 .gradient-main-r,
-.gradient-main-tr {
+.gradient-main-tr,
+.gradient-main-text {
   @apply from-violet-500 to-indigo-500 md:via-indigo-500 md:to-violet-500;
 }
 
@@ -21,6 +22,10 @@
 
 .gradient-main-tr {
   @apply bg-gradient-to-tr;
+}
+
+.gradient-main-text {
+  @apply bg-gradient-to-r bg-clip-text  text-transparent;
 }
 
 .show-promo-item {

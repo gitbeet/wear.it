@@ -1,6 +1,6 @@
 import { ProductSize } from "@prisma/client";
 import { useRouterQuery } from "../../hooks/useRouterQuery";
-const SizeFilter = () => {
+const SizeFilter = ({ loading }: { loading: boolean }) => {
   const sizes = Object.keys(ProductSize);
   const { addQuery, removeQuery, router } = useRouterQuery();
   const { size: sizesQuery = "" } = router.query;
@@ -23,17 +23,28 @@ const SizeFilter = () => {
   };
 
   return (
-    <div className="border-b border-slate-300 p-8 pl-0">
+    <div className="p-8 pl-0">
       <p className="font-bold">Sizes</p>
       <div className="h-4"></div>
-      <div className="flex flex-col gap-1 pl-4">
+      <ul className="flex appearance-none flex-col gap-0.5 pl-4">
         {sizes.map((size, i) => {
           const isIncluded = sizesQueryArray.includes(size);
-
+          // if (loading)
+          //   return (
+          //     <li className="flex gap-2 py-1">
+          //       <div className="h-4 w-4 animate-pulse rounded-md bg-slate-300"></div>
+          //       <div className="h-4 w-12 animate-pulse rounded-full bg-slate-300"></div>
+          //     </li>
+          //   );
           return (
-            <div className="flex gap-2" key={i}>
+            <li
+              className={`${
+                loading && "pointer-events-none opacity-50"
+              } flex w-fit cursor-pointer`}
+              key={i}
+            >
               <input
-                className="w-4"
+                className="w-4 cursor-pointer"
                 type="checkbox"
                 id={size}
                 onChange={() => handleSizes(size)}
@@ -41,16 +52,16 @@ const SizeFilter = () => {
               />
               <label
                 className={`${
-                  isIncluded ? "text-slate-800" : "text-slate-600"
-                } text-sm font-semibold `}
+                  isIncluded ? "text-slate-800" : "text-slate-500"
+                } cursor-pointer pl-2 pr-4 text-sm font-semibold  transition-colors duration-150 hover:text-slate-800`}
                 htmlFor={size}
               >
                 {size}
               </label>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 };

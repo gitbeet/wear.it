@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { type UseFormRegister } from "react-hook-form";
 import { type SignInValidationType } from "~/pages/sign-in";
 import { type SignUpValidationType } from "~/pages/sign-up";
@@ -21,6 +21,7 @@ interface Props {
   icon?: JSX.Element;
   fancy?: boolean;
   required?: boolean;
+  autoFocus?: boolean;
 }
 
 const FormField = ({
@@ -33,14 +34,23 @@ const FormField = ({
   icon,
   fancy = false,
   required = false,
+  autoFocus = false,
 }: Props) => {
+  useEffect(() => {
+    if (!autoFocus) return;
+    const inputElement = document.getElementById(name);
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }, []);
+
   return fancy ? (
     <div className="relative grow">
       <label
         className={`${
           error ? "text-red-500" : "text-slate-600"
         } absolute -top-0 left-12 z-10 -translate-y-1/2 rounded-full bg-slate-50  px-4  `}
-        htmlFor="email"
+        htmlFor={name}
       >
         {label}
         {required && <span className="pl-1 text-red-500">*</span>}
@@ -69,7 +79,7 @@ const FormField = ({
         className={`${
           error ? "text-red-500" : "text-slate-900"
         }   relative -top-2 font-bold `}
-        htmlFor="email"
+        htmlFor={name}
       >
         {label}
         {required && <span className="pl-0.5 text-red-500">*</span>}
@@ -80,6 +90,7 @@ const FormField = ({
         </p>
       )}
       <input
+        autoFocus={autoFocus}
         className={`${
           error ? "border-red-500" : " border-slate-200 focus:border-indigo-400"
         } h-10 w-full rounded-sm border bg-slate-100 px-4 outline-none placeholder:text-slate-400 `}

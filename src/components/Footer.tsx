@@ -1,8 +1,5 @@
 import React from "react";
 import Logo from "./Logo";
-import { BsTwitter, BsYoutube } from "react-icons/bs";
-import { TiSocialInstagram } from "react-icons/ti";
-import { FaFacebookF } from "react-icons/fa";
 import Link from "next/link";
 import {
   facebookIcon,
@@ -17,9 +14,9 @@ const Footer = () => {
   return (
     <section className="border-t  border-indigo-100  bg-slate-100  pt-12 text-slate-900">
       <div className="padding-x mx-auto flex max-w-[1600px] flex-wrap justify-start gap-8 pb-20">
-        <Link href="/" className="relative -top-2 grow">
+        <div className="relative -top-2 grow">
           <Logo />
-        </Link>
+        </div>
         <ul className="grow space-y-3">
           <p className="font-display font-bold text-slate-600">Navigation</p>
           <FooterLink link="/" linkText="Home" />

@@ -35,9 +35,9 @@ export const SkeletonCard = ({ slider = false }: { slider?: boolean }) => {
 
 const Skeleton = () => {
   return (
-    <section className="grid w-full grow content-start gap-2  md:grid-cols-3  ">
+    <section className=" grid w-full grow content-start gap-2  md:grid-cols-3  ">
       {[...Array(12).keys()].map((bone) => (
-        <div key={bone} className=" animate-pulse bg-slate-100 pb-2">
+        <div key={bone} className=" bg-slate-100 pb-2">
           <div>
             <div className="relative">
               <div className="absolute bottom-4 right-4 z-10  h-10 w-10   rounded-full bg-slate-400"></div>
@@ -46,10 +46,10 @@ const Skeleton = () => {
             </div>
           </div>
           <div className="h-4"></div>
-          <div className="min-h-[4rem] overflow-hidden pl-4">
+          <div className=" min-h-[4rem] overflow-hidden pl-4">
             <p className="h-4 w-3/4 rounded-full bg-slate-400"></p>
             <div className="h-1"></div>
-            <p className="h-4 w-16 rounded-full bg-slate-400 text-slate-500"></p>
+            <p className=" h-4 w-16  rounded-full bg-slate-400"></p>
           </div>
         </div>
       ))}
@@ -164,10 +164,11 @@ const ProductsPage = () => {
         />
         <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
       </section>
-      {!data && (
-        <p className="ml-8 h-4 w-36 animate-pulse rounded-full bg-slate-400"></p>
-      )}
-      {data && (
+      {isLoading ? (
+        <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
+      ) : !data ? (
+        <p></p>
+      ) : (
         <p className="pb-8  text-xl">
           <span className="font-bold">{data.totalProducts}</span>
           {` Product${data.totalProducts > 1 ? "s" : ""} found`}
@@ -179,15 +180,15 @@ const ProductsPage = () => {
             showFilters ? "" : "-ml-64"
           } k  min-w-[250px] transition-all duration-500`}
         >
-          {data && (
-            <PriceFilter
-              min={data.minPrice._min.price ?? 0}
-              max={data.maxPrice._max.price ?? 10000}
-            />
-          )}
-
-          <SizeFilter />
-          <ColorFilter />
+          <PriceFilter
+            loading={isLoading}
+            min={data?.minPrice._min.price ?? 0}
+            max={data?.maxPrice._max.price ?? 10000}
+          />
+          <div className="w-full border-b border-slate-200"></div>
+          <SizeFilter loading={isLoading} />
+          <div className="w-full border-b border-slate-200"></div>
+          <ColorFilter loading={isLoading} />
         </div>
         {isLoading ? (
           <Skeleton />
