@@ -26,7 +26,7 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
             fill
             objectFit="fill"
             sizes="(max-width: 1024px) 100vw, 600px"
-            className=" bg-slate-200"
+            className="rounded-md bg-gradient-to-b from-slate-200 to-slate-100"
             src={images[currentImage]?.imageURL ?? ""}
             alt="Product image"
           />
@@ -55,7 +55,7 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
           <Image
             onMouseOver={() => setCurrentImage(i)}
             className={`${
-              i === currentImage ? "border-slate-400" : "border-slate-200"
+              i === currentImage ? "border-indigo-300" : "border-slate-200"
             } rounded-sm border bg-slate-200`}
             key={image.id}
             width={64}

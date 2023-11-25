@@ -149,27 +149,29 @@ export const RecentlyViewed = () => {
     void refetch();
   }, [isSignedIn]);
 
-  return (
-    <div className="padding-x">
-      <h2 className="font-display text-2xl font-black">Recently viewed</h2>
-      <div className="h-6 md:h-12"></div>
-      <ProductCardCarousel
-        isLoading={isLoading}
-        products={data?.items.map((item) => item.product)}
-        numberOfItems={{ tablet: 3, desktopSmall: 4, desktop: 5 }}
-      />
-    </div>
-  );
+  return data && data?.items.length > 0 ? (
+    <>
+      <div className="h-16"></div>
+      <div className="padding-x">
+        <h2 className="font-display text-2xl font-black">Recently viewed</h2>
+        <div className="h-6 md:h-12"></div>
+        <ProductCardCarousel
+          isLoading={isLoading}
+          products={data?.items.map((item) => item.product)}
+          numberOfItems={{ tablet: 3, desktopSmall: 4, desktop: 5 }}
+        />
+      </div>
+    </>
+  ) : null;
 };
 
 const Favorites = () => {
   return (
     <section>
-      <div className="h-12"></div>
-      <FavoritesGrid />
-      <div className="h-24"></div>
-      <RecentlyViewed />
       <div className="h-16"></div>
+      <FavoritesGrid />
+      <RecentlyViewed />
+      <div className="h-48"></div>
     </section>
   );
 };

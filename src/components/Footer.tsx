@@ -12,7 +12,7 @@ import FooterLink from "./UI/FooterLink";
 
 const Footer = () => {
   return (
-    <section className="border-t  border-indigo-100  bg-slate-100  pt-12 text-slate-900">
+    <section className="w-full border-indigo-100 bg-slate-100  pt-12 text-slate-900">
       <div className="padding-x mx-auto flex max-w-[1600px] flex-wrap justify-start gap-8 pb-20">
         <div className="relative -top-2 grow">
           <Logo />

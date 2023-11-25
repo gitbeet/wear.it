@@ -145,7 +145,7 @@ const Cart = () => {
 
   return (
     <section>
-      <div className="h-12"></div>
+      <div className="h-16"></div>
       <h1 className="text-center font-display text-5xl font-black text-slate-800">
         Bag
       </h1>
@@ -160,9 +160,8 @@ const Cart = () => {
       ) : (
         cartContent
       )}
-      <div className="h-24"></div>
       <RecentlyViewed />
-      <div className="h-16"></div>
+      <div className="h-48"></div>
     </section>
   );
 };
