@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import FormField from "~/components/FormField";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 // Country/State/City fields
 import {
@@ -26,7 +26,6 @@ import Button from "./UI/Button";
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import {
-  CardElement,
   PaymentElement,
   useElements,
   useStripe,
@@ -62,24 +61,8 @@ const clientDataSchema = z.object({
 
 const CheckoutForm = () => {
   const { costs } = useCartContext();
-  // const [clientSecret, setClientSecret] = useState("");
-
-  // useEffect(() => {
-  //   const getSecret = async () => {
-  //     if (!costs?.totalCost) return;
-  //     const { data } = await axios.post("/api/create-payment-intent", {
-  //       data: { amount: costs.totalCost },
-  //     });
-  //     const clientSecret = data.secret;
-  //     setClientSecret(clientSecret as string);
-  //   };
-  //   void getSecret();
-  //   return () => void 0;
-  // }, [costs]);
-
   const stripe = useStripe();
   const elements = useElements();
-
   const {
     register,
     formState: { errors },
@@ -144,9 +127,9 @@ const CheckoutForm = () => {
     const { data } = await axios.post("/api/create-payment-intent", {
       data: { amount: costs.totalCost },
     });
+    const clientSecret = data.secret;
 
-    const { clientSecret } = data.secret;
-
+    console.log(costs.totalCost);
     const { error } = await stripe.confirmPayment({
       elements,
       clientSecret,
@@ -325,7 +308,6 @@ const CheckoutForm = () => {
         <div className="h-16"></div>
         <section>
           <h2 className="pb-8 text-2xl font-semibold">Payment Method</h2>
-          {/* <CardElement /> */}
           <PaymentElement
             className="max-w-[550px]"
             options={{

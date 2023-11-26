@@ -23,6 +23,6 @@ export default async function handler(
 
     res.status(200).json({ secret: paymentIntent.client_secret });
   } catch (error: any) {
-    res.status(500).json({ error });
+    res.status(500).json({ error: "Could not get the client secret" });
   }
 }

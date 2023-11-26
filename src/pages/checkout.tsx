@@ -4,11 +4,7 @@
 
 import CheckoutForm from "~/components/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
-import {
-  PaymentMethodOptions,
-  StripeElementsOptions,
-  loadStripe,
-} from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LoadingPage from "~/components/loading";
@@ -58,12 +54,11 @@ const Checkout = () => {
 
   if (!clientSecret) return <LoadingPage />;
 
-  const options: StripeElementsOptions = {
-    clientSecret,
-  };
-
   return (
-    <Elements stripe={stripePromise} options={options}>
+    <Elements
+      stripe={stripePromise}
+      options={{ mode: "payment", amount: 1000, currency: "usd" }}
+    >
       <CheckoutForm />
     </Elements>
   );
