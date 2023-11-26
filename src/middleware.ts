@@ -22,6 +22,7 @@ export default authMiddleware({
     "/api/create-payment-intent/route",
     "/api/create-payment-intent/index",
     "/api/create-payment-intent/",
+    "/successful",
   ],
 });
 

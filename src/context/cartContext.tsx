@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { type RouterOutputs, api } from "~/utils/api";
 import { useCookies } from "react-cookie";
 import { createId } from "@paralleldrive/cuid2";
+import { formatNumber } from "~/utilities/formatNumber";
 
 const cartContext = createContext<CartContextType | null>(null);
 export const useCartContext = () => {
@@ -22,6 +23,12 @@ type CartContextType = {
   totalCount: number;
   cookies: {
     "session-id"?: string;
+  };
+  costs: {
+    subtotal: number | undefined;
+    shippingCost: number;
+    taxes: number | undefined;
+    totalCost: number | undefined;
   };
 };
 
@@ -57,15 +64,38 @@ const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
       !cookies["session-id"] &&
       setCookie("session-id", guestUserId, {
         expires: expirationDate,
-        domain: "localhost:3000",
+        domain: window.origin,
       });
 
     return () => void 0;
   }, [isSignedIn]);
 
+  const subtotal = dbCart?.cartItems.reduce((acc, x) => {
+    const { discount, price } = x.product;
+    // check if discount available and active
+    const discounted = discount?.discountPercent && discount.active;
+    // price without discount
+    let calculatedPrice = price * x.quantity;
+    if (discounted) {
+      // apply discount if exists
+      calculatedPrice =
+        (price - (price * discount?.discountPercent) / 100) * x.quantity;
+    }
+
+    return acc + calculatedPrice;
+  }, 0);
+
+  const shippingCost = formatNumber(subtotal && subtotal > 100 ? 0 : 15);
+  const taxes = formatNumber(subtotal && (subtotal + shippingCost) * 0.21);
+  const totalCost = formatNumber(
+    subtotal && taxes && subtotal + shippingCost + taxes,
+  );
+
+  const costs = { subtotal, shippingCost, taxes, totalCost };
+
   return (
     <cartContext.Provider
-      value={{ dbCart, isGettingCart, totalCount, isFetching, cookies }}
+      value={{ dbCart, isGettingCart, totalCount, isFetching, cookies, costs }}
     >
       {children}
     </cartContext.Provider>

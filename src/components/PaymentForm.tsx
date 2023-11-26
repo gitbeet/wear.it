@@ -4,14 +4,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import {
-  CardElement,
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React from "react";
-import Button from "./UI/Button";
 
 export default function PaymentForm() {
   const stripe = useStripe();
@@ -54,6 +52,8 @@ export default function PaymentForm() {
         return_url: "https://example.com/order/123/complete",
       },
     });
+
+    return result;
   };
 
   return (

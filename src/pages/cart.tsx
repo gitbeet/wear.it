@@ -9,28 +9,10 @@ import { formatCurrency } from "~/utilities/formatCurrency";
 import { RecentlyViewed } from "./favorites";
 import LoadingPage from "~/components/loading";
 
-export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
-  const { dbCart, isGettingCart } = useCartContext();
+export const Summary = () => {
+  const { isGettingCart, costs } = useCartContext();
   if (isGettingCart) return <SummarySkeleton />;
 
-  if (!dbCart) return <h1>Something went wrong.Please try again</h1>;
-  const subtotal = dbCart.cartItems.reduce((acc, x) => {
-    const { discount, price } = x.product;
-    // check if discount available and active
-    const discounted = discount?.discountPercent && discount.active;
-    // price without discount
-    let calculatedPrice = price * x.quantity;
-    if (discounted) {
-      // apply discount if exists
-      calculatedPrice =
-        (price - (price * discount?.discountPercent) / 100) * x.quantity;
-    }
-
-    return acc + calculatedPrice;
-  }, 0);
-  const shippingCost = subtotal > 100 ? 0 : 15;
-  const taxes = (subtotal + shippingCost) * 0.21;
-  const totalCost = subtotal + shippingCost + taxes;
   return (
     <section className="">
       <h2 className="text-2xl font-semibold leading-none">Summary</h2>
@@ -40,25 +22,25 @@ export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
           <tr>
             <td>Subtotal</td>
             <td className="py-1.5 text-right font-bold">
-              {formatCurrency(subtotal ?? 0)}
+              {formatCurrency(costs.subtotal ?? 0)}
             </td>
           </tr>
           <tr>
             <td>Estimated Shipping Cost</td>
             <td className="py-1.5 text-right font-bold">
-              {formatCurrency(shippingCost)}
+              {formatCurrency(costs.shippingCost)}
             </td>
           </tr>
           <tr>
             <td>Estimated Tax</td>
             <td className="py-1.5 text-right font-bold">
-              {formatCurrency(taxes)}
+              {formatCurrency(costs.taxes ?? 0)}
             </td>
           </tr>
           <tr className="border-t border-slate-300 ">
             <td>Total</td>
             <td className="py-2 text-right font-bold">
-              {formatCurrency(totalCost)}
+              {formatCurrency(costs.totalCost ?? 0)}
             </td>
           </tr>
         </tbody>

@@ -302,6 +302,7 @@ const Product = ({
       setError(true);
       return;
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
     mutate({
       color: selectedColor,
       size: selectedSize,

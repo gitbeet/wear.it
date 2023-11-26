@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import FormField from "~/components/FormField";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Country/State/City fields
 import {
@@ -18,8 +18,22 @@ import FormSelectField from "~/components/FormSelectField";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { CartItems, Summary } from "~/pages/cart";
-import Payment from "./Payment";
 import Button from "./UI/Button";
+
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
+import {
+  CardElement,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import axios from "axios";
+import React from "react";
+import { useCartContext } from "~/context/cartContext";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -47,11 +61,32 @@ const clientDataSchema = z.object({
 });
 
 const CheckoutForm = () => {
+  const { costs } = useCartContext();
+  // const [clientSecret, setClientSecret] = useState("");
+
+  // useEffect(() => {
+  //   const getSecret = async () => {
+  //     if (!costs?.totalCost) return;
+  //     const { data } = await axios.post("/api/create-payment-intent", {
+  //       data: { amount: costs.totalCost },
+  //     });
+  //     const clientSecret = data.secret;
+  //     setClientSecret(clientSecret as string);
+  //   };
+  //   void getSecret();
+  //   return () => void 0;
+  // }, [costs]);
+
+  const stripe = useStripe();
+  const elements = useElements();
+
   const {
     register,
     formState: { errors },
     watch,
     setValue,
+    getValues,
+    handleSubmit,
   } = useForm<ClientDataValidationType>({
     resolver: zodResolver(clientDataSchema),
   });
@@ -95,8 +130,67 @@ const CheckoutForm = () => {
     cityData && setValue("city", cityData[0].name);
   }, [cityData, setValue]);
 
+  const handleSubmitStripe = async () => {
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      console.log("SUBMIT ERROR: ", submitError);
+      return;
+    }
+
+    const { data } = await axios.post("/api/create-payment-intent", {
+      data: { amount: costs.totalCost },
+    });
+
+    const { clientSecret } = data.secret;
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      clientSecret,
+      confirmParams: {
+        payment_method_data: {
+          billing_details: {
+            name: `${getValues("firstName")} ${getValues("lastName")}`,
+            email: getValues("emailAddress"),
+            phone: getValues("phone"),
+            address: {
+              country: countryData.find(
+                (country) => country.name === getValues("country"),
+              )?.isoCode,
+              state: getValues("state"),
+              city: getValues("city"),
+              postal_code: getValues("postCode"),
+              line1: getValues("streetAddress"),
+            },
+          },
+        },
+        return_url: `${window.origin}/successful`,
+      },
+    });
+
+    if (error) {
+      console.log("ERROR: ", error);
+    }
+  };
+
+  const onSubmit = async () => {
+    try {
+      await handleSubmitStripe();
+    } catch (error) {
+      console.log(error);
+      console.log();
+    }
+  };
+
   return (
-    <section className="padding-x mx-auto max-w-[1200px] grid-cols-[2fr,1fr] space-y-8 py-16 lg:grid lg:gap-4 lg:space-y-0">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="padding-x mx-auto max-w-[1200px] grid-cols-[2fr,1.1fr] space-y-8 py-16 lg:grid lg:gap-8 lg:space-y-0"
+    >
+      {/* {clientSecret} */}
       <section>
         <section className="space-y-8">
           <h2 className="pb-4 text-2xl font-semibold">Billing information</h2>
@@ -127,8 +221,8 @@ const CheckoutForm = () => {
               type="text"
               name="lastName"
               placeholder="Acme LLC."
-              register={register("lastName")}
-              error={errors.lastName?.message}
+              register={register("companyName")}
+              error={errors.companyName?.message}
             />
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-8">
@@ -160,7 +254,7 @@ const CheckoutForm = () => {
           <FormField
             label="Address"
             name="streetAddress"
-            error={errors.postCode?.message}
+            error={errors.streetAddress?.message}
             placeholder="8, Wall str."
             type="text"
             register={register("streetAddress")}
@@ -181,20 +275,29 @@ const CheckoutForm = () => {
             <div className="relative">
               <label
                 className={`${
-                  errors.phone?.message ? "text-red-500" : "text-slate-900"
-                }   relative -top-2 font-bold `}
+                  errors.phone?.message ? "text-red-500" : "text-slate-800"
+                }   relative -top-1`}
                 htmlFor="phone"
               >
                 Phone
                 <span className="pl-1 text-red-500">*</span>
               </label>
               <PhoneInput
+                buttonStyle={{
+                  borderTopColor: `${errors.phone?.message ? "red" : ""}`,
+                  borderLeftColor: `${errors.phone?.message ? "red" : ""}`,
+                  borderBottomColor: `${errors.phone?.message ? "red" : ""}`,
+                }}
                 inputStyle={{
-                  backgroundColor: "rgb(241 245 249)",
+                  minHeight: "48px",
+                  backgroundColor: "white",
                   borderColor: "rgb(226 232 240) ,",
                   height: "2.5rem",
                   fontSize: "1rem",
                   fontFamily: "Open Sans",
+                  borderTopColor: `${errors.phone?.message ? "red" : ""}`,
+                  borderRightColor: `${errors.phone?.message ? "red" : ""}`,
+                  borderBottomColor: `${errors.phone?.message ? "red" : ""}`,
                 }}
                 value={phoneNumber}
                 onChange={(phone) => setValue("phone", phone)}
@@ -203,7 +306,7 @@ const CheckoutForm = () => {
                   ?.isoCode.toLowerCase()}
               />
               {errors.phone?.message && (
-                <p className="absolute -top-1 right-0  rounded-full  text-sm font-bold text-red-500">
+                <p className="absolute -bottom-5 right-0  rounded-full  text-sm text-red-500">
                   {errors.phone?.message}
                 </p>
               )}
@@ -212,7 +315,7 @@ const CheckoutForm = () => {
           <FormField
             label="Email"
             name="emailAddress"
-            error={errors.phone?.message}
+            error={errors.emailAddress?.message}
             placeholder="johndoe123@mail.com"
             type="text"
             register={register("emailAddress")}
@@ -222,16 +325,31 @@ const CheckoutForm = () => {
         <div className="h-16"></div>
         <section>
           <h2 className="pb-8 text-2xl font-semibold">Payment Method</h2>
-          <Payment />
+          {/* <CardElement /> */}
+          <PaymentElement
+            className="max-w-[550px]"
+            options={{
+              layout: "tabs",
+              fields: {
+                billingDetails: {
+                  address: {
+                    country: "never",
+                    state: "never",
+                    city: "never",
+                  },
+                },
+              },
+            }}
+          />
         </section>
         <div className="h-16"></div>
         <CartItems page="checkout" />
       </section>
       <div>
-        <Summary page="checkout" />
+        <Summary />
         <Button text="Pay now" onClick={() => void 0} />
       </div>
-    </section>
+    </form>
   );
 };
 

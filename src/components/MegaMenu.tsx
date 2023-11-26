@@ -50,7 +50,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
               } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
             >
               {categories.map((category) => (
-                <div key={category.id}>
+                <aside key={category.id}>
                   <Link href={`/products/${lowerCaseType}/${category.slug}`}>
                     <p className="font-bold  hover:underline">
                       {category.name}
@@ -75,7 +75,7 @@ const MegaMenu = ({ type = null, show, setShow }: Props) => {
                         </Link>
                       ))}
                   </ul>
-                </div>
+                </aside>
               ))}
             </div>
           </section>

@@ -29,13 +29,6 @@ const SizeFilter = ({ loading }: { loading: boolean }) => {
       <ul className="flex appearance-none flex-col gap-0.5 pl-4">
         {sizes.map((size, i) => {
           const isIncluded = sizesQueryArray.includes(size);
-          // if (loading)
-          //   return (
-          //     <li className="flex gap-2 py-1">
-          //       <div className="h-4 w-4 animate-pulse rounded-md bg-slate-300"></div>
-          //       <div className="h-4 w-12 animate-pulse rounded-full bg-slate-300"></div>
-          //     </li>
-          //   );
           return (
             <li
               className={`${

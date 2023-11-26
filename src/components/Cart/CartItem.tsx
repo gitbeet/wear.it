@@ -163,6 +163,7 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
           {!modal && (
             <div className="flex flex-col gap-2 sm:flex-row sm:gap-8">
               <button
+                type="button"
                 disabled={isFaving}
                 onClick={() => {
                   if (isItemFavorited) {
@@ -187,6 +188,7 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
               </button>
 
               <button
+                type="button"
                 disabled={isRemoving}
                 onClick={() => remove({ id })}
                 className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
