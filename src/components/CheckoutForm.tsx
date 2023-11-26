@@ -19,6 +19,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { CartItems, Summary } from "~/pages/cart";
 import Payment from "./Payment";
+import Button from "./UI/Button";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -226,7 +227,10 @@ const CheckoutForm = () => {
         <div className="h-16"></div>
         <CartItems page="checkout" />
       </section>
-      <Summary page="checkout" />
+      <div>
+        <Summary page="checkout" />
+        <Button text="Pay now" onClick={() => void 0} />
+      </div>
     </section>
   );
 };

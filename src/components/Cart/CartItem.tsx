@@ -177,11 +177,11 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
                 className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800"
               >
                 {isItemFavorited ? (
-                  <BsHeartFill className="h-5 w-5 text-indigo-400" />
+                  <BsHeartFill className="h-5 w-5" />
                 ) : (
                   <BsHeart className="h-5 w-5" />
                 )}
-                <span className={isItemFavorited ? "text-indigo-400" : ""}>
+                <span>
                   {isItemFavorited ? "Added to Wishlist" : "Add to Wishlist"}
                 </span>
               </button>

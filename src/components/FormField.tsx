@@ -48,12 +48,12 @@ const FormField = ({
     <div className="relative grow">
       <label
         className={`${
-          error ? "text-red-500" : "text-slate-600"
+          error ? "text-pink-500" : "text-slate-600"
         } absolute -top-0 left-12 z-10 -translate-y-1/2 rounded-full bg-slate-50  px-4  `}
         htmlFor={name}
       >
         {label}
-        {required && <span className="pl-1 text-red-500">*</span>}
+        {required && <span className="pl-1 text-pink-500">*</span>}
       </label>
       {error && (
         <p className="absolute bottom-0 right-12 translate-y-1/2 rounded-full bg-slate-50 px-2 text-sm font-bold text-red-500">

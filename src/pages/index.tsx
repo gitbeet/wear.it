@@ -10,6 +10,7 @@ import ProductCardCarousel from "~/components/ProductCardCarousel";
 import { FaSnowflake } from "react-icons/fa";
 import SectionSpacer from "~/components/UI/SectionSpacer";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 const sliderPromos = [
   {
@@ -41,7 +42,8 @@ const Hero = () => (
       </h1>
       <div className="h-8"></div>
       <p className="max-w-lg text-xl font-light text-slate-700">
-        Winter Wardrobe Wonders to Keep You Warm and Smiling All Season Long!
+        Winter Wardrobe Wonders to Keep You Warm and{" "}
+        <b>Smiling All Season Long!</b>
       </p>
       <div className="h-16"></div>
       <div className="w-fit">
@@ -77,17 +79,17 @@ const EventSlider = () => {
       type: ["MEN", "WOMEN"],
     });
   return (
-    <section className="padding-x flex w-full flex-col items-start gap-6 md:flex-row md:items-center lg:gap-16">
+    <section className="padding-x flex w-full flex-col items-start gap-2 md:flex-row md:items-center lg:gap-16">
       <div>
-        <h2 className="gradient-main-text-sm flex items-center  gap-2 py-1 font-display font-extrabold">
-          <FaSnowflake className="inline h-8 w-8 text-indigo-500" />
-          <p className="shrink-0  py-1 font-display  text-5xl font-extrabold ">
+        <h2 className="gradient-main-text-sm flex items-center  gap-2  py-1 font-display font-extrabold">
+          {/* <FaSnowflake className="inline h-8 w-8 shrink-0 text-indigo-500" /> */}
+          <p className=" py-1 font-display  text-5xl font-extrabold ">
             Cozy up!
           </p>
         </h2>
         <div className="h-4"></div>
         <p className="text-xl font-light text-slate-700">
-          Get Comfy with Our Winter Selection
+          <b>Get Comfy</b> with Our Winter Selection
         </p>
       </div>
 
@@ -187,18 +189,21 @@ const MemberDeals = () => (
 
 export default function Home() {
   return (
-    <section>
-      <Hero />
-      <div className="h-4 md:h-8"></div>
-      <EventSlider />
-      <SectionSpacer />
-      <MemberDeals />
-      {/* <PromoSlider /> */}
-      <SectionSpacer />
-      <Trending />
-      <SectionSpacer />
-      <Promotions />
-      <SectionSpacer />
-    </section>
+    <>
+      <NextSeo title="Homepage - wear.it" />
+      <section>
+        <Hero />
+        <div className="h-4 md:h-8"></div>
+        <EventSlider />
+        <SectionSpacer />
+        <MemberDeals />
+        {/* <PromoSlider /> */}
+        <SectionSpacer />
+        <Trending />
+        <SectionSpacer />
+        <Promotions />
+        <SectionSpacer />
+      </section>
+    </>
   );
 }

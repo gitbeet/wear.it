@@ -64,16 +64,6 @@ export const Summary = ({ page = "cart" }: { page?: "cart" | "checkout" }) => {
         </tbody>
       </table>
       <div className="h-8"></div>
-      {page === "cart" && (
-        <>
-          {/* <Button disabled text="Guest Checkout" onClick={() => void 0} />
-          <div className="h-4"></div> */}
-          <Link href="/checkout">
-            <Button text="Buy now" onClick={() => void 0} />
-          </Link>
-        </>
-      )}
-      {page === "checkout" && <Button text="Pay now" onClick={() => void 0} />}
     </section>
   );
 };
@@ -131,7 +121,12 @@ const Cart = () => {
     <>
       <div className="padding-x mx-auto grid max-w-[1400px] gap-16 pt-16 md:pt-24 lg:grid-cols-[2fr,1fr]">
         <CartItems />
-        <Summary />
+        <div>
+          <Summary />
+          <Link href="/checkout">
+            <Button text="Buy now" onClick={() => void 0} />
+          </Link>
+        </div>
       </div>
     </>
   );
