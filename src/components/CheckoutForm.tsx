@@ -33,6 +33,7 @@ import {
 import axios from "axios";
 import React from "react";
 import { useCartContext } from "~/context/cartContext";
+import { api } from "~/utils/api";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -73,6 +74,12 @@ const CheckoutForm = () => {
   } = useForm<ClientDataValidationType>({
     resolver: zodResolver(clientDataSchema),
   });
+
+  const { mutate: createOrder, isLoading: isCreatingOrder } =
+    api.order.createOrder.useMutation({
+      onSuccess: () => console.log("ORDER CREATED SUCCESSFULLY"),
+      onError: () => console.log("ERROR WHILE CREATING ORDER"),
+    });
 
   const countryData = Country.getAllCountries();
   const [stateData, setStateData] = useState<IState[] | undefined>(undefined);
@@ -157,6 +164,7 @@ const CheckoutForm = () => {
     if (error) {
       console.log("ERROR: ", error);
     }
+    createOrder();
   };
 
   const onSubmit = async () => {
@@ -164,7 +172,6 @@ const CheckoutForm = () => {
       await handleSubmitStripe();
     } catch (error) {
       console.log(error);
-      console.log();
     }
   };
 

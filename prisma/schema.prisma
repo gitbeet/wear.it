@@ -80,6 +80,7 @@ model Product {
   favorite Favorite[]
   images ProductImage[] 
   cartItems CartItem[]
+  orderItems OrderItem[]
   reviews UserReview[]
   historyItems HistoryItem[]
   @@index([name])
@@ -154,15 +155,6 @@ model ProductCategory {
 }
 
 
-
-model ProductInventory {
-    id        String      @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    quantity Float
-    product Product ?
-}
-
 model Discount {
     id        Int      @id
     createdAt DateTime @default(now())
@@ -173,6 +165,39 @@ model Discount {
     active Boolean
     products Product[]
 }
+
+
+
+// INVENTORY RELATED MODELS
+model ProductInventory {
+    id        String      @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    // Change to required later
+    product Product ?
+    quantity Int
+    colors ProductColorInventory[]
+}
+
+
+model ProductColorInventory {
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  inventory ProductInventory @relation(fields: [inventoryId] ,references: [id] ,onDelete: Cascade)
+  inventoryId String
+  sizes ProductSizeInventory[]
+}
+
+
+model ProductSizeInventory {
+  id        String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  colorInventory ProductColorInventory @relation(fields: [colorInventoryId] ,references: [id] ,onDelete: Cascade)
+  colorInventoryId String
+}
+
 
 
 // USER RELATED MODELS
@@ -206,18 +231,22 @@ model OrderDetails {
   updatedAt DateTime @updatedAt
   userId String
   total Decimal
-  orderItems OrderItems[]
-  paymentDetails PaymentDetails  @relation(fields: [paymentId] , references: [id])
-  paymentId String @unique
+  orderItems OrderItem[]
+  paymentDetails PaymentDetails?  @relation(fields: [paymentId] , references: [id])
+  paymentId String? @unique
 }
 
-model OrderItems {
+model OrderItem {
   id        String      @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   quantity Int
+  color ProductColor
+  size ProductSize
   order OrderDetails @relation(fields: [orderId] , references: [id])
   orderId String
+  product Product @relation(fields: [productId] , references: [id] , onDelete: Cascade)
+  productId String
 }
 
 model PaymentDetails {
