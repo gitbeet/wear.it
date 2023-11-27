@@ -1,4 +1,4 @@
-import Cors from "micro-cors";
+// import Cors from "micro-cors";
 import Stripe from "stripe";
 
 import { PrismaClient } from "@prisma/client";
@@ -29,8 +29,8 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const sig = req.headers["stripe-signature"]!;
     if (!sig) throw new Error("No signature");
     const event = stripe.webhooks.constructEvent(buf.toString(), sig, secret);
-    if (event.type === "checkout.session.completed") {
-      console.log("checkout type is success");
+    if (event.type === "payment_intent.succeeded") {
+      console.log("Payment intend has succeeded");
       if (!event.data.object.metadata?.userId) throw new Error("No userId");
       const userId = event.data.object.metadata.userId;
       const session = await prisma.shoppingSession.findUnique({
@@ -52,10 +52,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       if (!session) {
         throw new Error("Session for given identifier not found");
       }
-
-      console.log(session);
-
-      const [order, deletedSession] = await prisma.$transaction([
+      await prisma.$transaction([
         prisma.orderDetails.create({
           data: {
             userId,
@@ -80,19 +77,9 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
           },
         }),
       ]);
-
-      if (!order || !deletedSession) {
-        throw new Error("Something went wrong!");
-      }
-
-      console.log(order);
-      console.log(deletedSession);
-
-      // return { order, deletedSession };
     }
     res.status(200).send("Success");
   } catch (error) {
-    // On error, log and return the error message
     res.status(400).send(`Webhook Error`);
     return;
   }
