@@ -191,11 +191,17 @@ export default function Home() {
   return (
     <>
       <NextSeo
-        title="Home page"
-        noindex
-        nofollow
-        canonical="https://t3-ecommerce-five.vercel.app/sign-in"
-      />{" "}
+        title="Home"
+        additionalMetaTags={[
+          {
+            name: "keywords",
+            content: "wear.it",
+          },
+        ]}
+        noindex={false}
+        nofollow={false}
+        canonical="/"
+      />
       <section>
         <Hero />
         <div className="h-4 md:h-8"></div>

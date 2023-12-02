@@ -6,25 +6,35 @@ import MobileMenu from "./MobileMenu/MobileMenu";
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Logo from "./Logo";
-
+const OGImageUrl =
+  "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { asPath } = useRouter();
   const isCheckoutPage = asPath === "/checkout";
   return (
     <>
       <DefaultSeo
-        titleTemplate="%s | wear.it"
+        titleTemplate="%s - wear.it"
         title="Welcome"
         description={`"Elevate your style with wear.it . Explore on-trend fashion for men and women. Shop high-quality clothing online for a look that's uniquely yours. Unbeatable style, unbeatable prices."`}
         openGraph={{
           type: "website",
           locale: "en_US",
-          url: "https://www.url.ie/",
+          url: "https://t3-ecommerce-five.vercel.app/",
           siteName: "SiteName",
+          description: `"Elevate your style with wear.it . Explore on-trend fashion for men and women. Shop high-quality clothing online for a look that's uniquely yours. Unbeatable style, unbeatable prices."`,
+          images: [
+            {
+              url: OGImageUrl,
+              width: 800,
+              height: 600,
+              alt: "Hero image",
+            },
+          ],
         }}
         twitter={{
-          handle: "@handle",
-          site: "@site",
+          handle: "@wear.it",
+          site: "@wear.it",
           cardType: "summary_large_image",
         }}
       />

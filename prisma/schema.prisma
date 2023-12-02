@@ -160,6 +160,7 @@ model CategorySEO {
   metaTitle String?
   metaDescription String?
   metaKeywords String?
+  metaOGImage String
   category ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int
 }
@@ -172,6 +173,7 @@ model CategorySEO {
   metaTitle String?
   metaDescription String?
   metaKeywords String?
+  metaOGImage String?
  }
 
 model Discount {

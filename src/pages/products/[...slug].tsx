@@ -1,10 +1,4 @@
-import {
-  CategorySEO,
-  CategoryType,
-  ProductColor,
-  ProductSize,
-  TypeSEO,
-} from "@prisma/client";
+import { CategoryType, ProductColor, ProductSize } from "@prisma/client";
 import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
@@ -91,7 +85,23 @@ const ProductsPage = (
         ]}
         noindex={false}
         nofollow={false}
-        canonical="https://t3-ecommerce-five.vercel.app/products"
+        canonical={`https://t3-ecommerce-five.vercel.app/products/${
+          seo.type?.toLowerCase() ?? ""
+        }`}
+        openGraph={{
+          url: `https://t3-ecommerce-five.vercel.app/${seo.type?.toLowerCase()}`,
+          title: `${seo.metaTitle} - wear.it`,
+          description: seo.metaDescription ?? "",
+          site_name: "wear.it",
+          images: [
+            {
+              url: seo.metaOGImage ?? "",
+              width: 800,
+              height: 600,
+              alt: `Hero image for contact page`,
+            },
+          ],
+        }}
       />
       <main className="padding-x">
         <section className="flex justify-end gap-8 pt-16  ">
@@ -157,6 +167,7 @@ type SeoStaticPropType = {
         metaDescription: string | null;
         metaKeywords: string | null;
         metaTitle: string | null;
+        metaOGImage: string | null;
         type: CategoryType;
       }
     | Record<string, never>;
@@ -184,6 +195,7 @@ export const getStaticProps: GetStaticProps<SeoStaticPropType> = async (
         metaDescription: true,
         metaKeywords: true,
         metaTitle: true,
+        metaOGImage: true,
         type: true,
       },
     });
@@ -211,6 +223,7 @@ export const getStaticProps: GetStaticProps<SeoStaticPropType> = async (
           metaDescription: true,
           metaKeywords: true,
           metaTitle: true,
+          metaOGImage: true,
           type: true,
         },
       },
@@ -224,6 +237,7 @@ export const getStaticProps: GetStaticProps<SeoStaticPropType> = async (
       },
     };
   }
+
   const mySeo = category.seo.find(
     (seoData) => seoData.type.toLowerCase() === slug[0]?.toLowerCase(),
   );

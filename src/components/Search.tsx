@@ -32,7 +32,7 @@ const Search = ({
           onBlur={onBlur}
           value={input}
           onChange={handleSearch}
-          className="peer h-full w-60 rounded-full border border-indigo-100 bg-slate-100 px-10 outline-none transition-colors duration-150 focus:border-indigo-400 "
+          className="peer h-full w-60 rounded-full border border-indigo-100 bg-white px-10 outline-none transition-colors duration-150 focus:border-indigo-300 focus:shadow-sm"
         />
       </div>
       <FiSearch className="m-3 h-5 w-5 text-indigo-400 md:hidden" />
