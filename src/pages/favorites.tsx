@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { BsHeartFill } from "react-icons/bs";
-import ProductCardCarousel from "~/components/ProductCardCarousel";
+import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import Button from "~/components/UI/Button";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { type RouterOutputs, api } from "~/utils/api";

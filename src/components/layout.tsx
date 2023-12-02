@@ -1,8 +1,8 @@
-import Nav from "./Nav";
+import Nav from "./Nav/Nav";
 import Footer from "./Footer";
-import { PromosBanner } from "./PromosBanner";
+import { PromosBanner } from "./Nav/PromosBanner";
 import { bannerPromos } from "../data/promosData";
-import MobileMenu from "./MobileMenu";
+import MobileMenu from "./MobileMenu/MobileMenu";
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Logo from "./Logo";

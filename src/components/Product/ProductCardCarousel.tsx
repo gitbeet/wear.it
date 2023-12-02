@@ -1,7 +1,7 @@
 import Carousel, { ArrowProps, ResponsiveType } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { type RouterOutputs } from "~/utils/api";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "./ProductCard";
 import { FiChevronRight } from "react-icons/fi";
 type Product = RouterOutputs["product"]["getAll"]["products"][number];
 

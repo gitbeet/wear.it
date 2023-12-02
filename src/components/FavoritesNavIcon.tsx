@@ -1,5 +1,5 @@
 import React from "react";
-import NavIcon from "./NavIcon";
+import NavIcon from "./Nav/NavIcon";
 import { BsHeart } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
 

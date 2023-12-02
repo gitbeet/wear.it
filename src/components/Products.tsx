@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "./Product/ProductCard";
 import { type RouterOutputs } from "~/utils/api";
 
 type ProductType = RouterOutputs["product"]["getAll"]["products"];

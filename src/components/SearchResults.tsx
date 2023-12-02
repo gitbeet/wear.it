@@ -1,5 +1,5 @@
 import { type RouterOutputs } from "~/utils/api";
-import ProductCard from "./ProductCard";
+import ProductCard from "./Product/ProductCard";
 
 interface Props {
   show: boolean;

@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import bannerJackets from "../../public/assets/banner-small-jackets-2.jpg";
 import bannerSneakers from "../../public/assets/banner-small--sneakers-2.jpg";
 import bannerTShirts from "../../public/assets/banner-large--tShirts-2.jpg";
-import ProductCardCarousel from "~/components/ProductCardCarousel";
+import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import { FaSnowflake } from "react-icons/fa";
 import SectionSpacer from "~/components/UI/SectionSpacer";
 import Link from "next/link";

@@ -1,20 +1,20 @@
 import React, { useState, useCallback } from "react";
 import MegaMenu from "./MegaMenu";
 import NavLink from "./NavLink";
-import CartIcon from "./Cart/CartIcon";
-import CartModal from "./Cart/CartModal";
+import CartIcon from "../Cart/CartIcon";
+import CartModal from "../Cart/CartModal";
 import { useModalsContext } from "~/context/modalsContext";
-import Logo from "./Logo";
+import Logo from "../Logo";
 import { useUser, useClerk } from "@clerk/nextjs";
-import FavoritesNavIcon from "./FavoritesNavIcon";
-import Search from "./Search";
-import SearchResults from "./SearchResults";
+import FavoritesNavIcon from "../FavoritesNavIcon";
+import Search from "../Search";
+import SearchResults from "../SearchResults";
 import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
 import { IoPersonOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
 import NavIcon from "./NavIcon";
-import MobileMenuButton from "./MobileMenuButton";
+import MobileMenuButton from "../MobileMenu/MobileMenuButton";
 
 const Nav = () => {
   const { signOut } = useClerk();
@@ -65,7 +65,7 @@ const Nav = () => {
   return (
     <nav>
       <div className="relative z-50  bg-slate-50 shadow-lg shadow-indigo-600/5">
-        <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
+        <div className="padding-x mx-a to relative flex max-w-[1600px] items-center justify-between py-2">
           <Logo />
 
           <ul

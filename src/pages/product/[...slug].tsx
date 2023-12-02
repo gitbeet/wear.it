@@ -26,7 +26,7 @@ import Review from "~/components/Review";
 import CreateReviewWizard from "~/components/CreateReviewWizard";
 import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
-import ProductCardCarousel from "~/components/ProductCardCarousel";
+import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import SectionSpacer from "~/components/UI/SectionSpacer";
 import { useCartContext } from "~/context/cartContext";
 
