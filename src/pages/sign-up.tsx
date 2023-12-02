@@ -15,6 +15,7 @@ import {
   BsPerson,
   BsXCircleFill,
 } from "react-icons/bs";
+import { NextSeo } from "next-seo";
 
 export type SignUpValidationType = z.infer<typeof signUpValidationSchema>;
 
@@ -113,85 +114,94 @@ export default function SignUpForm() {
     );
 
   return (
-    <section className="padding-x">
-      <div className="h-16"></div>
-      <h1 className="text-center font-display text-6xl font-black">
-        Become a member
-      </h1>
-      <div className="h-16"></div>
-      {!pendingVerification && (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mx-auto max-w-[400px]"
-        >
-          <div className="h-8"></div>
-          <FormField
-            error={errors.username?.message}
-            label="Username"
-            name="username"
-            placeholder="johndoe123"
-            register={register("username")}
-            type="text"
-            icon={<BsPerson className="h-8 w-8" />}
-          />
-          <div className="h-8"></div>
-          <FormField
-            error={errors.emailAddress?.message}
-            label="Email"
-            name="emailAddress"
-            placeholder="johndoe123@email.com"
-            register={register("emailAddress")}
-            type="text"
-            icon={<BsEnvelope className="h-8 w-8" />}
-          />
-          <div className="h-8"></div>
-          <FormField
-            error={errors.password?.message}
-            label="Password"
-            name="password"
-            placeholder="•••••••••••"
-            register={register("password")}
-            type="password"
-            icon={<BsKey className="h-8 w-8" />}
-          />
-          <div className="h-8"></div>
-          <FormField
-            error={errors.confirmPassword?.message}
-            label="Confirm Password"
-            name="confirmPassword"
-            placeholder="•••••••••••"
-            register={register("confirmPassword")}
-            type="password"
-            icon={confirmPasswordIcon}
-          />
-          <div className="h-12"></div>
-
-          <Button onClick={() => void 0} text="Sign up" />
-          <div className="h-4"></div>
-          <p className="px-4">
-            Already have an account?{" "}
-            <Link
-              className="pl-1 font-bold text-indigo-500 underline"
-              href="/sign-in"
-            >
-              Sign in
-            </Link>
-          </p>
-        </form>
-      )}
-      {pendingVerification && (
-        <div>
-          <form>
-            <input
-              value={code}
-              placeholder="Code..."
-              onChange={(e) => setCode(e.target.value)}
+    <>
+      <NextSeo
+        title="Sign up"
+        description="Create an account on wear.it . Sign up to access exclusive deals and personalized content."
+        noindex={false}
+        nofollow={false}
+        canonical="https://t3-ecommerce-five.vercel.app/sign-up"
+      />
+      <section className="padding-x">
+        <div className="h-16"></div>
+        <h1 className="text-center font-display text-6xl font-black">
+          Become a member
+        </h1>
+        <div className="h-16"></div>
+        {!pendingVerification && (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mx-auto max-w-[400px]"
+          >
+            <div className="h-8"></div>
+            <FormField
+              error={errors.username?.message}
+              label="Username"
+              name="username"
+              placeholder="johndoe123"
+              register={register("username")}
+              type="text"
+              icon={<BsPerson className="h-8 w-8" />}
             />
-            <button onClick={onPressVerify}>Verify Email</button>
+            <div className="h-8"></div>
+            <FormField
+              error={errors.emailAddress?.message}
+              label="Email"
+              name="emailAddress"
+              placeholder="johndoe123@email.com"
+              register={register("emailAddress")}
+              type="text"
+              icon={<BsEnvelope className="h-8 w-8" />}
+            />
+            <div className="h-8"></div>
+            <FormField
+              error={errors.password?.message}
+              label="Password"
+              name="password"
+              placeholder="•••••••••••"
+              register={register("password")}
+              type="password"
+              icon={<BsKey className="h-8 w-8" />}
+            />
+            <div className="h-8"></div>
+            <FormField
+              error={errors.confirmPassword?.message}
+              label="Confirm Password"
+              name="confirmPassword"
+              placeholder="•••••••••••"
+              register={register("confirmPassword")}
+              type="password"
+              icon={confirmPasswordIcon}
+            />
+            <div className="h-12"></div>
+
+            <Button onClick={() => void 0} text="Sign up" />
+            <div className="h-4"></div>
+            <p className="px-4">
+              Already have an account?{" "}
+              <Link
+                className="pl-1 font-bold text-indigo-500 underline"
+                href="/sign-in"
+              >
+                Sign in
+              </Link>
+            </p>
           </form>
-        </div>
-      )}
-      <div className="h-16"></div>
-    </section>
+        )}
+        {pendingVerification && (
+          <div>
+            <form>
+              <input
+                value={code}
+                placeholder="Code..."
+                onChange={(e) => setCode(e.target.value)}
+              />
+              <button onClick={onPressVerify}>Verify Email</button>
+            </form>
+          </div>
+        )}
+        <div className="h-16"></div>
+      </section>
+    </>
   );
 }

@@ -41,7 +41,7 @@ const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     isLoading: isGettingCart,
     isFetching,
     refetch,
-  } = api.cart.getByUserId.useQuery();
+  } = api.cart.getByUserId.useQuery(undefined, {});
 
   useEffect(() => {
     const totalCount = dbCart?.cartItems.reduce(

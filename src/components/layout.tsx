@@ -1,7 +1,7 @@
 import Nav from "./Nav";
 import Footer from "./Footer";
 import { PromosBanner } from "./PromosBanner";
-import { bannerPromos } from "./promosData";
+import { bannerPromos } from "../data/promosData";
 import MobileMenu from "./MobileMenu";
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -13,7 +13,8 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <>
       <DefaultSeo
-        title="wear.it"
+        titleTemplate="%s | wear.it"
+        title="Welcome"
         description={`"Elevate your style with wear.it . Explore on-trend fashion for men and women. Shop high-quality clothing online for a look that's uniquely yours. Unbeatable style, unbeatable prices."`}
         openGraph={{
           type: "website",

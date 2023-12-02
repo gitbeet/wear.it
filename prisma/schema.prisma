@@ -2,17 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider = "prisma-client-js"    
 }
 
 datasource db {
-
   provider = "postgresql"
-
   url = env("DATABASE_URL") // uses connection pooling
-
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-
 }
 
 // ENUMS
@@ -20,6 +16,7 @@ datasource db {
 enum CategoryType {
   MEN
   WOMEN
+  KIDS
 }
 
 enum ProductSize {
@@ -146,14 +143,36 @@ model ProductCategory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name String
-  slug String
+  slug String @unique
   types CategoryType[]
   parentId Int?
   parent ProductCategory? @relation(fields: [parentId] , references: [id] , name: "ParentChild")
   children ProductCategory[] @relation(name: "ParentChild")
   products Product[]
+  seo CategorySEO[]
 }
 
+model CategorySEO {   
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type CategoryType
+  metaTitle String?
+  metaDescription String?
+  metaKeywords String?
+  category ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
+}
+
+ model TypeSEO {
+  id Int @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type CategoryType @unique
+  metaTitle String?
+  metaDescription String?
+  metaKeywords String?
+ }
 
 model Discount {
     id        Int      @id
@@ -165,8 +184,6 @@ model Discount {
     active Boolean
     products Product[]
 }
-
-
 
 // INVENTORY RELATED MODELS
 model ProductInventory {

@@ -1,6 +1,8 @@
 import { PrismaClient, ProductColor, ProductSize } from "@prisma/client";
 import { productCategories } from "../src/data/categories";
 import { products } from "../src/data/products";
+import { categorySEOData } from "~/data/categorySEO";
+import { typeSEOdata } from "~/data/typeSEO";
 
 const prisma = new PrismaClient();
 
@@ -39,12 +41,22 @@ const main = async () => {
   await prisma.shoppingSession.deleteMany();
   await prisma.colorDetails.deleteMany();
   await prisma.sizeDetails.deleteMany();
+  await prisma.categorySEO.deleteMany();
+  await prisma.typeSEO.deleteMany();
+
+  await prisma.typeSEO.createMany({
+    data: typeSEOdata,
+  });
 
   const createCategories = prisma.productCategory.createMany({
     data: productCategories,
   });
 
-  await prisma.$transaction([createCategories]);
+  const createCategoryDescriptions = prisma.categorySEO.createMany({
+    data: categorySEOData,
+  });
+
+  await prisma.$transaction([createCategories, createCategoryDescriptions]);
 
   for (const c of colors) {
     await prisma.colorDetails.create({

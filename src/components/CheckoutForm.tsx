@@ -164,7 +164,7 @@ const CheckoutForm = () => {
     if (error) {
       console.log("ERROR: ", error);
     }
-    createOrder();
+    // createOrder();
   };
 
   const onSubmit = async () => {

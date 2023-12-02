@@ -1,9 +1,16 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "~/components/UI/Button";
+import { api } from "~/utils/api";
 
 const Successful = () => {
   const router = useRouter();
+  const { refetch } = api.cart.getByUserId.useQuery();
+
+  useEffect(() => {
+    void refetch();
+  }, []);
+
   return (
     <section className="flex w-full flex-col items-center justify-center">
       <div className="h-16"></div>

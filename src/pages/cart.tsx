@@ -8,6 +8,7 @@ import { useCartContext } from "~/context/cartContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { RecentlyViewed } from "./favorites";
 import LoadingPage from "~/components/loading";
+import { NextSeo } from "next-seo";
 
 export const Summary = () => {
   const { isGettingCart, costs } = useCartContext();
@@ -121,25 +122,34 @@ const Cart = () => {
   );
 
   return (
-    <section>
-      <div className="h-16"></div>
-      <h1 className="text-center font-display text-5xl font-black text-slate-800">
-        Bag
-      </h1>
-      {isGettingCart ? (
-        <div className="relative py-24">
-          <LoadingPage />
-        </div>
-      ) : !dbCart ? (
-        noDataContent
-      ) : dbCart.cartItems.length < 1 ? (
-        emptyCartContent
-      ) : (
-        cartContent
-      )}
-      <RecentlyViewed />
-      <div className="h-48"></div>
-    </section>
+    <>
+      <NextSeo
+        title="Your Bag - wear.it"
+        description="Review and manage items in your shopping bag at wear.it . Discover the latest styles and proceed to checkout for a seamless shopping experience."
+        noindex={false}
+        nofollow={false}
+        canonical="https://t3-ecommerce-five.vercel.app/cart"
+      />
+      <section>
+        <div className="h-16"></div>
+        <h1 className="text-center font-display text-5xl font-black text-slate-800">
+          Bag
+        </h1>
+        {isGettingCart ? (
+          <div className="relative py-24">
+            <LoadingPage />
+          </div>
+        ) : !dbCart ? (
+          noDataContent
+        ) : dbCart.cartItems.length < 1 ? (
+          emptyCartContent
+        ) : (
+          cartContent
+        )}
+        <RecentlyViewed />
+        <div className="h-48"></div>
+      </section>
+    </>
   );
 };
 

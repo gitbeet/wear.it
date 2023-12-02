@@ -2,10 +2,30 @@ import { type Prisma } from "@prisma/client";
 
 type ProductCategoryType = Prisma.ProductCategoryCreateManyInput;
 export const productCategories: ProductCategoryType[] = [
-  { id: 1, name: "Shoes", slug: "shoes", types: ["MEN", "WOMEN"] },
-  { id: 2, name: "Clothing", slug: "clothing", types: ["MEN", "WOMEN"] },
-  { id: 3, name: "Accessories", slug: "accessories", types: ["MEN", "WOMEN"] },
-  { id: 4, name: "Shop By Sport", slug: "sport", types: ["MEN", "WOMEN"] },
+  {
+    id: 1,
+    name: "Shoes",
+    slug: "shoes",
+    types: ["MEN", "WOMEN"],
+  },
+  {
+    id: 2,
+    name: "Clothing",
+    slug: "clothing",
+    types: ["MEN", "WOMEN"],
+  },
+  {
+    id: 3,
+    name: "Accessories",
+    slug: "accessories",
+    types: ["MEN", "WOMEN"],
+  },
+  {
+    id: 4,
+    name: "Shop By Sport",
+    slug: "sport",
+    types: ["MEN", "WOMEN"],
+  },
   {
     id: 5,
     name: "Shop By Collection",
@@ -166,7 +186,13 @@ export const productCategories: ProductCategoryType[] = [
     types: ["MEN", "WOMEN"],
     parentId: 2,
   },
-  { id: 28, name: "Jerseys", slug: "jerseys", types: ["MEN"], parentId: 2 },
+  {
+    id: 28,
+    name: "Jerseys",
+    slug: "jerseys",
+    types: ["MEN"],
+    parentId: 2,
+  },
   {
     id: 29,
     name: "Jackets",
@@ -335,7 +361,13 @@ export const productCategories: ProductCategoryType[] = [
     types: ["MEN", "WOMEN"],
     parentId: 4,
   },
-  { id: 53, name: "Hockey", slug: "hockey", types: ["MEN"], parentId: 4 },
+  {
+    id: 53,
+    name: "Hockey",
+    slug: "hockey",
+    types: ["MEN"],
+    parentId: 4,
+  },
   {
     id: 54,
     name: "Running",
@@ -448,7 +480,13 @@ export const productCategories: ProductCategoryType[] = [
     types: ["MEN", "WOMEN"],
     parentId: 5,
   },
-  { id: 70, name: "OZ", slug: "oz", types: ["MEN", "WOMEN"], parentId: 5 },
+  {
+    id: 70,
+    name: "OZ",
+    slug: "oz",
+    types: ["MEN", "WOMEN"],
+    parentId: 5,
+  },
   {
     id: 71,
     name: "Stella McCartney",

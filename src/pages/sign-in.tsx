@@ -7,6 +7,7 @@ import Link from "next/link";
 import Button from "~/components/UI/Button";
 import { BsEnvelope, BsKey } from "react-icons/bs";
 import FormField from "~/components/FormField";
+import { NextSeo } from "next-seo";
 
 export type SignInValidationType = z.infer<typeof signInValidationSchema>;
 
@@ -54,52 +55,67 @@ export default function SignInForm() {
   };
 
   return (
-    <section className="padding-x">
-      <div className="h-16"></div>
-      <h1 className=" text-center font-display text-6xl font-black">
-        Welcome back
-      </h1>
-      <div className="h-24"></div>
-      <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[400px]">
-        <FormField
-          autoFocus
-          placeholder="johndoe@email.com"
-          icon={<BsEnvelope className="h-8 w-8" />}
-          label="Email"
-          type="text"
-          name="emailAddress"
-          register={register("emailAddress")}
-          error={errors.emailAddress?.message}
-        />
-        <div className="h-8"></div>
-        <FormField
-          placeholder="•••••••"
-          icon={<BsKey className="h-8 w-8" />}
-          label="Password"
-          name="password"
-          type="password"
-          register={register("password")}
-          error={errors.password?.message}
-        />
-        <div className="h-12"></div>
-        <Button text="Sign in" onClick={() => void 0} />
-        <div className="h-4"></div>
-        <div className="px-4">
-          <Link className="font-semibold text-teal-500" href="/forgot-password">
-            Forgot Password?
-          </Link>
-          <br />
-          <div className="h-1 "></div>
-          <span className="font-light text-slate-800">Not a member yet?</span>
-          <Link
-            href="/sign-up"
-            className="pl-1 font-bold text-indigo-500 underline"
-          >
-            Sign up
-          </Link>
-        </div>
-      </form>
-      <div className="h-16"></div>
-    </section>
+    <>
+      <NextSeo
+        title="Sign in"
+        description="Sign in to access your account on wear.it. Enter your username and password to securely log in and explore personalized content."
+        noindex
+        nofollow
+        canonical="https://t3-ecommerce-five.vercel.app/sign-in"
+      />
+      <section className="padding-x">
+        <div className="h-16"></div>
+        <h1 className=" text-center font-display text-6xl font-black">
+          Welcome back
+        </h1>
+        <div className="h-24"></div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mx-auto max-w-[400px]"
+        >
+          <FormField
+            autoFocus
+            placeholder="johndoe@email.com"
+            icon={<BsEnvelope className="h-8 w-8" />}
+            label="Email"
+            type="text"
+            name="emailAddress"
+            register={register("emailAddress")}
+            error={errors.emailAddress?.message}
+          />
+          <div className="h-8"></div>
+          <FormField
+            placeholder="•••••••"
+            icon={<BsKey className="h-8 w-8" />}
+            label="Password"
+            name="password"
+            type="password"
+            register={register("password")}
+            error={errors.password?.message}
+          />
+          <div className="h-12"></div>
+          <Button text="Sign in" onClick={() => void 0} />
+          <div className="h-4"></div>
+          <div className="px-4">
+            <Link
+              className="font-semibold text-teal-500"
+              href="/forgot-password"
+            >
+              Forgot Password?
+            </Link>
+            <br />
+            <div className="h-1 "></div>
+            <span className="font-light text-slate-800">Not a member yet?</span>
+            <Link
+              href="/sign-up"
+              className="pl-1 font-bold text-indigo-500 underline"
+            >
+              Sign up
+            </Link>
+          </div>
+        </form>
+        <div className="h-16"></div>
+      </section>
+    </>
   );
 }

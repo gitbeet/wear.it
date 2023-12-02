@@ -8,6 +8,7 @@ import Button from "~/components/UI/Button";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { type RouterOutputs, api } from "~/utils/api";
 import LoadingPage from "~/components/loading";
+import { NextSeo } from "next-seo";
 
 type FavoriteType = RouterOutputs["favorite"]["getByUserId"][number];
 
@@ -167,12 +168,21 @@ export const RecentlyViewed = () => {
 
 const Favorites = () => {
   return (
-    <section>
-      <div className="h-16"></div>
-      <FavoritesGrid />
-      <RecentlyViewed />
-      <div className="h-48"></div>
-    </section>
+    <>
+      <NextSeo
+        title="Contact"
+        description="Get in touch with is. Contact our customer support for assistance, inquiries, or collaboration opportunities."
+        noindex={false}
+        nofollow={false}
+        canonical="https://t3-ecommerce-five.vercel.app/contact"
+      />
+      <section>
+        <div className="h-16"></div>
+        <FavoritesGrid />
+        <RecentlyViewed />
+        <div className="h-48"></div>
+      </section>
+    </>
   );
 };
 

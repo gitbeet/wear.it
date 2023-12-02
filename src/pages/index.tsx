@@ -190,14 +190,18 @@ const MemberDeals = () => (
 export default function Home() {
   return (
     <>
-      <NextSeo title="Homepage - wear.it" />
+      <NextSeo
+        title="Home page"
+        noindex
+        nofollow
+        canonical="https://t3-ecommerce-five.vercel.app/sign-in"
+      />{" "}
       <section>
         <Hero />
         <div className="h-4 md:h-8"></div>
         <EventSlider />
         <SectionSpacer />
         <MemberDeals />
-        {/* <PromoSlider /> */}
         <SectionSpacer />
         <Trending />
         <SectionSpacer />
