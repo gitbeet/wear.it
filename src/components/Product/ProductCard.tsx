@@ -54,33 +54,6 @@ const ProductCard = ({ product }: { product: Product }) => {
     </div>
   );
 
-  const thumbnails = (
-    <div
-      className={
-        showColorVariations
-          ? " flex items-center gap-2 self-start pt-2"
-          : "hidden"
-      }
-    >
-      {product.colors.map((color, i) => {
-        const image = product.images.find(
-          (image) => image.color === color.color,
-        );
-        return (
-          <Image
-            onMouseOver={() => setCurrentImage(image?.id)}
-            className="bg-slate-200"
-            width={56}
-            height={56}
-            key={i}
-            src={image?.imageURL ?? ""}
-            alt={`${color.color} variation`}
-          />
-        );
-      })}
-    </div>
-  );
-
   const prices = product.discount ? (
     <div className="absolute bottom-2 left-4 text-slate-900 transition-transform duration-300 group-hover:-translate-y-1.5">
       <p className="w-fit rounded-sm bg-teal-500 px-1 font-display font-bold text-white">
@@ -102,11 +75,40 @@ const ProductCard = ({ product }: { product: Product }) => {
     </p>
   );
 
-  const nameAndCategory = !showColorVariations && (
-    <div className="min-h-[4rem] self-start overflow-hidden pl-4 ">
-      <p className="line-clamp-1 font-semibold">{product.name}</p>
-      <div className="h-1"></div>
-      <p className="text-slate-500">{product.category.name}</p>
+  const thumbnails = (
+    <div className="relative min-h-[4rem] w-full self-start overflow-hidden">
+      <div
+        className={`${
+          showColorVariations ? "opacity-100" : "-translate-y-full opacity-0"
+        } absolute  flex w-full items-start gap-2 self-start transition-[opacity,transform] duration-300`}
+      >
+        {product.colors.map((color, i) => {
+          const image = product.images.find(
+            (image) => image.color === color.color,
+          );
+          return (
+            <Image
+              onMouseOver={() => setCurrentImage(image?.id)}
+              className="bg-slate-200"
+              width={56}
+              height={56}
+              key={i}
+              src={image?.imageURL ?? ""}
+              alt={`${color.color} variation`}
+            />
+          );
+        })}
+      </div>
+
+      <div
+        className={`${
+          !showColorVariations ? "opacity-100" : "translate-y-full opacity-0"
+        } t absolute min-h-[4rem]  w-full  overflow-hidden transition-[transform,opacity] duration-300`}
+      >
+        <p className="line-clamp-1 font-semibold">{product.name}</p>
+        <div className="h-1"></div>
+        <p className="text-slate-500">{product.category.name}</p>
+      </div>
     </div>
   );
 
@@ -124,9 +126,10 @@ const ProductCard = ({ product }: { product: Product }) => {
         {image}
         {prices}
       </div>
-      {thumbnails}
       <div className="h-4"></div>
-      {nameAndCategory}
+      {thumbnails}
+      {/* <div className="h-4"></div>
+      {nameAndCategory} */}
     </Link>
   );
 };
