@@ -107,14 +107,17 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
               <span>{size}</span>
             </div>
           )}
-          {modal && (
-            <p>
-              <span className="font-bold">{priceAfterDiscount}</span>{" "}
-              <span className="pl-2 text-slate-500 line-through">
-                {priceBeforeDiscount}
-              </span>
-            </p>
-          )}
+          {modal &&
+            (discount ? (
+              <p>
+                <span className="font-bold">{priceAfterDiscount}</span>{" "}
+                <span className="pl-2 text-slate-500 line-through">
+                  {priceBeforeDiscount}
+                </span>
+              </p>
+            ) : (
+              <p className="font-bold">{priceAfterDiscount}</p>
+            ))}
 
           {!modal && (
             <>

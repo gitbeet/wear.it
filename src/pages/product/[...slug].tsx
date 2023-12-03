@@ -29,6 +29,7 @@ import { FaChevronDown } from "react-icons/fa";
 import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import SectionSpacer from "~/components/UI/SectionSpacer";
 import { useCartContext } from "~/context/cartContext";
+import { NextSeo } from "next-seo";
 
 const productPageSkeleton = (
   <>
@@ -465,6 +466,24 @@ const Product = ({
 
   return (
     <>
+      <NextSeo
+        title={productData.name}
+        description={description}
+        openGraph={{
+          url: `https://t3-ecommerce-five.vercel.app/product/${id}/${selectedColor}`,
+          title: name,
+          description,
+          site_name: "wear.it",
+          images: [
+            {
+              url: "",
+              width: 800,
+              height: 600,
+              alt: `Hero image for contact page`,
+            },
+          ],
+        }}
+      />
       <section className="padding-x mx-auto flex max-w-[1200px] flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
         <div className="w-full self-start">
           <ImageGallery

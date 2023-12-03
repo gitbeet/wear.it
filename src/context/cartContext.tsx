@@ -53,19 +53,20 @@ const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   }, [dbCart]);
 
   useEffect(() => {
+    // Refetch cart on user change
     void refetch();
-  }, [isSignedIn]);
 
-  useEffect(() => {
+    // Handle cookie
     const expirationDate = new Date();
     const guestUserId = createId();
     expirationDate.setDate(expirationDate.getDate() + 30);
-    !isSignedIn &&
-      !cookies["session-id"] &&
+    if (!isSignedIn && !cookies["session-id"]) {
+      console.log("IN IF STATEMENT");
       setCookie("session-id", guestUserId, {
         expires: expirationDate,
-        domain: window.origin,
+        path: "/",
       });
+    }
 
     return () => void 0;
   }, [isSignedIn]);

@@ -127,44 +127,6 @@ export const productRouter = createTRPCRouter({
       });
 
       return product;
-
-      // const existingHistory = await ctx.db.productHistory.findFirst({
-      //   where: {
-      //     userId,
-      //   },
-      //   include: {
-      //     items: {
-      //       select: {
-      //         productId: true,
-      //       },
-      //     },
-      //   },
-      // });
-
-      // if (!existingHistory) {
-      //   await ctx.db.productHistory.create({
-      //     data: {
-      //       userId,
-      //       items: {
-      //         create: {
-      //           productId: id,
-      //         },
-      //       },
-      //     },
-      //   });
-      //   return product;
-      // }
-      // if (
-      //   existingHistory.items.findIndex((item) => item.productId === id) !== -1
-      // )
-      //   return product;
-
-      // await db.historyItem.create({
-      //   data: {
-      //     productId: id,
-      //     historyId: existingHistory.id,
-      //   },
-      // });
     }),
   getAll: publicProcedure
     .input(

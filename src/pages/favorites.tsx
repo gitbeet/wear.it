@@ -150,7 +150,7 @@ export const RecentlyViewed = () => {
     void refetch();
   }, [isSignedIn]);
 
-  return data && data?.items.length > 0 ? (
+  return (
     <>
       <div className="h-16"></div>
       <div className="padding-x">
@@ -163,7 +163,7 @@ export const RecentlyViewed = () => {
         />
       </div>
     </>
-  ) : null;
+  );
 };
 
 const Favorites = () => {
