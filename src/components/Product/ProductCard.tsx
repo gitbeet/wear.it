@@ -27,7 +27,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   const image = (
     <Image
       fill
-      className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-100 group-hover:shadow-sm"
+      className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-slate-200"
       src={
         product.images.find((image) => image.id === currentImage)?.imageURL ??
         ""
@@ -56,15 +56,15 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   const prices = product.discount ? (
     <div className="absolute bottom-2 left-4 text-slate-900 transition-transform duration-300 group-hover:-translate-y-1.5">
-      <p className="w-fit rounded-sm bg-teal-500 px-1 font-display font-bold text-white">
+      <p className="w-fit rounded-sm bg-teal-500 px-2 py-1 font-display font-bold text-white">
         -{product.discount.discountPercent}%
       </p>
       <div className="h-1.5"></div>
       <div className=" flex gap-2 ">
-        <p className="bg-slate-50 px-3  py-1 font-display  text-slate-500 line-through">
+        <p className="rounded-sm bg-slate-50  px-3 py-1  font-display  text-slate-400 line-through">
           {priceBeforeDiscount}
         </p>
-        <p className="w-fit bg-slate-50 px-3 py-1 font-display font-bold text-pink-500">
+        <p className="w-fit rounded-sm bg-slate-50 px-3 py-1 font-display font-bold text-pink-500">
           {priceAfterDiscount}
         </p>
       </div>
@@ -80,7 +80,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <div
         className={`${
           showColorVariations ? "opacity-100" : "-translate-y-full opacity-0"
-        } absolute  flex w-full items-start gap-2 self-start transition-[opacity,transform] duration-300`}
+        } absolute  flex w-full items-start gap-2 self-start transition-[opacity,transform] duration-[250ms]`}
       >
         {product.colors.map((color, i) => {
           const image = product.images.find(
@@ -89,7 +89,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           return (
             <Image
               onMouseOver={() => setCurrentImage(image?.id)}
-              className="bg-slate-200"
+              className="bg-slate-100"
               width={56}
               height={56}
               key={i}
@@ -103,7 +103,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <div
         className={`${
           !showColorVariations ? "opacity-100" : "translate-y-full opacity-0"
-        } t absolute min-h-[4rem]  w-full  overflow-hidden transition-[transform,opacity] duration-300`}
+        } t absolute min-h-[4rem]  w-full  overflow-hidden transition-[transform,opacity]  duration-[250ms]`}
       >
         <p className="line-clamp-1 font-semibold">{product.name}</p>
         <div className="h-1"></div>

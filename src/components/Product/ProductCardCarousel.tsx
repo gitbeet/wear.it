@@ -7,7 +7,7 @@ type Product = RouterOutputs["product"]["getAll"]["products"][number];
 
 const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
   return (
-    <div className="absolute right-0 flex -translate-x-full items-center justify-center rounded-full  border border-slate-50 bg-indigo-400/80 p-1  text-slate-50 hover:bg-indigo-400 ">
+    <div className="absolute right-0 flex -translate-x-full items-center justify-center rounded-full  bg-indigo-400 p-1 text-slate-50 opacity-[0.8]  transition-opacity duration-150 hover:bg-indigo-400 hover:opacity-100">
       <FiChevronRight
         className=" h-8 w-8 "
         role="button"
@@ -19,7 +19,7 @@ const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
 
 const CustomLeftArrow = ({ onClick, ...rest }: ArrowProps) => {
   return (
-    <div className="absolute left-0 flex translate-x-full items-center justify-center rounded-full  border border-slate-50 bg-indigo-400/80 p-1 text-slate-50 hover:bg-indigo-400 ">
+    <div className="absolute left-0 flex translate-x-full items-center justify-center rounded-full  bg-indigo-400  p-1 text-slate-50 opacity-[0.8] transition-opacity duration-150 hover:bg-indigo-400 hover:opacity-100">
       <FiChevronRight
         className=" h-8 w-8 rotate-180 "
         role="button"
@@ -90,10 +90,10 @@ const ProductCardCarousel = ({
     <Carousel
       responsive={responsive}
       autoPlay
-      autoPlaySpeed={3500}
+      autoPlaySpeed={5000}
       infinite
-      transitionDuration={1000}
-      customTransition="transform 1s ease-in-out"
+      transitionDuration={500}
+      customTransition="transform 0.5s ease-in-out"
       removeArrowOnDeviceType={["mobile", "tablet"]}
       customRightArrow={<CustomRightArrow />}
       customLeftArrow={<CustomLeftArrow />}

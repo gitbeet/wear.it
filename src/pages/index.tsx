@@ -128,7 +128,7 @@ const Trending = () => {
 
 const Promotions = () => (
   <section className="padding-x grid w-full gap-4 md:grid-cols-2">
-    <div className="aspect-square w-full">
+    <Link href="/products/women/tshirts-tops" className="aspect-square w-full">
       <Image
         sizes="(max-width: 1024px) 100vw, 792px"
         src={bannerTShirts}
@@ -136,29 +136,39 @@ const Promotions = () => (
         className="rounded-2xl"
         placeholder="blur"
       />
-    </div>
+    </Link>
 
     <div>
-      <Image
-        sizes="(max-width: 768px) 100vw, 792px"
-        width={800}
-        height={392}
-        src={bannerJackets}
-        alt="Browse jackets under 65%"
-        className="rounded-2xl"
-        placeholder="blur"
-      />
+      <Link
+        href="/products/women/jackets?priceFrom=0&priceTo=65"
+        className="aspect-square w-full"
+      >
+        <Image
+          sizes="(max-width: 768px) 100vw, 792px"
+          width={800}
+          height={392}
+          src={bannerJackets}
+          alt="Browse jackets under 65%"
+          className="rounded-2xl"
+          placeholder="blur"
+        />
+      </Link>
 
       <div className="h-4"></div>
-      <Image
-        sizes="(max-width: 768px) 100vw, 792px"
-        width={800}
-        height={392}
-        src={bannerSneakers}
-        alt="Browse seakers from 30$"
-        className="rounded-2xl"
-        placeholder="blur"
-      />
+      <Link
+        href="/products/women/sneakers?priceFrom=39"
+        className="aspect-square w-full"
+      >
+        <Image
+          sizes="(max-width: 768px) 100vw, 792px"
+          width={800}
+          height={392}
+          src={bannerSneakers}
+          alt="Browse seakers from 39$"
+          className="rounded-2xl"
+          placeholder="blur"
+        />
+      </Link>
     </div>
   </section>
 );
