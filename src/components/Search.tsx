@@ -1,5 +1,4 @@
 import React from "react";
-import { BsSearch } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { VscChromeClose } from "react-icons/vsc";
 
@@ -32,7 +31,7 @@ const Search = ({
           onBlur={onBlur}
           value={input}
           onChange={handleSearch}
-          className="peer h-full w-60 rounded-full border border-indigo-100 bg-white px-10 outline-none transition-colors duration-150 focus:border-indigo-300 focus:shadow-sm"
+          className="peer h-full w-60 rounded-full border border-indigo-100 bg-white px-10 outline outline-transparent transition-colors duration-150 focus:border-transparent focus:outline-indigo-300"
         />
       </div>
       <FiSearch className="m-3 h-5 w-5 text-indigo-400 md:hidden" />

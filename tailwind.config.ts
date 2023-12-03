@@ -1,5 +1,4 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./src/**/*.tsx"],
@@ -9,12 +8,9 @@ export default {
         "3xl": "1600px",
       },
       fontFamily: {
-        display: "Montserrat, sans-serif",
+        display: "Montserrat , sans-serif",
         body: "Open Sans, sans-serif",
       },
-      // colors: {
-      //   primary: "#ffffff",
-      // },
     },
   },
   plugins: [],
