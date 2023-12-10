@@ -1,4 +1,4 @@
-import { type Prisma } from "@prisma/client";
+import { ProductColor, type Prisma } from "@prisma/client";
 import { v4 as uuid } from "uuid";
 
 type ProductType = Prisma.ProductCreateInput;
@@ -11,7 +11,10 @@ export const winterHat: ProductType = {
   price: 79,
   // colors: ["RED", "BLUE", "BLACK"],
   colors: {
-    connect: [3, 5, 2].map((id) => ({ id })),
+    // connect: [3, 5, 2].map((id) => ({ id })),
+    connect: ["RED", "BLUE", "BLACK"].map((color) => ({
+      color: color as ProductColor,
+    })),
   },
   // sizes: ["S", "M", "L"],
   sizes: {
@@ -80,7 +83,10 @@ export const products: ProductType[] = [
     price: 79,
     // colors: ["RED", "BLUE", "BLACK"],
     colors: {
-      connect: [3, 5, 2].map((id) => ({ id })),
+      // connect: [3, 5, 2].map((id) => ({ id })),
+      connect: ["RED", "BLUE", "BLACK"].map((color) => ({
+        color: color as ProductColor,
+      })),
     },
     // sizes: ["S", "M", "L"],
     sizes: {
@@ -148,7 +154,7 @@ export const products: ProductType[] = [
     types: ["WOMEN"],
     price: 96,
     colors: {
-      connect: [1].map((id) => ({ id })),
+      connect: { color: "PURPLE" },
     },
     sizes: {
       connect: [2, 3, 4, 5].map((id) => ({ id })),
@@ -186,7 +192,7 @@ export const products: ProductType[] = [
     types: ["MEN"],
     price: 150,
     colors: {
-      connect: [6].map((id) => ({ id })),
+      connect: { color: "WHITE" },
     },
     sizes: {
       connect: [1, 2, 3, 4, 5].map((id) => ({ id })),
@@ -221,7 +227,9 @@ export const products: ProductType[] = [
     types: ["WOMEN"],
     price: 49.99,
     colors: {
-      connect: [5, 10].map((id) => ({ id })),
+      connect: ["BLUE", "YELLOW"].map((color) => ({
+        color: color as ProductColor,
+      })),
     },
     sizes: {
       connect: [1, 2, 3, 4, 5].map((id) => ({ id })),
@@ -281,7 +289,9 @@ export const products: ProductType[] = [
     types: ["WOMEN"],
     price: 34.99,
     colors: {
-      connect: [9, 11, 12].map((id) => ({ id })),
+      connect: ["PINK", "GRAY", "BEIGE"].map((c) => ({
+        color: c as ProductColor,
+      })),
     },
     sizes: {
       connect: [1, 2, 3, 4, 5].map((id) => ({ id })),
@@ -356,7 +366,7 @@ export const products: ProductType[] = [
     types: ["MEN"],
     price: 119.99,
     colors: {
-      connect: [2].map((id) => ({ id })),
+      connect: { color: "BLACK" },
     },
     sizes: {
       connect: [1, 2, 3, 4, 5].map((id) => ({ id })),

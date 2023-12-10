@@ -198,6 +198,10 @@ const MemberDeals = () => (
 );
 
 export default function Home() {
+  const { data } = api.product.getAllSQL.useQuery({
+    pageSize: 12,
+  });
+  console.warn(data);
   return (
     <>
       <NextSeo
