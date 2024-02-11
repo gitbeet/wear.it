@@ -1,11 +1,5 @@
-import type {
-  ColorDetails,
-  ProductCategory,
-  ProductImage,
-  SizeDetails,
-} from "@prisma/client";
+import type { ColorDetails, ProductImage, SizeDetails } from "@prisma/client";
 import ProductCard from "./Product/ProductCard";
-import { type RouterOutputs } from "~/utils/api";
 
 export type SQLProductType = {
   id: string;
@@ -28,8 +22,7 @@ export type SQLProductType = {
   discount: {
     discountPercent: number | null;
     active: boolean | null;
-  };
-  // discountpercent: number | null;
+  } | null;
 };
 
 interface Props {

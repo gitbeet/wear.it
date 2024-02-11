@@ -93,9 +93,9 @@ export const productRouter = createTRPCRouter({
           }),
         },
         include: {
-          images: true,
           discount: {
             select: {
+              active: true,
               discountPercent: true,
             },
           },
@@ -103,6 +103,14 @@ export const productRouter = createTRPCRouter({
             select: {
               name: true,
               slug: true,
+            },
+          },
+          images: {
+            select: {
+              imageURL: true,
+              id: true,
+              color: true,
+              productId: true,
             },
           },
           colors: true,
@@ -147,6 +155,7 @@ export const productRouter = createTRPCRouter({
               imageURL: true,
               id: true,
               color: true,
+              productId: true,
             },
           },
           colors: true,

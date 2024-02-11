@@ -1,9 +1,9 @@
-import { type RouterOutputs } from "~/utils/api";
 import ProductCard from "./Product/ProductCard";
+import type { SQLProductType } from "./Products";
 
 interface Props {
   show: boolean;
-  results: RouterOutputs["product"]["searchProduct"];
+  results: SQLProductType[] | undefined;
   onClose: () => void;
   query: string;
 }

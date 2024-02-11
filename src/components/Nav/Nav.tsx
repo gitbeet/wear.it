@@ -62,6 +62,8 @@ const Nav = () => {
     getDebouncedResults(value);
   };
 
+  console.log(searchResults);
+
   return (
     <nav>
       <div className="relative z-50  bg-slate-50 shadow-lg shadow-indigo-600/5">
