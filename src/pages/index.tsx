@@ -78,6 +78,7 @@ const EventSlider = () => {
       sort: undefined,
       type: ["MEN", "WOMEN"],
     });
+
   return (
     <section className="padding-x flex w-full flex-col items-start gap-2 md:flex-row md:items-center lg:gap-16">
       <div>

@@ -280,12 +280,12 @@ export const productRouter = createTRPCRouter({
         WHERE p."id" = psd."A"
     ) AS sizes,   
               json_build_object('name', pc.name, 'slug', pc.slug) AS category,   
-              d."discountPercent" as discountPercent
+              json_build_object('active', d."active", 'discountPercent', d."discountPercent") AS discount 
               FROM "Product" p
                 LEFT JOIN "Discount" d ON p."discountId" = d."id"
                 LEFT JOIN "ProductCategory" pc ON p."categoryId" = pc."id"
                 LEFT JOIN "ProductCategory" pc_parent ON pc."parentId" = pc_parent."id"
-                GROUP BY p."id" , p."name" , d."discountPercent" , pc."slug" ,  pc_parent."slug"  , pc."name"
+                GROUP BY p."id" , p."name" , d."discountPercent" , pc."slug" ,  pc_parent."slug"  , pc."name" ,  d."active"
           ) AS subquery
                  WHERE ${priceCondition}  ${collectionCondition} ${colorCondition} ${sizesCondition} ${typeCondition} ${categoryCondition} ${orderByStatement} ${skipStatement} ${limitStatement}
        `;

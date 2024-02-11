@@ -4,10 +4,7 @@ import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
-import { type RouterOutputs } from "~/utils/api";
 import type { SQLProductType } from "../Products";
-
-type Product = RouterOutputs["product"]["getAll"]["products"][number];
 
 const ProductCard = ({ product }: { product: SQLProductType }) => {
   const { isFavorited } = useFavoritesContext();
@@ -16,8 +13,8 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
   const [currentImage, setCurrentImage] = useState(product.images[0]?.id);
   const priceBeforeDiscount = formatCurrency(product.price);
   const priceAfterDiscount = formatCurrency(
-    product.discountpercent
-      ? product.price - (product.price * product.discountpercent) / 100
+    product.discount?.discountPercent
+      ? product.price - (product.price * product.discount.discountPercent) / 100
       : product.price,
   );
   const currentImageColor = product.images.find(
@@ -54,10 +51,10 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
     </div>
   );
 
-  const prices = product.discountpercent ? (
+  const prices = product.discount?.discountPercent ? (
     <div className="absolute bottom-2 left-4 text-slate-900 transition-transform duration-300 group-hover:-translate-y-1.5">
       <p className="w-fit rounded-sm bg-teal-500 px-2 py-1 font-display font-bold text-white">
-        -{product.discountpercent}%
+        -{product.discount?.discountPercent}%
       </p>
       <div className="h-1.5"></div>
       <div className=" flex gap-2 ">

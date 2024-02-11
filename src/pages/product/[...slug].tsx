@@ -177,7 +177,10 @@ const Product = ({
     });
   // Get reccomended products
   const { data: reccomendedProducts, isLoading: isGettingReccomended } =
-    api.product.getAll.useQuery({ collectionId: undefined, color: undefined });
+    api.product.getAllSQL.useQuery({
+      collectionId: undefined,
+      color: undefined,
+    });
 
   const { setShowBagModal } = useModalsContext();
   const { isFavorited } = useFavoritesContext();

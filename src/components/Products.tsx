@@ -7,7 +7,6 @@ import type {
 import ProductCard from "./Product/ProductCard";
 import { type RouterOutputs } from "~/utils/api";
 
-type ProductType = RouterOutputs["product"]["getAll"]["products"];
 export type SQLProductType = {
   id: string;
   createdAt: Date;
@@ -21,12 +20,16 @@ export type SQLProductType = {
   inventoryId: string;
   collectionId: number | null;
   discountId: number | null;
-  discountedprice: number;
+  discountedprice?: number;
   colors: ColorDetails[];
   images: ProductImage[];
   sizes: SizeDetails[];
   category: { name: string; slug: string };
-  discountpercent: number | null;
+  discount: {
+    discountPercent: number | null;
+    active: boolean | null;
+  };
+  // discountpercent: number | null;
 };
 
 interface Props {
