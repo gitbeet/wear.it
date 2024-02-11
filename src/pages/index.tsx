@@ -70,7 +70,7 @@ const Hero = () => (
 
 const EventSlider = () => {
   const { data: products, isLoading: isGettingProducts } =
-    api.product.getAll.useQuery({
+    api.product.getAllSQL.useQuery({
       // collectionId: 1,
       color: undefined,
       size: undefined,
@@ -106,7 +106,7 @@ const EventSlider = () => {
 
 const Trending = () => {
   const { data: products, isLoading: isGettingProducts } =
-    api.product.getAll.useQuery({
+    api.product.getAllSQL.useQuery({
       color: undefined,
       size: undefined,
       slug: undefined,

@@ -7,6 +7,7 @@ import {
   ProductSize,
 } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
+import { SQLProductType } from "~/components/Products";
 
 // MAPS
 const colors: { id: number; color: ProductColor }[] = [
@@ -239,7 +240,7 @@ export const productRouter = createTRPCRouter({
         ? Prisma.sql`LIMIT ${pageSize}`
         : Prisma.empty;
       // QUERY
-      const products = await ctx.db.$queryRaw`
+      const products: SQLProductType[] = await ctx.db.$queryRaw`
           SELECT *
           FROM (
             SELECT
@@ -289,7 +290,7 @@ export const productRouter = createTRPCRouter({
                  WHERE ${priceCondition}  ${collectionCondition} ${colorCondition} ${sizesCondition} ${typeCondition} ${categoryCondition} ${orderByStatement} ${skipStatement} ${limitStatement}
        `;
 
-      const totalCount: { count: bigint }[] = await ctx.db.$queryRaw`
+      const totalProducts: { count: bigint }[] = await ctx.db.$queryRaw`
    SELECT
     COUNT(*)
       FROM (
@@ -309,8 +310,8 @@ export const productRouter = createTRPCRouter({
              WHERE ${priceCondition}  ${collectionCondition} ${colorCondition} ${sizesCondition} ${typeCondition} ${categoryCondition}
    `;
 
-      const formattedTotalCount =
-        totalCount[0] && Number(totalCount?.[0].count);
+      const formattedTotalProducts =
+        totalProducts[0] && Number(totalProducts?.[0].count);
 
       const minPrice: { min: number }[] = await ctx.db.$queryRaw`
         SELECT
@@ -358,9 +359,9 @@ export const productRouter = createTRPCRouter({
 
       return {
         products,
-        totalCount: formattedTotalCount,
-        min: formattedMinPrice,
-        max: formattedMaxPrice,
+        totalProducts: formattedTotalProducts,
+        minPrice: formattedMinPrice,
+        maxPrice: formattedMaxPrice,
       };
     }),
   getAll: publicProcedure
@@ -521,6 +522,11 @@ export const productRouter = createTRPCRouter({
           }),
         ]);
 
-      return { products, totalProducts, minPrice, maxPrice };
+      return {
+        products,
+        totalProducts,
+        minPrice: minPrice._min.price,
+        maxPrice: maxPrice._max.price,
+      };
     }),
 });

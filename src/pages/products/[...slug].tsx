@@ -1,4 +1,8 @@
-import { CategoryType, ProductColor, ProductSize } from "@prisma/client";
+import {
+  CategoryType,
+  type ProductColor,
+  type ProductSize,
+} from "@prisma/client";
 import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
@@ -73,7 +77,7 @@ const ProductsPage = (
     }),
     [color, size, slug, sort, currentPage, priceFrom, priceTo],
   );
-  const { data, isLoading } = api.product.getAll.useQuery(queryInput);
+  const { data, isLoading } = api.product.getAllSQL.useQuery(queryInput);
 
   return (
     <>
@@ -119,7 +123,10 @@ const ProductsPage = (
           <p className="pb-8  text-xl">
             <span className="font-bold">{data.totalProducts}</span>
             {` Product${
-              data.totalProducts > 1 || data.totalProducts === 0 ? "s" : ""
+              data.totalProducts &&
+              (data?.totalProducts > 1 || data.totalProducts) === 0
+                ? "s"
+                : ""
             } found`}
           </p>
         )}
@@ -131,8 +138,8 @@ const ProductsPage = (
           >
             <PriceFilter
               loading={isLoading}
-              min={data?.minPrice._min.price ?? 0}
-              max={data?.maxPrice._max.price ?? 10000}
+              min={data?.minPrice ?? 0}
+              max={data?.maxPrice ?? 10000}
             />
             <div className="w-full border-b border-slate-200"></div>
             <SizeFilter loading={isLoading} />
