@@ -247,16 +247,44 @@ export const productRouter = createTRPCRouter({
               CASE
                 WHEN d."discountPercent" IS NULL THEN p.price
                 ELSE p.price * (1 - d."discountPercent" / 100)
-              END as discountedprice,
-              d."discountPercent" as discountPercent,
-              pc."slug" as category_slug,
-              pc_parent."slug" as category_parent_slug,
-              array_agg(i."imageURL") as images
-            FROM "Product" p
-            LEFT JOIN "Discount" d ON p."discountId" = d."id"
-            LEFT  JOIN "ProductCategory" pc ON p."categoryId" = pc."id"
-            LEFT JOIN "ProductCategory" pc_parent ON pc."parentId" = pc_parent."id"
-            LEFT JOIN "ProductImage" i ON p."id" = i."productId"
+              END as discountedprice,  
+              (
+        SELECT JSON_AGG(json_build_object(
+            'id', cd."id",
+            'name' , cd."name",
+            'color', cd."color"
+        ))
+        FROM "_ColorDetailsToProduct" cdp
+        LEFT JOIN "ColorDetails" cd ON cdp."A" = cd."id"
+        WHERE p."id" = cdp."B"
+    ) AS colors,
+    (
+        SELECT JSON_AGG(json_build_object(
+            'id', i."id",
+            'imageURL', i."imageURL",
+            'productId', i."productId",
+            'color', i."color"
+        ))
+        FROM "ProductImage" i
+        WHERE p."id" = i."productId"
+    ) AS images, 
+    (
+        SELECT JSON_AGG(json_build_object(
+            'id', sd."id",
+            'name' , sd."name",
+            'size', sd."size"
+        ))
+        FROM "_ProductToSizeDetails" psd
+        LEFT JOIN "SizeDetails" sd ON psd."B" = sd."id"
+        WHERE p."id" = psd."A"
+    ) AS sizes,   
+              json_build_object('name', pc.name, 'slug', pc.slug) AS category,   
+              d."discountPercent" as discountPercent
+              FROM "Product" p
+                LEFT JOIN "Discount" d ON p."discountId" = d."id"
+                LEFT JOIN "ProductCategory" pc ON p."categoryId" = pc."id"
+                LEFT JOIN "ProductCategory" pc_parent ON pc."parentId" = pc_parent."id"
+                GROUP BY p."id" , p."name" , d."discountPercent" , pc."slug" ,  pc_parent."slug"  , pc."name"
           ) AS subquery
                  WHERE ${priceCondition}  ${collectionCondition} ${colorCondition} ${sizesCondition} ${typeCondition} ${categoryCondition} ${orderByStatement} ${skipStatement} ${limitStatement}
        `;
