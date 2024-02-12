@@ -7,7 +7,7 @@ import {
   ProductSize,
 } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-import { SQLProductType } from "~/components/Products";
+import type { SQLProductType } from "~/types";
 
 // MAPS
 const colors: { id: number; color: ProductColor }[] = [
@@ -34,6 +34,31 @@ const sizes: { id: number; size: ProductSize }[] = [
   { id: 6, size: "XXL" },
   { id: 7, size: "XXXL" },
 ];
+
+const includeStatement = {
+  discount: {
+    select: {
+      active: true,
+      discountPercent: true,
+    },
+  },
+  category: {
+    select: {
+      name: true,
+      slug: true,
+    },
+  },
+  images: {
+    select: {
+      imageURL: true,
+      id: true,
+      color: true,
+      productId: true,
+    },
+  },
+  colors: true,
+  sizes: true,
+};
 
 export const productRouter = createTRPCRouter({
   searchProduct: publicProcedure
@@ -92,30 +117,7 @@ export const productRouter = createTRPCRouter({
             };
           }),
         },
-        include: {
-          discount: {
-            select: {
-              active: true,
-              discountPercent: true,
-            },
-          },
-          category: {
-            select: {
-              name: true,
-              slug: true,
-            },
-          },
-          images: {
-            select: {
-              imageURL: true,
-              id: true,
-              color: true,
-              productId: true,
-            },
-          },
-          colors: true,
-          sizes: true,
-        },
+        include: includeStatement,
       });
 
       return results;
@@ -137,30 +139,7 @@ export const productRouter = createTRPCRouter({
         where: {
           id,
         },
-        include: {
-          discount: {
-            select: {
-              active: true,
-              discountPercent: true,
-            },
-          },
-          category: {
-            select: {
-              name: true,
-              slug: true,
-            },
-          },
-          images: {
-            select: {
-              imageURL: true,
-              id: true,
-              color: true,
-              productId: true,
-            },
-          },
-          colors: true,
-          sizes: true,
-        },
+        include: includeStatement,
       });
 
       return product;
@@ -240,7 +219,7 @@ export const productRouter = createTRPCRouter({
           : sort === "low-to-high"
           ? Prisma.sql`ORDER BY subquery."price" ASC`
           : sort === "high-to-low"
-          ? Prisma.sql`ORDER BY subquery."price" ASC`
+          ? Prisma.sql`ORDER BY subquery."price" DESC`
           : Prisma.empty;
       // SKIP
       const skipStatement = skip ? Prisma.sql`OFFSET ${skip}` : Prisma.empty;
@@ -488,23 +467,7 @@ export const productRouter = createTRPCRouter({
         await ctx.db.$transaction([
           ctx.db.product.findMany({
             where,
-            include: {
-              images: true,
-              discount: {
-                select: {
-                  discountPercent: true,
-                },
-              },
-              category: {
-                select: {
-                  name: true,
-                  slug: true,
-                },
-              },
-              colors: true,
-              sizes: true,
-            },
-
+            include: includeStatement,
             take: pageSize,
             skip,
             orderBy:

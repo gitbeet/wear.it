@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
-import type { SQLProductType } from "../Products";
+import type { SQLProductType } from "~/types";
 
 const ProductCard = ({ product }: { product: SQLProductType }) => {
   const { isFavorited } = useFavoritesContext();

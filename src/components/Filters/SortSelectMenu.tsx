@@ -39,26 +39,38 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
       <div
         className={`${
           showSort ? "" : "opacity-0"
-        } absolute left-4 flex w-max -translate-x-1/2 flex-col gap-2  rounded-lg bg-slate-50 p-6 text-right font-semibold transition-all duration-500`}
+        } absolute left-4 flex w-max -translate-x-1/2 flex-col gap-2 rounded-lg  bg-slate-50 p-6 text-right font-semibold shadow-md transition-all duration-500`}
       >
         <p
           onClick={() => handleChangeSort("newest")}
           role="listitem"
-          className={`cursor-pointer text-slate-800 hover:text-slate-400`}
+          className={`${
+            sortQueryArray[0] === "newest"
+              ? "text-indigo-500"
+              : "text-slate-800"
+          } cursor-pointer hover:text-slate-400`}
         >
           Newest
         </p>
         <p
           onClick={() => handleChangeSort("high-to-low")}
           role="listitem"
-          className={`cursor-pointer text-slate-800 hover:text-slate-400`}
+          className={`${
+            sortQueryArray[0] === "high-to-low"
+              ? "text-indigo-500"
+              : "text-slate-800"
+          } cursor-pointer hover:text-slate-400`}
         >
           Price: High-Low
         </p>
         <p
           onClick={() => handleChangeSort("low-to-high")}
           role="listitem"
-          className={`cursor-pointer text-slate-800 hover:text-slate-400`}
+          className={`${
+            sortQueryArray[0] === "low-to-high"
+              ? "text-indigo-500"
+              : "text-slate-800"
+          } cursor-pointer hover:text-slate-400`}
         >
           Price: Low-High
         </p>

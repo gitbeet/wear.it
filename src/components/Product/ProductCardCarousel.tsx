@@ -1,10 +1,11 @@
-import Carousel, { ArrowProps, ResponsiveType } from "react-multi-carousel";
+import Carousel, {
+  type ArrowProps,
+  type ResponsiveType,
+} from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { type RouterOutputs } from "~/utils/api";
 import ProductCard from "./ProductCard";
 import { FiChevronRight } from "react-icons/fi";
-import type { SQLProductType } from "../Products";
-type Product = RouterOutputs["product"]["getAll"]["products"][number];
+import type { SQLProductType } from "~/types";
 
 const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
   return (

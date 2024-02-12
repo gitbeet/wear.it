@@ -18,7 +18,7 @@ const emptySlider = (
         <p className="absolute left-0 top-6 text-sm">{formatCurrency(0)}</p>
         <p className="absolute right-0 top-6 text-sm">{formatCurrency(0)}</p>
         <ReactSlider
-          step={1}
+          step={50}
           min={0}
           max={1}
           onChange={() => {

@@ -1,5 +1,5 @@
 import ProductCard from "./Product/ProductCard";
-import type { SQLProductType } from "./Products";
+import type { SQLProductType } from "~/types";
 
 interface Props {
   show: boolean;
