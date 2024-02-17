@@ -9,7 +9,7 @@ const Profile = () => {
   const { signOut } = useClerk();
   const router = useRouter();
 
-  if (!isSignedIn) {
+  if (typeof window !== "undefined" && !isSignedIn && isLoaded) {
     void router.push("/sign-in");
   }
 
