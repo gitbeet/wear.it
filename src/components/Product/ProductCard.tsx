@@ -109,6 +109,7 @@ const ProductCard = ({
           return showColorVariations ? (
             <Link key={i} href={productLink}>
               <Image
+                onClick={onClick}
                 onMouseOver={() => setCurrentImage(image?.id)}
                 className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 cursor-pointer bg-slate-100"
                 width={56}
