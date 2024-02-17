@@ -8,7 +8,6 @@ import type { SQLProductType } from "~/types";
 
 const ProductCard = ({ product }: { product: SQLProductType }) => {
   const { isFavorited } = useFavoritesContext();
-
   const [showColorVariations, setShowColorVariations] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.images[0]?.id);
   const priceBeforeDiscount = formatCurrency(product.price);
@@ -40,13 +39,13 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
         currentImageColor && isFavorited(currentImageColor, product.id)
           ? "border-indigo-100"
           : "border-transparent"
-      } absolute bottom-4 right-4 z-10 flex h-10 w-10  items-center justify-center rounded-full bg-slate-50 pt-1`}
+      } @2xs:h-10 @2xs:w-10 @2xs:p-2 absolute right-[4%] top-[4%] z-10 flex h-8 w-8  items-center justify-center rounded-full bg-slate-50 p-1.5`}
     >
       {currentImageColor && isFavorited(currentImageColor, product.id) && (
-        <BsHeartFill className="h-6 w-6 text-indigo-400" />
+        <BsHeartFill className=" text-indigo-400" />
       )}
       {currentImageColor && !isFavorited(currentImageColor, product.id) && (
-        <BsHeart className="h-6 w-6 text-slate-600" />
+        <BsHeart className="h-full w-full text-slate-600" />
       )}
     </div>
   );
@@ -86,7 +85,7 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
           return (
             <Image
               onMouseOver={() => setCurrentImage(image?.id)}
-              className="bg-slate-100"
+              className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 bg-slate-100"
               width={56}
               height={56}
               key={i}
@@ -100,7 +99,7 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
       <div
         className={`${
           !showColorVariations ? "opacity-100" : "translate-y-full opacity-0"
-        } t absolute min-h-[4rem]  w-full  overflow-hidden transition-[transform,opacity]  duration-[250ms]`}
+        } t absolute  min-h-[4rem]  w-full overflow-hidden  transition-[transform,opacity] duration-[250ms]`}
       >
         <p className="line-clamp-1 font-semibold">{product.name}</p>
         <div className="h-1"></div>
@@ -109,25 +108,28 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
     </div>
   );
 
+  const productLink = `/product/${product.id}/${product.images.find(
+    (image) => image.id === currentImage,
+  )?.color}`;
+
   return (
-    <Link
-      href={`/product/${product.id}/${product.images.find(
-        (image) => image.id === currentImage,
-      )?.color}`}
-      className={`group flex flex-col items-center justify-center  rounded-sm bg-slate-50 p-1 text-slate-800`}
-      onMouseOver={() => setShowColorVariations(true)}
-      onMouseLeave={() => setShowColorVariations(false)}
-    >
-      <div className="relative aspect-square w-full ">
-        {favoriteButton}
-        {image}
-        {prices}
-      </div>
-      <div className="h-4"></div>
-      {thumbnails}
-      {/* <div className="h-4"></div>
-      {nameAndCategory} */}
-    </Link>
+    <article className="@container">
+      <Link
+        href={productLink}
+        className={` @2xs:text-base group flex flex-col items-center  justify-center rounded-sm bg-slate-50 p-1 text-xs text-slate-800`}
+        onMouseOver={() => setShowColorVariations(true)}
+        onMouseLeave={() => setShowColorVariations(false)}
+        onTouchStart={() => setShowColorVariations(true)}
+      >
+        <div className="relative aspect-square w-full ">
+          {favoriteButton}
+          {image}
+          {prices}
+        </div>
+        <div className="h-4"></div>
+        {thumbnails}
+      </Link>
+    </article>
   );
 };
 

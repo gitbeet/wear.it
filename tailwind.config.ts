@@ -6,6 +6,9 @@ export default {
   safelist: safeListColors,
   theme: {
     extend: {
+      containers: {
+        "2xs": "16rem",
+      },
       screens: {
         xs: "440px",
         "3xl": "1600px",
@@ -17,5 +20,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/container-queries")],
 } satisfies Config;

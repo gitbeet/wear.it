@@ -6,13 +6,17 @@ import CartModal from "../Cart/CartModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "../Logo";
 import FavoritesNavIcon from "../FavoritesNavIcon";
-import Search from "../Search";
+import SearchBar from "../SearchBar";
 import SearchResults from "../SearchResults";
 import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
 import MobileMenuButton from "../MobileMenu/MobileMenuButton";
 import ProfileButton from "./ProfileButton";
 import { useUser } from "@clerk/nextjs";
+import MobileSearchMenu from "../MobileSearchMenu";
+import NavIcon from "./NavIcon";
+import { FiSearch } from "react-icons/fi";
+import { BsSearch } from "react-icons/bs";
 
 const Nav = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -41,6 +45,7 @@ const Nav = () => {
 
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
+  const [showMobileSearchMenu, setShowMobileSearchMenu] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -81,12 +86,10 @@ const Nav = () => {
     getDebouncedResults(value);
   };
 
-  console.log(searchResults);
-
   return (
     <nav
       className={` ${
-        isNavHidden
+        isNavHidden && !showSearchResults
           ? "-translate-y-full opacity-0"
           : "-translate-y-0 opacity-100"
       } fixed z-[50] w-full transition-[opacity,transform] duration-[550ms] ease-in-out `}
@@ -128,13 +131,23 @@ const Nav = () => {
             <NavLink link="/contact" text="Contact" />
           </ul>
           <div className="flex items-center">
-            <Search
-              onFocus={() => setShowSearchResults(true)}
+            <SearchBar
+              mobile={false}
+              onFocus={() => {
+                if (query.length < 1) return;
+                setShowSearchResults(true);
+              }}
               onBlur={() => void 0}
               handleCloseButton={handleCloseButton}
               input={query}
               handleSearch={handleSearch}
             />
+            <div className="md:hidden">
+              <NavIcon
+                icon={<FiSearch className="h-5 w-5 opacity-80" />}
+                onClick={() => setShowMobileSearchMenu(true)}
+              />
+            </div>
             <div className="hidden w-7 md:block"></div>
             <FavoritesNavIcon />
             <CartIcon />
@@ -152,7 +165,23 @@ const Nav = () => {
         results={searchResults}
         loading={isSearching}
       />
-
+      <MobileSearchMenu
+        handleCloseButton={() => setShowMobileSearchMenu(false)}
+        handleClearQuery={handleCloseButton}
+        onFocus={() => {
+          if (query.length < 1) return;
+          setShowSearchResults(true);
+        }}
+        onBlur={() => void 0}
+        input={query}
+        handleSearch={handleSearch}
+        showMenu={showMobileSearchMenu}
+        query={debouncedQuery}
+        onClose={() => setShowSearchResults(false)}
+        showResults={showSearchResults}
+        results={searchResults}
+        loading={isSearching}
+      />
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
       <CartModal />
     </nav>
