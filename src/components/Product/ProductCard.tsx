@@ -110,7 +110,6 @@ const ProductCard = ({
             <Link key={i} href={productLink}>
               <Image
                 onMouseOver={() => setCurrentImage(image?.id)}
-                onTouchStart={() => setCurrentImage(image?.id)}
                 className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 cursor-pointer bg-slate-100"
                 width={56}
                 height={56}
@@ -122,7 +121,6 @@ const ProductCard = ({
             <div key={i}>
               <Image
                 onMouseOver={() => setCurrentImage(image?.id)}
-                onTouchStart={() => setCurrentImage(image?.id)}
                 className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 cursor-pointer bg-slate-100"
                 width={56}
                 height={56}
@@ -150,8 +148,6 @@ const ProductCard = ({
     <article
       onMouseOver={() => setShowColorVariations(true)}
       onMouseLeave={() => setShowColorVariations(false)}
-      onTouchEnd={() => setShowColorVariations(true)}
-      // onClick={onClick}
       className="@container"
     >
       <div
