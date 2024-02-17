@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import MegaMenu from "./MegaMenu";
 import NavLink from "./NavLink";
 import CartIcon from "../Cart/CartIcon";
@@ -15,6 +15,28 @@ import ProfileButton from "./ProfileButton";
 import { useUser } from "@clerk/nextjs";
 
 const Nav = () => {
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isNavHidden, setIsNavHidden] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setPrevScrollPos(currentScrollPos);
+      if (currentScrollPos < 150) {
+        setIsNavHidden(false);
+        return;
+      }
+      const isScrollingDown = currentScrollPos > prevScrollPos;
+      setIsNavHidden(isScrollingDown);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [prevScrollPos]);
+
   const { isSignedIn } = useUser();
 
   const [type, setType] = useState<"men" | "women" | null>(null);
@@ -62,8 +84,14 @@ const Nav = () => {
   console.log(searchResults);
 
   return (
-    <nav>
-      <div className="relative z-[50]  bg-slate-50 shadow-lg shadow-indigo-600/5">
+    <nav
+      className={` ${
+        isNavHidden
+          ? "-translate-y-full opacity-0"
+          : "-translate-y-0 opacity-100"
+      } fixed z-[50] w-full transition-[opacity,transform] duration-[550ms] ease-in-out `}
+    >
+      <div className=" relative z-[50]  bg-slate-50 shadow-lg shadow-indigo-600/5">
         <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
           <Logo />
 
@@ -122,7 +150,9 @@ const Nav = () => {
         onClose={() => setShowSearchResults(false)}
         show={showSearchResults}
         results={searchResults}
+        loading={isSearching}
       />
+
       <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
       <CartModal />
     </nav>

@@ -17,7 +17,7 @@ export const PromosBanner = ({
     },
   };
 
-  const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
+  const CustomRightArrow = ({ onClick }: ArrowProps) => {
     return (
       <FiChevronRight
         role="button"
@@ -27,7 +27,7 @@ export const PromosBanner = ({
     );
   };
 
-  const CustomLeftArrow = ({ onClick, ...rest }: ArrowProps) => {
+  const CustomLeftArrow = ({ onClick }: ArrowProps) => {
     return (
       <FiChevronRight
         role="button"
@@ -38,7 +38,8 @@ export const PromosBanner = ({
   };
 
   return (
-    <div className="gradient-main-r relative z-20 flex w-full items-center justify-center text-slate-50">
+    // Hard coded pt-[60px] - value of the nav height
+    <div className="gradient-main-r relative z-[40] flex w-full items-center justify-center pt-[60px] text-slate-50">
       <Carousel
         removeArrowOnDeviceType={["mobile", "tablet"]}
         className="w-[min(calc(100%-48px),700px)]  py-1.5 md:py-2"
