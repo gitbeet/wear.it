@@ -19,6 +19,8 @@ export const colorOptions: {
   { id: 12, color: "BEIGE", colorClass: "bg-yellow-600" },
 ];
 
+export const safeListColors = colorOptions.map((option) => option.colorClass);
+
 export const sizeOptions: { id: number; size: ProductSize }[] = [
   { id: 1, size: "XS" },
   { id: 2, size: "S" },

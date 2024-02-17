@@ -336,7 +336,8 @@ const Product = ({
         {colors.map((c, i) => {
           const tailwindColor = colorOptions.find(
             (option) => option.color === c.color,
-          )?.color;
+          )?.colorClass;
+          console.log(tailwindColor);
           return (
             <div
               key={i}
@@ -344,10 +345,10 @@ const Product = ({
               onClick={async () => {
                 await handleColor(c.color);
               }}
-              className={`h-8 w-8 rounded-full ${tailwindColor} border-[2px] outline outline-2 ${
+              className={`h-8 w-8 rounded-full border-[2px] outline outline-2 ${tailwindColor} ${
                 selectedColor === c.color
-                  ? "border-slate-100 outline-indigo-300 "
-                  : "border-slate-200 outline-transparent "
+                  ? "border-slate-100 outline-indigo-300"
+                  : "border-slate-200 outline-transparent"
               }`}
             ></div>
           );

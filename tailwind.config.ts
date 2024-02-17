@@ -1,7 +1,9 @@
 import { type Config } from "tailwindcss";
+import { safeListColors } from "./src/maps";
 
 export default {
   content: ["./src/**/*.tsx"],
+  safelist: safeListColors,
   theme: {
     extend: {
       screens: {
