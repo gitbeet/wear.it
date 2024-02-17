@@ -7,6 +7,7 @@ export default {
       screens: {
         xs: "440px",
         "3xl": "1600px",
+        "hover-hover": { raw: "(hover: hover)" },
       },
       fontFamily: {
         display: "Montserrat , sans-serif",
