@@ -15,7 +15,7 @@ export const Summary = () => {
   if (isGettingCart) return <SummarySkeleton />;
 
   return (
-    <section className="">
+    <section>
       <h2 className="text-2xl font-semibold leading-none">Summary</h2>
       <div className="h-8"></div>
       <table className="w-full ">

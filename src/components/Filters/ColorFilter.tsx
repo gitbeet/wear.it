@@ -1,27 +1,6 @@
-import { type ProductColor } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useRouterQuery } from "~/hooks/useRouterQuery";
-
-export type ColorOption = {
-  name: ProductColor;
-  color: string;
-  id: number;
-};
-
-export const colorOptions: ColorOption[] = [
-  { id: 1, name: "RED", color: "bg-red-500" },
-  { id: 2, name: "PURPLE", color: "bg-purple-500" },
-  { id: 3, name: "BLACK", color: "bg-black" },
-  { id: 4, name: "BLUE", color: "bg-blue-500" },
-  { id: 5, name: "ORANGE", color: "bg-orange-500" },
-  { id: 6, name: "WHITE", color: "bg-white" },
-  { id: 7, name: "GREEN", color: "bg-green-500" },
-  { id: 8, name: "PINK", color: "bg-pink-300" },
-  { id: 9, name: "BROWN", color: "bg-amber-900" },
-  { id: 10, name: "YELLOW", color: "bg-yellow-500" },
-  { id: 11, name: "GRAY", color: "bg-slate-600" },
-  { id: 12, name: "BEIGE", color: "bg-yellow-600" },
-];
+import { colorOptions } from "~/maps";
 
 const ColorFilter = ({ loading }: { loading: boolean }) => {
   const router = useRouter();
@@ -50,8 +29,8 @@ const ColorFilter = ({ loading }: { loading: boolean }) => {
       <div className="h-4"></div>
       <div className="grid grid-cols-3 items-center justify-center gap-2.5">
         {colorOptions.map((option) => {
-          const lowerCaseName = option.name.toLowerCase();
-          const isIncluded = colorsQueryArray.includes(option.name);
+          const lowerCaseName = option.color.toLowerCase();
+          const isIncluded = colorsQueryArray.includes(option.color);
           return (
             <div
               key={option.id}
@@ -59,15 +38,15 @@ const ColorFilter = ({ loading }: { loading: boolean }) => {
             >
               <button
                 role="checkbox"
-                id={`color-filter-${option.name}`}
+                id={`color-filter-${option.color}`}
                 aria-checked={isIncluded}
-                onClick={() => handleColor(option.name)}
+                onClick={() => handleColor(option.color)}
                 className={` ${
                   loading
                     ? "pointer-events-none cursor-not-allowed opacity-25"
                     : "cursor-pointer"
                 } aspect-square w-[1.625rem] rounded-full ${
-                  option.color
+                  option.colorClass
                 } border-[2px] outline outline-2 ${
                   isIncluded
                     ? "border-slate-100 outline-indigo-400 "
@@ -75,12 +54,12 @@ const ColorFilter = ({ loading }: { loading: boolean }) => {
                 }`}
               ></button>
               <label
-                htmlFor={`color-filter-${option.name}`}
+                htmlFor={`color-filter-${option.color}`}
                 className={`${
                   isIncluded ? "text-slate-800" : "text-slate-500"
                 } cursor-pointer text-sm font-semibold transition-colors duration-150 group-hover:text-slate-800`}
               >
-                {option.name.charAt(0) + lowerCaseName.slice(1)}
+                {option.color.charAt(0) + lowerCaseName.slice(1)}
               </label>
             </div>
           );

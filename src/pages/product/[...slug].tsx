@@ -8,8 +8,6 @@ import { appRouter } from "~/server/api/root";
 import { api } from "~/utils/api";
 import SuperJSON from "superjson";
 import { db } from "~/server/db";
-import LoadingPage from "~/components/loading";
-import { colorOptions } from "~/components/Filters/ColorFilter";
 import type { ProductSize, ProductColor } from "@prisma/client";
 import Button, { ButtonSkeleton } from "~/components/UI/Button";
 import ImageGallery, {
@@ -30,6 +28,7 @@ import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import SectionSpacer from "~/components/UI/SectionSpacer";
 import { useCartContext } from "~/context/cartContext";
 import { NextSeo } from "next-seo";
+import { colorOptions } from "~/maps";
 
 const productPageSkeleton = (
   <>
@@ -336,7 +335,7 @@ const Product = ({
       <div className="flex gap-2">
         {colors.map((c, i) => {
           const tailwindColor = colorOptions.find(
-            (option) => option.name === c.color,
+            (option) => option.color === c.color,
           )?.color;
           return (
             <div

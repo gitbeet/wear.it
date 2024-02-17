@@ -8,32 +8,9 @@ import {
 } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import type { SQLProductType } from "~/types";
+import { colorOptions, sizeOptions } from "~/maps";
 
 // MAPS
-const colors: { id: number; color: ProductColor }[] = [
-  { id: 1, color: "PURPLE" },
-  { id: 2, color: "BLACK" },
-  { id: 3, color: "RED" },
-  { id: 4, color: "ORANGE" },
-  { id: 5, color: "BLUE" },
-  { id: 6, color: "WHITE" },
-  { id: 7, color: "BROWN" },
-  { id: 8, color: "GREEN" },
-  { id: 9, color: "PINK" },
-  { id: 10, color: "YELLOW" },
-  { id: 11, color: "GRAY" },
-  { id: 12, color: "BEIGE" },
-];
-
-const sizes: { id: number; size: ProductSize }[] = [
-  { id: 1, size: "XS" },
-  { id: 2, size: "S" },
-  { id: 3, size: "M" },
-  { id: 4, size: "L" },
-  { id: 5, size: "XL" },
-  { id: 6, size: "XXL" },
-  { id: 7, size: "XXXL" },
-];
 
 const includeStatement = {
   discount: {
@@ -186,7 +163,7 @@ export const productRouter = createTRPCRouter({
             SELECT 1  
             FROM  "_ColorDetailsToProduct" c 
             WHERE c."A" = ANY(${color.map(
-              (c) => colors.find((co) => co.color === c)?.id,
+              (c) => colorOptions.find((co) => co.color === c)?.id,
             )}) AND C."B" = subquery."id"
               )`
           : Prisma.empty;
@@ -197,7 +174,7 @@ export const productRouter = createTRPCRouter({
               SELECT 1  
               FROM  "_ProductToSizeDetails" c 
               WHERE c."B" = ANY(${size.map(
-                (s) => sizes.find((si) => si.size === s)?.id,
+                (s) => sizeOptions.find((si) => si.size === s)?.id,
               )}) AND C."A" = subquery."id"
             )`
           : Prisma.empty;
