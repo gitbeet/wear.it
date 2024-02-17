@@ -46,7 +46,7 @@ const SizeFilter = ({ loading }: { loading: boolean }) => {
               <label
                 className={`${
                   isIncluded ? "text-slate-800" : "text-slate-500"
-                } cursor-pointer pl-2 pr-4 text-sm font-semibold  transition-colors duration-150 hover:text-slate-800`}
+                } hover-hover:hover:text-slate-800 cursor-pointer pl-2 pr-4 text-sm  font-semibold transition-colors duration-150`}
                 htmlFor={size}
               >
                 {size}

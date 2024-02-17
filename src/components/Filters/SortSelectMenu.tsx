@@ -48,7 +48,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
             sortQueryArray[0] === "newest"
               ? "text-indigo-500"
               : "text-slate-800"
-          } cursor-pointer hover:text-slate-400`}
+          } hover-hover:hover:text-slate-400 cursor-pointer`}
         >
           Newest
         </p>
@@ -59,7 +59,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
             sortQueryArray[0] === "high-to-low"
               ? "text-indigo-500"
               : "text-slate-800"
-          } cursor-pointer hover:text-slate-400`}
+          } hover-hover:hover:text-slate-400 cursor-pointer`}
         >
           Price: High-Low
         </p>
@@ -70,7 +70,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
             sortQueryArray[0] === "low-to-high"
               ? "text-indigo-500"
               : "text-slate-800"
-          } cursor-pointer hover:text-slate-400`}
+          } hover-hover:hover:text-slate-400 cursor-pointer`}
         >
           Price: Low-High
         </p>

@@ -4,7 +4,7 @@ const Icon = ({ icon }: { icon: JSX.Element }) => {
   return (
     <div
       role="button"
-      className="transition-opacity duration-150 hover:opacity-75"
+      className="hover-hover:hover:opacity-75 transition-opacity duration-150"
     >
       {icon}
     </div>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { FiChevronUp } from "react-icons/fi";
-import { HiArrowUp } from "react-icons/hi2";
 
 function GoToTopButton() {
   const [showButton, setShowButton] = useState(false);
