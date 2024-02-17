@@ -38,10 +38,10 @@ export const PromosBanner = ({
   };
 
   return (
-    <div className="gradient-main-r relative z-50 flex w-full items-center justify-center text-slate-50">
+    <div className="gradient-main-r relative z-20 flex w-full items-center justify-center text-slate-50">
       <Carousel
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        className="w-[min(95%,700px)] py-1.5 md:py-2"
+        removeArrowOnDeviceType={["mobile", "tablet"]}
+        className="w-[min(calc(100%-48px),700px)]  py-1.5 md:py-2"
         customRightArrow={<CustomRightArrow />}
         customLeftArrow={<CustomLeftArrow />}
         infinite

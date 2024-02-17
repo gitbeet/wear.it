@@ -44,7 +44,7 @@ export default function SignInForm() {
       if (result.status === "complete") {
         console.log(result);
         await setActive({ session: result.createdSessionId });
-        await router.push("/");
+        await router.push("/profile");
       } else {
         /*Investigate why the login hasn't completed */
         console.log(result);

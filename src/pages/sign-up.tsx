@@ -93,7 +93,7 @@ export default function SignUpForm() {
       }
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
-        void router.push("/");
+        void router.push("/profile");
       }
     } catch (err: unknown) {
       console.error(JSON.stringify(err, null, 2));

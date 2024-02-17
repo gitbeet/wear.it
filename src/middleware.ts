@@ -23,6 +23,7 @@ export default authMiddleware({
     "/api/create-payment-intent/index",
     "/api/create-payment-intent/",
     "/successful",
+    "/profile",
   ],
 });
 

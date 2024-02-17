@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .padding-x {
-  @apply px-4 md:px-8;
+  @apply px-6 md:px-8;
 }
 
 .padding-section {

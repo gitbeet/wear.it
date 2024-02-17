@@ -7,6 +7,7 @@ interface Props {
   number?: number;
   loading?: boolean;
   color?: string;
+  onClick?: () => void;
 }
 
 const NavIcon = ({
@@ -15,10 +16,11 @@ const NavIcon = ({
   number = 0,
   loading,
   color = "bg-indigo-400",
+  onClick,
 }: Props) => {
   return (
     <>
-      <Link href={link ?? "#"}>
+      <Link href={link ?? "#"} onClick={onClick}>
         <div
           role="button"
           className="group  relative z-0 rounded-full  bg-transparent p-3 hover:bg-slate-200"

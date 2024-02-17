@@ -40,8 +40,8 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       />
       <main className={` bg-slate-50 font-body text-slate-800`}>
         <MobileMenu />
-        {!isCheckoutPage && <PromosBanner promos={bannerPromos} />}
         {!isCheckoutPage && <Nav />}
+        {!isCheckoutPage && <PromosBanner promos={bannerPromos} />}
         {isCheckoutPage && (
           <div className="relative z-50  bg-slate-50 shadow-lg shadow-indigo-600/5">
             <div className="padding-x mx-auto max-w-[1200px] py-4">

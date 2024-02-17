@@ -5,24 +5,21 @@ import CartIcon from "../Cart/CartIcon";
 import CartModal from "../Cart/CartModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "../Logo";
-import { useUser, useClerk } from "@clerk/nextjs";
 import FavoritesNavIcon from "../FavoritesNavIcon";
 import Search from "../Search";
 import SearchResults from "../SearchResults";
 import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
-import { IoPersonOutline } from "react-icons/io5";
-import { useRouter } from "next/router";
-import NavIcon from "./NavIcon";
 import MobileMenuButton from "../MobileMenu/MobileMenuButton";
+import ProfileButton from "./ProfileButton";
+import { useUser } from "@clerk/nextjs";
 
 const Nav = () => {
-  const { signOut } = useClerk();
-  const router = useRouter();
+  const { isSignedIn } = useUser();
+
   const [type, setType] = useState<"men" | "women" | null>(null);
   const { showMegaMenu, setShowMegaMenu } = useModalsContext();
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const { isSignedIn, user } = useUser();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const {
@@ -66,7 +63,7 @@ const Nav = () => {
 
   return (
     <nav>
-      <div className="relative z-50  bg-slate-50 shadow-lg shadow-indigo-600/5">
+      <div className="relative z-[50]  bg-slate-50 shadow-lg shadow-indigo-600/5">
         <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
           <Logo />
 
@@ -113,27 +110,8 @@ const Nav = () => {
             <div className="hidden w-7 md:block"></div>
             <FavoritesNavIcon />
             <CartIcon />
-            <div role="button">
-              {!isSignedIn ? (
-                <NavIcon
-                  icon={<IoPersonOutline className="h-5 w-5" />}
-                  link="/sign-in"
-                />
-              ) : (
-                <div
-                  role="button"
-                  className="flex items-center gap-2"
-                  onClick={() => signOut(() => router.push("/"))}
-                >
-                  <span className="font-light text-slate-600">Hello,</span>
-                  <span className="font-bold text-indigo-400">
-                    {" "}
-                    {user.username}
-                  </span>
-                  <IoPersonOutline className="h-5 w-5" />
-                </div>
-              )}
-            </div>
+            <div className={` hidden w-4 ${isSignedIn && "md:block"}`}></div>
+            <ProfileButton />
             <div className="w-3 xl:hidden"></div>
             <MobileMenuButton />
           </div>
