@@ -61,7 +61,7 @@ const SearchResults = ({
                 {results.length > 0 &&
                   results.map((product) => (
                     <div key={product.id} className="w-[290px]">
-                      <ProductCard product={product} />
+                      <ProductCard product={product} onClick={onClose} />
                     </div>
                   ))}
               </div>
@@ -107,13 +107,13 @@ const SearchResults = ({
                 className=" grid
               
             
-              grid-cols-[repeat(auto-fit,minmax(190px,1fr))] 
+              grid-cols-[repeat(auto-fit,minmax(140px,1fr))] 
               items-start justify-start gap-1 "
               >
                 {results.length > 0 &&
                   results.map((product) => (
                     <div key={product.id} className="">
-                      <ProductCard product={product} />
+                      <ProductCard product={product} onClick={onClose} />
                     </div>
                   ))}
               </div>

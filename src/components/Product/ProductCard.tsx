@@ -6,7 +6,13 @@ import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import type { SQLProductType } from "~/types";
 
-const ProductCard = ({ product }: { product: SQLProductType }) => {
+const ProductCard = ({
+  product,
+  onClick,
+}: {
+  product: SQLProductType;
+  onClick?: () => void;
+}) => {
   const { isFavorited } = useFavoritesContext();
   const [showColorVariations, setShowColorVariations] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.images[0]?.id);
@@ -20,16 +26,34 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
     (image) => image.id === currentImage,
   )?.color;
 
-  const image = (
-    <Image
-      fill
-      className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-slate-200"
-      src={
-        product.images.find((image) => image.id === currentImage)?.imageURL ??
-        ""
-      }
-      alt="Product image"
-    />
+  const productLink = `/product/${product.id}/${product.images.find(
+    (image) => image.id === currentImage,
+  )?.color}`;
+
+  const image = showColorVariations ? (
+    <Link onClick={onClick} href={productLink}>
+      <Image
+        fill
+        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-slate-200"
+        src={
+          product.images.find((image) => image.id === currentImage)?.imageURL ??
+          ""
+        }
+        alt="Product image"
+      />
+    </Link>
+  ) : (
+    <div>
+      <Image
+        fill
+        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-slate-200"
+        src={
+          product.images.find((image) => image.id === currentImage)?.imageURL ??
+          ""
+        }
+        alt="Product image"
+      />
+    </div>
   );
 
   const favoriteButton = (
@@ -82,16 +106,30 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
           const image = product.images.find(
             (image) => image.color === color.color,
           );
-          return (
-            <Image
-              onMouseOver={() => setCurrentImage(image?.id)}
-              className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 bg-slate-100"
-              width={56}
-              height={56}
-              key={i}
-              src={image?.imageURL ?? ""}
-              alt={`${color.color} variation`}
-            />
+          return showColorVariations ? (
+            <Link key={i} href={productLink}>
+              <Image
+                onMouseOver={() => setCurrentImage(image?.id)}
+                onTouchStart={() => setCurrentImage(image?.id)}
+                className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 cursor-pointer bg-slate-100"
+                width={56}
+                height={56}
+                src={image?.imageURL ?? ""}
+                alt={`${color.color} variation`}
+              />
+            </Link>
+          ) : (
+            <div key={i}>
+              <Image
+                onMouseOver={() => setCurrentImage(image?.id)}
+                onTouchStart={() => setCurrentImage(image?.id)}
+                className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 cursor-pointer bg-slate-100"
+                width={56}
+                height={56}
+                src={image?.imageURL ?? ""}
+                alt={`${color.color} variation`}
+              />
+            </div>
           );
         })}
       </div>
@@ -108,18 +146,16 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
     </div>
   );
 
-  const productLink = `/product/${product.id}/${product.images.find(
-    (image) => image.id === currentImage,
-  )?.color}`;
-
   return (
-    <article className="@container">
-      <Link
-        href={productLink}
+    <article
+      onMouseOver={() => setShowColorVariations(true)}
+      onMouseLeave={() => setShowColorVariations(false)}
+      onTouchEnd={() => setShowColorVariations(true)}
+      // onClick={onClick}
+      className="@container"
+    >
+      <div
         className={` @2xs:text-base group flex flex-col items-center  justify-center rounded-sm bg-slate-50 p-1 text-xs text-slate-800`}
-        onMouseOver={() => setShowColorVariations(true)}
-        onMouseLeave={() => setShowColorVariations(false)}
-        onTouchStart={() => setShowColorVariations(true)}
       >
         <div className="relative aspect-square w-full ">
           {favoriteButton}
@@ -128,7 +164,7 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
         </div>
         <div className="h-4"></div>
         {thumbnails}
-      </Link>
+      </div>
     </article>
   );
 };

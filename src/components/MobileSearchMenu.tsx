@@ -63,7 +63,7 @@ const MobileSearchMenu = ({
       <SearchResults
         mobile
         query={query}
-        onClose={onClose}
+        onClose={handleCloseButton}
         show={showResults && showMenu}
         results={results}
         loading={loading}

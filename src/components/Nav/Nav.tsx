@@ -145,7 +145,10 @@ const Nav = () => {
             <div className="md:hidden">
               <NavIcon
                 icon={<FiSearch className="h-5 w-5 opacity-80" />}
-                onClick={() => setShowMobileSearchMenu(true)}
+                onClick={() => {
+                  setShowMobileSearchMenu(true);
+                  setShowSearchResults(true);
+                }}
               />
             </div>
             <div className="hidden w-7 md:block"></div>
