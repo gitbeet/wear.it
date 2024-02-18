@@ -178,7 +178,7 @@ const Favorites = () => {
         <div className="h-16"></div>
         <FavoritesGrid />
         <RecentlyViewed />
-        <div className="h-48"></div>
+        <div className="h-12 md:h-32"></div>
       </section>
     </>
   );

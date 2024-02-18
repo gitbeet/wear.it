@@ -1,4 +1,5 @@
 import { NextSeo } from "next-seo";
+import Spacer from "~/components/Spacer";
 const OGImageUrl =
   "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 const Contact = () => {
@@ -37,9 +38,9 @@ const Contact = () => {
           cardType: "summary_large_image",
         }}
       />
-      <div className="flex w-full items-center justify-center py-36">
-        <h1 className="font-display text-5xl font-black">Contact</h1>
-      </div>
+      <Spacer type="header" />
+      <h1 className="text-center font-display text-5xl font-black">Contact</h1>
+      <Spacer type="footer" />
     </>
   );
 };

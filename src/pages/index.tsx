@@ -11,6 +11,7 @@ import { FaSnowflake } from "react-icons/fa";
 import SectionSpacer from "~/components/UI/SectionSpacer";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
+import Spacer from "~/components/Spacer";
 
 const sliderPromos = [
   {
@@ -217,13 +218,12 @@ export default function Home() {
         <Hero />
         <div className="h-4 md:h-8"></div>
         <EventSlider />
-        <SectionSpacer />
+        <Spacer type="section" />
         <MemberDeals />
-        <SectionSpacer />
+        <Spacer type="section" />
         <Trending />
-        <SectionSpacer />
+        <Spacer type="section" />
         <Promotions />
-        <SectionSpacer />
       </section>
     </>
   );

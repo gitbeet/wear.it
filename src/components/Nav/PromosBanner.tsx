@@ -52,7 +52,7 @@ export const PromosBanner = ({
       >
         {promos.map((banner, i) => (
           <div
-            className="px-8 text-center text-sm font-semibold sm:px-8"
+            className="px-8 text-center text-xs font-semibold sm:px-8 md:text-sm"
             key={i}
           >
             <p>{banner.text}</p>

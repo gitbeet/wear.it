@@ -53,7 +53,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
             </div>
           </div>
         )}
-        <section className="mx-auto flex min-h-full w-[min(100%,1600px)] grow flex-col items-stretch justify-between">
+        <section className="mx-auto flex min-h-full w-[min(100%,1720px)] grow flex-col items-stretch justify-between">
           {children}
         </section>
         {asPath !== "/checkout" && <Footer />}

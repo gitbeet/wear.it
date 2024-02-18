@@ -24,7 +24,7 @@ const SearchResults = ({
       {loading && show && (
         <>
           <section className="absolute z-40 w-full bg-slate-50 shadow-lg">
-            <div className="padding-x mx-auto flex w-full max-w-[1600px] flex-col  py-36">
+            <div className="padding-x mx-auto flex w-full max-w-[1720px] flex-col  py-36">
               <LoadingPage />
             </div>
           </section>
@@ -41,7 +41,7 @@ const SearchResults = ({
       {show && results && (
         <>
           <section className="absolute z-40 w-full bg-slate-50 shadow-lg">
-            <div className="padding-x mx-auto flex w-full max-w-[1600px] flex-col  pb-12 pt-8">
+            <div className="padding-x mx-auto flex w-full max-w-[1720px] flex-col  pb-12 pt-8">
               <p
                 role="button"
                 onClick={onClose}
@@ -85,7 +85,7 @@ const SearchResults = ({
       {loading && show && (
         <>
           <section className="w-full">
-            <div className="mx-auto flex w-full max-w-[1600px] flex-col">
+            <div className="mx-auto flex w-full  flex-col">
               <LoadingPage />
             </div>
           </section>
@@ -94,7 +94,7 @@ const SearchResults = ({
       {show && results && (
         <>
           <section className="w-full">
-            <div className="mx-auto flex w-full max-w-[1600px] flex-col  pb-12 pt-8">
+            <div className="mx-auto flex max-h-[calc(100vh-100px)] w-full flex-col overflow-hidden pb-12 pt-8">
               {results.length < 1 && (
                 <span className="padding-x pb-24 text-lg">
                   No results found for{" "}
@@ -104,11 +104,8 @@ const SearchResults = ({
                 </span>
               )}
               <div
-                className=" grid
-              
-            
-              grid-cols-[repeat(auto-fit,minmax(140px,1fr))] 
-              items-start justify-start gap-1 "
+                className="grid h-full grid-cols-[repeat(auto-fill,minmax(140px,1fr))] 
+      items-start justify-start gap-1 overflow-auto"
               >
                 {results.length > 0 &&
                   results.map((product) => (

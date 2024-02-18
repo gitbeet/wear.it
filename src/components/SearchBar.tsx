@@ -39,7 +39,7 @@ const SearchBar = ({
         </div>
       )}
       {!mobile && (
-        <div className=" relative hidden h-9 md:block">
+        <div className="relative hidden h-9  md:block">
           {input.length > 1 && (
             <VscChromeClose
               onClick={handleCloseButton}
@@ -53,7 +53,7 @@ const SearchBar = ({
             onBlur={onBlur}
             value={input}
             onChange={handleSearch}
-            className="peer h-full w-60 rounded-full border border-indigo-100 bg-white px-10 outline outline-transparent transition-colors duration-150 focus:border-transparent focus:outline-indigo-300"
+            className="peer h-full w-40 rounded-full border border-indigo-100 bg-white px-10 outline outline-transparent transition-colors duration-150 focus:border-transparent focus:outline-indigo-300"
           />
         </div>
       )}

@@ -8,6 +8,7 @@ import {
 } from "public/assets/icons";
 import Icon from "./UI/Icon";
 import FooterColumn, { type FooterColumnType } from "./UI/FooterColumn";
+import Spacer from "./Spacer";
 
 const navigationFooterColumn: FooterColumnType = {
   footerHeader: "Navigation",
@@ -53,40 +54,43 @@ const promotionsAndDiscountsFooterColumn: FooterColumnType = {
 
 const Footer = () => {
   return (
-    <footer className="w-full border-indigo-100 bg-slate-100  pt-12 text-slate-900">
-      <div className="padding-x xs:flex-row xs:flex-wrap mx-auto flex max-w-[1600px] flex-col justify-start gap-8 pb-12 md:pb-20">
-        <div className="relative -top-2 grow">
-          <Logo />
-        </div>
-        <FooterColumn
-          footerHeader={navigationFooterColumn.footerHeader}
-          footerItems={navigationFooterColumn.footerItems}
-        />
-        <FooterColumn
-          footerHeader={aboutUsColumn.footerHeader}
-          footerItems={aboutUsColumn.footerItems}
-        />
-        <FooterColumn
-          footerHeader={promotionsAndDiscountsFooterColumn.footerHeader}
-          footerItems={promotionsAndDiscountsFooterColumn.footerItems}
-        />
-        <div className="flex grow flex-col  gap-6">
-          <p className="font-display font-bold text-slate-600">Follow us</p>
-          <div className="md:gap-0text-slate-800 flex gap-3 md:block md:space-y-3">
-            <Icon icon={tiktokIcon} />
-            <Icon icon={twitterIcon} />
-            <Icon icon={instagramIcon} />
-            <Icon icon={facebookIcon} />
+    <>
+      <Spacer type="footer" />
+      <footer className="w-full border-indigo-100 bg-slate-100  pt-12 text-slate-900">
+        <div className="padding-x xs:flex-row xs:flex-wrap mx-auto flex max-w-[1720px] flex-col justify-start gap-8 pb-12 md:pb-20">
+          <div className="relative -top-2 grow">
+            <Logo />
+          </div>
+          <FooterColumn
+            footerHeader={navigationFooterColumn.footerHeader}
+            footerItems={navigationFooterColumn.footerItems}
+          />
+          <FooterColumn
+            footerHeader={aboutUsColumn.footerHeader}
+            footerItems={aboutUsColumn.footerItems}
+          />
+          <FooterColumn
+            footerHeader={promotionsAndDiscountsFooterColumn.footerHeader}
+            footerItems={promotionsAndDiscountsFooterColumn.footerItems}
+          />
+          <div className="flex grow flex-col  gap-6">
+            <p className="font-display font-bold text-slate-600">Follow us</p>
+            <div className="md:gap-0text-slate-800 flex gap-3 md:block md:space-y-3">
+              <Icon icon={tiktokIcon} />
+              <Icon icon={twitterIcon} />
+              <Icon icon={instagramIcon} />
+              <Icon icon={facebookIcon} />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="gradient-main-r py-2">
-        <p className="text-center text-sm font-light text-slate-50">
-          <b className="font-display font-black">wear.it</b> 2023© All rights
-          reserved.
-        </p>
-      </div>
-    </footer>
+        <div className="gradient-main-r py-2">
+          <p className="text-center text-sm font-light text-slate-50">
+            <b className="font-display font-black">wear.it</b> 2023© All rights
+            reserved.
+          </p>
+        </div>
+      </footer>
+    </>
   );
 };
 

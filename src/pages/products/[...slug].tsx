@@ -24,6 +24,7 @@ import Pagination from "~/components/Pagination";
 import { useModalsContext } from "~/context/modalsContext";
 import MobileFiltersMenu from "~/components/MobileFiltersMenu";
 import { filtersIcon } from "public/assets/icons";
+import Spacer from "~/components/Spacer";
 
 const skeleton = (
   <section className="grid w-full grow grid-cols-2 content-start gap-2 lg:grid-cols-3">
@@ -111,9 +112,10 @@ const ProductsPage = (
           ],
         }}
       />
+      <Spacer type="header" />
       <main className="flex h-full w-full grow flex-col items-stretch justify-between">
         <section>
-          <section className="padding-x hidden items-center justify-between pt-16 md:flex">
+          <section className="padding-x hidden items-center justify-between md:flex">
             {isLoading ? (
               <div className="  flex items-end justify-between">
                 <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
@@ -193,11 +195,11 @@ const ProductsPage = (
               </div>
             </div>
           )}
-          <section className="flex gap-4 overflow-hidden pt-8">
+          <section className="padding-x flex overflow-hidden pt-8">
             <div
               className={`${
                 showFilters ? "" : "-ml-64"
-              } padding-x  hidden min-w-[250px] transition-all duration-500 md:block`}
+              }   hidden min-w-[250px] transition-all duration-500 md:block`}
             >
               <PriceFilter
                 loading={isLoading}

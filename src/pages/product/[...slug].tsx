@@ -25,14 +25,15 @@ import CreateReviewWizard from "~/components/CreateReviewWizard";
 import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
 import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
-import SectionSpacer from "~/components/UI/SectionSpacer";
 import { useCartContext } from "~/context/cartContext";
 import { NextSeo } from "next-seo";
 import { colorOptions } from "~/maps";
+import Spacer from "~/components/Spacer";
 
 const productPageSkeleton = (
   <>
-    <section className="padding-x mx-auto flex w-[min(100%,1200px)] animate-pulse flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
+    <Spacer type="header" />
+    <section className="padding-x mx-auto flex w-[min(100%,1200px)] animate-pulse flex-col justify-between gap-4  lg:flex-row">
       <div className="w-full self-start">
         <ImageGallerySkeleton animate={false} />
       </div>
@@ -132,7 +133,7 @@ const productPageSkeleton = (
         </div>
       </div>
     </section>
-    <SectionSpacer />
+    <Spacer type="section" />
   </>
 );
 
@@ -522,7 +523,7 @@ const Product = ({
           {reviewsSection}
         </div>
       </section>
-      <SectionSpacer />
+      <Spacer type="section" />
       <section className="padding-x">
         <h2 className="font-display text-2xl font-black">
           You might also like
@@ -537,7 +538,6 @@ const Product = ({
           />
         </div>
       </section>
-      <SectionSpacer />
     </>
   );
 };
