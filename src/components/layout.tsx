@@ -39,7 +39,9 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
           cardType: "summary_large_image",
         }}
       />
-      <main className={` bg-slate-50 font-body text-slate-800`}>
+      <main
+        className={`flex min-h-screen flex-col items-stretch justify-between font-body text-slate-800`}
+      >
         <MobileMenu />
         {!isCheckoutPage && <Nav />}
         {!isCheckoutPage && <PromosBanner promos={bannerPromos} />}
@@ -50,7 +52,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
             </div>
           </div>
         )}
-        <section className="mx-auto min-h-[500px]  max-w-[1600px] grow">
+        <section className="mx-auto flex min-h-full w-[min(100%,1600px)] grow flex-col items-stretch justify-between">
           {children}
         </section>
         {asPath !== "/checkout" && <Footer />}

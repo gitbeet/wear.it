@@ -32,7 +32,7 @@ import { colorOptions } from "~/maps";
 
 const productPageSkeleton = (
   <>
-    <section className="padding-x mx-auto flex max-w-[1200px] animate-pulse flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
+    <section className="padding-x mx-auto flex w-[min(100%,1200px)] animate-pulse flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
       <div className="w-full self-start">
         <ImageGallerySkeleton animate={false} />
       </div>
@@ -487,7 +487,7 @@ const Product = ({
           ],
         }}
       />
-      <section className="padding-x mx-auto flex max-w-[1200px] flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
+      <section className="padding-x mx-auto flex w-[min(100%,1200px)] flex-col justify-between gap-4 pt-8 md:pt-24 lg:flex-row">
         <div className="w-full self-start">
           <ImageGallery
             images={selectedColorImages}

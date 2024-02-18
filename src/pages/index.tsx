@@ -221,7 +221,7 @@ export default function Home() {
         nofollow={false}
         canonical="/"
       />
-      <section>
+      <section className="h-full w-full grow">
         <Hero />
         <div className="h-4 md:h-8"></div>
         <EventSlider />

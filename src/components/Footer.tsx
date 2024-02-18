@@ -53,7 +53,7 @@ const promotionsAndDiscountsFooterColumn: FooterColumnType = {
 
 const Footer = () => {
   return (
-    <section className="w-full border-indigo-100 bg-slate-100  pt-12 text-slate-900">
+    <footer className="w-full border-indigo-100 bg-slate-100  pt-12 text-slate-900">
       <div className="padding-x xs:flex-row xs:flex-wrap mx-auto flex max-w-[1600px] flex-col justify-start gap-8 pb-12 md:pb-20">
         <div className="relative -top-2 grow">
           <Logo />
@@ -86,7 +86,7 @@ const Footer = () => {
           reserved.
         </p>
       </div>
-    </section>
+    </footer>
   );
 };
 

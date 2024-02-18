@@ -94,7 +94,7 @@ const Nav = () => {
           : "-translate-y-0 opacity-100"
       } fixed z-[50] w-full transition-[opacity,transform] duration-[550ms] ease-in-out `}
     >
-      <div className=" relative z-[50]  bg-slate-50 shadow-lg shadow-indigo-600/5">
+      <div className=" relative z-[50]  bg-slate-50 shadow-lg shadow-indigo-600/10">
         <div className="padding-x relative mx-auto flex max-w-[1600px] items-center justify-between py-2">
           <Logo responsive />
 

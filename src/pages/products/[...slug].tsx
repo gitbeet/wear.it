@@ -107,54 +107,55 @@ const ProductsPage = (
           ],
         }}
       />
-      <main className="padding-x">
-        <section className="flex justify-end gap-8 pt-16  ">
-          <ToggleFilters
-            setShowFilters={setShowFilters}
-            showFilters={showFilters}
-          />
-          <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
-        </section>
-        {isLoading ? (
-          <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
-        ) : !data ? (
-          <p></p>
-        ) : (
-          <p className="pb-8  text-xl">
-            <span className="font-bold">{data.totalProducts}</span>
-            {` Product${
-              data.totalProducts &&
-              (data?.totalProducts > 1 || data.totalProducts) === 0
-                ? "s"
-                : ""
-            } found`}
-          </p>
-        )}
-        <section className="flex gap-4 overflow-hidden pt-8">
-          <div
-            className={`${
-              showFilters ? "" : "-ml-64"
-            } k  min-w-[250px] transition-all duration-500`}
-          >
-            <PriceFilter
-              loading={isLoading}
-              min={data?.minPrice ?? 0}
-              max={data?.maxPrice ?? 10000}
+      <main className="padding-x flex h-full w-full grow flex-col items-stretch justify-between">
+        <section>
+          <section className="flex justify-end gap-8 pt-16  ">
+            <ToggleFilters
+              setShowFilters={setShowFilters}
+              showFilters={showFilters}
             />
-            <div className="w-full border-b border-slate-200"></div>
-            <SizeFilter loading={isLoading} />
-            <div className="w-full border-b border-slate-200"></div>
-            <ColorFilter loading={isLoading} />
-          </div>
+            <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
+          </section>
           {isLoading ? (
-            skeleton
+            <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
           ) : !data ? (
-            <h1>No data</h1>
+            <p></p>
           ) : (
-            <Products products={data.products} />
+            <p className="pb-8  text-xl">
+              <span className="font-bold">{data.totalProducts}</span>
+              {` Product${
+                data.totalProducts &&
+                (data?.totalProducts > 1 || data.totalProducts) === 0
+                  ? "s"
+                  : ""
+              } found`}
+            </p>
           )}
+          <section className="flex gap-4 overflow-hidden pt-8">
+            <div
+              className={`${
+                showFilters ? "" : "-ml-64"
+              } k  min-w-[250px] transition-all duration-500`}
+            >
+              <PriceFilter
+                loading={isLoading}
+                min={data?.minPrice ?? 0}
+                max={data?.maxPrice ?? 10000}
+              />
+              <div className="w-full border-b border-slate-200"></div>
+              <SizeFilter loading={isLoading} />
+              <div className="w-full border-b border-slate-200"></div>
+              <ColorFilter loading={isLoading} />
+            </div>
+            {isLoading ? (
+              skeleton
+            ) : !data ? (
+              <h1>No data</h1>
+            ) : (
+              <Products products={data.products} />
+            )}
+          </section>
         </section>
-
         <div className="mx-auto">
           <Pagination
             currentPage={currentPage}
