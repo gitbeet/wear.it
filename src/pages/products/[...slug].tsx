@@ -113,29 +113,67 @@ const ProductsPage = (
       />
       <main className="flex h-full w-full grow flex-col items-stretch justify-between">
         <section>
-          <section className="padding-x hidden justify-end gap-8 pt-16 md:flex  ">
-            <ToggleFilters
-              setShowFilters={setShowFilters}
-              showFilters={showFilters}
-            />
-            <OrderByFilter showSort={showSort} setShowSort={setShowSort} />
+          <section className="padding-x hidden items-center justify-between pt-16 md:flex">
+            {isLoading ? (
+              <div className="  flex items-end justify-between">
+                <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
+              </div>
+            ) : !data ? (
+              <div className="  flex items-end justify-between ">
+                <p className="invisible">X Products found.</p>
+              </div>
+            ) : (
+              <div className=" flex items-end justify-between ">
+                <p className="text-slate-600">
+                  <span className="font-bold">{data.totalProducts}</span>
+                  {` Product${
+                    data.totalProducts &&
+                    (data?.totalProducts > 1 || data.totalProducts === 0)
+                      ? "s"
+                      : ""
+                  } found`}
+                </p>
+
+                <div
+                  role="button"
+                  onClick={() => setShowMobileFiltersMenu(true)}
+                  className="flex cursor-pointer items-center gap-2 md:hidden"
+                >
+                  <span className="md:hidden">Filters</span>
+                  {filtersIcon}
+                </div>
+              </div>
+            )}
+            <div className="justify-end gap-8 md:flex">
+              <ToggleFilters
+                setShowFilters={setShowFilters}
+                showFilters={showFilters}
+              />
+              <OrderByFilter
+                loading={isLoading}
+                showSort={showSort}
+                setShowSort={setShowSort}
+              />
+            </div>
           </section>
-          {/* TODO : FIX SKELETON LATER */}
+          {/* MOBILE */}
           {isLoading ? (
-            <div className="padding-x flex items-end justify-between pb-2 pt-4 md:pb-8 md:pt-0">
+            <div className=" padding-x flex items-end justify-between pt-8 md:hidden">
               <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
-              <p className="h-6 w-12 animate-pulse rounded-full bg-slate-300"></p>
+              <div className="pointer-events-none flex cursor-pointer items-center gap-2 opacity-50 md:hidden">
+                {filtersIcon} <p className="md:hidden">Filters</p>
+              </div>{" "}
             </div>
           ) : !data ? (
-            <div className="padding-x flex items-end justify-between pb-2 pt-4 md:pb-8 md:pt-0">
-              <p className="text-xl"></p>
+            <div className=" padding-x flex items-end justify-between pt-8 md:hidden">
+              <p className="invisible">X Products found.</p>
               <div className="flex cursor-pointer items-center gap-2 md:hidden">
                 {filtersIcon} <p className="md:hidden">Filters</p>
               </div>
             </div>
           ) : (
-            <div className="padding-x flex items-end justify-between pb-2 pt-4 md:pb-8 md:pt-0">
-              <p className="text-xl">
+            <div className="padding-x flex items-end justify-between pt-8  md:hidden">
+              <p className="text-slate-600">
                 <span className="font-bold">{data.totalProducts}</span>
                 {` Product${
                   data.totalProducts &&

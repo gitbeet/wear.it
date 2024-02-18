@@ -4,11 +4,12 @@ import { useSortItems } from "~/hooks/useSortItems";
 interface Props {
   showSort: boolean;
   setShowSort: Dispatch<SetStateAction<boolean>>;
+  loading: boolean;
 }
 
 export type SortOptionType = "newest" | "high-to-low" | "low-to-high";
 
-const OrderByFilter = ({ showSort, setShowSort }: Props) => {
+const OrderByFilter = ({ loading, showSort, setShowSort }: Props) => {
   const { handleChangeSort, sortQueryArray } = useSortItems();
 
   const handleChange = async (option: SortOptionType) => {
@@ -17,7 +18,11 @@ const OrderByFilter = ({ showSort, setShowSort }: Props) => {
   };
 
   return (
-    <div className="relative z-20 ">
+    <div
+      className={` ${
+        loading && "pointer-events-none opacity-50"
+      } relative z-20`}
+    >
       <div
         onClick={() => setShowSort((prev) => !prev)}
         role="listbox"

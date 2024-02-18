@@ -106,8 +106,9 @@ const ProductCard = ({
           const image = product.images.find(
             (image) => image.color === color.color,
           );
+          const testLink = `/product/${product.id}/${image?.color}`;
           return showColorVariations ? (
-            <Link key={i} href={productLink}>
+            <Link key={i} href={testLink}>
               <Image
                 onClick={onClick}
                 onMouseOver={() => setCurrentImage(image?.id)}
