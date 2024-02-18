@@ -96,7 +96,7 @@ const ProductCard = ({
   );
 
   const thumbnails = (
-    <div className="relative min-h-[4rem] w-full self-start overflow-hidden">
+    <div className="@xs:pl-1.5 relative min-h-[4rem] w-full self-start overflow-hidden pl-1">
       <div
         className={`${
           showColorVariations ? "opacity-100" : "-translate-y-full opacity-0"

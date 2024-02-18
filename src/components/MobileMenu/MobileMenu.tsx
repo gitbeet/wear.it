@@ -10,7 +10,7 @@ const MobileMenu = () => {
       <div
         className={`${
           showMobileMenu ? "" : "translate-x-full"
-        } fixed bottom-0 right-0 top-0 z-[100] h-[100dvh] w-[min(70%,350px)] bg-slate-50 transition-transform duration-500`}
+        } fixed bottom-0 right-0 top-0 z-[100] h-screen w-[min(70%,350px)] bg-slate-50 transition-transform duration-500`}
       >
         <VscChromeClose
           role="button"

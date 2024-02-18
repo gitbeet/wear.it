@@ -81,7 +81,7 @@ const MobileFiltersMenu = ({
     <div
       className={`${
         showMobileFiltersMenu ? "translate-y-0" : "translate-y-full"
-      } fixed bottom-0 left-0 right-0 top-0 z-[100]  overflow-auto bg-white p-6 transition-transform duration-500`}
+      } fixed inset-0 z-[100] h-screen overflow-auto bg-white p-6 transition-transform duration-500`}
     >
       <p
         className="text-md cursor-pointer text-right font-semibold"

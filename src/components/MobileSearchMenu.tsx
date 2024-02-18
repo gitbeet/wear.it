@@ -36,7 +36,7 @@ const MobileSearchMenu = ({
     <div
       className={`${
         showMenu ? "" : "translate-x-full"
-      } fixed bottom-0 left-0 right-0 top-0 z-[100]  h-[100dvh]   bg-slate-50  transition-transform duration-500 md:hidden`}
+      } fixed inset-0 z-[100]  h-screen   bg-slate-50  transition-transform duration-500 md:hidden`}
     >
       <div className="p-6">
         <p

@@ -1,3 +1,6 @@
+import { BsChevronLeft } from "react-icons/bs";
+import { FaChevronLeft } from "react-icons/fa";
+
 interface PaginationProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -18,11 +21,14 @@ const Pagination = ({
       <p
         role="button"
         className={`${
-          currentPage <= 1 ? "cursor-default text-slate-500" : "text-slate-800"
+          currentPage <= 1
+            ? "cursor-not-allowed text-slate-500"
+            : "cursor-pointer text-slate-800"
         } font-semibold`}
         onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : 1))}
       >
-        Previous
+        <span className="hidden sm:inline">Previous</span>
+        <FaChevronLeft className="sm:hidden" />
       </p>
       <div className="flex items-center">
         <label htmlFor="pagination" className=" pr-2 text-slate-600">
@@ -49,13 +55,16 @@ const Pagination = ({
       <p
         role="button"
         className={`${
-          !isThereNextPage ? "cursor-default text-slate-500" : "text-slate-800"
+          !isThereNextPage
+            ? "cursor-not-allowed text-slate-500"
+            : "cursor-pointer text-slate-800"
         } font-semibold`}
         onClick={() =>
           setCurrentPage((prev) => (isThereNextPage ? prev + 1 : prev))
         }
       >
-        Next
+        <span className="hidden sm:inline">Next</span>
+        <FaChevronLeft className="rotate-180 sm:hidden" />
       </p>
     </div>
   );
