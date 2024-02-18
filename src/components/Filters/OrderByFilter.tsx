@@ -1,21 +1,18 @@
 import { chevronIcon } from "public/assets/icons";
 import type { Dispatch, SetStateAction } from "react";
-import { useRouterQuery } from "~/hooks/useRouterQuery";
+import { useSortItems } from "~/hooks/useSortItems";
 interface Props {
   showSort: boolean;
   setShowSort: Dispatch<SetStateAction<boolean>>;
 }
 
-const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
-  const { addQuery, removeQuery, router } = useRouterQuery();
-  const { sort = [""] } = router.query;
-  const sortQueryArray = [sort].flat(1).filter(Boolean);
-  const handleChangeSort = async (option: string) => {
-    if (!sortQueryArray.includes(option)) {
-      void addQuery("sort", option);
-    } else {
-      await removeQuery("sort");
-    }
+export type SortOptionType = "newest" | "high-to-low" | "low-to-high";
+
+const OrderByFilter = ({ showSort, setShowSort }: Props) => {
+  const { handleChangeSort, sortQueryArray } = useSortItems();
+
+  const handleChange = async (option: SortOptionType) => {
+    await handleChangeSort(option);
     setShowSort(false);
   };
 
@@ -42,7 +39,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
         } absolute left-4 flex w-max -translate-x-1/2 flex-col gap-2 rounded-lg  bg-slate-50 p-6 text-right font-semibold shadow-md transition-all duration-500`}
       >
         <p
-          onClick={() => handleChangeSort("newest")}
+          onClick={() => handleChange("newest")}
           role="listitem"
           className={`${
             sortQueryArray[0] === "newest"
@@ -53,7 +50,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
           Newest
         </p>
         <p
-          onClick={() => handleChangeSort("high-to-low")}
+          onClick={() => handleChange("high-to-low")}
           role="listitem"
           className={`${
             sortQueryArray[0] === "high-to-low"
@@ -64,7 +61,7 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
           Price: High-Low
         </p>
         <p
-          onClick={() => handleChangeSort("low-to-high")}
+          onClick={() => handleChange("low-to-high")}
           role="listitem"
           className={`${
             sortQueryArray[0] === "low-to-high"
@@ -79,4 +76,4 @@ const SortSelectMenu = ({ showSort, setShowSort }: Props) => {
   );
 };
 
-export default SortSelectMenu;
+export default OrderByFilter;

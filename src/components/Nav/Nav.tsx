@@ -49,18 +49,15 @@ const Nav = () => {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const {
-    data: searchResults,
-    isLoading: isSearching,
-    refetch,
-  } = api.product.searchProduct.useQuery(
-    { query: debouncedQuery },
-    {
-      enabled: true,
-      refetchOnWindowFocus: false, // Prevents refetch on window focus
-      refetchOnMount: false, // Prevents initial automatic refetch on mount
-    },
-  );
+  const { data: searchResults, isLoading: isSearching } =
+    api.product.searchProduct.useQuery(
+      { query: debouncedQuery },
+      {
+        enabled: true,
+        refetchOnWindowFocus: false, // Prevents refetch on window focus
+        refetchOnMount: false, // Prevents initial automatic refetch on mount
+      },
+    );
   const getDebouncedResults = useCallback(
     debounce((val: string) => {
       setDebouncedQuery(val);

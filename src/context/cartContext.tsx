@@ -61,7 +61,6 @@ const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const guestUserId = createId();
     expirationDate.setDate(expirationDate.getDate() + 30);
     if (!isSignedIn && !cookies["session-id"]) {
-      console.log("IN IF STATEMENT");
       setCookie("session-id", guestUserId, {
         expires: expirationDate,
         path: "/",

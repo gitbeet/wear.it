@@ -35,8 +35,6 @@ export const orderRouter = createTRPCRouter({
       });
     }
 
-    console.log(session);
-
     const [order, deletedSession] = await db.$transaction([
       db.orderDetails.create({
         data: {
@@ -69,9 +67,6 @@ export const orderRouter = createTRPCRouter({
         message: "Something went wrong!",
       });
     }
-
-    console.log(order);
-    console.log(deletedSession);
 
     return { order, deletedSession };
   }),

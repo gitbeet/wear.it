@@ -1,26 +1,6 @@
-import { ProductSize } from "@prisma/client";
-import { useRouterQuery } from "../../hooks/useRouterQuery";
+import { useFilterBySize } from "~/hooks/useFilterBySize";
 const SizeFilter = ({ loading }: { loading: boolean }) => {
-  const sizes = Object.keys(ProductSize);
-  const { addQuery, removeQuery, router } = useRouterQuery();
-  const { size: sizesQuery = "" } = router.query;
-  const sizesQueryArray = [sizesQuery].flat(1).filter(Boolean);
-
-  const handleSizes = async (size: string) => {
-    if (!sizesQueryArray.includes(size)) {
-      const newSizes = [...sizesQueryArray, size];
-      await addQuery("size", newSizes);
-      return;
-    }
-    if (sizesQueryArray.includes(size)) {
-      const filteredSizes = sizesQueryArray.filter((s) => s !== size);
-      await addQuery("size", filteredSizes);
-      return;
-    }
-    if (!sizesQueryArray.length) {
-      await removeQuery("size");
-    }
-  };
+  const { sizes, sizesQueryArray, handleSizes } = useFilterBySize();
 
   return (
     <div className="p-8 pl-0">
@@ -37,7 +17,7 @@ const SizeFilter = ({ loading }: { loading: boolean }) => {
               key={i}
             >
               <input
-                className="w-4 cursor-pointer"
+                className="w-4 cursor-pointer  accent-indigo-500"
                 type="checkbox"
                 id={size}
                 onChange={() => handleSizes(size)}
@@ -46,7 +26,7 @@ const SizeFilter = ({ loading }: { loading: boolean }) => {
               <label
                 className={`${
                   isIncluded ? "text-slate-800" : "text-slate-500"
-                } hover-hover:hover:text-slate-800 cursor-pointer pl-2 pr-4 text-sm  font-semibold transition-colors duration-150`}
+                } hover-hover:hover:text-slate-800 cursor-pointer pl-2 pr-4 text-sm font-semibold transition-colors duration-150`}
                 htmlFor={size}
               >
                 {size}

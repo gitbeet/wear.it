@@ -32,7 +32,6 @@ const MobileSearchMenu = ({
   query,
   loading,
 }: Props) => {
-  console.log(showResults);
   return (
     <div
       className={`${

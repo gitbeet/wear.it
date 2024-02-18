@@ -199,14 +199,6 @@ const MemberDeals = () => (
 );
 
 export default function Home() {
-  const { data: sqlData } = api.product.getAllSQL.useQuery({
-    pageSize: 12,
-  });
-  const { data } = api.product.getAll.useQuery({ pageSize: 12 });
-  console.log("---SQL DATA ---");
-  console.log(sqlData);
-  console.log("---DATA ---");
-  console.log(data);
   return (
     <>
       <NextSeo

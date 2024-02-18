@@ -15,15 +15,18 @@ import { useState, useMemo } from "react";
 import ColorFilter from "~/components/Filters/ColorFilter";
 import PriceFilter from "~/components/Filters/PriceFilter";
 import SizeFilter from "~/components/Filters/SizeFilter";
-import SortSelectMenu from "~/components/Filters/SortSelectMenu";
+import OrderByFilter from "~/components/Filters/OrderByFilter";
 import ToggleFilters from "~/components/Filters/ToggleFilters";
 import Products from "~/components/Products";
 import { api } from "~/utils/api";
 import { db } from "~/server/db";
 import Pagination from "~/components/Pagination";
+import { useModalsContext } from "~/context/modalsContext";
+import MobileFiltersMenu from "~/components/MobileFiltersMenu";
+import { filtersIcon } from "public/assets/icons";
 
 const skeleton = (
-  <section className="grid w-full grow content-start gap-2 sm:grid-cols-2 lg:grid-cols-3">
+  <section className="grid w-full grow grid-cols-2 content-start gap-2 lg:grid-cols-3">
     {[...Array(12).keys()].map((bone) => (
       <div key={bone} className="pb-2">
         <div>
@@ -49,6 +52,7 @@ const ProductsPage = (
 ) => {
   const { seo } = props;
   const pageSize = 12;
+  const { setShowMobileFiltersMenu } = useModalsContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(true);
   const [showSort, setShowSort] = useState(false);
@@ -107,35 +111,55 @@ const ProductsPage = (
           ],
         }}
       />
-      <main className="padding-x flex h-full w-full grow flex-col items-stretch justify-between">
+      <main className="flex h-full w-full grow flex-col items-stretch justify-between">
         <section>
-          <section className="flex justify-end gap-8 pt-16  ">
+          <section className="padding-x hidden justify-end gap-8 pt-16 md:flex  ">
             <ToggleFilters
               setShowFilters={setShowFilters}
               showFilters={showFilters}
             />
-            <SortSelectMenu showSort={showSort} setShowSort={setShowSort} />
+            <OrderByFilter showSort={showSort} setShowSort={setShowSort} />
           </section>
+          {/* TODO : FIX SKELETON LATER */}
           {isLoading ? (
-            <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
+            <div className="padding-x flex items-end justify-between pb-2 pt-4 md:pb-8 md:pt-0">
+              <p className="h-6 w-36 animate-pulse rounded-full bg-slate-300"></p>
+              <p className="h-6 w-12 animate-pulse rounded-full bg-slate-300"></p>
+            </div>
           ) : !data ? (
-            <p></p>
+            <div className="padding-x flex items-end justify-between pb-2 pt-4 md:pb-8 md:pt-0">
+              <p className="text-xl"></p>
+              <div className="flex cursor-pointer items-center gap-2 md:hidden">
+                {filtersIcon} <p className="md:hidden">Filters</p>
+              </div>
+            </div>
           ) : (
-            <p className="pb-8  text-xl">
-              <span className="font-bold">{data.totalProducts}</span>
-              {` Product${
-                data.totalProducts &&
-                (data?.totalProducts > 1 || data.totalProducts) === 0
-                  ? "s"
-                  : ""
-              } found`}
-            </p>
+            <div className="padding-x flex items-end justify-between pb-2 pt-4 md:pb-8 md:pt-0">
+              <p className="text-xl">
+                <span className="font-bold">{data.totalProducts}</span>
+                {` Product${
+                  data.totalProducts &&
+                  (data?.totalProducts > 1 || data.totalProducts === 0)
+                    ? "s"
+                    : ""
+                } found`}
+              </p>
+
+              <div
+                role="button"
+                onClick={() => setShowMobileFiltersMenu(true)}
+                className="flex cursor-pointer items-center gap-2 md:hidden"
+              >
+                <span className="md:hidden">Filters</span>
+                {filtersIcon}
+              </div>
+            </div>
           )}
           <section className="flex gap-4 overflow-hidden pt-8">
             <div
               className={`${
                 showFilters ? "" : "-ml-64"
-              } k  min-w-[250px] transition-all duration-500`}
+              } padding-x  hidden min-w-[250px] transition-all duration-500 md:block`}
             >
               <PriceFilter
                 loading={isLoading}
@@ -164,6 +188,11 @@ const ProductsPage = (
             pageSize={pageSize}
           />
         </div>
+        <MobileFiltersMenu
+          min={data?.minPrice ?? 0}
+          max={data?.maxPrice ?? 10000}
+          loading={isLoading}
+        />
       </main>
     </>
   );

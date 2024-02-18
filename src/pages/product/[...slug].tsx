@@ -337,7 +337,6 @@ const Product = ({
           const tailwindColor = colorOptions.find(
             (option) => option.color === c.color,
           )?.colorClass;
-          console.log(tailwindColor);
           return (
             <div
               key={i}
