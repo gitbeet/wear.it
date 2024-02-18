@@ -10,7 +10,7 @@ import { type RouterOutputs, api } from "~/utils/api";
 import LoadingPage from "~/components/loading";
 import { NextSeo } from "next-seo";
 
-type FavoriteType = RouterOutputs["favorite"]["getByUserId"][number];
+export type FavoriteType = RouterOutputs["favorite"]["getByUserId"][number];
 
 const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
   const ctx = api.useUtils();
@@ -29,14 +29,14 @@ const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
       : product.price,
   );
   return (
-    <div key={id} className={`pb-200 w-full bg-slate-50`}>
+    <div key={id} className={`@container pb-200 w-full bg-slate-50`}>
       <div className="relative w-full">
         <div
           onClick={() => addToFavorites({ color, productId })}
           role="button"
-          className={`absolute bottom-4  right-4 z-10 flex h-10 w-10 items-center justify-center  rounded-full border border-indigo-100 bg-slate-50`}
+          className={` @2xs:h-10 @2xs:w-10 @2xs:p-2 absolute right-[4%] top-[4%] z-10 flex h-8 w-8 items-center justify-center rounded-full  border border-indigo-100 bg-slate-50 p-1`}
         >
-          <BsHeartFill className="h-6 w-6  text-indigo-400" />
+          <BsHeartFill className="h-full w-full  text-indigo-400" />
         </div>
         <Link href={`/product/${productId}/${color}`}>
           <div className="relative aspect-square w-full">
@@ -53,7 +53,7 @@ const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
           </div>
         </Link>
         {product.discount ? (
-          <div className="absolute bottom-2 left-4 text-slate-900">
+          <div className="@2xs:text-base absolute bottom-2 left-4  text-sm text-slate-900">
             <p className="w-fit rounded-sm bg-violet-500 px-1 font-display font-bold text-white">
               -{product.discount.discountPercent}%
             </p>
@@ -67,13 +67,13 @@ const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
             </div>
           </div>
         ) : (
-          <p className="absolute bottom-2 left-4 w-fit bg-slate-50 px-3 py-1 font-display font-bold">
+          <p className="@2xs:text-base absolute bottom-2 left-4 w-fit bg-slate-50 px-3 py-1 font-display  text-sm font-bold">
             {priceBeforeDiscount}
           </p>
         )}
       </div>
       <div className="h-4"></div>
-      <div className="min-h-[4rem] overflow-hidden pl-4">
+      <div className="@2xs:text-base min-h-[4rem] overflow-hidden  pl-4 text-sm">
         <Link href={`/product/${productId}/${color}`}>
           <p className="line-clamp-1 font-semibold">{product.name}</p>
         </Link>
@@ -107,7 +107,7 @@ const FavoritesGrid = () => {
   const wishListContent = (
     <>
       <div className="h-12"></div>
-      <div className=" grid  max-w-[1400px] grid-cols-[repeat(auto-fill,minmax(250px,1fr))]   items-start justify-start   gap-4">
+      <div className=" padding-x grid w-full grid-cols-[repeat(auto-fit,minmax(150px,1fr))]   items-start justify-start gap-4 md:grid-cols-[repeat(auto-fill,minmax(250px,1fr))]">
         {data?.map((fav) => <FavoriteItem key={fav.id} fav={fav} />)}
       </div>
     </>
@@ -121,23 +121,21 @@ const FavoritesGrid = () => {
   );
 
   return (
-    <section>
-      <div className="flex flex-col items-center">
-        <h1 className="font-display text-5xl font-black text-slate-800">
-          Wishlist
-        </h1>
-        {isLoading ? (
-          <div className="relative py-24">
-            <LoadingPage />
-          </div>
-        ) : !data ? (
-          noDataContent
-        ) : data.length < 1 ? (
-          emptyWishlistContent
-        ) : (
-          wishListContent
-        )}
-      </div>
+    <section className="flex flex-col items-center">
+      <h1 className="font-display text-5xl font-black text-slate-800">
+        Wishlist
+      </h1>
+      {isLoading ? (
+        <div className="relative py-24">
+          <LoadingPage />
+        </div>
+      ) : !data ? (
+        noDataContent
+      ) : data.length < 1 ? (
+        emptyWishlistContent
+      ) : (
+        wishListContent
+      )}
     </section>
   );
 };
@@ -176,7 +174,7 @@ const Favorites = () => {
         nofollow={false}
         canonical="https://t3-ecommerce-five.vercel.app/contact"
       />
-      <section>
+      <section className="">
         <div className="h-16"></div>
         <FavoritesGrid />
         <RecentlyViewed />

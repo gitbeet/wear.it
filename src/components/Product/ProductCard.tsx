@@ -63,10 +63,10 @@ const ProductCard = ({
         currentImageColor && isFavorited(currentImageColor, product.id)
           ? "border-indigo-100"
           : "border-transparent"
-      } @2xs:h-10 @2xs:w-10 @2xs:p-2 absolute right-[4%] top-[4%] z-10 flex h-8 w-8  items-center justify-center rounded-full bg-slate-50 p-1.5`}
+      } @2xs:h-10 @2xs:w-10 @2xs:p-2 pointer-events-none absolute right-[4%] top-[4%] z-10 flex h-8  w-8 items-center justify-center rounded-full bg-slate-50 p-1.5`}
     >
       {currentImageColor && isFavorited(currentImageColor, product.id) && (
-        <BsHeartFill className=" text-indigo-400" />
+        <BsHeartFill className="h-full w-full text-indigo-400" />
       )}
       {currentImageColor && !isFavorited(currentImageColor, product.id) && (
         <BsHeart className="h-full w-full text-slate-600" />

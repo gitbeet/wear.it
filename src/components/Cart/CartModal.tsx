@@ -13,7 +13,7 @@ const CartModal = () => {
   return (
     <>
       {showBagModal && cartItem && !isFetching && (
-        <div className="absolute right-8 z-30  min-w-[450px]  bg-slate-50 px-8 pb-8 pt-4 shadow-lg">
+        <div className="absolute z-30 w-full  bg-slate-50  px-8 pb-8 pt-4 shadow-lg md:right-8 md:w-fit md:min-w-[450px]">
           <div className="flex w-full justify-between">
             <p className="flex items-center gap-1 font-semibold">
               <BsFillCheckCircleFill className="text-teal-500" />

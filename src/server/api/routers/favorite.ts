@@ -38,6 +38,7 @@ export const favoriteRouter = createTRPCRouter({
             },
             images: {
               select: {
+                id: true,
                 color: true,
                 imageURL: true,
                 productId: true,
