@@ -1,6 +1,6 @@
 import heroImage from "../../public/assets/hero-3.png";
 import Button from "~/components/UI/Button";
-import { BsHandbag } from "react-icons/bs";
+// import { BsHandbag } from "react-icons/bs";
 import Image from "next/image";
 import { api } from "~/utils/api";
 import bannerJackets from "../../public/assets/banner-small-jackets-2.jpg";
@@ -8,29 +8,28 @@ import bannerSneakers from "../../public/assets/banner-small--sneakers-2.jpg";
 import bannerTShirts from "../../public/assets/banner-large--tShirts-2.jpg";
 import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import { FaSnowflake } from "react-icons/fa";
-import SectionSpacer from "~/components/UI/SectionSpacer";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 import Spacer from "~/components/Spacer";
 
-const sliderPromos = [
-  {
-    title: "-35% OFF your first order",
-    image: "/assets/promo-image-first-order.jpg",
-    button: <Button text="Sign up now" onClick={() => void 0} />,
-  },
-  {
-    title: `FREE shipping on orders over $90`,
-    image: "/assets/promo-image-free-shipping.jpg",
-    button: (
-      <Button
-        text="Start shopping"
-        icon={<BsHandbag className="h-5 w-5" />}
-        onClick={() => void 0}
-      />
-    ),
-  },
-];
+// const sliderPromos = [
+//   {
+//     title: "-35% OFF your first order",
+//     image: "/assets/promo-image-first-order.jpg",
+//     button: <Button text="Sign up now" onClick={() => void 0} />,
+//   },
+//   {
+//     title: `FREE shipping on orders over $90`,
+//     image: "/assets/promo-image-free-shipping.jpg",
+//     button: (
+//       <Button
+//         text="Start shopping"
+//         icon={<BsHandbag className="h-5 w-5" />}
+//         onClick={() => void 0}
+//       />
+//     ),
+//   },
+// ];
 
 const Hero = () => (
   <section className="relative w-full  overflow-hidden py-16 lg:py-24">
