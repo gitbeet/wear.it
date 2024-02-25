@@ -214,6 +214,8 @@ export const productRouter = createTRPCRouter({
                 WHEN d."discountPercent" IS NULL THEN p.price
                 ELSE p.price * (1 - d."discountPercent" / 100)
               END as discountedprice,  
+              pc."slug" as category_slug,
+          pc_parent."slug" as category_parent_slug,
               (
         SELECT JSON_AGG(json_build_object(
             'id', cd."id",

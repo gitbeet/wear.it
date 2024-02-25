@@ -5,7 +5,7 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import type { SQLProductType } from "~/types";
-
+console.log("first");
 const ProductCard = ({
   product,
   onClick,
@@ -34,7 +34,7 @@ const ProductCard = ({
     <Link onClick={onClick} href={productLink}>
       <Image
         fill
-        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-slate-200"
+        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
         src={
           product.images.find((image) => image.id === currentImage)?.imageURL ??
           ""
@@ -46,7 +46,7 @@ const ProductCard = ({
     <div>
       <Image
         fill
-        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-slate-200"
+        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
         src={
           product.images.find((image) => image.id === currentImage)?.imageURL ??
           ""
@@ -81,10 +81,10 @@ const ProductCard = ({
       </p>
       <div className="h-1.5"></div>
       <div className=" flex gap-2 ">
-        <p className="rounded-sm bg-slate-50  px-3 py-1  font-display  text-slate-400 line-through">
+        <p className="rounded-sm bg-white  px-3 py-1  font-display  text-slate-400 line-through">
           {priceBeforeDiscount}
         </p>
-        <p className="w-fit rounded-sm bg-slate-50 px-3 py-1 font-display font-bold text-pink-500">
+        <p className="w-fit rounded-sm bg-white  px-3 py-1 font-display font-bold text-pink-500">
           {priceAfterDiscount}
         </p>
       </div>
@@ -153,7 +153,7 @@ const ProductCard = ({
       className="@container"
     >
       <div
-        className={` @2xs:text-base group flex flex-col items-center  justify-center rounded-sm bg-slate-50 p-1 text-xs text-slate-800`}
+        className={` @2xs:text-base group flex flex-col items-center  justify-center rounded-sm  p-1 text-xs text-slate-800`}
       >
         <div className="relative aspect-square w-full ">
           {favoriteButton}
