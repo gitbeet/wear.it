@@ -48,6 +48,7 @@ const Hero = () => (
       <div className="h-16"></div>
       <div className="w-fit">
         <Button
+          disabled
           text="Winter Collection"
           icon={<FaSnowflake className="h-5 w-5" />}
           onClick={() => void 0}
@@ -96,7 +97,7 @@ const EventSlider = () => {
 
       <div className="w-full overflow-hidden">
         <ProductCardCarousel
-          numberOfItems={{ desktop: 3.5, desktopSmall: 3.5, tablet: 2.5 }}
+          numberOfItems={{ desktop: 4.5, desktopSmall: 3.5, tablet: 2.5 }}
           products={products?.products}
           isLoading={isGettingProducts}
         />
@@ -119,7 +120,7 @@ const Trending = () => {
       <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-6 md:h-12"></div>
       <ProductCardCarousel
-        numberOfItems={{ desktop: 4, desktopSmall: 4, tablet: 3 }}
+        numberOfItems={{ desktop: 5, desktopSmall: 4, tablet: 3 }}
         products={products?.products}
         isLoading={isGettingProducts}
       />
