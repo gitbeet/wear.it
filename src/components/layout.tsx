@@ -42,19 +42,24 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       }}
     />
   );
-  const nav = !isCheckoutPage ? (
+
+  const basicNav = (
     <>
       <Nav />
       <PromosBanner promos={bannerPromos} />
     </>
-  ) : null;
-  const checkoutNav = isCheckoutPage && (
+  );
+
+  const checkoutNav = (
     <div className="relative z-50  bg-slate-50 shadow-lg shadow-indigo-600/5">
       <div className="padding-x mx-auto max-w-[1200px] py-4">
         <Logo />
       </div>
     </div>
   );
+
+  const nav = !isCheckoutPage ? basicNav : checkoutNav;
+
   const footer = !isCheckoutPage ? <Footer /> : null;
 
   return (
