@@ -1,12 +1,13 @@
-import Nav from "./Nav/Nav";
-import Footer from "./Footer";
-import { PromosBanner } from "./Nav/PromosBanner";
-import { bannerPromos } from "../data/promosData";
-import MobileMenu from "./MobileMenu/MobileMenu";
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
+import Nav from "./Nav/Nav";
+import Footer from "./Footer";
 import Logo from "./Logo";
 import GoToTopButton from "./GoToTopButton";
+import MobileMenu from "./MobileMenu/MobileMenu";
+import { PromosBanner } from "./Nav/PromosBanner";
+import { bannerPromos } from "../data/promosData";
+
 const OGImageUrl =
   "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
