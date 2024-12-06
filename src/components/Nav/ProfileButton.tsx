@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import NavIcon from "./NavIcon";
+import NavIconWithNumber from "./NavIconWithNumber";
 import { IoPersonOutline } from "react-icons/io5";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
+import NavIcon from "./NavIcon";
 
 const ProfileButton = () => {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -21,16 +22,18 @@ const ProfileButton = () => {
   };
 
   const mobileButton = (
-    <div className="block md:hidden" role="button">
+    <div className="block h-10 md:hidden" role="button">
       {!isSignedIn ? (
         <NavIcon
+          as="link"
           icon={<IoPersonOutline className="h-5 w-5" />}
-          link="/sign-in"
+          href="/sign-in"
         />
       ) : (
         <NavIcon
+          as="link"
           icon={<IoPersonOutline className="h-5 w-5" />}
-          link="/profile"
+          href="/profile"
         />
       )}
     </div>
@@ -38,26 +41,29 @@ const ProfileButton = () => {
 
   const desktopButton = (
     <div className="relative hidden md:block">
-      <div role="button">
+      <div className="h-10">
         {!isSignedIn ? (
           <NavIcon
+            as="link"
             icon={<IoPersonOutline className="h-5 w-5" />}
-            link="/sign-in"
+            href="/sign-in"
           />
         ) : (
-          <>
-            <div onClick={toggleIsOpen} className="flex items-center gap-0.5">
-              <span className="w-fit text-sm font-semibold text-slate-500 transition-colors duration-150 hover:text-slate-800">
-                Hi, {user.username}
-              </span>
-              <NavIcon icon={<IoPersonOutline className="h-5 w-5" />} />
-            </div>
-          </>
+          <div className="flex h-full items-center gap-1">
+            <span className="w-fit text-sm font-semibold text-slate-500 ">
+              Hi, {user.username}
+            </span>
+            <NavIcon
+              as="button"
+              onClick={toggleIsOpen}
+              icon={<IoPersonOutline className="h-5 w-5" />}
+            />
+          </div>
         )}
       </div>
 
       {isLoaded && isSignedIn && isOpen && (
-        <div className="absolute right-0 w-max rounded-sm bg-white p-3 pr-12 shadow-md">
+        <div className="absolute right-0  w-max rounded-sm bg-white p-3 pr-12 shadow-md">
           <p className="font-bold">Account</p>
           <div className="h-2"></div>
           <span onClick={handleSignOut} className="text-sm">

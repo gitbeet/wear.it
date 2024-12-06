@@ -1,12 +1,13 @@
 import { BsHandbag } from "react-icons/bs";
-import NavIcon from "../Nav/NavIcon";
+import NavIconWithNumber from "../Nav/NavIconWithNumber";
 import { useCartContext } from "~/context/cartContext";
 const CartIcon = () => {
   const { totalCount, isGettingCart } = useCartContext();
   return (
-    <NavIcon
+    <NavIconWithNumber
+      as="link"
       icon={<BsHandbag className="h-5 w-5" />}
-      link="/cart"
+      href="/cart"
       loading={isGettingCart}
       number={totalCount ?? 0}
       color="bg-teal-400"

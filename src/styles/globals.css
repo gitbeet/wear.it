@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* 
+* {
+  outline: 1px solid red !important;
+} */
 
 .padding-x {
   @apply px-6 md:px-8;

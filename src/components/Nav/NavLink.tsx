@@ -11,7 +11,7 @@ interface Props {
 
 const NavLink = ({ link, text, onMouseOver, onMouseLeave, onClick }: Props) => {
   return (
-    <Link href={link}>
+    <Link href={link} className="active:opacity-50">
       <li
         onClick={onClick}
         onMouseOver={onMouseOver}

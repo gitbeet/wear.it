@@ -14,9 +14,9 @@ import MobileMenuButton from "../MobileMenu/MobileMenuButton";
 import ProfileButton from "./ProfileButton";
 import { useUser } from "@clerk/nextjs";
 import MobileSearchMenu from "../MobileSearchMenu";
-import NavIcon from "./NavIcon";
+import NavIconWithNumber from "./NavIconWithNumber";
 import { FiSearch } from "react-icons/fi";
-import { BsSearch } from "react-icons/bs";
+import NavIcon from "./NavIcon";
 
 const Nav = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -94,7 +94,6 @@ const Nav = () => {
       <div className=" relative z-[50]  bg-slate-50 shadow-lg shadow-indigo-600/10">
         <div className="padding-x relative mx-auto flex max-w-[1720px] items-center justify-between py-2">
           <Logo responsive />
-
           <ul
             role="navigation"
             className="absolute left-1/2 hidden -translate-x-1/2 cursor-pointer justify-center xl:flex"
@@ -127,20 +126,20 @@ const Nav = () => {
             <NavLink link="/products/kids" text="Kids" />
             <NavLink link="/contact" text="Contact" />
           </ul>
-          <div className="flex items-center">
+          <div className="flex h-10 items-center">
             <SearchBar
               mobile={false}
               onFocus={() => {
                 if (query.length < 1) return;
                 setShowSearchResults(true);
               }}
-              onBlur={() => void 0}
               handleCloseButton={handleCloseButton}
               input={query}
               handleSearch={handleSearch}
             />
-            <div className="md:hidden">
+            <div className="h-10 md:hidden">
               <NavIcon
+                as="button"
                 icon={<FiSearch className="h-5 w-5 opacity-80" />}
                 onClick={() => {
                   setShowMobileSearchMenu(true);
@@ -151,7 +150,9 @@ const Nav = () => {
             <div className="hidden w-7 md:block"></div>
             <FavoritesNavIcon />
             <CartIcon />
-            <div className={` hidden w-4 ${isSignedIn && "md:block"}`}></div>
+            <div
+              className={` hidden w-4 ${isSignedIn ? "md:block" : ""}`}
+            ></div>
             <ProfileButton />
             <div className="w-3 xl:hidden"></div>
             <MobileMenuButton />

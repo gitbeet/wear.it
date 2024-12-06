@@ -1,43 +1,71 @@
-import Link from "next/link";
 import React from "react";
+import type { ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
+import Link from "next/link";
+import type { LinkProps } from "next/link";
 
-interface Props {
-  link?: string;
+type NavIconButtonProps = {
+  as: "button";
+  className?: string;
+  size?: number;
   icon: JSX.Element;
-  number?: number;
-  loading?: boolean;
-  color?: string;
-  onClick?: () => void;
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const NavIcon = ({
-  link,
-  icon,
-  number = 0,
-  loading,
-  color = "bg-indigo-400",
-  onClick,
-}: Props) => {
-  return (
-    <>
-      <Link href={link ?? "#"} onClick={onClick}>
-        <div
-          role="button"
-          className="group  relative z-0 rounded-full  bg-transparent p-3 hover:bg-slate-200"
-        >
-          {icon}
+type NavIconLinkProps = {
+  as: "link";
+  href: string;
+  size?: number;
+  icon: JSX.Element;
+  className?: string;
+} & LinkProps &
+  AnchorHTMLAttributes<HTMLAnchorElement>;
 
-          {!loading && number > 0 && (
-            <div
-              className={`${color} absolute right-1.5 top-6 flex  h-[17px] w-[17px] items-center justify-center rounded-full text-white outline outline-2 outline-white group-hover:outline-slate-300`}
-            >
-              <p className="font-display text-[11px] leading-none">{number}</p>
-            </div>
-          )}
-        </div>
-      </Link>
-    </>
+export type NavIconProps = NavIconButtonProps | NavIconLinkProps;
+
+const NavIcon: React.FC<NavIconProps> = (props) => {
+  const { as, className = "", children, ...rest } = props;
+
+  const baseClass = `relative aspect-square h-full w-auto shrink-0 
+  flex justify-center items-center
+  rounded-full bg-transparent hover:bg-slate-200 active:opacity-50 ${className} `;
+
+  const iconContent = (
+    <div
+      style={{
+        width: `${props.size ?? 20}px`,
+        height: `${props.size ?? 20}px`,
+      }}
+    >
+      {props.icon}
+    </div>
   );
+
+  if (as === "button") {
+    const { type = "button", ...buttonProps } =
+      rest as ButtonHTMLAttributes<HTMLButtonElement>;
+    return (
+      <button
+        className={`${baseClass} disabled:opacity-25 `}
+        type={type}
+        {...buttonProps}
+      >
+        {iconContent}
+        {children}
+      </button>
+    );
+  }
+
+  if (as === "link") {
+    const { href, ...linkProps } = rest as LinkProps &
+      AnchorHTMLAttributes<HTMLAnchorElement>;
+    return (
+      <Link className={baseClass} href={href} {...linkProps}>
+        {iconContent}
+        {children}
+      </Link>
+    );
+  }
+
+  return null;
 };
 
 export default NavIcon;

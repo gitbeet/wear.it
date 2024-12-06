@@ -1,5 +1,5 @@
 import React from "react";
-import NavIcon from "./Nav/NavIcon";
+import NavIconWithNumber from "./Nav/NavIconWithNumber";
 import { BsHeart } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
 
@@ -7,9 +7,10 @@ const FavoritesNavIcon = () => {
   const { favorites, isGettingFavorites } = useFavoritesContext();
   const totalFavorites = favorites?.length;
   return (
-    <NavIcon
+    <NavIconWithNumber
+      as="link"
       icon={<BsHeart className=" h-5 w-5" />}
-      link="/favorites"
+      href="/favorites"
       loading={isGettingFavorites}
       number={totalFavorites ?? 0}
       color="bg-pink-400"

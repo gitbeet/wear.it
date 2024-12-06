@@ -55,7 +55,6 @@ const MobileSearchMenu = ({
           handleCloseButton={handleClearQuery}
           handleSearch={handleSearch}
           input={input}
-          onBlur={onBlur}
           onFocus={onFocus}
         />
       </div>
