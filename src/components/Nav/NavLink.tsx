@@ -4,9 +4,9 @@ const NavLink = (props: LinkTextProps) => {
   return (
     <LinkText
       {...props}
-      className={`grid grow place-content-center border-b-[5px] border-b-transparent px-4  !text-slate-800  hover:!border-indigo-400 hover:!text-indigo-400 ${props.className}`}
+      className={`grid grow place-content-center border-b-[6px] border-b-transparent px-4  !text-slate-800  hover:!border-indigo-400 hover:!text-indigo-400 ${props.className}`}
     >
-      <li>{props.children}</li>
+      <li className="relative top-[6px]">{props.children}</li>
     </LinkText>
   );
 };

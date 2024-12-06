@@ -88,9 +88,9 @@ const Nav = () => {
         isNavHidden && !showSearchResults
           ? "-translate-y-full opacity-0"
           : "-translate-y-0 opacity-100"
-      } fixed z-[50] w-full transition-[opacity,transform] duration-[550ms] ease-in-out `}
+      } fixed z-[50] w-full transition-[opacity,transform] duration-[450ms] ease-in-out `}
     >
-      <div className=" relative z-[50] bg-slate-50 shadow-lg shadow-indigo-600/10">
+      <div className=" shadow-color relative z-[50] bg-slate-50 shadow-lg">
         <div className="padding-x relative mx-auto flex max-w-[1720px] items-center justify-between py-2">
           <Logo responsive />
           <ul

@@ -4,6 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import { type ArrowProps } from "react-multi-carousel/lib/types";
+import NavIcon from "./NavIcon";
 
 export const PromosBanner = ({
   promos,
@@ -17,29 +18,34 @@ export const PromosBanner = ({
     },
   };
 
+  const buttonClass =
+    "!absolute !h-full !w-10 !text-slate-50 hover:!bg-indigo-400 !rounded-none";
+
   const CustomRightArrow = ({ onClick }: ArrowProps) => {
     return (
-      <FiChevronRight
-        role="button"
-        className="absolute right-0  h-6 w-6  text-slate-50  "
+      <NavIcon
+        as="button"
+        icon={<FiChevronRight className="h-5 w-5" />}
+        className={`${buttonClass} right-0`}
         onClick={() => onClick?.()}
-      />
+      ></NavIcon>
     );
   };
 
   const CustomLeftArrow = ({ onClick }: ArrowProps) => {
     return (
-      <FiChevronRight
-        role="button"
-        className="absolute  h-6   w-6 rotate-180 border-white  text-slate-50  "
+      <NavIcon
+        as="button"
+        icon={<FiChevronRight className="h-5 w-5 rotate-180" />}
+        className={`${buttonClass} left-0`}
         onClick={() => onClick?.()}
-      />
+      ></NavIcon>
     );
   };
 
   return (
     // Hard coded pt-[60px] - value of the nav height
-    <div className="gradient-main-r relative z-[40] flex w-full items-center justify-center pt-[60px] text-slate-50">
+    <div className="gradient-main-r shadow-color relative z-[40] flex w-full items-center justify-center pt-[56px] text-slate-50 shadow-lg">
       <Carousel
         removeArrowOnDeviceType={["mobile", "tablet"]}
         className="w-[min(calc(100%-48px),700px)]  py-1.5 md:py-2"
