@@ -129,7 +129,7 @@ const Nav = () => {
             <NavLink href="/products/kids">
               <>Kids</>
             </NavLink>
-            <NavLink href="/Contact">
+            <NavLink href="/contact">
               <>Contact</>
             </NavLink>
           </ul>
