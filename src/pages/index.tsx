@@ -35,7 +35,7 @@ const Hero = () => (
   <section className="relative w-full  overflow-hidden py-16 lg:py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-black">
-        <span className="gradient-main-text">
+        <span className="gradient-main-text drop-shadow-md">
           {/* <span className=" bg-gradient-to-r from-red-500 via-pink-500  to-indigo-600 bg-clip-text text-transparent"> */}
           Ready for winter?
         </span>
@@ -43,7 +43,7 @@ const Hero = () => (
       <div className="h-8"></div>
       <p className="max-w-lg text-xl font-light text-slate-700">
         Winter Wardrobe Wonders to Keep You Warm and{" "}
-        <b>Smiling All Season Long!</b>
+        <b className="font-bold">Smiling All Season Long!</b>
       </p>
       <div className="h-16"></div>
       <div className="w-fit">
@@ -56,6 +56,7 @@ const Hero = () => (
       </div>
     </div>
 
+    <div className="absolute inset-0 z-[1] bg-gradient-to-t from-white/70 to-transparent to-30%" />
     <div className="absolute bottom-0 right-0 top-0  w-full  opacity-25 sm:block md:opacity-100">
       <Image
         fill
@@ -85,13 +86,13 @@ const EventSlider = () => {
       <div>
         <h2 className="gradient-main-text-sm flex items-center  gap-2  py-1 font-display font-extrabold">
           {/* <FaSnowflake className="inline h-8 w-8 shrink-0 text-indigo-500" /> */}
-          <p className=" py-1 font-display  text-5xl font-extrabold ">
+          <p className=" py-1 font-display  text-5xl font-extrabold  drop-shadow-md">
             Cozy up!
           </p>
         </h2>
         <div className="h-4"></div>
         <p className="text-xl font-light text-slate-700">
-          <b>Get Comfy</b> with Our Winter Selection
+          <b className="font-bold">Get Comfy</b> with Our Winter Selection
         </p>
       </div>
 
@@ -130,12 +131,12 @@ const Trending = () => {
 
 const Promotions = () => (
   <section className="padding-x grid w-full gap-4 md:grid-cols-2">
-    <Link href="/products/women/tshirts-tops" className="aspect-square w-full">
+    <Link href="/products/women/tshirts-tops" className="aspect-square w-full ">
       <Image
         sizes="(max-width: 1024px) 100vw, 792px"
         src={bannerTShirts}
         alt="Up to -60% on womens t-shirts"
-        className="rounded-2xl"
+        className="shadow-color rounded-2xl shadow-lg"
         placeholder="blur"
       />
     </Link>
@@ -151,7 +152,7 @@ const Promotions = () => (
           height={392}
           src={bannerJackets}
           alt="Browse jackets under 65%"
-          className="rounded-2xl"
+          className="shadow-color  rounded-2xl shadow-lg"
           placeholder="blur"
         />
       </Link>
@@ -167,7 +168,7 @@ const Promotions = () => (
           height={392}
           src={bannerSneakers}
           alt="Browse seakers from 39$"
-          className="rounded-2xl"
+          className="shadow-color  rounded-2xl shadow-lg"
           placeholder="blur"
         />
       </Link>
@@ -176,7 +177,7 @@ const Promotions = () => (
 );
 
 const MemberDeals = () => (
-  <div className="padding-x gradient-main-tr flex flex-col items-center justify-center gap-8 py-16  text-slate-50 3xl:rounded-xl">
+  <div className="padding-x gradient-main-tr shadow-color flex flex-col items-center justify-center gap-8  py-16 text-slate-50 shadow-lg 3xl:rounded-xl">
     <div className="space-y-4">
       <p className="text-center font-display text-5xl font-black">
         BECOME A MEMBER <br /> AND SAVE UP TO 70%

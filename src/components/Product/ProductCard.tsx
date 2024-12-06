@@ -31,7 +31,7 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
         await router.push(productLink);
       }}
       fill
-      className="relative cursor-pointer rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
+      className="shadow-color relative cursor-pointer rounded-lg border border-transparent bg-slate-100 shadow-md transition-[border] duration-100 group-hover:border-indigo-200"
       src={
         product.images.find((image) => image.id === currentImage)?.imageURL ??
         ""
