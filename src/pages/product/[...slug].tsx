@@ -144,7 +144,7 @@ const Product = ({
   const router = useRouter();
   const ctx = api.useUtils();
   const { user, isSignedIn } = useUser();
-  const { cookies } = useCartContext();
+  // const { cookies } = useCartContext();
   // Get product data
   const {
     data: productData,
@@ -312,7 +312,7 @@ const Product = ({
       size: selectedSize,
       productId: productData.id,
       quantity: 1,
-      type: "INCREMENT",
+      // type: "INCREMENT",
     });
   };
 
@@ -561,7 +561,6 @@ export const getServerSideProps = async (
   if (!slug?.[0]) {
     throw new Error("no slug");
   }
-
   await helpers.product.getSingleProduct.prefetch({ id: slug[0] });
   return {
     props: {

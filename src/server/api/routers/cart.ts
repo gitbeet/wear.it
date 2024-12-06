@@ -83,6 +83,7 @@ export const cartRouter = createTRPCRouter({
     });
 
     if (!shoppingSession) {
+      console.log("No session");
       const newSession = await db.shoppingSession.create({
         data: {
           total: 0,
@@ -131,7 +132,8 @@ export const cartRouter = createTRPCRouter({
       });
       return newSession;
     }
-
+    console.log("Yes session");
+    console.log(shoppingSession.cartItems.length);
     return shoppingSession;
   }),
   removeItem: publicProcedure
@@ -174,7 +176,7 @@ export const cartRouter = createTRPCRouter({
       z.object({
         productId: z.string(),
         quantity: z.number().positive().optional(),
-        type: z.enum(["INCREMENT", "DECREMENT"]),
+        // type: z.enum(["INCREMENT", "DECREMENT"]),
         size: z.nativeEnum(ProductSize),
         color: z.nativeEnum(ProductColor),
       }),
@@ -188,13 +190,17 @@ export const cartRouter = createTRPCRouter({
           message: "No user identifier found",
         });
       }
-      const { productId, quantity = 1, type, size, color } = input;
+      console.log("Adding item...");
+      const { productId, quantity = 1, size, color } = input;
+      // Check if there's a session attached to the current user/guest user
       const shoppingSession = await db.shoppingSession.findUnique({
         where: {
           userId,
         },
       });
+      // If there's no such session, create one and add the item with quantity of 1
       if (!shoppingSession) {
+        console.log("No session...");
         await db.shoppingSession.create({
           data: {
             userId,
@@ -209,39 +215,32 @@ export const cartRouter = createTRPCRouter({
             total: 0,
           },
         });
-      } else {
+        return;
+      }
+      // If there exist such session
+      if (shoppingSession) {
+        // Check if the item is already in the cart
         const isProductAlreadyInCart = await db.cartItem.findFirst({
           where: {
             productId,
             size,
             color,
+            sessionId: shoppingSession.id,
           },
         });
-
-        if (!isProductAlreadyInCart) {
-          await db.cartItem.create({
-            data: {
-              quantity,
-              productId,
-              sessionId: shoppingSession.id,
-              color,
-              size,
-            },
-          });
-        } else {
-          await db.cartItem.update({
-            where: {
-              id: isProductAlreadyInCart.id,
-            },
-
-            data: {
-              quantity:
-                type === "INCREMENT"
-                  ? { increment: quantity }
-                  : { decrement: quantity },
-            },
-          });
-        }
+        // If the item is already in the cart, just return
+        if (isProductAlreadyInCart) return;
+        // If it's not in the cart, create the cart item and attach it to the session
+        console.log("Not in cart.");
+        await db.cartItem.create({
+          data: {
+            quantity,
+            productId,
+            sessionId: shoppingSession.id,
+            color,
+            size,
+          },
+        });
       }
     }),
   modifyItem: publicProcedure

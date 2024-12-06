@@ -59,6 +59,9 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
 
   const { userId } = sesh;
 
+  // console.log("session-id -- /trpc.ts", guestUserId);
+  // console.log("userId -- /trpc.ts", userId);
+
   return {
     db,
     userId,

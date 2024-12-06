@@ -105,6 +105,10 @@ export const productRouter = createTRPCRouter({
       const { id } = input;
       const { db, userId: loggedUserId, guestUserId } = ctx;
       const userId = loggedUserId ?? guestUserId ?? undefined;
+
+      // console.log("session-id  -- product router", guestUserId);
+      // console.log("userId -- product router", loggedUserId);
+
       if (typeof userId === "undefined") {
         throw new TRPCError({
           code: "BAD_REQUEST",
