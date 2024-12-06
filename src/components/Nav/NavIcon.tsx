@@ -44,7 +44,7 @@ const NavIcon: React.FC<NavIconProps> = (props) => {
       rest as ButtonHTMLAttributes<HTMLButtonElement>;
     return (
       <button
-        className={`${baseClass} disabled:opacity-25 `}
+        className={`${baseClass} disabled:opacity-25  `}
         type={type}
         {...buttonProps}
       >

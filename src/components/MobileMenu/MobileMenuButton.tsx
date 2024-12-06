@@ -1,17 +1,21 @@
 import React from "react";
 import { useModalsContext } from "~/context/modalsContext";
+import NavIcon from "../Nav/NavIcon";
+import { CiMenuBurger } from "react-icons/ci";
 
 const MobileMenuButton = () => {
   const { setShowMobileMenu } = useModalsContext();
+
+  const burger = <CiMenuBurger className="h-5 w-5" />;
+
   return (
-    <button
-      onClick={() => setShowMobileMenu((prev) => !prev)}
-      className="relative h-5 w-6 xl:hidden "
-    >
-      <div className="absolute top-0 h-0.5 w-full rounded-full bg-slate-600"></div>
-      <div className="absolute top-1/2 h-0.5 w-full -translate-y-1/2 rounded-full bg-slate-600"></div>
-      <div className="absolute bottom-0 h-0.5 w-full rounded-full bg-slate-600"></div>
-    </button>
+    <div className="relative h-10 xl:hidden">
+      <NavIcon
+        as="button"
+        icon={burger}
+        onClick={() => setShowMobileMenu((prev) => !prev)}
+      />
+    </div>
   );
 };
 
