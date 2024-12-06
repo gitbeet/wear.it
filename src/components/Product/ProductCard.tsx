@@ -5,7 +5,13 @@ import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import type { SQLProductType } from "~/types";
 import { useRouter } from "next/router";
-const ProductCard = ({ product }: { product: SQLProductType }) => {
+const ProductCard = ({
+  product,
+  onClose,
+}: {
+  product: SQLProductType;
+  onClose?: () => void;
+}) => {
   const { isFavorited } = useFavoritesContext();
   const router = useRouter();
   const [showColorVariations, setShowColorVariations] = useState(false);
@@ -29,6 +35,7 @@ const ProductCard = ({ product }: { product: SQLProductType }) => {
       onClick={async () => {
         if (!showColorVariations) return;
         await router.push(productLink);
+        onClose?.();
       }}
       fill
       className="shadow-color relative cursor-pointer rounded-lg border border-transparent bg-slate-100 shadow-md transition-[border] duration-100 group-hover:border-indigo-200"

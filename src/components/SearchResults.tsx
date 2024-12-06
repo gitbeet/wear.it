@@ -109,8 +109,8 @@ const SearchResults = ({
               >
                 {results.length > 0 &&
                   results.map((product) => (
-                    <div key={product.id} onClick={onClose}>
-                      <ProductCard product={product} />
+                    <div key={product.id}>
+                      <ProductCard product={product} onClose={onClose} />
                     </div>
                   ))}
               </div>

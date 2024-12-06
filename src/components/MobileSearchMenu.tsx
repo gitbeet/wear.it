@@ -23,7 +23,6 @@ const MobileSearchMenu = ({
   showMenu,
   showResults,
   onFocus,
-  onBlur,
   input,
   handleSearch,
   handleCloseButton,
