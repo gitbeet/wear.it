@@ -14,7 +14,6 @@ import MobileMenuButton from "../MobileMenu/MobileMenuButton";
 import ProfileButton from "./ProfileButton";
 import { useUser } from "@clerk/nextjs";
 import MobileSearchMenu from "../MobileSearchMenu";
-import NavIconWithNumber from "./NavIconWithNumber";
 import { FiSearch } from "react-icons/fi";
 import NavIcon from "./NavIcon";
 
@@ -91,7 +90,7 @@ const Nav = () => {
           : "-translate-y-0 opacity-100"
       } fixed z-[50] w-full transition-[opacity,transform] duration-[550ms] ease-in-out `}
     >
-      <div className=" relative z-[50]  bg-slate-50 shadow-lg shadow-indigo-600/10">
+      <div className=" relative z-[50] bg-slate-50 shadow-lg shadow-indigo-600/10">
         <div className="padding-x relative mx-auto flex max-w-[1720px] items-center justify-between py-2">
           <Logo responsive />
           <ul
