@@ -52,12 +52,14 @@ const promotionsAndDiscountsFooterColumn: FooterColumnType = {
   ],
 };
 
+const currentYear = new Date().getFullYear();
+
 const Footer = () => {
   return (
     <>
       <Spacer type="footer" />
       <footer className="w-full border-indigo-100 bg-slate-100  pt-12 text-slate-900">
-        <div className="padding-x xs:flex-row xs:flex-wrap mx-auto flex max-w-[1720px] flex-col justify-start gap-8 pb-12 md:pb-20">
+        <div className="padding-x mx-auto flex max-w-[1720px] flex-col justify-start gap-8 pb-12 md:pb-20 xs:flex-row xs:flex-wrap">
           <div className="relative -top-2 grow">
             <Logo />
           </div>
@@ -85,8 +87,8 @@ const Footer = () => {
         </div>
         <div className="gradient-main-r py-2">
           <p className="text-center text-sm font-light text-slate-50">
-            <b className="font-display font-black">wear.it</b> 2023© All rights
-            reserved.
+            <b className="font-display font-black">wear.it</b> {currentYear}©
+            All rights reserved.
           </p>
         </div>
       </footer>

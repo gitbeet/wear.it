@@ -183,7 +183,7 @@ const PriceSlider = ({
               <div
                 {...props}
                 role="button"
-                className="hover-hover:hover:bg-indigo-500 absolute -top-1.5 h-5 w-5 rounded-full border-2  border-slate-50 bg-indigo-400 outline outline-2  outline-transparent transition-[colors] duration-150 focus:bg-indigo-500 focus:outline-indigo-400 "
+                className="absolute -top-1.5 h-5 w-5 rounded-full border-2 border-slate-50  bg-indigo-400 outline outline-2 outline-transparent  transition-[colors] duration-150 hover:bg-indigo-500 focus:bg-indigo-500 focus:outline-indigo-400 "
               ></div>
             )}
             renderTrack={(props, state) => (

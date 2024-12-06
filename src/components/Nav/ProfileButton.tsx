@@ -47,7 +47,7 @@ const ProfileButton = () => {
         ) : (
           <>
             <div onClick={toggleIsOpen} className="flex items-center gap-0.5">
-              <span className="hover-hover:hover:text-slate-800 w-fit text-sm font-semibold text-slate-500 transition-colors duration-150">
+              <span className="w-fit text-sm font-semibold text-slate-500 transition-colors duration-150 hover:text-slate-800">
                 Hi, {user.username}
               </span>
               <NavIcon icon={<IoPersonOutline className="h-5 w-5" />} />

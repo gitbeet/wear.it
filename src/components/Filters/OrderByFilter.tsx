@@ -51,7 +51,7 @@ const OrderByFilter = ({ loading, showSort, setShowSort }: Props) => {
               sortQueryArray[0] === "newest"
                 ? "text-indigo-500"
                 : "text-slate-800"
-            } hover-hover:hover:text-slate-400 cursor-pointer`}
+            } cursor-pointer hover:text-slate-400`}
           >
             Newest
           </p>
@@ -62,7 +62,7 @@ const OrderByFilter = ({ loading, showSort, setShowSort }: Props) => {
               sortQueryArray[0] === "high-to-low"
                 ? "text-indigo-500"
                 : "text-slate-800"
-            } hover-hover:hover:text-slate-400 cursor-pointer`}
+            } cursor-pointer hover:text-slate-400`}
           >
             Price: High-Low
           </p>
@@ -73,7 +73,7 @@ const OrderByFilter = ({ loading, showSort, setShowSort }: Props) => {
               sortQueryArray[0] === "low-to-high"
                 ? "text-indigo-500"
                 : "text-slate-800"
-            } hover-hover:hover:text-slate-400 cursor-pointer`}
+            } cursor-pointer hover:text-slate-400`}
           >
             Price: Low-High
           </p>

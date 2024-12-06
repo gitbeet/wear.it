@@ -178,7 +178,7 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
                   }
                 }}
                 role="button"
-                className="hover-hover:hover:text-slate-800 flex items-center gap-2 text-slate-500 transition-colors duration-150"
+                className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800"
               >
                 {isItemFavorited ? (
                   <BsHeartFill className="h-5 w-5" />
@@ -194,7 +194,7 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
                 type="button"
                 disabled={isRemoving}
                 onClick={() => remove({ id })}
-                className="hover-hover:hover:text-slate-800 flex items-center gap-2 text-slate-500 transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <BsTrash className="h-5 w-5" />
                 <span className="pl-2">Remove</span>

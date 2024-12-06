@@ -3,6 +3,9 @@ import { safeListColors } from "./src/maps";
 
 export default {
   content: ["./src/**/*.tsx"],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   safelist: safeListColors,
   theme: {
     extend: {
@@ -12,7 +15,6 @@ export default {
       screens: {
         xs: "440px",
         "3xl": "1720px",
-        "hover-hover": { raw: "(hover: hover)" },
       },
       fontFamily: {
         display: "Montserrat , sans-serif",
