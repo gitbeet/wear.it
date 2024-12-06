@@ -95,9 +95,11 @@ const Nav = () => {
           <Logo responsive />
           <ul
             role="navigation"
-            className="absolute left-1/2 hidden -translate-x-1/2 cursor-pointer justify-center xl:flex"
+            className="absolute left-1/2 hidden h-full -translate-x-1/2 cursor-pointer items-stretch justify-center  xl:flex"
           >
-            <NavLink link="/" text="Home" />
+            <NavLink href="/">
+              <>Home</>
+            </NavLink>
             <NavLink
               onClick={() => setShowMegaMenu(false)}
               onMouseOver={() => {
@@ -107,9 +109,10 @@ const Nav = () => {
               onMouseLeave={() => {
                 setShowMegaMenu(false);
               }}
-              link="/products/men"
-              text="Men"
-            />
+              href="/products/men"
+            >
+              <>Men</>
+            </NavLink>
             <NavLink
               onClick={() => setShowMegaMenu(false)}
               onMouseOver={() => {
@@ -119,11 +122,16 @@ const Nav = () => {
               onMouseLeave={() => {
                 setShowMegaMenu(false);
               }}
-              link="/products/women"
-              text="Women"
-            />
-            <NavLink link="/products/kids" text="Kids" />
-            <NavLink link="/contact" text="Contact" />
+              href="/products/women"
+            >
+              <>Women</>
+            </NavLink>
+            <NavLink href="/products/kids">
+              <>Kids</>
+            </NavLink>
+            <NavLink href="/Contact">
+              <>Contact</>
+            </NavLink>
           </ul>
           <div className="flex h-10 items-center">
             <SearchBar

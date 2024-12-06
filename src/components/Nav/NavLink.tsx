@@ -1,26 +1,13 @@
-import Link from "next/link";
-import React from "react";
+import LinkText, { type LinkTextProps } from "../UI/LinkText";
 
-interface Props {
-  link: string;
-  text: string;
-  onMouseOver?: () => void;
-  onMouseLeave?: () => void;
-  onClick?: () => void;
-}
-
-const NavLink = ({ link, text, onMouseOver, onMouseLeave, onClick }: Props) => {
+const NavLink = (props: LinkTextProps) => {
   return (
-    <Link href={link} className="active:opacity-50">
-      <li
-        onClick={onClick}
-        onMouseOver={onMouseOver}
-        onMouseLeave={onMouseLeave}
-        className="cursor-pointer  border-b-[5px]  border-b-transparent p-4   text-slate-800  hover:border-indigo-400 hover:text-indigo-400"
-      >
-        {text}
-      </li>
-    </Link>
+    <LinkText
+      {...props}
+      className={`grid grow place-content-center border-b-[5px] border-b-transparent px-4  !text-slate-800  hover:!border-indigo-400 hover:!text-indigo-400 ${props.className}`}
+    >
+      <li>{props.children}</li>
+    </LinkText>
   );
 };
 

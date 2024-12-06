@@ -1,11 +1,11 @@
-import Link from "next/link";
-import React from "react";
 import { VscChromeClose } from "react-icons/vsc";
 import { useModalsContext } from "~/context/modalsContext";
 import NavIcon from "../Nav/NavIcon";
+import LinkText from "../UI/LinkText";
 
 const MobileMenu = () => {
   const { setShowMobileMenu, showMobileMenu } = useModalsContext();
+  const linkTextClass = "text-xl font-semibold";
   return (
     <>
       <div
@@ -21,43 +21,43 @@ const MobileMenu = () => {
           />
         </div>
         <div className="h-24"></div>
-        <div className="flex flex-col gap-8 pl-12">
-          <Link
+        <ul className="flex flex-col gap-8 pl-12">
+          <LinkText
             onClick={() => setShowMobileMenu(false)}
             href="/"
-            className="text-xl font-semibold"
+            className={linkTextClass}
           >
-            Home
-          </Link>
-          <Link
+            <li>Home</li>
+          </LinkText>
+          <LinkText
             onClick={() => setShowMobileMenu(false)}
             href="/products/men"
-            className="text-xl font-semibold"
+            className={linkTextClass}
           >
-            Men
-          </Link>
-          <Link
+            <li>Men</li>
+          </LinkText>
+          <LinkText
             onClick={() => setShowMobileMenu(false)}
             href="/products/women"
-            className="text-xl font-semibold"
+            className={linkTextClass}
           >
-            Women
-          </Link>
-          <Link
+            <li>Women</li>
+          </LinkText>
+          <LinkText
             onClick={() => setShowMobileMenu(false)}
             href="/products/kids"
-            className="text-xl font-semibold"
+            className={linkTextClass}
           >
-            Kids
-          </Link>
-          <Link
+            <li>Kids</li>
+          </LinkText>
+          <LinkText
             onClick={() => setShowMobileMenu(false)}
             href="/contact"
-            className="text-xl font-semibold"
+            className={linkTextClass}
           >
-            Contact
-          </Link>
-        </div>
+            <li>Contact</li>
+          </LinkText>
+        </ul>
       </div>
 
       <div
