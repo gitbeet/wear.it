@@ -1,19 +1,13 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import type { SQLProductType } from "~/types";
-console.log("first");
-const ProductCard = ({
-  product,
-  onClick,
-}: {
-  product: SQLProductType;
-  onClick?: () => void;
-}) => {
+import { useRouter } from "next/router";
+const ProductCard = ({ product }: { product: SQLProductType }) => {
   const { isFavorited } = useFavoritesContext();
+  const router = useRouter();
   const [showColorVariations, setShowColorVariations] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.images[0]?.id);
   const priceBeforeDiscount = formatCurrency(product.price);
@@ -30,30 +24,20 @@ const ProductCard = ({
     (image) => image.id === currentImage,
   )?.color}`;
 
-  const image = showColorVariations ? (
-    <Link onClick={onClick} href={productLink}>
-      <Image
-        fill
-        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
-        src={
-          product.images.find((image) => image.id === currentImage)?.imageURL ??
-          ""
-        }
-        alt="Product image"
-      />
-    </Link>
-  ) : (
-    <div>
-      <Image
-        fill
-        className="relative rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
-        src={
-          product.images.find((image) => image.id === currentImage)?.imageURL ??
-          ""
-        }
-        alt="Product image"
-      />
-    </div>
+  const image = (
+    <Image
+      onClick={async () => {
+        if (!showColorVariations) return;
+        await router.push(productLink);
+      }}
+      fill
+      className="relative cursor-pointer rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
+      src={
+        product.images.find((image) => image.id === currentImage)?.imageURL ??
+        ""
+      }
+      alt="Product image"
+    />
   );
 
   const favoriteButton = (
@@ -63,7 +47,7 @@ const ProductCard = ({
         currentImageColor && isFavorited(currentImageColor, product.id)
           ? "border-indigo-100"
           : "border-transparent"
-      } @2xs:h-10 @2xs:w-10 @2xs:p-2 pointer-events-none absolute right-[4%] top-[4%] z-10 flex h-8  w-8 items-center justify-center rounded-full bg-slate-50 p-1.5`}
+      } pointer-events-none absolute right-[4%] top-[4%] z-10 flex h-8 w-8 items-center justify-center  rounded-full bg-slate-50 p-1.5 @2xs:h-10 @2xs:w-10 @2xs:p-2`}
     >
       {currentImageColor && isFavorited(currentImageColor, product.id) && (
         <BsHeartFill className="h-full w-full text-indigo-400" />
@@ -95,45 +79,33 @@ const ProductCard = ({
     </p>
   );
 
-  const thumbnails = (
-    <div className="@xs:pl-1.5 relative min-h-[4rem] w-full self-start overflow-hidden pl-1">
+  const cardFooter = (
+    <div className="relative min-h-[4rem] w-full self-start overflow-hidden pl-1 @xs:pl-1.5">
+      {/* Card footer images */}
       <div
         className={`${
           showColorVariations ? "opacity-100" : "-translate-y-full opacity-0"
         } absolute  flex w-full items-start gap-2 self-start transition-[opacity,transform] duration-[250ms]`}
       >
         {product.colors.map((color, i) => {
-          const image = product.images.find(
+          const thumbnailImage = product.images.find(
             (image) => image.color === color.color,
           );
-          const testLink = `/product/${product.id}/${image?.color}`;
-          return showColorVariations ? (
-            <Link key={i} href={testLink}>
-              <Image
-                onClick={onClick}
-                onMouseOver={() => setCurrentImage(image?.id)}
-                className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 cursor-pointer bg-slate-100"
-                width={56}
-                height={56}
-                src={image?.imageURL ?? ""}
-                alt={`${color.color} variation`}
-              />
-            </Link>
-          ) : (
-            <div key={i}>
-              <Image
-                onMouseOver={() => setCurrentImage(image?.id)}
-                className="@2xs:w-[56px] @2xs:h-[56px] h-10 w-10 cursor-pointer bg-slate-100"
-                width={56}
-                height={56}
-                src={image?.imageURL ?? ""}
-                alt={`${color.color} variation`}
-              />
-            </div>
+          return (
+            <Image
+              key={i}
+              onMouseOver={() => setCurrentImage(thumbnailImage?.id)}
+              className="h-10 w-10  bg-slate-100 @2xs:h-[56px] @2xs:w-[56px]"
+              width={56}
+              height={56}
+              src={thumbnailImage?.imageURL ?? ""}
+              alt={`${color.color} variation`}
+            />
           );
+          // );
         })}
       </div>
-
+      {/* Card footer text */}
       <div
         className={`${
           !showColorVariations ? "opacity-100" : "translate-y-full opacity-0"
@@ -153,7 +125,7 @@ const ProductCard = ({
       className="@container"
     >
       <div
-        className={` @2xs:text-base group flex flex-col items-center  justify-center rounded-sm  p-1 text-xs text-slate-800`}
+        className={` group flex flex-col items-center justify-center  rounded-sm p-1 text-xs text-slate-800 @2xs:text-base`}
       >
         <div className="relative aspect-square w-full ">
           {favoriteButton}
@@ -161,7 +133,7 @@ const ProductCard = ({
           {prices}
         </div>
         <div className="h-4"></div>
-        {thumbnails}
+        {cardFooter}
       </div>
     </article>
   );
