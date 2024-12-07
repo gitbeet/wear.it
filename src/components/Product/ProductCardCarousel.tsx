@@ -4,31 +4,38 @@ import Carousel, {
 } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductCard from "./ProductCard";
-import { FiChevronRight } from "react-icons/fi";
+import { FiChevronLeft } from "react-icons/fi";
 import type { SQLProductType } from "~/types";
+import NavIcon from "../Nav/NavIcon";
+import SliderArrow from "../UI/SliderArrow";
+
+const arrowContainerClass =
+  "absolute top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center";
+const arrowIconClass = "!bg-white !border-slate-100 hover:!bg-slate-300";
+
+//   <div className={`${arrowContainerClass} left-4`}>
+//   <NavIcon
+//     className={arrowIconClass}
+//     onClick={() => setCurrentImage((prev) => (prev < 1 ? 0 : prev - 1))}
+//     as="button"
+//     size={32}
+//     icon={<FiChevronLeft className="h-full w-full" />}
+//     disabled={isFirstImage}
+//   />
+// </div>
 
 const CustomRightArrow = ({ onClick, ...rest }: ArrowProps) => {
   return (
-    <div className="absolute right-0 flex -translate-x-full items-center justify-center rounded-full  bg-indigo-400 p-1 text-slate-50 opacity-[0.8]  transition-opacity duration-150 hover:bg-indigo-400 hover:opacity-100">
-      <FiChevronRight
-        className=" h-8 w-8 "
-        role="button"
-        onClick={() => onClick?.()}
-      />
-    </div>
+    <SliderArrow
+      positionClass="right-4"
+      arrowDirectionClass="rotate-180"
+      onClick={() => onClick?.()}
+    />
   );
 };
 
 const CustomLeftArrow = ({ onClick, ...rest }: ArrowProps) => {
-  return (
-    <div className="absolute left-0 flex translate-x-full items-center justify-center rounded-full  bg-indigo-400  p-1 text-slate-50 opacity-[0.8] transition-opacity duration-150 hover:bg-indigo-400 hover:opacity-100">
-      <FiChevronRight
-        className=" h-8 w-8 rotate-180 "
-        role="button"
-        onClick={() => onClick?.()}
-      />
-    </div>
-  );
+  return <SliderArrow positionClass="left-4" onClick={() => onClick?.()} />;
 };
 
 const ProductCardCarousel = ({
@@ -62,6 +69,7 @@ const ProductCardCarousel = ({
       items: 1.5,
     },
   };
+
   return !products || isLoading ? (
     <Carousel
       responsive={responsive}

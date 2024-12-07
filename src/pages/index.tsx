@@ -1,6 +1,5 @@
 import heroImage from "../../public/assets/hero-3.png";
 import Button from "~/components/UI/Button";
-// import { BsHandbag } from "react-icons/bs";
 import Image from "next/image";
 import { api } from "~/utils/api";
 import bannerJackets from "../../public/assets/banner-small-jackets-2.jpg";

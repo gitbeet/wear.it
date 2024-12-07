@@ -25,10 +25,11 @@ import CreateReviewWizard from "~/components/CreateReviewWizard";
 import { useUser } from "@clerk/nextjs";
 import { FaChevronDown } from "react-icons/fa";
 import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
-import { useCartContext } from "~/context/cartContext";
 import { NextSeo } from "next-seo";
 import { colorOptions } from "~/maps";
 import Spacer from "~/components/Spacer";
+import NavIcon from "~/components/Nav/NavIcon";
+import ExpandArrow from "~/components/UI/ExpandArrow";
 
 const productPageSkeleton = (
   <>
@@ -372,12 +373,10 @@ const Product = ({
               averageRating={averageReviewsRating}
             />
           </div>
-          <FaChevronDown
+          <ExpandArrow
+            expanded={showReviews}
             onClick={() => setShowReviews((prev) => !prev)}
-            role="button"
-            className={`${
-              showReviews && "rotate-180"
-            } h-4 w-4 transition-transform duration-300`}
+            disabled={reviews?.length === 0}
           />
         </div>
       </div>

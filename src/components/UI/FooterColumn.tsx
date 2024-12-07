@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FooterLink from "./FooterLink";
 import { FaChevronDown, FaMinus } from "react-icons/fa";
 import { BsPlus } from "react-icons/bs";
+import ExpandArrow from "./ExpandArrow";
 
 export type FooterLinkType = {
   text: string;
@@ -25,12 +26,9 @@ const FooterColumn = ({ footerHeader, footerItems }: FooterColumnType) => {
         className="flex cursor-pointer items-center gap-4"
       >
         <p className="font-display font-bold text-slate-600">{footerHeader}</p>
-
-        <FaChevronDown
-          className={` ${
-            isOpen && "-rotate-180"
-          }  duration-250 xs:hidden relative h-4  w-4 text-indigo-500 transition-transform`}
-        />
+        <div className="xs:hidden">
+          <ExpandArrow expanded={isOpen} disabled={footerItems.length === 0} />
+        </div>
       </div>
       {isOpen && (
         <div className={`space-y-3`}>

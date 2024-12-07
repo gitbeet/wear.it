@@ -2,6 +2,8 @@ import { type ProductColor } from "@prisma/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
+import NavIcon from "../Nav/NavIcon";
+import SliderArrow from "../UI/SliderArrow";
 
 export const ImageGallerySkeleton = ({
   animate = true,
@@ -10,7 +12,9 @@ export const ImageGallerySkeleton = ({
 }) => {
   return (
     <div
-      className={`{animate && "animate-pulse"} flex w-full flex-col items-start gap-4 md:flex-row-reverse`}
+      className={`${
+        animate && "animate-pulse"
+      } flex w-full flex-col items-start gap-4 md:flex-row-reverse`}
     >
       <div className="relative w-full">
         <div className="aspect-square w-full bg-slate-200"></div>
@@ -44,6 +48,10 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
   const filteredImages = images.filter?.(
     (image) => image.color === selectedColor,
   );
+
+  const isFirstImage = currentImage === 0;
+  const isLastImage = currentImage === images.length - 1;
+
   return (
     <div className="flex w-full flex-col items-start gap-4 md:flex-row-reverse">
       <div className="relative w-full">
@@ -57,24 +65,21 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
             alt="Product image"
           />
         </div>
-        <div
+        <SliderArrow
+          positionClass="left-4"
+          disabled={isFirstImage}
           onClick={() => setCurrentImage((prev) => (prev < 1 ? 0 : prev - 1))}
-          role="button"
-          className="absolute left-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-100 p-2 text-center"
-        >
-          <FiChevronLeft className="h-8 w-8 text-slate-800" />
-        </div>
-        <div
+        />
+        <SliderArrow
+          positionClass="right-4"
+          disabled={isLastImage}
           onClick={() =>
             setCurrentImage((prev) =>
               prev >= images.length - 1 ? images.length - 1 : prev + 1,
             )
           }
-          role="button"
-          className="absolute left-[calc(100%-1rem)] top-1/2 flex h-12 w-12 -translate-x-full -translate-y-1/2 items-center justify-center rounded-full bg-slate-100 p-2 text-center"
-        >
-          <FiChevronLeft className="text-slate-80 h-8 w-8 rotate-180" />
-        </div>
+          arrowDirectionClass="rotate-180"
+        />
       </div>
       <div className="flex gap-2 md:flex-col">
         {filteredImages.map((image, i) => (
