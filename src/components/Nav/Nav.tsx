@@ -82,6 +82,9 @@ const Nav = () => {
     getDebouncedResults(value);
   };
 
+  const toggleMegaMenu = () => {
+    setShowMegaMenu((prev) => (prev === true ? false : true));
+  };
   return (
     <nav
       className={` ${
@@ -97,11 +100,12 @@ const Nav = () => {
             role="navigation"
             className="absolute left-1/2 hidden h-full -translate-x-1/2 cursor-pointer items-stretch justify-center  xl:flex"
           >
-            <NavLink href="/">
+            <NavLink as="link" href="/">
               <>Home</>
             </NavLink>
             <NavLink
-              onClick={() => setShowMegaMenu(false)}
+              as="button"
+              onTouchEnd={toggleMegaMenu}
               onMouseOver={() => {
                 setShowMegaMenu(true);
                 setType("men");
@@ -109,12 +113,12 @@ const Nav = () => {
               onMouseLeave={() => {
                 setShowMegaMenu(false);
               }}
-              href="/products/men"
             >
               <>Men</>
             </NavLink>
             <NavLink
-              onClick={() => setShowMegaMenu(false)}
+              as="button"
+              onTouchEnd={toggleMegaMenu}
               onMouseOver={() => {
                 setShowMegaMenu(true);
                 setType("women");
@@ -122,14 +126,13 @@ const Nav = () => {
               onMouseLeave={() => {
                 setShowMegaMenu(false);
               }}
-              href="/products/women"
             >
               <>Women</>
             </NavLink>
-            <NavLink href="/products/kids">
+            <NavLink as="button">
               <>Kids</>
             </NavLink>
-            <NavLink href="/contact">
+            <NavLink as="link" href="/contact">
               <>Contact</>
             </NavLink>
           </ul>
