@@ -35,7 +35,7 @@ const Hero = () => (
   <section className="relative w-full  overflow-hidden py-16 lg:py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-black">
-        <span className="gradient-main-text drop-shadow-md">
+        <span className="gradient-main-text drop-shadow-sm">
           {/* <span className=" bg-gradient-to-r from-red-500 via-pink-500  to-indigo-600 bg-clip-text text-transparent"> */}
           Ready for winter?
         </span>
@@ -86,7 +86,7 @@ const EventSlider = () => {
       <div>
         <h2 className="gradient-main-text-sm flex items-center  gap-2  py-1 font-display font-extrabold">
           {/* <FaSnowflake className="inline h-8 w-8 shrink-0 text-indigo-500" /> */}
-          <p className=" py-1 font-display  text-5xl font-extrabold  drop-shadow-md">
+          <p className=" py-1 font-display  text-5xl font-extrabold  drop-shadow-sm">
             Cozy up!
           </p>
         </h2>
@@ -98,7 +98,7 @@ const EventSlider = () => {
 
       <div className="w-full overflow-hidden">
         <ProductCardCarousel
-          numberOfItems={{ desktop: 4.5, desktopSmall: 3.5, tablet: 2.5 }}
+          numberOfItems={{ desktop: 3.5, desktopSmall: 2.5, tablet: 2.5 }}
           products={products?.products}
           isLoading={isGettingProducts}
         />
@@ -121,7 +121,7 @@ const Trending = () => {
       <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-6 md:h-12"></div>
       <ProductCardCarousel
-        numberOfItems={{ desktop: 5, desktopSmall: 4, tablet: 3 }}
+        numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 3 }}
         products={products?.products}
         isLoading={isGettingProducts}
       />
