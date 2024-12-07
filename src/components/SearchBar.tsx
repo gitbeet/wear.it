@@ -19,32 +19,35 @@ const SearchBar = ({
     <div
       className={`${
         mobile ? "flex md:hidden" : "hidden md:flex"
-      } group relative h-10 grow justify-end`}
+      } group relative h-10 grow items-center justify-end`}
     >
-      {input.length > 1 && (
-        <div className="absolute right-2 top-1/2  -translate-y-1/2 cursor-pointer">
-          <NavIcon
-            as="button"
-            size={28}
-            icon={
-              <VscChromeClose
-                className="h-full w-full p-1"
-                onClick={handleCloseButton}
-              />
-            }
-          />
-        </div>
-      )}
-      <FiSearch className="relative left-8  top-1/2 h-6 w-6 -translate-y-1/2 text-indigo-300 transition-all duration-300 " />
+      <FiSearch className="relative left-8  h-6  w-6 shrink-0   text-indigo-300 transition-all duration-300 " />
       {/* Using both the focus: and the input lenght */}
       <input
         onFocus={onFocus}
         value={input}
         onChange={handleSearch}
-        className={` ${
-          input.length > 0 || mobile ? "w-full" : "w-40"
+        className={` ${mobile ? "min-w-full" : "w-40"}  ${
+          input.length > 0 && !mobile ? "w-full" : "w-40"
         } peer h-full rounded-full border border-indigo-100 bg-white px-10 outline outline-transparent transition-all duration-300 focus:w-full focus:border-transparent focus:outline-indigo-300`}
       />
+
+      <div
+        className={` ${
+          input.length > 0 ? "opacity-100" : "pointer-events-none opacity-0"
+        } absolute right-1 h-8 w-8 cursor-pointer transition-all`}
+      >
+        <NavIcon
+          as="button"
+          size={24}
+          icon={
+            <VscChromeClose
+              className="h-full w-full p-1"
+              onClick={handleCloseButton}
+            />
+          }
+        />
+      </div>
     </div>
   );
 };
