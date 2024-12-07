@@ -40,7 +40,7 @@ const ProductCard = ({
   const mainImage = (
     <Image
       fill
-      className="absolute inset-0 z-[0] rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
+      className="shadow-color absolute inset-0 z-[0] rounded-lg border border-transparent bg-slate-100 shadow-md transition-[border] duration-100 group-hover:border-indigo-200"
       src={
         product.images.find((image) => image.id === currentImage)?.imageURL ??
         ""
@@ -59,7 +59,7 @@ const ProductCard = ({
     >
       <Image
         fill
-        className="rounded-lg border border-transparent bg-slate-100 transition-[border] duration-100 group-hover:border-indigo-200"
+        className=" rounded-lg border border-transparent bg-slate-100  transition-[border] duration-100  group-hover:border-indigo-200"
         src={
           product.images.find((image) => image.id === currentImage)?.imageURL ??
           ""
@@ -88,22 +88,22 @@ const ProductCard = ({
   );
 
   const prices = product.discount?.discountPercent ? (
-    <div className="absolute bottom-2 left-4 text-slate-900 transition-transform duration-300 group-hover:-translate-y-1.5">
-      <p className="w-fit rounded-sm bg-teal-500 px-2 py-1 font-display font-bold text-white">
+    <div className="absolute bottom-2 left-4 z-[2] text-slate-900 transition-transform duration-300 group-hover:-translate-y-1.5">
+      <p className="w-fit rounded-sm bg-teal-500 px-2 py-1 font-display font-bold text-white  shadow-sm ">
         -{product.discount?.discountPercent}%
       </p>
       <div className="h-1.5"></div>
       <div className=" flex gap-2 ">
-        <p className="rounded-sm bg-white  px-3 py-1  font-display  text-slate-400 line-through">
+        <p className="rounded-sm bg-white px-3   py-1 font-display  text-slate-400  line-through shadow-sm">
           {priceBeforeDiscount}
         </p>
-        <p className="w-fit rounded-sm bg-white  px-3 py-1 font-display font-bold text-pink-500">
+        <p className="w-fit rounded-sm bg-white px-3   py-1 font-display font-bold text-pink-500 shadow-sm">
           {priceAfterDiscount}
         </p>
       </div>
     </div>
   ) : (
-    <p className="absolute bottom-2 left-4 w-fit bg-slate-50 px-3 py-1 font-display font-bold transition-transform duration-300 group-hover:-translate-y-1.5">
+    <p className="absolute bottom-2 left-4 z-[2] w-fit bg-white px-3 py-1 font-display font-bold shadow-sm transition-transform duration-300 group-hover:-translate-y-1.5">
       {priceBeforeDiscount}
     </p>
   );
@@ -119,26 +119,21 @@ const ProductCard = ({
           const image = product.images.find(
             (image) => image.color === color.color,
           );
-          return showColorVariations ? (
+          const isCurrenttlyDisplayed = currentImage === image?.id;
+          return (
             <Image
+              key={i}
               onMouseOver={() => setCurrentImage(image?.id)}
-              className="h-10 w-10  bg-slate-100 @2xs:h-[56px] @2xs:w-[56px]"
+              className={`border ${
+                isCurrenttlyDisplayed
+                  ? "border-indigo-200"
+                  : "border-transparent"
+              } h-10 w-10 cursor-pointer rounded-sm bg-slate-100 shadow-sm @2xs:h-[56px] @2xs:w-[56px] `}
               width={56}
               height={56}
               src={image?.imageURL ?? ""}
               alt={`${color.color} variation`}
             />
-          ) : (
-            <div key={i}>
-              <Image
-                onMouseOver={() => setCurrentImage(image?.id)}
-                className="h-10 w-10 cursor-pointer bg-slate-100 @2xs:h-[56px] @2xs:w-[56px]"
-                width={56}
-                height={56}
-                src={image?.imageURL ?? ""}
-                alt={`${color.color} variation`}
-              />
-            </div>
           );
         })}
       </div>
@@ -163,7 +158,7 @@ const ProductCard = ({
       <div
         className={` group flex flex-col items-center justify-center  rounded-sm p-1  text-xs text-slate-800 @2xs:text-base`}
       >
-        <div className="relative aspect-square w-full ">
+        <div className="relative aspect-square w-full">
           {favoriteButton}
           {mainImageLink}
           {mainImage}
