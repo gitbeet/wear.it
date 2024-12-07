@@ -129,6 +129,9 @@ const Trending = () => {
   );
 };
 
+const promotionsClass =
+  "shadow-color rounded-md xl:rounded-xl shadow-md xl:shadow-lg";
+
 const Promotions = () => (
   <section className="padding-x grid w-full gap-4 md:grid-cols-2">
     <Link href="/products/women/tshirts-tops" className="aspect-square w-full ">
@@ -136,7 +139,7 @@ const Promotions = () => (
         sizes="(max-width: 1024px) 100vw, 792px"
         src={bannerTShirts}
         alt="Up to -60% on womens t-shirts"
-        className="shadow-color rounded-2xl shadow-lg"
+        className={promotionsClass}
         placeholder="blur"
       />
     </Link>
@@ -152,7 +155,7 @@ const Promotions = () => (
           height={392}
           src={bannerJackets}
           alt="Browse jackets under 65%"
-          className="shadow-color  rounded-2xl shadow-lg"
+          className={promotionsClass}
           placeholder="blur"
         />
       </Link>
@@ -168,7 +171,7 @@ const Promotions = () => (
           height={392}
           src={bannerSneakers}
           alt="Browse seakers from 39$"
-          className="shadow-color  rounded-2xl shadow-lg"
+          className={promotionsClass}
           placeholder="blur"
         />
       </Link>
