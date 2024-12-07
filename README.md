@@ -1,28 +1,42 @@
-# Create T3 App
+# **Clothing E-commerce website**
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Developing a clothing E-Commerce website as a personal project . Still working on some of the functionality.
 
-## What's next? How do I make an app with this?
+## Demo
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+The project is hosted on **vercel.com**. You can visit it by clicking [here](https://wearitstore.vercel.app/).
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Project status
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+The project is currently in development.
 
-## Learn More
+## Features
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- ### Responsive design
+  - The website includes mobile, tablet and desktop version
+- ### Multi-page
+  - The website includes a landing page, pages for the product categories, individual product pages, contact, login, register, shopping cart, wishlist and checkout pages.
+- ### User register/login functionality
+- ### Shopping cart / wishlist functionality for both registered and guest users
+- ### Basic search functionality
+- ### Browse products by category/subcategory. The page includes:
+  - Filter products by price range, size and color
+  - Order products by price and date
+- ### Individial product page including:
+  - Basic information about the product including name, category, price and description
+  - Product gallery
+  - Select color and size
+  - Add to Bag" and "Add to Wishlist" buttons
+  - Customer reviews and ratings
+- ### Checkout page with basic payment setup
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Technologies used
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- React - Javascript library
+- NextJS - React framework
+- Tailwindcss - CSS framework
+- Clerk - Authentication service
+- tRPC - type-safe APIs
+- Prisma ORM - type-safe query builder
+- Typescript - Statically typed superset of Javascript
+- Stripe - Payment service
