@@ -61,7 +61,7 @@ const SearchResults = ({
                 {results.length > 0 &&
                   results.map((product) => (
                     <div key={product.id} className="w-[290px]">
-                      <ProductCard product={product} />
+                      <ProductCard product={product} onClose={onClose} />
                     </div>
                   ))}
               </div>

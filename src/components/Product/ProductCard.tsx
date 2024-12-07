@@ -34,8 +34,8 @@ const ProductCard = ({
     <Image
       onClick={async () => {
         if (!showColorVariations) return;
-        await router.push(productLink);
         onClose?.();
+        await router.push(productLink);
       }}
       fill
       className="shadow-color relative cursor-pointer rounded-lg border border-transparent bg-slate-100 shadow-md transition-[border] duration-100 group-hover:border-indigo-200"
