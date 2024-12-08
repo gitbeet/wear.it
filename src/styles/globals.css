@@ -6,6 +6,10 @@
   outline: 1px solid red !important;
 } */
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .padding-x {
   @apply px-6 md:px-8;
 }

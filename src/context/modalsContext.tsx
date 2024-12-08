@@ -2,10 +2,12 @@ import { type CategoryType } from "@prisma/client";
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
   type Dispatch,
   type SetStateAction,
 } from "react";
+import { disableScrolling, enableScrolling } from "~/utilities/toggleScrolling";
 
 type ModalsContextType = {
   showMegaMenu: { type: CategoryType; show: boolean; active: boolean }[];
@@ -74,6 +76,17 @@ const ModalsProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
       ),
     );
   };
+
+  useEffect(() => {
+    if (showBagModal || showMobileMenu) {
+      disableScrolling();
+      return;
+    }
+    if (!showBagModal || !showMobileMenu) {
+      enableScrolling();
+      return;
+    }
+  }, [showBagModal, showMobileMenu]);
 
   return (
     <modalContext.Provider

@@ -30,6 +30,7 @@ import { colorOptions } from "~/maps";
 import Spacer from "~/components/Spacer";
 import NavIcon from "~/components/Nav/NavIcon";
 import ExpandArrow from "~/components/UI/ExpandArrow";
+import { disableScrolling } from "~/utilities/toggleScrolling";
 
 const productPageSkeleton = (
   <>
