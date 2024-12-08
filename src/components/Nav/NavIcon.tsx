@@ -26,7 +26,7 @@ const NavIcon: React.FC<NavIconProps> = (props) => {
 
   const baseClass = `relative aspect-square h-full w-auto shrink-0 
   flex justify-center items-center
-  rounded-full bg-transparent hover:bg-slate-200 active:opacity-50 transition ${className}  `;
+  rounded-full bg-transparent hover:bg-slate-200 text-slate-700 active:opacity-50 transition ${className}  `;
 
   const iconContent = (
     <div
