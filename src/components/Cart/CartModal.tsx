@@ -5,6 +5,7 @@ import { useModalsContext } from "~/context/modalsContext";
 import { useRouter } from "next/router";
 import { useCartContext } from "~/context/cartContext";
 import CartItem from "./CartItem";
+import Backdrop from "../UI/Backdrop";
 const CartModal = () => {
   const router = useRouter();
   const { showBagModal, setShowBagModal } = useModalsContext();
@@ -39,14 +40,11 @@ const CartModal = () => {
           </div>
         </div>
       )}
-      <div
-        onClick={() => setShowBagModal(false)}
-        className={`${
-          showBagModal
-            ? "bg-slate-900/40 backdrop-blur "
-            : "pointer-events-none opacity-0"
-        }  fixed inset-0 z-20  min-h-screen transition-all duration-300 `}
-      ></div>
+      <Backdrop
+        show={showBagModal}
+        zIndex={20}
+        onClose={() => setShowBagModal(false)}
+      />
     </>
   );
 };

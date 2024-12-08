@@ -3,6 +3,9 @@ import Link from "next/link";
 import React from "react";
 import { useModalsContext } from "~/context/modalsContext";
 import { api } from "~/utils/api";
+import LoadingPage from "../loading";
+import { useRouter } from "next/router";
+import Backdrop from "../UI/Backdrop";
 
 interface Props {
   type: CategoryType | null;
@@ -11,100 +14,99 @@ interface Props {
 }
 
 const MegaMenu = ({ type = null, show }: Props) => {
-  const { setShowMegaMenu } = useModalsContext();
   const { data: categories, isLoading: isGettingCategories } =
     api.category.getAll.useQuery();
+  const router = useRouter();
+  const { openMegaMenu, hideMegamenu } = useModalsContext();
   const lowerCaseType = type?.toLowerCase() ?? "";
 
-  const openMegaMenu = (type: CategoryType) => {
-    setShowMegaMenu((prev) =>
-      prev.map((e) =>
-        e.type === type ? { ...e, show: true } : { ...e, show: false },
-      ),
-    );
-  };
+  const containerClassName = ` ${
+    show ? "opacity-100" : "pointer-events-none opacity-0"
+  } fixed left-0 top-full z-30 hidden w-screen  bg-slate-50  transition-transform duration-[300] ease-in-out lg:block`;
 
-  const hideMegamenu = () => {
-    setShowMegaMenu((prev) => prev.map((e) => ({ ...e, show: false })));
-  };
-  return (
-    <>
-      <>
-        {isGettingCategories && show ? (
-          <section
-            onMouseOver={() => openMegaMenu(type ?? "MEN")}
-            onMouseLeave={hideMegamenu}
-            className={` ${
-              show ? "" : "-translate-y-full"
-            }hidden absolute  z-30 h-[500px] w-full bg-slate-50 transition-transform   duration-[300] ease-in-out lg:block`}
-          ></section>
-        ) : !categories && show ? (
-          <section
-            onMouseOver={() => openMegaMenu(type ?? "MEN")}
-            onMouseLeave={hideMegamenu}
-            className={` ${
-              show ? "" : "-translate-y-full"
-            }hidden absolute z-30 h-[500px]  w-full items-center   justify-center bg-slate-50 transition-transform duration-[300] ease-in-out lg:flex`}
-          >
-            <p className="text-center">
-              Something Went Wrong. Please Refresh the page
-            </p>
-          </section>
-        ) : (
-          categories &&
-          show && (
-            <section
-              onMouseOver={() => openMegaMenu(type ?? "MEN")}
-              onMouseLeave={hideMegamenu}
-              className={` ${
-                show ? "opacity-100" : "pointer-events-none opacity-0"
-              } fixed left-0 top-full z-30 hidden w-screen  bg-slate-50  transition-transform duration-[300] ease-in-out lg:block`}
-            >
-              <div
-                className={`${
-                  show ? "opacity-100" : "opacity-0"
-                } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
-              >
-                {categories.map((category) => (
-                  <aside key={category.id}>
-                    <Link
-                      onClick={hideMegamenu}
-                      className="font-bold hover:underline "
-                      href={`/products/${lowerCaseType}/${category.slug}`}
-                    >
-                      {category.name}
-                    </Link>
-                    <div className="h-4"></div>
-                    <ul>
-                      {category.children
-                        .filter((subcategory) =>
-                          subcategory.types.some((type) =>
-                            type.toLowerCase().includes(lowerCaseType),
-                          ),
-                        )
-                        .map((subcategory) => (
-                          <Link
-                            onClick={hideMegamenu}
-                            className="block pb-2 text-slate-600 hover:underline"
-                            key={subcategory.id}
-                            href={`/products/${lowerCaseType}/${subcategory.slug}`}
-                          >
-                            <li>{subcategory.name}</li>
-                          </Link>
-                        ))}
-                    </ul>
-                  </aside>
-                ))}
-              </div>
-            </section>
-          )
-        )}
-      </>
+  const loadingJsx = (
+    <section
+      onMouseOver={() => openMegaMenu(type ?? "MEN")}
+      onMouseLeave={hideMegamenu}
+      className={`${containerClassName} h-64`}
+    >
+      <LoadingPage />
+    </section>
+  );
+
+  const errorJsx = (
+    <section
+      onMouseOver={() => openMegaMenu(type ?? "MEN")}
+      onMouseLeave={hideMegamenu}
+      className={`${containerClassName} grid h-64 place-content-center`}
+    >
+      <p className="text-center">
+        <b>Something Went Wrong.</b>
+        <br /> Click{" "}
+        <span
+          className="font-bold text-blue-500"
+          onClick={() => router.reload()}
+        >
+          here
+        </span>{" "}
+        to refresh the page
+      </p>
+    </section>
+  );
+
+  const megaMenuJsx = (
+    <section
+      onMouseOver={() => openMegaMenu(type ?? "MEN")}
+      onMouseLeave={hideMegamenu}
+      className={containerClassName}
+    >
       <div
         className={`${
-          show ? "bg-slate-900/10 backdrop-blur" : "opacity-0"
-        } pointer-events-none fixed inset-0 bottom-0 left-0 right-0 top-full z-20  h-screen w-screen transition-all duration-500 `}
-      />
+          show ? "opacity-100" : "opacity-0"
+        } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
+      >
+        {categories?.map((category) => (
+          <aside key={category.id}>
+            <Link
+              onClick={hideMegamenu}
+              className="font-bold hover:underline "
+              href={`/products/${lowerCaseType}/${category.slug}`}
+            >
+              {category.name}
+            </Link>
+            <div className="h-4"></div>
+            <ul>
+              {category.children
+                .filter((subcategory) =>
+                  subcategory.types.some((type) =>
+                    type.toLowerCase().includes(lowerCaseType),
+                  ),
+                )
+                .map((subcategory) => (
+                  <Link
+                    onClick={hideMegamenu}
+                    className="block pb-2 text-slate-600 hover:underline"
+                    key={subcategory.id}
+                    href={`/products/${lowerCaseType}/${subcategory.slug}`}
+                  >
+                    <li>{subcategory.name}</li>
+                  </Link>
+                ))}
+            </ul>
+          </aside>
+        ))}
+      </div>
+    </section>
+  );
+
+  return (
+    <>
+      {isGettingCategories && show
+        ? loadingJsx
+        : !categories && show
+        ? errorJsx
+        : categories && show && megaMenuJsx}
+      <Backdrop show={show} zIndex={20} className="!top-full" />
     </>
   );
 };

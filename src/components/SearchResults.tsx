@@ -1,6 +1,7 @@
 import ProductCard from "./Product/ProductCard";
 import type { SQLProductType } from "~/types";
 import LoadingPage from "./loading";
+import Backdrop from "./UI/Backdrop";
 
 interface Props {
   show: boolean;
@@ -28,14 +29,7 @@ const SearchResults = ({
               <LoadingPage />
             </div>
           </section>
-          <div
-            onClick={onClose}
-            className={`${
-              show
-                ? "bg-slate-900/40 backdrop-blur "
-                : "pointer-events-none opacity-0"
-            }  fixed inset-0 z-20  min-h-screen transition-all duration-300 `}
-          ></div>
+          <Backdrop show={show} zIndex={20} onClose={onClose} />
         </>
       )}
       {show && results && (
@@ -67,14 +61,7 @@ const SearchResults = ({
               </div>
             </div>
           </section>
-          <div
-            onClick={onClose}
-            className={`${
-              show
-                ? "bg-slate-900/40 backdrop-blur "
-                : "pointer-events-none opacity-0"
-            }  fixed inset-0 z-20  min-h-screen transition-all duration-300 `}
-          ></div>
+          <Backdrop show={show} zIndex={20} onClose={onClose} />
         </>
       )}
     </div>

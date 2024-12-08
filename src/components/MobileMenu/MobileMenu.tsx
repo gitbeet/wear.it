@@ -2,6 +2,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import { useModalsContext } from "~/context/modalsContext";
 import NavIcon from "../Nav/NavIcon";
 import LinkText from "../UI/LinkText";
+import Backdrop from "../UI/Backdrop";
 
 const MobileMenu = () => {
   const { setShowMobileMenu, showMobileMenu } = useModalsContext();
@@ -59,15 +60,11 @@ const MobileMenu = () => {
           </LinkText>
         </ul>
       </div>
-
-      <div
-        onClick={() => setShowMobileMenu(false)}
-        className={`${
-          showMobileMenu
-            ? "bg-slate-900/40 backdrop-blur "
-            : "pointer-events-none opacity-0"
-        }  fixed inset-0 z-[90]  min-h-screen transition-all duration-300 `}
-      ></div>
+      <Backdrop
+        show={showMobileMenu}
+        zIndex={90}
+        onClose={() => setShowMobileMenu(false)}
+      />
     </>
   );
 };
