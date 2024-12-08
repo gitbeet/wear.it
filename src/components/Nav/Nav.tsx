@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from "react";
-import MegaMenu from "./MegaMenu";
 import NavLink from "./NavLink";
 import CartIcon from "../Cart/CartIcon";
 import CartModal from "../Cart/CartModal";
@@ -16,6 +15,7 @@ import { useUser } from "@clerk/nextjs";
 import MobileSearchMenu from "../MobileSearchMenu";
 import { FiSearch } from "react-icons/fi";
 import NavIcon from "./NavIcon";
+import NavLinkArrow from "./NavLinkArrow";
 
 const Nav = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -42,8 +42,13 @@ const Nav = () => {
 
   const { isSignedIn } = useUser();
 
-  const [type, setType] = useState<"men" | "women" | null>(null);
-  const { showMegaMenu, setShowMegaMenu } = useModalsContext();
+  const {
+    showMegaMenu,
+    hideMegamenu,
+    openMegaMenu,
+    toggleMegaMenu,
+    setMegaMenuActiveType,
+  } = useModalsContext();
   const [showMobileSearchMenu, setShowMobileSearchMenu] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [query, setQuery] = useState("");
@@ -82,9 +87,6 @@ const Nav = () => {
     getDebouncedResults(value);
   };
 
-  const toggleMegaMenu = () => {
-    setShowMegaMenu((prev) => (prev === true ? false : true));
-  };
   return (
     <nav
       className={` ${
@@ -93,50 +95,82 @@ const Nav = () => {
           : "-translate-y-0 opacity-100"
       } fixed z-[50] w-full transition-[opacity,transform] duration-[450ms] ease-in-out `}
     >
-      <div className=" shadow-color relative z-[50] bg-slate-50 shadow-lg">
-        <div className="padding-x relative mx-auto flex max-w-[1720px] items-center justify-between py-2">
-          <Logo responsive />
+      <div className="relative z-[50]">
+        <div className="shadow-color absolute inset-0 z-[50]  bg-slate-50 shadow-lg" />
+        <div className="relative mx-auto flex h-16 max-w-[1720px] items-center">
+          <div className="margin-left absolute left-0 z-50">
+            <Logo responsive />
+          </div>
           <ul
             role="navigation"
-            className="absolute left-1/2 hidden h-full -translate-x-1/2 cursor-pointer items-stretch justify-center  xl:flex"
+            className="z-50 mx-auto hidden h-full cursor-pointer xl:flex xl:items-stretch xl:justify-center"
           >
-            <NavLink as="link" href="/">
+            <NavLink href="/" onClose={hideMegamenu} active>
               <>Home</>
             </NavLink>
+            <div className="w-3" />
             <NavLink
-              as="button"
-              onTouchEnd={toggleMegaMenu}
+              onClose={hideMegamenu}
+              href="/products/men"
+              active={
+                showMegaMenu.find((e) => e.type === "MEN")?.active ?? false
+              }
+              onTouchStart={() => openMegaMenu("MEN")}
+              onTouchEnd={() => setMegaMenuActiveType("MEN")}
+              onFocus={() => {
+                setMegaMenuActiveType("MEN");
+              }}
+              onBlur={hideMegamenu}
               onMouseOver={() => {
-                setShowMegaMenu(true);
-                setType("men");
+                openMegaMenu("MEN");
+                setMegaMenuActiveType("MEN");
               }}
-              onMouseLeave={() => {
-                setShowMegaMenu(false);
-              }}
+              onMouseLeave={hideMegamenu}
             >
               <>Men</>
             </NavLink>
+            <NavLinkArrow
+              type="MEN"
+              isOpen={showMegaMenu.find((e) => e.type === "MEN")?.show ?? false}
+            />
             <NavLink
-              as="button"
-              onTouchEnd={toggleMegaMenu}
+              onClose={hideMegamenu}
+              active={
+                showMegaMenu.find((e) => e.type === "WOMEN")?.active ?? false
+              }
+              href="/products/women"
+              onTouchStart={() => openMegaMenu("WOMEN")}
+              onTouchEnd={() => setMegaMenuActiveType("WOMEN")}
+              onFocus={() => {
+                setMegaMenuActiveType("WOMEN");
+              }}
+              onBlur={hideMegamenu}
               onMouseOver={() => {
-                setShowMegaMenu(true);
-                setType("women");
+                openMegaMenu("WOMEN");
+                setMegaMenuActiveType("WOMEN");
               }}
               onMouseLeave={() => {
-                setShowMegaMenu(false);
+                hideMegamenu();
               }}
             >
               <>Women</>
             </NavLink>
-            <NavLink as="button">
+            <NavLinkArrow
+              type={"WOMEN"}
+              isOpen={
+                showMegaMenu.find((e) => e.type === "WOMEN")?.show ?? false
+              }
+            />
+            <NavLink onClose={hideMegamenu} href="/" disabled>
               <>Kids</>
             </NavLink>
-            <NavLink as="link" href="/contact">
+            <div className="w-3" />
+
+            <NavLink onClose={hideMegamenu} href="/contact" active>
               <>Contact</>
             </NavLink>
           </ul>
-          <div className="flex h-10 items-center">
+          <div className="margin-right absolute right-0 z-50 flex h-10 items-center">
             <SearchBar
               mobile={false}
               onFocus={() => {
@@ -193,7 +227,6 @@ const Nav = () => {
         results={searchResults}
         loading={isSearching}
       />
-      <MegaMenu type={type} show={showMegaMenu} setShow={setShowMegaMenu} />
       <CartModal />
     </nav>
   );

@@ -44,8 +44,8 @@ export const PromosBanner = ({
   };
 
   return (
-    // Hard coded pt-[60px] - value of the nav height
-    <div className="gradient-main-r shadow-color relative z-[40] flex w-full items-center justify-center pt-[56px] text-slate-50 shadow-lg">
+    // Hard coded pt-16 - value of the nav height
+    <div className="gradient-main-r shadow-color relative z-[40] flex w-full items-center justify-center pt-16 text-slate-50 shadow-lg">
       <Carousel
         removeArrowOnDeviceType={["mobile", "tablet"]}
         className="w-[min(calc(100%-48px),700px)]  py-1.5 md:py-2"

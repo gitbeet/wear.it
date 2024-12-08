@@ -1,4 +1,4 @@
-import { ColorDetails, ProductImage, SizeDetails } from "@prisma/client";
+import type { ColorDetails, ProductImage, SizeDetails } from "@prisma/client";
 
 export type SQLProductType = {
   id: string;

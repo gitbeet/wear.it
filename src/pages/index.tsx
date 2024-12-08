@@ -133,7 +133,7 @@ const promotionsClass =
 
 const Promotions = () => (
   <section className="padding-x grid w-full gap-4 md:grid-cols-2">
-    <Link href="/products/women/tshirts-tops" className="aspect-square w-full ">
+    <Link href="/products/women/tshirts-tops" className="aspect-square w-full">
       <Image
         sizes="(max-width: 1024px) 100vw, 792px"
         src={bannerTShirts}
@@ -146,7 +146,7 @@ const Promotions = () => (
     <div>
       <Link
         href="/products/women/jackets?priceFrom=0&priceTo=65"
-        className="aspect-square w-full"
+        className="w-full"
       >
         <Image
           sizes="(max-width: 768px) 100vw, 792px"
@@ -160,10 +160,7 @@ const Promotions = () => (
       </Link>
 
       <div className="h-4"></div>
-      <Link
-        href="/products/women/sneakers?priceFrom=39"
-        className="aspect-square w-full"
-      >
+      <Link href="/products/women/sneakers?priceFrom=39" className="w-full">
         <Image
           sizes="(max-width: 768px) 100vw, 792px"
           width={800}

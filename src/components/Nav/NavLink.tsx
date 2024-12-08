@@ -1,54 +1,70 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, HTMLAttributes } from "react";
 import Link, { type LinkProps } from "next/link";
-
-type NavLinkButtonProps = {
-  as: "button";
-  className?: string;
-  size?: number;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+import { type Url } from "next/dist/shared/lib/router/router";
 
 type NavLinkLinkProps = {
-  as: "link";
-  href: string;
-  size?: number;
-  className?: string;
+  href: Url;
+  active?: boolean;
+  disabled?: boolean;
+  onClose: () => void;
 } & LinkProps &
-  AnchorHTMLAttributes<HTMLAnchorElement>;
+  AnchorHTMLAttributes<HTMLAnchorElement> &
+  HTMLAttributes<HTMLDivElement>;
 
-export type NavLinkProps = NavLinkButtonProps | NavLinkLinkProps;
+const NavLink = (props: NavLinkLinkProps) => {
+  const {
+    className = "",
+    children,
+    active,
+    href,
+    disabled,
+    onClose,
+    onFocus,
+    onBlur,
+    onMouseOver,
+    onMouseLeave,
+    onTouchStart,
+    onTouchEnd,
+  } = props;
 
-const NavLink = (props: NavLinkProps) => {
-  const { as, className = "", children, ...rest } = props;
-  const baseClass = `grid grow place-content-center border-b-[6px] border-b-transparent px-4  !text-slate-800  hover:!border-indigo-400 hover:!text-indigo-400 ${className}`;
-  if (as === "button") {
-    const { type = "button", ...buttonProps } =
-      rest as ButtonHTMLAttributes<HTMLButtonElement>;
-    return (
+  const baseClass = ` ${
+    disabled ? "opacity-50 pointer-events-none" : ""
+  } z-50  grid grow place-content-center  border-b-[6px] border-b-transparent px-4  !text-slate-800  hover:!border-indigo-400 hover:!text-indigo-400 relative ${className} `;
+
+  const elementClass =
+    "absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2";
+
+  const activeClass = "z-[3]";
+  const inactiveClass = "z-[1] pointer-events-none opacity-0";
+
+  return (
+    <div
+      className={baseClass}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      <span className={`pointer-events-none relative top-[6px] opacity-0 `}>
+        {children}
+      </span>
       <button
-        className={`${baseClass} disabled:opacity-25  `}
-        type={type}
-        {...buttonProps}
+        tabIndex={-1}
+        className={`${elementClass} ${active ? inactiveClass : activeClass}`}
       >
-        <li className="relative top-[6px]">{children}</li>
+        {children}
       </button>
-    );
-  }
-
-  if (as === "link") {
-    const { href, ...linkProps } = rest as LinkProps &
-      AnchorHTMLAttributes<HTMLAnchorElement>;
-    return (
-      <Link className={baseClass} href={href} {...linkProps}>
-        <li className="relative top-[6px]">{children}</li>
+      <Link
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onClick={onClose}
+        href={href}
+        className={`${elementClass} ${active ? activeClass : inactiveClass} `}
+      >
+        {children}
       </Link>
-    );
-  }
-  // <LinkText
-  //   {...props}
-  //   className={`grid grow place-content-center border-b-[6px] border-b-transparent px-4  !text-slate-800  hover:!border-indigo-400 hover:!text-indigo-400 ${props.className}`}
-  // >
-  //   <li className="relative top-[6px]">{props.children}</li>
-  // </LinkText>
+    </div>
+  );
 };
 
 export default NavLink;

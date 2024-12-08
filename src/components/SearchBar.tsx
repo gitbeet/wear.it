@@ -29,23 +29,19 @@ const SearchBar = ({
         onChange={handleSearch}
         className={` ${mobile ? "min-w-full" : "w-40"}  ${
           input.length > 0 && !mobile ? "w-full" : "w-40"
-        } peer h-full rounded-full border border-indigo-100 bg-white px-10 outline outline-transparent transition-all duration-300 focus:w-full focus:border-transparent focus:outline-indigo-300`}
+        } peer h-full rounded-full border border-indigo-100 bg-white px-10 outline outline-transparent transition-all duration-300 focus:w-full   `}
       />
 
-      <div
-        className={` ${
-          input.length > 0 ? "opacity-100" : "pointer-events-none opacity-0"
-        } absolute right-1 h-8 w-8 cursor-pointer transition-all`}
-      >
+      <div className={`absolute right-1 h-8 w-8 cursor-pointer transition-all`}>
         <NavIcon
+          className={`${
+            input.length > 0 ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+          onClick={handleCloseButton}
+          tabIndex={input.length > 0 ? 0 : -1}
           as="button"
           size={24}
-          icon={
-            <VscChromeClose
-              className="h-full w-full p-1"
-              onClick={handleCloseButton}
-            />
-          }
+          icon={<VscChromeClose className="h-full w-full p-1" />}
         />
       </div>
     </div>
