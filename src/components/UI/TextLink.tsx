@@ -2,21 +2,21 @@ import Link from "next/link";
 import type { LinkProps } from "next/link";
 import type { AnchorHTMLAttributes } from "react";
 
-export type LinkTextProps = LinkProps &
+export type TextLinkProps = LinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & {
     className?: string;
     children?: React.ReactNode;
   };
 
-const LinkText = (props: LinkTextProps) => {
+const TextLink = (props: TextLinkProps) => {
   return (
     <Link
       {...props}
-      className={`cursor-pointer text-slate-700 hover:text-slate-900  active:opacity-50 ${props.className} transition-all`}
+      className={`block cursor-pointer text-slate-700 transition-all  hover:text-slate-900  active:opacity-50 ${props.className}`}
     >
       {props.children}
     </Link>
   );
 };
 
-export default LinkText;
+export default TextLink;

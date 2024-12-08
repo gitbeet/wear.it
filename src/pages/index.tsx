@@ -55,7 +55,7 @@ const Hero = () => (
       </div>
     </div>
 
-    <div className="absolute inset-0 z-[1] bg-gradient-to-t from-white/70 to-transparent to-30%" />
+    <div className="absolute inset-0 z-[1] bg-gradient-to-t from-white to-transparent to-35%" />
     <div className="absolute bottom-0 right-0 top-0  w-full  opacity-25 sm:block md:opacity-100">
       <Image
         fill
