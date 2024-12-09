@@ -46,6 +46,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const basicNav = (
     <>
       <Nav />
+      <PromosBanner promos={bannerPromos} />
     </>
   );
 
@@ -68,7 +69,6 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         className={`flex min-h-screen flex-col items-stretch justify-between font-body text-slate-800`}
       >
         {nav}
-        <PromosBanner promos={bannerPromos} />
 
         <section className="mx-auto flex min-h-full w-[min(100%,1720px)] grow flex-col items-stretch justify-between">
           {children}
