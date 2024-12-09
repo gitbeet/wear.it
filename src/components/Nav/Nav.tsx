@@ -5,17 +5,15 @@ import CartModal from "../Cart/CartModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "../Logo";
 import FavoritesNavIcon from "../FavoritesNavIcon";
-import SearchBar from "../SearchBar";
-import SearchResults from "../SearchResults";
 import { api } from "~/utils/api";
 import debounce from "just-debounce-it";
 import MobileMenuButton from "../MobileMenu/MobileMenuButton";
 import ProfileButton from "./ProfileButton";
 import { useUser } from "@clerk/nextjs";
-import MobileSearchMenu from "../MobileSearchMenu";
 import { FiSearch } from "react-icons/fi";
 import NavIcon from "./NavIcon";
 import NavLinkArrow from "./NavLinkArrow";
+import SearchBar from "../SearchBar";
 
 const Nav = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -42,55 +40,13 @@ const Nav = () => {
 
   const { isSignedIn } = useUser();
 
-  const {
-    showMegaMenu,
-    hideMegamenu,
-    openMegaMenu,
-    toggleMegaMenu,
-    setMegaMenuActiveType,
-  } = useModalsContext();
-  const [showMobileSearchMenu, setShowMobileSearchMenu] = useState(false);
-  const [showSearchResults, setShowSearchResults] = useState(false);
-  const [query, setQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
-  const { data: searchResults, isLoading: isSearching } =
-    api.product.searchProduct.useQuery(
-      { query: debouncedQuery },
-      {
-        enabled: true,
-        refetchOnWindowFocus: false, // Prevents refetch on window focus
-        refetchOnMount: false, // Prevents initial automatic refetch on mount
-      },
-    );
-  const getDebouncedResults = useCallback(
-    debounce((val: string) => {
-      setDebouncedQuery(val);
-      setShowSearchResults(true);
-    }, 500),
-    [],
-  );
-
-  const handleCloseButton = () => {
-    setDebouncedQuery("");
-    setQuery("");
-    setShowSearchResults(false);
-  };
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    if (value.length < 1) {
-      setDebouncedQuery("");
-      setQuery("");
-      setShowSearchResults(false);
-    }
-    setQuery(value);
-    getDebouncedResults(value);
-  };
+  const { showMegaMenu, hideMegamenu, openMegaMenu, setMegaMenuActiveType } =
+    useModalsContext();
 
   return (
     <nav
       className={` ${
-        isNavHidden && !showSearchResults
+        isNavHidden
           ? "-translate-y-full opacity-0"
           : "-translate-y-0 opacity-100"
       } fixed z-[50] w-full transition-[opacity,transform] duration-[450ms] ease-in-out `}
@@ -171,27 +127,8 @@ const Nav = () => {
             </NavLink>
           </ul>
           <div className="margin-right absolute right-0 z-50 flex h-10 items-center">
-            <SearchBar
-              mobile={false}
-              onFocus={() => {
-                if (query.length < 1) return;
-                setShowSearchResults(true);
-              }}
-              handleCloseButton={handleCloseButton}
-              input={query}
-              handleSearch={handleSearch}
-            />
-            <div className="h-10 md:hidden">
-              <NavIcon
-                as="button"
-                icon={<FiSearch className="h-5 w-5 opacity-80" />}
-                onClick={() => {
-                  setShowMobileSearchMenu(true);
-                  setShowSearchResults(true);
-                }}
-              />
-            </div>
-            <div className="hidden w-7 md:block"></div>
+            <SearchBar />
+            <div className="hidden w-4 lg:block"></div>
             <FavoritesNavIcon />
             <CartIcon />
             <div
@@ -203,30 +140,6 @@ const Nav = () => {
           </div>
         </div>
       </div>
-      <SearchResults
-        query={debouncedQuery}
-        onClose={() => setShowSearchResults(false)}
-        show={showSearchResults}
-        results={searchResults}
-        loading={isSearching}
-      />
-      <MobileSearchMenu
-        handleCloseButton={() => setShowMobileSearchMenu(false)}
-        handleClearQuery={handleCloseButton}
-        onFocus={() => {
-          if (query.length < 1) return;
-          setShowSearchResults(true);
-        }}
-        onBlur={() => void 0}
-        input={query}
-        handleSearch={handleSearch}
-        showMenu={showMobileSearchMenu}
-        query={debouncedQuery}
-        onClose={() => setShowSearchResults(false)}
-        showResults={showSearchResults}
-        results={searchResults}
-        loading={isSearching}
-      />
       <CartModal />
     </nav>
   );

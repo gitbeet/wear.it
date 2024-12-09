@@ -22,7 +22,7 @@ const OrderByFilter = ({ loading, showSort, setShowSort }: Props) => {
       <div
         className={` ${
           loading && "pointer-events-none opacity-50"
-        } relative z-[100]`}
+        } relative z-40`}
       >
         <div
           onClick={() => setShowSort((prev) => !prev)}
