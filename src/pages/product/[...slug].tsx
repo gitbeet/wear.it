@@ -31,6 +31,7 @@ import Spacer from "~/components/Spacer";
 import NavIcon from "~/components/Nav/NavIcon";
 import ExpandArrow from "~/components/UI/ExpandArrow";
 import { disableScrolling } from "~/utilities/toggleScrolling";
+import { useCartContext } from "~/context/cartContext";
 
 const productPageSkeleton = (
   <>
@@ -186,6 +187,7 @@ const Product = ({
 
   const { setShowBagModal } = useModalsContext();
   const { isFavorited } = useFavoritesContext();
+  const { dbCart, isGettingCart, isFetching } = useCartContext();
 
   const hasUserCommented =
     reviews?.findIndex((review) => review.author.id === user?.id) !== -1;
@@ -263,6 +265,14 @@ const Product = ({
     router,
     productData?.id,
   ]);
+
+  const isAlreadyInCart =
+    dbCart?.cartItems.findIndex(
+      (item) =>
+        item.product.id === id &&
+        item.color === selectedColor &&
+        item.size === selectedSize,
+    ) !== -1;
 
   if (isGettingProductData) return productPageSkeleton;
   if (!productData)
@@ -439,7 +449,7 @@ const Product = ({
         text="Add to Bag"
         icon={<BsHandbag />}
         onClick={handleAddToBag}
-        disabled={isAddingToCart || isFaving}
+        disabled={isAddingToCart || isFaving || isAlreadyInCart}
       />
       <Button
         text={favoriteButtonText}

@@ -51,7 +51,10 @@ const CartModal = () => {
           <Button
             disabled={isFetching || !cartItem}
             text="Checkout"
-            onClick={() => void 0}
+            onClick={async () => {
+              setShowBagModal(false);
+              await router.push("/checkout");
+            }}
           />
         </div>
       </article>
