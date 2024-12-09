@@ -1,17 +1,13 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 import CartIcon from "../Cart/CartIcon";
 import CartModal from "../Cart/CartModal";
 import { useModalsContext } from "~/context/modalsContext";
 import Logo from "../Logo";
 import FavoritesNavIcon from "../FavoritesNavIcon";
-import { api } from "~/utils/api";
-import debounce from "just-debounce-it";
 import MobileMenuButton from "../MobileMenu/MobileMenuButton";
 import ProfileButton from "./ProfileButton";
 import { useUser } from "@clerk/nextjs";
-import { FiSearch } from "react-icons/fi";
-import NavIcon from "./NavIcon";
 import NavLinkArrow from "./NavLinkArrow";
 import SearchBar from "../SearchBar";
 

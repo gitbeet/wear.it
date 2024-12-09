@@ -1,4 +1,3 @@
-import React from "react";
 import NavIcon from "../Nav/NavIcon";
 import { FaChevronDown } from "react-icons/fa";
 

@@ -1,6 +1,5 @@
-import Link from "next/link";
 import React from "react";
-import NavIcon, { NavIconProps } from "./NavIcon";
+import NavIcon, { type NavIconProps } from "./NavIcon";
 
 // interface Props {
 //   link?: string;

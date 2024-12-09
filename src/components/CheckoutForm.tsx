@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import FormField from "~/components/FormField";
@@ -75,11 +75,11 @@ const CheckoutForm = () => {
     resolver: zodResolver(clientDataSchema),
   });
 
-  const { mutate: createOrder, isLoading: isCreatingOrder } =
-    api.order.createOrder.useMutation({
-      onSuccess: () => console.log("ORDER CREATED SUCCESSFULLY"),
-      onError: () => console.log("ERROR WHILE CREATING ORDER"),
-    });
+  // const { mutate: createOrder, isLoading: isCreatingOrder } =
+  //   api.order.createOrder.useMutation({
+  //     onSuccess: () => console.log("ORDER CREATED SUCCESSFULLY"),
+  //     onError: () => console.log("ERROR WHILE CREATING ORDER"),
+  //   });
 
   const countryData = Country.getAllCountries();
   const [stateData, setStateData] = useState<IState[] | undefined>(undefined);

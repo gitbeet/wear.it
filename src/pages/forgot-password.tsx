@@ -1,4 +1,5 @@
-import React, { SyntheticEvent, useState } from "react";
+import { useState } from "react";
+import type { SyntheticEvent } from "react";
 import { useSignIn } from "@clerk/nextjs";
 import type { NextPage } from "next";
 

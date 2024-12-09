@@ -1,4 +1,3 @@
-import React from "react";
 import { useModalsContext } from "~/context/modalsContext";
 import ColorFilter from "./Filters/ColorFilter";
 import SizeFilter from "./Filters/SizeFilter";

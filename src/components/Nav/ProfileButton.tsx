@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NavIconWithNumber from "./NavIconWithNumber";
 import { IoPersonOutline } from "react-icons/io5";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";

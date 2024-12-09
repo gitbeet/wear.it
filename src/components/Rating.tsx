@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 
 type StarType = "EMPTY" | "HALF" | "FULL";

@@ -1,6 +1,6 @@
 import ReactSlider from "react-slider";
 import { formatCurrency } from "~/utilities/formatCurrency";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const emptySlider = (

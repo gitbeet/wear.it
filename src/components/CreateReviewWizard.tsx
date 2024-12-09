@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { api } from "~/utils/api";
 import Rating from "./Rating";
 import Button from "./UI/Button";

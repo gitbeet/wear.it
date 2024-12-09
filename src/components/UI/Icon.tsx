@@ -1,5 +1,3 @@
-import React from "react";
-
 const Icon = ({ icon }: { icon: JSX.Element }) => {
   return (
     <div

@@ -1,4 +1,3 @@
-import { BsChevronLeft } from "react-icons/bs";
 import { FaChevronLeft } from "react-icons/fa";
 
 interface PaginationProps {

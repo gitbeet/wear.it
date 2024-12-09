@@ -2,8 +2,8 @@ import React from "react";
 import { SwiperSlide } from "swiper/react";
 import Carousel from "./Carousel";
 import ProductCard from "../Product/ProductCard";
-import { SQLProductType } from "~/types";
-import { SwiperOptions } from "swiper/types";
+import { type SQLProductType } from "~/types";
+import { type SwiperOptions } from "swiper/types";
 const ProductCardCarouselTest = ({
   data,
   isLoading,

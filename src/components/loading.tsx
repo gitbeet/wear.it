@@ -1,5 +1,3 @@
-import React from "react";
-
 export const LoadingSpinner = ({ size }: { size?: number }) => (
   <div role="status">
     <svg

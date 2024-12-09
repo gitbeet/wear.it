@@ -1,4 +1,3 @@
-import React from "react";
 import NavIcon from "../Nav/NavIcon";
 import { FiChevronLeft } from "react-icons/fi";
 

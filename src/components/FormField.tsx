@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { type UseFormRegister } from "react-hook-form";
 import { type SignInValidationType } from "~/pages/sign-in";
 import { type SignUpValidationType } from "~/pages/sign-up";

@@ -1,5 +1,3 @@
-import React from "react";
-
 type SpacerType = "section" | "header" | "footer";
 
 const Spacer = ({ type }: { type: SpacerType }) => {

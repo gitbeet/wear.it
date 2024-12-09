@@ -1,5 +1,3 @@
-import React from "react";
-
 const SummarySkeleton = () => {
   return (
     <section className="animate-pulse">

@@ -28,7 +28,7 @@ const Carousel = ({
   const swiperRef = useRef<SwiperRef>(null);
 
   useEffect(() => {
-    if (!swiperRef.current || !swiperRef.current.swiper) return;
+    if (!swiperRef.current?.swiper) return;
 
     const swiper = swiperRef.current.swiper;
 

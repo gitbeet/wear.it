@@ -1,8 +1,6 @@
 import { type ProductColor } from "@prisma/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FiChevronLeft } from "react-icons/fi";
-import NavIcon from "../Nav/NavIcon";
 import SliderArrow from "../UI/SliderArrow";
 
 export const ImageGallerySkeleton = ({

@@ -1,6 +1,5 @@
 import { type CategoryType } from "@prisma/client";
 import Link from "next/link";
-import React from "react";
 import { useModalsContext } from "~/context/modalsContext";
 import { api } from "~/utils/api";
 import LoadingPage from "../loading";

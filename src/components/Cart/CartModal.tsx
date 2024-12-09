@@ -1,5 +1,4 @@
 import Button from "../UI/Button";
-import { IoMdClose } from "react-icons/io";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useModalsContext } from "~/context/modalsContext";
 import { useRouter } from "next/router";

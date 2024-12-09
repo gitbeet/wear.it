@@ -1,4 +1,4 @@
-import { ProductColor, type Prisma } from "@prisma/client";
+import type { ProductColor, Prisma } from "@prisma/client";
 import { v4 as uuid } from "uuid";
 
 type ProductType = Prisma.ProductCreateInput;

@@ -1,9 +1,9 @@
 import { clerkClient } from "@clerk/nextjs";
 import { createTRPCRouter, privateProcedure, publicProcedure } from "../trpc";
 import z from "zod";
-import { User } from "@clerk/nextjs/dist/types/server";
+import type { User } from "@clerk/nextjs/dist/types/server";
+import type { UserReview } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-import { UserReview } from "@prisma/client";
 
 const filterUserData = (user: User) => {
   return {

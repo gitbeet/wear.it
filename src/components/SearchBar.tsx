@@ -14,7 +14,6 @@ import SearchResults from "./SearchResults";
 const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isActive, setIsActive] = useState(false);
-  const [showSearchResults, setShowSearchResults] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const { data: searchResults, isLoading: isSearching } =
@@ -29,7 +28,6 @@ const SearchBar = () => {
   const getDebouncedResults = useCallback(
     debounce((val: string) => {
       setDebouncedQuery(val);
-      setShowSearchResults(true);
     }, 500),
     [],
   );
@@ -37,7 +35,6 @@ const SearchBar = () => {
   const handleCloseButton = () => {
     setDebouncedQuery("");
     setQuery("");
-    setShowSearchResults(false);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +42,6 @@ const SearchBar = () => {
     if (value.length < 1) {
       setDebouncedQuery("");
       setQuery("");
-      setShowSearchResults(false);
     }
     setQuery(value);
     getDebouncedResults(value);

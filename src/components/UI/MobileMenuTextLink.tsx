@@ -1,4 +1,3 @@
-import React from "react";
 import TextLink, { type TextLinkProps } from "./TextLink";
 
 const MobileMenuTextLink = ({ children, ...rest }: TextLinkProps) => {

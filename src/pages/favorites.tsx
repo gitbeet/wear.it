@@ -16,11 +16,10 @@ export type FavoriteType = RouterOutputs["favorite"]["getByUserId"][number];
 const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
   const ctx = api.useUtils();
   const { color, id, product, productId } = fav;
-  const { mutate: addToFavorites, isLoading: isFaving } =
-    api.favorite.favorite.useMutation({
-      onSuccess: () => void ctx.invalidate(),
-      onError: (error) => console.log(error),
-    });
+  const { mutate: addToFavorites } = api.favorite.favorite.useMutation({
+    onSuccess: () => void ctx.invalidate(),
+    onError: (error) => console.log(error),
+  });
 
   const priceBeforeDiscount = formatCurrency(product.price);
   const priceAfterDiscount = formatCurrency(

@@ -447,13 +447,19 @@ const Product = ({
         text="Add to Bag"
         icon={<BsHandbag />}
         onClick={handleAddToBag}
-        disabled={isAddingToCart || isFaving || isAlreadyInCart}
+        disabled={
+          isAddingToCart ||
+          isFaving ||
+          isAlreadyInCart ||
+          isGettingCart ||
+          isFetching
+        }
       />
       <Button
         text={favoriteButtonText}
         icon={favoriteButtonIcon}
         onClick={handleAddToFavorites}
-        disabled={isFaving || isAddingToCart}
+        disabled={isFaving || isAddingToCart || isGettingCart || isFetching}
         ghost
       />
     </div>

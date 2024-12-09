@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FiChevronRight } from "react-icons/fi";
-import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { SwiperRef } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useRef } from "react";
 

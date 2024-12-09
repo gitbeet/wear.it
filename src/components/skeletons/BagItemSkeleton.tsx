@@ -1,5 +1,3 @@
-import React from "react";
-
 const BagItemSkeleton = ({ modal = false }: { modal?: boolean }) => {
   return (
     <div

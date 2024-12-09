@@ -1,4 +1,3 @@
-import React from "react";
 import type { ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
 import Link from "next/link";
 import type { LinkProps } from "next/link";

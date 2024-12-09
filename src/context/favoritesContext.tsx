@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/nextjs";
 import { type ProductColor } from "@prisma/client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { type RouterOutputs, api } from "~/utils/api";
 
 const favoritesContext = createContext<BagContextType | null>(null);

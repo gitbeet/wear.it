@@ -1,4 +1,3 @@
-import React from "react";
 import NavIcon from "../Nav/NavIcon";
 import { VscChromeClose } from "react-icons/vsc";
 

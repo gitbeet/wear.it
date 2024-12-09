@@ -8,31 +8,31 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import axios from "axios";
+// import axios from "axios";
 import React from "react";
 
 export default function PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const cardElement = elements?.getElement("card");
+  // const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const cardElement = elements?.getElement("card");
 
-    try {
-      if (!stripe || !cardElement) return null;
-      const { data } = await axios.post("/api/create-payment-intent", {
-        data: { amount: 89 },
-      });
-      const clientSecret = data.secret;
+  //   try {
+  //     if (!stripe || !cardElement) return null;
+  //     const { data } = await axios.post("/api/create-payment-intent", {
+  //       data: { amount: 89 },
+  //     });
+  //     const clientSecret = data.secret;
 
-      await stripe?.confirmCardPayment(clientSecret, {
-        payment_method: { card: cardElement },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     await stripe?.confirmCardPayment(clientSecret, {
+  //       payment_method: { card: cardElement },
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleSubmit = async (event: React.FormEvent) => {
     // We don't want to let default form submission happen here,

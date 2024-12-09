@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 
