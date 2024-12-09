@@ -146,7 +146,7 @@ export const RecentlyViewed = () => {
 
   useEffect(() => {
     void refetch();
-  }, [isSignedIn]);
+  }, [isSignedIn, refetch]);
 
   return (
     <>
@@ -155,8 +155,8 @@ export const RecentlyViewed = () => {
         <h2 className="font-display text-2xl font-black">Recently viewed</h2>
         <div className="h-6 md:h-12"></div>
         <ProductCardCarouselTest
-          autoplay={true}
-          autoplayDelay={2500}
+          autoplay={false}
+          autoplayDelay={0}
           infinite={true}
           paginationContainerId="product-page--reccomended__pagination-container"
           speed={600}

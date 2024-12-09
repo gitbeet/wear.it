@@ -55,6 +55,7 @@ const NavLink = (props: NavLinkLinkProps) => {
         {children}
       </button>
       <Link
+        tabIndex={disabled ? -1 : 0}
         onFocus={onFocus}
         onBlur={onBlur}
         onClick={onClose}

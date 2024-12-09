@@ -44,7 +44,14 @@ const Carousel = ({
   return (
     <div className="relative">
       <Swiper
-        style={{ paddingBlock: ".5rem", paddingInline: "0.75rem" }}
+        allowTouchMove
+        preventClicks={false}
+        preventClicksPropagation={false}
+        style={{
+          paddingBlock: ".5rem",
+          paddingInline: "0.75rem",
+          touchAction: "pan-y",
+        }}
         keyboard
         pagination={{
           el: `#${paginationContainerId}`,
@@ -76,7 +83,7 @@ const Carousel = ({
             ? {
                 delay: autoplayDelay,
                 pauseOnMouseEnter: true,
-                disableOnInteraction: false,
+                disableOnInteraction: true,
               }
             : undefined
         }

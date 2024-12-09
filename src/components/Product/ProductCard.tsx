@@ -71,7 +71,6 @@ const ProductCard = ({
 
   const favoriteButton = (
     <div
-      role="button"
       className={`border ${
         currentImageColor && isFavorited(currentImageColor, product.id)
           ? "border-indigo-100"
@@ -121,19 +120,24 @@ const ProductCard = ({
           );
           const isCurrenttlyDisplayed = currentImage === image?.id;
           return (
-            <Image
+            <Link
               key={i}
+              onFocus={() => setCurrentImage(image?.id)}
               onMouseOver={() => setCurrentImage(image?.id)}
-              className={`border ${
-                isCurrenttlyDisplayed
-                  ? "border-indigo-200"
-                  : "border-transparent"
-              } h-10 w-10 cursor-pointer rounded-sm bg-slate-100 shadow-sm @2xs:h-[56px] @2xs:w-[56px] `}
-              width={56}
-              height={56}
-              src={image?.imageURL ?? ""}
-              alt={`${color.color} variation`}
-            />
+              href={`/product/${product.id}/${color.color}`}
+            >
+              <Image
+                className={`border ${
+                  isCurrenttlyDisplayed
+                    ? "border-indigo-200"
+                    : "border-transparent"
+                } h-10 w-10 cursor-pointer rounded-sm bg-slate-100 shadow-sm @2xs:h-[56px] @2xs:w-[56px] `}
+                width={56}
+                height={56}
+                src={image?.imageURL ?? ""}
+                alt={`${color.color} variation`}
+              />
+            </Link>
           );
         })}
       </div>
@@ -151,6 +155,9 @@ const ProductCard = ({
 
   return (
     <article
+      onClick={() => setShowColorVariations(true)}
+      onFocus={() => setShowColorVariations(true)}
+      onBlur={() => setShowColorVariations(false)}
       onMouseOver={() => setShowColorVariations(true)}
       onMouseLeave={() => setShowColorVariations(false)}
       className="@container"
