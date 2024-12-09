@@ -25,6 +25,7 @@ const secret = process.env.STRIPE_WEBHOOK_KEY ?? "";
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
+    console.log("Trying...");
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"]!;
     if (!sig) throw new Error("No signature");
@@ -49,9 +50,12 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         },
       });
 
+      console.log("Session fetched:", session);
+
       if (!session) {
         throw new Error("Session for given identifier not found");
       }
+      console.log("Starting transaction...");
       await prisma.$transaction([
         prisma.orderDetails.create({
           data: {
@@ -77,6 +81,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
           },
         }),
       ]);
+      console.log("Transaction completed.");
     }
     res.status(200).send("Success");
   } catch (error) {
