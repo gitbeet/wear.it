@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { SwiperRef } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useRef } from "react";
+import "swiper/css";
 
 export const PromosBanner = ({
   promos,

@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import type { SwiperOptions } from "swiper/types";
 import { Swiper, type SwiperRef } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
 import SliderArrow from "../UI/SliderArrow";
 import { defaultBreakPoints } from "~/utilities/swiperBreakPoints";
+import "swiper/css";
 
 const Carousel = ({
   children,
