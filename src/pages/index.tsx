@@ -5,11 +5,12 @@ import { api } from "~/utils/api";
 import bannerJackets from "../../public/assets/banner-small-jackets-2.jpg";
 import bannerSneakers from "../../public/assets/banner-small--sneakers-2.jpg";
 import bannerTShirts from "../../public/assets/banner-large--tShirts-2.jpg";
-import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import { FaSnowflake } from "react-icons/fa";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 import Spacer from "~/components/Spacer";
+import ProductCardCarouselTest from "~/components/Carousel/ProductCardCarouselTest";
+import { landingPageTrendingBreakPoints } from "~/utilities/swiperBreakPoints";
 
 // const sliderPromos = [
 //   {
@@ -96,10 +97,14 @@ const EventSlider = () => {
       </div>
 
       <div className="w-full overflow-hidden">
-        <ProductCardCarousel
-          numberOfItems={{ desktop: 3.5, desktopSmall: 2.5, tablet: 2.5 }}
-          products={products?.products}
+        <ProductCardCarouselTest
+          paginationContainerId="landing-page--winter-event__pagination-container"
+          data={products?.products}
           isLoading={isGettingProducts}
+          infinite={true}
+          autoplay={true}
+          autoplayDelay={2500}
+          speed={500}
         />
       </div>
     </section>
@@ -119,10 +124,15 @@ const Trending = () => {
     <section className="padding-x">
       <h2 className="font-display text-2xl font-black">Trending</h2>
       <div className="h-6 md:h-12"></div>
-      <ProductCardCarousel
-        numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 3 }}
-        products={products?.products}
+      <ProductCardCarouselTest
+        autoplay={true}
+        autoplayDelay={3000}
+        infinite={true}
+        paginationContainerId="landing-page--trending__pagination-container"
+        data={products?.products}
         isLoading={isGettingProducts}
+        speed={600}
+        breakPoints={landingPageTrendingBreakPoints}
       />
     </section>
   );
@@ -218,6 +228,8 @@ export default function Home() {
         <Hero />
         <div className="h-4 md:h-8"></div>
         <EventSlider />
+        {/* <Spacer type="section" /> */}
+        {/* <EventSlider /> */}
         <Spacer type="section" />
         <MemberDeals />
         <Spacer type="section" />

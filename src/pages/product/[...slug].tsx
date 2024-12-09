@@ -23,15 +23,13 @@ import Rating from "~/components/Rating";
 import Review from "~/components/Review";
 import CreateReviewWizard from "~/components/CreateReviewWizard";
 import { useUser } from "@clerk/nextjs";
-import { FaChevronDown } from "react-icons/fa";
-import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import { NextSeo } from "next-seo";
 import { colorOptions } from "~/maps";
 import Spacer from "~/components/Spacer";
-import NavIcon from "~/components/Nav/NavIcon";
 import ExpandArrow from "~/components/UI/ExpandArrow";
-import { disableScrolling } from "~/utilities/toggleScrolling";
 import { useCartContext } from "~/context/cartContext";
+import ProductCardCarouselTest from "~/components/Carousel/ProductCardCarouselTest";
+import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
 
 const productPageSkeleton = (
   <>
@@ -539,14 +537,16 @@ const Product = ({
           You might also like
         </h2>
         <div className="h-12"></div>
-
-        <div className=" w-full overflow-hidden">
-          <ProductCardCarousel
-            numberOfItems={{ desktop: 4, desktopSmall: 3, tablet: 2 }}
-            products={reccomendedProducts?.products}
-            isLoading={isGettingReccomended}
-          />
-        </div>
+        <ProductCardCarouselTest
+          autoplay={true}
+          autoplayDelay={2500}
+          infinite={true}
+          paginationContainerId="product-page--reccomended__pagination-container"
+          speed={600}
+          data={reccomendedProducts?.products}
+          isLoading={isGettingReccomended}
+          breakPoints={ReccomendedProductsBreakPoints}
+        />
       </section>
     </>
   );

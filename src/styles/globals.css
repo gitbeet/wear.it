@@ -133,6 +133,35 @@
   }
 }
 
+/* ----------- SWIPER CUSTOM CLASSES ----------- */
+
+.swiper-custom-bullet,
+.swiper-custom-bullet-active {
+  @apply h-2.5 w-2.5 cursor-pointer rounded-full;
+}
+
+.swiper-custom-bullet,
+.swiper-custom-bullet-active {
+  @apply bg-slate-700;
+}
+
+.swiper-custom-bullet {
+  @apply opacity-25;
+}
+
+/* hover:bg-gray-200 dark:hover:bg-darkmode-bg--card dark:text-slate-300 text-gray-700  */
+
+.swiper-custom-bullet-active {
+  @apply opacity-100;
+}
+
+#landing-page--winter-event__pagination-container,
+#landing-page--trending__pagination-container,
+#product-page--reccomended__pagination-container,
+#promos-banner__pagination-container {
+  @apply flex items-center justify-center gap-1.5 pt-8 md:hidden;
+}
+
 /* ----------- CSS RESET ----------- */
 
 /* Box sizing rules */

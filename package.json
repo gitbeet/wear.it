@@ -44,11 +44,11 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.48.2",
     "react-icons": "^4.11.0",
-    "react-multi-carousel": "^2.8.4",
     "react-phone-input-2": "^2.15.1",
     "react-slider": "^2.0.6",
     "stripe": "^14.5.0",
     "superjson": "^1.13.1",
+    "swiper": "^11.1.15",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },

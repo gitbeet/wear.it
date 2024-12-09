@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { BsHeartFill } from "react-icons/bs";
-import ProductCardCarousel from "~/components/Product/ProductCardCarousel";
 import Button from "~/components/UI/Button";
 import { formatCurrency } from "~/utilities/formatCurrency";
 import { type RouterOutputs, api } from "~/utils/api";
 import LoadingPage from "~/components/loading";
 import { NextSeo } from "next-seo";
+import ProductCardCarouselTest from "~/components/Carousel/ProductCardCarouselTest";
+import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
 
 export type FavoriteType = RouterOutputs["favorite"]["getByUserId"][number];
 
@@ -29,15 +30,15 @@ const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
       : product.price,
   );
   return (
-    <div key={id} className={`@container pb-200 w-full bg-slate-50`}>
+    <div key={id} className={`pb-200 w-full bg-slate-50 @container`}>
       <div className="relative w-full">
-        <div
+        <button
           onClick={() => addToFavorites({ color, productId })}
           role="button"
-          className={` @2xs:h-10 @2xs:w-10 @2xs:p-2 absolute right-[4%] top-[4%] z-10 flex h-8 w-8 items-center justify-center rounded-full  border border-indigo-100 bg-slate-50 p-1`}
+          className={` absolute right-[4%] top-[4%] z-10 flex h-8 w-8 items-center justify-center rounded-full border border-indigo-100 bg-slate-50  p-1 @2xs:h-10 @2xs:w-10 @2xs:p-2`}
         >
           <BsHeartFill className="h-full w-full  text-indigo-400" />
-        </div>
+        </button>
         <Link href={`/product/${productId}/${color}`}>
           <div className="relative aspect-square w-full">
             <Image
@@ -53,7 +54,7 @@ const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
           </div>
         </Link>
         {product.discount ? (
-          <div className="@2xs:text-base absolute bottom-2 left-4  text-sm text-slate-900">
+          <div className="absolute bottom-2 left-4 text-sm  text-slate-900 @2xs:text-base">
             <p className="w-fit rounded-sm bg-violet-500 px-1 font-display font-bold text-white">
               -{product.discount.discountPercent}%
             </p>
@@ -61,19 +62,19 @@ const FavoriteItem = ({ fav }: { fav: FavoriteType }) => {
               <p className="py-1 font-display text-slate-500 line-through">
                 {priceBeforeDiscount}
               </p>
-              <p className="w-fit bg-slate-50 px-3 py-1 font-display font-bold text-pink-500">
+              <p className="w-fit bg-white px-3 py-1 font-display font-bold text-pink-500">
                 {priceAfterDiscount}
               </p>
             </div>
           </div>
         ) : (
-          <p className="@2xs:text-base absolute bottom-2 left-4 w-fit bg-slate-50 px-3 py-1 font-display  text-sm font-bold">
+          <p className="absolute bottom-2 left-4 w-fit bg-white px-3 py-1 font-display text-sm  font-bold @2xs:text-base">
             {priceBeforeDiscount}
           </p>
         )}
       </div>
       <div className="h-4"></div>
-      <div className="@2xs:text-base min-h-[4rem] overflow-hidden  pl-4 text-sm">
+      <div className="min-h-[4rem] overflow-hidden pl-4  text-sm @2xs:text-base">
         <Link href={`/product/${productId}/${color}`}>
           <p className="line-clamp-1 font-semibold">{product.name}</p>
         </Link>
@@ -154,10 +155,15 @@ export const RecentlyViewed = () => {
       <div className="padding-x">
         <h2 className="font-display text-2xl font-black">Recently viewed</h2>
         <div className="h-6 md:h-12"></div>
-        <ProductCardCarousel
+        <ProductCardCarouselTest
+          autoplay={true}
+          autoplayDelay={2500}
+          infinite={true}
+          paginationContainerId="product-page--reccomended__pagination-container"
+          speed={600}
+          data={data?.items.map((item) => item.product)}
           isLoading={isLoading}
-          products={data?.items.map((item) => item.product)}
-          numberOfItems={{ tablet: 3, desktopSmall: 4, desktop: 5 }}
+          breakPoints={ReccomendedProductsBreakPoints}
         />
       </div>
     </>
