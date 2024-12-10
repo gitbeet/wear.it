@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
-import Link from "next/link";
 import type { LinkProps } from "next/link";
+import Icon, { type IconProps } from "../UI/Icon";
 
 type NavIconButtonProps = {
   as: "button";
@@ -20,51 +20,13 @@ type NavIconLinkProps = {
 
 export type NavIconProps = NavIconButtonProps | NavIconLinkProps;
 
-const NavIcon: React.FC<NavIconProps> = (props) => {
-  const { as, className = "", children, ...rest } = props;
-
-  const baseClass = `relative aspect-square h-full w-auto shrink-0 
-  flex justify-center items-center
-  rounded-full bg-transparent hover:bg-slate-200 text-slate-700 active:opacity-50 transition ${className}  `;
-
-  const iconContent = (
-    <div
-      style={{
-        width: `${props.size ?? 20}px`,
-        height: `${props.size ?? 20}px`,
-      }}
-    >
-      {props.icon}
-    </div>
+const NavIcon = ({ className, ...props }: IconProps) => {
+  return (
+    <Icon
+      {...props}
+      className={`${className} relative h-full w-auto shrink-0 rounded-full bg-transparent hover:bg-slate-200 `}
+    />
   );
-
-  if (as === "button") {
-    const { type = "button", ...buttonProps } =
-      rest as ButtonHTMLAttributes<HTMLButtonElement>;
-    return (
-      <button
-        className={`${baseClass} disabled:opacity-25  `}
-        type={type}
-        {...buttonProps}
-      >
-        {iconContent}
-        {children}
-      </button>
-    );
-  }
-
-  if (as === "link") {
-    const { href, ...linkProps } = rest as LinkProps &
-      AnchorHTMLAttributes<HTMLAnchorElement>;
-    return (
-      <Link className={baseClass} href={href} {...linkProps}>
-        {iconContent}
-        {children}
-      </Link>
-    );
-  }
-
-  return null;
 };
 
 export default NavIcon;
