@@ -9,6 +9,7 @@ const Logo = ({
   tabIndex?: number;
 }) => (
   <Link
+    aria-label="Wear.it homepage"
     tabIndex={tabIndex}
     href="/"
     className={` ${

@@ -7,6 +7,7 @@ const FavoritesNavIcon = () => {
   const totalFavorites = favorites?.length;
   return (
     <NavIconWithNumber
+      aria-label="Go to wishlist"
       as="link"
       icon={<BsHeart className=" h-5 w-5" />}
       href="/favorites"

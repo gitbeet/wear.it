@@ -11,6 +11,7 @@ const MobileMenuButton = () => {
   return (
     <div className="relative h-10 xl:hidden">
       <NavIcon
+        aria-label="Mobile menu"
         as="button"
         icon={burger}
         onClick={() => setShowMobileMenu((prev) => !prev)}

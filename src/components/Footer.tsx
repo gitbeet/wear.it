@@ -83,24 +83,28 @@ const Footer = () => {
             <p className="font-display font-bold text-slate-600">Follow us</p>
             <div className="md:gap-0text-slate-800 flex gap-3 md:block md:space-y-3">
               <FooterIcon
+                aria-label="Tik tok page"
                 as="link"
                 href="/#footer"
                 icon={tiktokIcon}
                 className="h-10"
               />
               <FooterIcon
+                aria-label="Twitter page"
                 as="link"
                 href="/#footer"
                 icon={twitterIcon}
                 className="h-10"
               />
               <FooterIcon
+                aria-label="Instagram page"
                 as="link"
                 href="/#footer"
                 icon={instagramIcon}
                 className="h-10"
               />
               <FooterIcon
+                aria-label="Facebook page"
                 as="link"
                 href="/#footer"
                 icon={facebookIcon}

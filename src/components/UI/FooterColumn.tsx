@@ -18,7 +18,7 @@ const FooterColumn = ({ footerHeader, footerItems }: FooterColumnType) => {
     setIsOpen(!isOpen);
   };
   return (
-    <ul className="relative grow space-y-3">
+    <div className="relative grow space-y-3">
       <div className="flex items-center gap-4">
         <p className="font-display font-bold text-slate-600">{footerHeader}</p>
         <div onClick={toggleDropdown} className="xs:hidden">
@@ -26,15 +26,17 @@ const FooterColumn = ({ footerHeader, footerItems }: FooterColumnType) => {
         </div>
       </div>
       {isOpen && (
-        <div className={`space-y-3`}>
+        <ul className={`space-y-3`}>
           {footerItems.map((footerItem, i) => (
-            <FooterTextLink key={i} href={footerItem.link}>
-              {footerItem.text}
-            </FooterTextLink>
+            <li key={i}>
+              <FooterTextLink href={footerItem.link}>
+                {footerItem.text}
+              </FooterTextLink>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
-    </ul>
+    </div>
   );
 };
 

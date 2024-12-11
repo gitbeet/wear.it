@@ -30,13 +30,14 @@ const NavLinkArrow = ({
     }
   }, [isOpen]);
   return (
-    <details ref={detailsRef} onBlur={handleOnBlur} className="group">
-      <summary className="pointer-events-none flex h-full cursor-pointer items-center opacity-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
-        <FiChevronDown className="grid w-3 text-xs group-open:rotate-180" />
-      </summary>
+    <li>
+      <details ref={detailsRef} onBlur={handleOnBlur} className="group">
+        <summary className="pointer-events-none flex h-full cursor-pointer items-center opacity-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+          <FiChevronDown className="grid w-3 text-xs group-open:rotate-180" />
+        </summary>
 
-      <div
-        className={`
+        <div
+          className={`
              ${
                isOpen ||
                "group-focus-within:pointer-events-auto group-focus-within:opacity-100"
@@ -46,10 +47,11 @@ const NavLinkArrow = ({
                  : "pointer-events-none opacity-0"
              }
              `}
-      >
-        <MegaMenu type={type} show={true} setShow={() => void 0} />
-      </div>
-    </details>
+        >
+          <MegaMenu type={type} show={true} setShow={() => void 0} />
+        </div>
+      </details>
+    </li>
   );
 };
 

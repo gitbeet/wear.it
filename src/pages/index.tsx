@@ -35,10 +35,7 @@ const Hero = () => (
   <section className="relative w-full  overflow-hidden py-16 lg:py-24">
     <div className="padding-x relative z-10">
       <h1 className="font-display text-7xl font-black">
-        <span className="gradient-main-text drop-shadow-sm">
-          {/* <span className=" bg-gradient-to-r from-red-500 via-pink-500  to-indigo-600 bg-clip-text text-transparent"> */}
-          Ready for winter?
-        </span>
+        <span className="gradient-main-text">Ready for winter?</span>
       </h1>
       <div className="h-8"></div>
       <p className="max-w-lg text-xl font-light text-slate-700">
@@ -86,9 +83,7 @@ const EventSlider = () => {
       <div>
         <h2 className="gradient-main-text-sm flex items-center  gap-2  py-1 font-display font-extrabold">
           {/* <FaSnowflake className="inline h-8 w-8 shrink-0 text-indigo-500" /> */}
-          <p className=" py-1 font-display  text-5xl font-extrabold  drop-shadow-sm">
-            Cozy up!
-          </p>
+          <p className=" py-1 font-display text-5xl font-extrabold">Cozy up!</p>
         </h2>
         <div className="h-4"></div>
         <p className="text-xl font-light text-slate-700">

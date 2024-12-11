@@ -53,14 +53,11 @@ const Nav = () => {
           <div className="margin-left absolute left-0 z-50">
             <Logo responsive />
           </div>
-          <ul
-            role="navigation"
-            className="z-50 mx-auto hidden h-full cursor-pointer xl:flex xl:items-stretch xl:justify-center"
-          >
+          <ul className="z-50 mx-auto hidden h-full cursor-pointer xl:flex xl:items-stretch xl:justify-center">
             <NavLink href="/" onClose={hideMegamenu} active>
               <>Home</>
             </NavLink>
-            <div className="w-3" />
+            <li className="w-3" />
             <NavLink
               onClose={hideMegamenu}
               href="/products/men"
@@ -116,7 +113,7 @@ const Nav = () => {
             <NavLink onClose={hideMegamenu} href="/" disabled>
               <>Kids</>
             </NavLink>
-            <div className="w-3" />
+            <li className="w-3" />
 
             <NavLink onClose={hideMegamenu} href="/contact" active>
               <>Contact</>

@@ -95,12 +95,14 @@ const Carousel = ({
       <div id={paginationContainerId}></div>
       <div className="relative hidden h-16 grow items-center justify-center gap-4 md:flex">
         <SliderArrow
+          containerClass="h-9"
           className="-left-12"
           aria-label="Previous slide"
           disabled={infinite ? false : isBeginning}
           onClick={() => swiperRef.current?.swiper.slidePrev()}
         />
         <SliderArrow
+          containerClass="h-9"
           className="left-12"
           arrowDirectionClass="rotate-180"
           aria-label="Next slide"

@@ -9,7 +9,7 @@ type NavLinkLinkProps = {
   onClose: () => void;
 } & LinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement> &
-  HTMLAttributes<HTMLDivElement>;
+  HTMLAttributes<HTMLLIElement>;
 
 const NavLink = (props: NavLinkLinkProps) => {
   const {
@@ -38,7 +38,7 @@ const NavLink = (props: NavLinkLinkProps) => {
   const inactiveClass = "z-[1] pointer-events-none opacity-0";
 
   return (
-    <div
+    <li
       className={baseClass}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
@@ -64,7 +64,7 @@ const NavLink = (props: NavLinkLinkProps) => {
       >
         {children}
       </Link>
-    </div>
+    </li>
   );
 };
 

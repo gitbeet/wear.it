@@ -20,16 +20,20 @@ const ProfileButton = () => {
     setIsOpen((prev) => !prev);
   };
 
+  const ariaLabel = "Go to the profile page";
+
   const mobileButton = (
     <div className="block h-10 md:hidden" role="button">
       {!isSignedIn ? (
         <NavIcon
+          aria-label={ariaLabel}
           as="link"
           icon={<IoPersonOutline className="h-5 w-5" />}
           href="/sign-in"
         />
       ) : (
         <NavIcon
+          aria-label={ariaLabel}
           as="link"
           icon={<IoPersonOutline className="h-5 w-5" />}
           href="/profile"
@@ -43,6 +47,7 @@ const ProfileButton = () => {
       <div className="h-10">
         {!isSignedIn ? (
           <NavIcon
+            aria-label={ariaLabel}
             as="link"
             icon={<IoPersonOutline className="h-5 w-5" />}
             href="/sign-in"
@@ -53,6 +58,7 @@ const ProfileButton = () => {
               Hi, {user.username}
             </span>
             <NavIcon
+              aria-label={ariaLabel}
               as="button"
               onClick={toggleIsOpen}
               icon={<IoPersonOutline className="h-5 w-5" />}

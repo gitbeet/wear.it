@@ -80,6 +80,7 @@ const SearchBar = () => {
         } `}
       >
         <NavIcon
+          aria-label="Search a product"
           onClick={handleIconClick}
           className={` shrink-0 text-indigo-300 transition-all duration-300 `}
           as="button"
@@ -88,6 +89,7 @@ const SearchBar = () => {
       </div>
       {/* Using both the focus: and the query lenght */}
       <input
+        aria-label="Search"
         ref={inputRef}
         onClick={handleInputClick}
         value={query}
@@ -103,6 +105,7 @@ const SearchBar = () => {
         }  h-8 w-8 cursor-pointer transition-all`}
       >
         <NavIcon
+          aria-label="Clear search input"
           className={`${
             query.length > 0 ? "opacity-100" : "pointer-events-none opacity-0"
           }`}

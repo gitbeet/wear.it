@@ -15,6 +15,7 @@ export const PromosBanner = ({
 
   const CustomArrow = ({ direction }: { direction: "left" | "right" }) => (
     <button
+      aria-label={direction === "left" ? "Previous slide" : "Next slide"}
       className="grid w-8 shrink-0 grow place-content-center text-slate-50 hover:bg-indigo-400 active:opacity-50"
       onClick={() =>
         direction === "left"
