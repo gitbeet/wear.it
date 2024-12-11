@@ -64,12 +64,12 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
           />
         </div>
         <SliderArrow
-          positionClass="left-4"
+          containerClass="left-4"
           disabled={isFirstImage}
           onClick={() => setCurrentImage((prev) => (prev < 1 ? 0 : prev - 1))}
         />
         <SliderArrow
-          positionClass="right-4"
+          containerClass="right-4"
           disabled={isLastImage}
           onClick={() =>
             setCurrentImage((prev) =>
