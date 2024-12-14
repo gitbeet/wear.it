@@ -1,3 +1,6 @@
+import { useIsBrowser } from "~/hooks/useIsBrowser";
+import { createPortal } from "react-dom";
+
 const Backdrop = ({
   show,
   zIndex,
@@ -9,7 +12,9 @@ const Backdrop = ({
   onClose?: () => void;
   className?: string;
 }) => {
-  return (
+  const { isBrowser } = useIsBrowser();
+
+  const jsx = (
     <div
       onClick={onClose}
       className={`${
@@ -18,6 +23,15 @@ const Backdrop = ({
       style={{ zIndex }}
     />
   );
+
+  if (!isBrowser) return null;
+
+  const portalJsx = createPortal(
+    jsx,
+    document.getElementById("modal-root") as Element,
+  );
+
+  return portalJsx;
 };
 
 export default Backdrop;

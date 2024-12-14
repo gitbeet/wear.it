@@ -76,6 +76,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         <GoToTopButton />
         <MobileMenu />
       </main>
+      <div id="modal-root" />
     </>
   );
 };

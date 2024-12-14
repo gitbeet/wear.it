@@ -65,7 +65,7 @@ const CartModal = () => {
       {cartModal}
       <Backdrop
         show={showBagModal}
-        zIndex={20}
+        zIndex={40}
         onClose={() => setShowBagModal(false)}
       />
     </>

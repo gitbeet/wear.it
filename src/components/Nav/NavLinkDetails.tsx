@@ -3,7 +3,7 @@ import { FiChevronDown } from "react-icons/fi";
 import MegaMenu from "./MegaMenu";
 import { type CategoryType } from "@prisma/client";
 
-const NavLinkArrow = ({
+const NavLinkDetails = ({
   type,
   isOpen,
 }: {
@@ -12,6 +12,7 @@ const NavLinkArrow = ({
   type: CategoryType | null;
 }) => {
   const detailsRef = useRef<HTMLDetailsElement | null>(null);
+  const summaryRef = useRef<HTMLElement | null>(null);
 
   const handleOnBlur = () => {
     setTimeout(() => {
@@ -28,11 +29,28 @@ const NavLinkArrow = ({
     if (detailsRef.current) {
       detailsRef.current.open = isOpen;
     }
-  }, [isOpen]);
+
+    if (summaryRef.current) {
+      const ariaLabel = `${isOpen ? "Close" : "Open"} ${
+        type?.toLowerCase() ?? "category"
+      }'s megamenu`;
+      summaryRef.current.ariaLabel = ariaLabel;
+      summaryRef.current.ariaExpanded = isOpen.toString();
+    }
+  }, [isOpen, type]);
+
   return (
-    <li>
-      <details ref={detailsRef} onBlur={handleOnBlur} className="group">
-        <summary className="pointer-events-none flex h-full cursor-pointer items-center opacity-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+    <>
+      <details
+        ref={detailsRef}
+        onBlur={handleOnBlur}
+        className="group flex items-center justify-center"
+        open={isOpen}
+      >
+        <summary
+          ref={summaryRef}
+          className="pointer-events-none relative top-2  flex  cursor-pointer justify-center opacity-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
+        >
           <FiChevronDown className="grid w-3 text-xs group-open:rotate-180" />
         </summary>
 
@@ -48,11 +66,11 @@ const NavLinkArrow = ({
              }
              `}
         >
-          <MegaMenu type={type} show={true} setShow={() => void 0} />
+          <MegaMenu type={type ?? "MEN"} />
         </div>
       </details>
-    </li>
+    </>
   );
 };
 
-export default NavLinkArrow;
+export default NavLinkDetails;

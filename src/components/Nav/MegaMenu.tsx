@@ -7,25 +7,22 @@ import { useRouter } from "next/router";
 import Backdrop from "../UI/Backdrop";
 
 interface Props {
-  type: CategoryType | null;
-  show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  type: CategoryType;
 }
 
-const MegaMenu = ({ type = null, show }: Props) => {
+const MegaMenu = ({ type }: Props) => {
   const { data: categories, isLoading: isGettingCategories } =
     api.category.getAll.useQuery();
   const router = useRouter();
-  const { openMegaMenu, hideMegamenu } = useModalsContext();
+  const { openMegaMenu, hideMegamenu, showMegaMenu } = useModalsContext();
   const lowerCaseType = type?.toLowerCase() ?? "";
 
-  const containerClassName = ` ${
-    show ? "opacity-100" : "pointer-events-none opacity-0"
-  } fixed left-0 top-full z-30 hidden w-screen  bg-slate-50  transition-transform duration-[300] ease-in-out lg:block`;
+  const containerClassName =
+    "fixed left-0 top-full z-30 hidden w-screen  bg-slate-50  transition-transform duration-[300] ease-in-out lg:block shadow-lg";
 
   const loadingJsx = (
     <section
-      onMouseOver={() => openMegaMenu(type ?? "MEN")}
+      onMouseEnter={() => openMegaMenu(type ?? "MEN")}
       onMouseLeave={hideMegamenu}
       className={`${containerClassName} h-64`}
     >
@@ -35,7 +32,7 @@ const MegaMenu = ({ type = null, show }: Props) => {
 
   const errorJsx = (
     <section
-      onMouseOver={() => openMegaMenu(type ?? "MEN")}
+      onMouseEnter={() => openMegaMenu(type ?? "MEN")}
       onMouseLeave={hideMegamenu}
       className={`${containerClassName} grid h-64 place-content-center`}
     >
@@ -55,14 +52,12 @@ const MegaMenu = ({ type = null, show }: Props) => {
 
   const megaMenuJsx = (
     <section
-      onMouseOver={() => openMegaMenu(type ?? "MEN")}
+      onMouseEnter={() => openMegaMenu(type)}
       onMouseLeave={hideMegamenu}
       className={containerClassName}
     >
       <div
-        className={`${
-          show ? "opacity-100" : "opacity-0"
-        } flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
+        className={` flex justify-center gap-32 p-4  pb-12 transition-[transform,opacity] delay-150 duration-[450ms]`}
       >
         {categories?.map((category) => (
           <aside key={category.id}>
@@ -98,14 +93,16 @@ const MegaMenu = ({ type = null, show }: Props) => {
     </section>
   );
 
+  const isShown = !!showMegaMenu.find((m) => m.show && m.type === type);
+
   return (
     <>
-      {isGettingCategories && show
+      {isGettingCategories
         ? loadingJsx
-        : !categories && show
+        : !categories
         ? errorJsx
-        : categories && show && megaMenuJsx}
-      <Backdrop show={show} zIndex={20} className="!top-full" />
+        : categories && megaMenuJsx}
+      <Backdrop onClose={hideMegamenu} show={isShown} zIndex={40} />
     </>
   );
 };
