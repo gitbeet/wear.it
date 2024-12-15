@@ -348,18 +348,18 @@ const Product = ({
             (option) => option.color === c.color,
           )?.colorClass;
           return (
-            <div
+            <button
+              aria-label={`Select ${c.name} variant`}
               key={i}
-              role="button"
               onClick={async () => {
                 await handleColor(c.color);
               }}
               className={`h-8 w-8 rounded-full border-[2px] outline outline-2 ${tailwindColor} ${
                 selectedColor === c.color
                   ? "border-slate-100 outline-indigo-300"
-                  : "border-slate-200 outline-transparent"
-              }`}
-            ></div>
+                  : "border-slate-200 outline-transparent  hover:outline-slate-400"
+              } active:opacity-50`}
+            ></button>
           );
         })}
       </div>
@@ -418,18 +418,18 @@ const Product = ({
         } flex w-fit flex-wrap gap-2 rounded-sm border`}
       >
         {sizes.map((s, i) => (
-          <span
-            role="button"
+          <button
+            aria-label={`Select size ${s.size}`}
             onClick={() => handleSize(s.size)}
             className={`${
               s.size === selectedSize
                 ? "border-slate-800  text-slate-800"
-                : "border-slate-300  text-slate-500"
-            } w-16 rounded-[3px] border py-2 text-center font-display font-bold`}
+                : "border-slate-300 text-slate-500  hover:border-slate-400"
+            } w-16 rounded-[3px] border py-2 text-center font-display font-bold shadow-sm transition active:opacity-50`}
             key={i}
           >
             {s.size}
-          </span>
+          </button>
         ))}
       </div>
 
@@ -444,8 +444,17 @@ const Product = ({
   );
   const buttonsSection = (
     <>
-      <div className="flex flex-col gap-4 ">
+      <div className="relative flex flex-col gap-4">
+        {isAlreadyInCart && (
+          <p
+            id="reason-add-button-disabled"
+            className="text-right text-red-500"
+          >
+            Product is already in bag
+          </p>
+        )}
         <Button
+          aria-describedby="reason-add-button-disabled"
           text="Add to Bag"
           icon={<BsHandbag />}
           onClick={handleAddToBag}
@@ -517,7 +526,9 @@ const Product = ({
             <p className="text-2xl font-semibold">{name}</p>
             <div className="h-1"></div>
             <Link href={linkToCategory}>
-              <p className="text-slate-500">{category.name}</p>
+              <p className="text-slate-500 transition hover:text-slate-700 active:opacity-50">
+                {category.name}
+              </p>
             </Link>
           </div>
           <div className="font-display">

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { BsTrash } from "react-icons/bs";
 import { api, type RouterOutputs } from "~/utils/api";
 import Rating from "./Rating";
+import NavIcon from "./Nav/NavIcon";
 
 dayjs.extend(relativeTime);
 
@@ -76,14 +77,16 @@ const Review = ({ review }: Props) => {
         </p>
         <div className="h-4"></div>
         {user?.id === review.author.id && (
-          <div className="flex w-full justify-end">
-            <button disabled={isDeletingReview}>
-              <BsTrash
-                onClick={() => deleteReview({ id: review.review.id })}
-                role="button"
-                className="h-5 w-5 text-slate-800"
-              />
-            </button>
+          <div className="flex h-10 w-full justify-end">
+            <NavIcon
+              shape="square"
+              variant="danger"
+              disabled={isDeletingReview}
+              aria-label="Delete review"
+              as="button"
+              icon={<BsTrash role="button" className="h-5 w-5" />}
+              onClick={() => deleteReview({ id: review.review.id })}
+            />
           </div>
         )}
       </div>

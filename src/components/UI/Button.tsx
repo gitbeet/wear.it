@@ -1,13 +1,13 @@
-interface Props {
+import { type ButtonHTMLAttributes } from "react";
+
+type Props = {
   text: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   ghost?: boolean;
   icon?: JSX.Element;
-  disabled?: boolean;
   width?: "FULL" | "FIT";
   size?: "SM" | "MD";
   light?: boolean;
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const ButtonSkeleton = ({
   width = "FULL",
@@ -33,17 +33,15 @@ export const ButtonSkeleton = ({
 
 const Button = ({
   text,
-  onClick,
   icon,
   ghost = false,
-  disabled = false,
   width = "FULL",
   size = "MD",
   light = false,
+  ...props
 }: Props) => {
   return (
     <button
-      disabled={disabled}
       className={`${
         ghost
           ? light
@@ -57,7 +55,7 @@ const Button = ({
       }  ${
         size === "MD" && "px-8 py-4"
       } font-semibold transition-all duration-200 active:opacity-50 disabled:cursor-not-allowed disabled:opacity-75`}
-      onClick={onClick}
+      {...props}
     >
       {icon} <span className={icon ? "pl-2" : ""}>{text}</span>
     </button>
