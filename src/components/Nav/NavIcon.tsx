@@ -1,6 +1,6 @@
 import Icon, { type IconProps } from "../UI/Icon";
 
-type NavIconProps = IconProps & {
+export type NavIconProps = IconProps & {
   shape?: "circle" | "square";
   variant?: "normal" | "danger";
 };

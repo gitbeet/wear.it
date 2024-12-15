@@ -1,15 +1,6 @@
 import React from "react";
 import NavIcon, { type NavIconProps } from "./NavIcon";
 
-// interface Props {
-//   link?: string;
-//   icon: JSX.Element;
-//   number?: number;
-//   loading?: boolean;
-//   color?: string;
-//   onClick?: () => void;
-// }
-
 type NavIconWithNumberProps = NavIconProps & {
   loading: boolean;
   color: string;
