@@ -13,7 +13,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useState, useMemo } from "react";
 import ColorFilter from "~/components/Filters/ColorFilter";
-import PriceFilter from "~/components/Filters/PriceFilter";
+import PriceFilter from "~/components/Filters/PriceSlider/PriceSlider";
 import SizeFilter from "~/components/Filters/SizeFilter";
 import SortByFilter from "~/components/Filters/SortByFilter";
 import ToggleFilters from "~/components/Filters/ToggleFilters";
@@ -203,8 +203,8 @@ const ProductsPage = (
             >
               <PriceFilter
                 loading={isLoading}
-                min={data?.minPrice ?? 0}
-                max={data?.maxPrice ?? 10000}
+                min={Math.floor(data?.minPrice ?? 0)}
+                max={Math.ceil(data?.maxPrice ?? 1)}
               />
               <div className="w-full border-b border-slate-200"></div>
               <SizeFilter loading={isLoading} />
