@@ -15,7 +15,7 @@ import { useState, useMemo } from "react";
 import ColorFilter from "~/components/Filters/ColorFilter";
 import PriceFilter from "~/components/Filters/PriceFilter";
 import SizeFilter from "~/components/Filters/SizeFilter";
-import OrderByFilter from "~/components/Filters/OrderByFilter";
+import SortByFilter from "~/components/Filters/SortByFilter";
 import ToggleFilters from "~/components/Filters/ToggleFilters";
 import Products from "~/components/Products";
 import { api } from "~/utils/api";
@@ -151,7 +151,7 @@ const ProductsPage = (
                 setShowFilters={setShowFilters}
                 showFilters={showFilters}
               />
-              <OrderByFilter
+              <SortByFilter
                 loading={isLoading}
                 showSort={showSort}
                 setShowSort={setShowSort}

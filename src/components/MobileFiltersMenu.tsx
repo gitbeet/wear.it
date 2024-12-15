@@ -2,7 +2,7 @@ import { useModalsContext } from "~/context/modalsContext";
 import ColorFilter from "./Filters/ColorFilter";
 import SizeFilter from "./Filters/SizeFilter";
 import PriceSlider from "./Filters/PriceFilter";
-import OrderByFilterMobile from "./Filters/OrderByFilterMobile";
+import SortByFilterMobile from "./Filters/SortByFilterMobile";
 
 export const RadioButtonOption = ({
   label,
@@ -90,7 +90,7 @@ const MobileFiltersMenu = ({
       </p>
       <p className="text-md font-semibold">Filter</p>
       <div className="h-4"></div>
-      <OrderByFilterMobile loading={loading} />
+      <SortByFilterMobile loading={loading} />
       <PriceSlider loading={loading} min={min} max={max} />
       <SizeFilter loading={loading} />
       <ColorFilter loading={loading} />

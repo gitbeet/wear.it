@@ -8,14 +8,13 @@ interface Props {
 
 const ToggleFilters = ({ showFilters, setShowFilters }: Props) => {
   return (
-    <div
+    <button
       onClick={() => setShowFilters((prev) => !prev)}
-      role="button"
       className="flex items-center gap-2 font-semibold text-slate-800"
     >
       <span>{showFilters ? "Hide" : "Show"} Filters</span>
       {filtersIcon}
-    </div>
+    </button>
   );
 };
 

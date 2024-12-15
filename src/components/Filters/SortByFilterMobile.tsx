@@ -2,7 +2,7 @@ import React from "react";
 import { RadioButtonOption } from "../MobileFiltersMenu";
 import { useSortItems } from "~/hooks/useSortItems";
 
-const OrderByFilterMobile = ({ loading }: { loading: boolean }) => {
+const SortByFilterMobile = ({ loading }: { loading: boolean }) => {
   const { handleChangeSort, sortQueryArray } = useSortItems();
 
   return (
@@ -38,4 +38,4 @@ const OrderByFilterMobile = ({ loading }: { loading: boolean }) => {
   );
 };
 
-export default OrderByFilterMobile;
+export default SortByFilterMobile;
