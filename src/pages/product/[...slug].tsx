@@ -26,10 +26,10 @@ import { useUser } from "@clerk/nextjs";
 import { NextSeo } from "next-seo";
 import { colorOptions } from "~/maps";
 import Spacer from "~/components/Spacer";
-import ExpandArrow from "~/components/UI/ExpandArrow";
 import { useCartContext } from "~/context/cartContext";
 import ProductCardCarouselTest from "~/components/Carousel/ProductCardCarouselTest";
 import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
+import ExpandableProductSectionWrapper from "~/components/UI/Expandable/ExpandableProductSectionWrapper";
 
 const productPageSkeleton = (
   <>
@@ -191,7 +191,6 @@ const Product = ({
     reviews?.findIndex((review) => review.author.id === user?.id) !== -1;
 
   const [addedtoHistory, setAddedToHistory] = useState(false);
-  const [showReviews, setShowReviews] = useState(false);
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
     color as ProductColor,
   );
@@ -368,37 +367,39 @@ const Product = ({
   );
 
   const reviewsSection = (
-    <div>
-      <div className="flex items-center justify-between">
-        <p className="text-2xl font-semibold">Reviews ({totalReviewsCount})</p>
-        <div className="flex items-center gap-4">
-          <div className=" flex items-center gap-2">
-            <p className="flex gap-1">
-              <span>{averageReviewsRating?.toFixed(1)}</span>
-            </p>
-            <Rating
-              handleRate={() => void 0}
-              isHoverable={false}
-              averageRating={averageReviewsRating}
-            />
+    <ExpandableProductSectionWrapper
+      headerChildren={
+        <>
+          <p className="text-2xl font-semibold">
+            Reviews ({totalReviewsCount})
+          </p>
+          <div className="flex items-center gap-4">
+            <div className=" flex items-center gap-2">
+              <p className="flex gap-1">
+                <span>{averageReviewsRating?.toFixed(1)}</span>
+              </p>
+              <Rating
+                handleRate={() => void 0}
+                isHoverable={false}
+                averageRating={averageReviewsRating}
+              />
+            </div>
           </div>
-          <ExpandArrow
-            expanded={showReviews}
-            onClick={() => setShowReviews((prev) => !prev)}
-            disabled={reviews?.length === 0}
-          />
-        </div>
-      </div>
-      <div className="h-4"></div>
-      {!hasUserCommented && isSignedIn && <CreateReviewWizard productId={id} />}
-      {showReviews && (
+        </>
+      }
+    >
+      <>
+        <div className="h-4"></div>
+        {!hasUserCommented && isSignedIn && (
+          <CreateReviewWizard productId={id} />
+        )}
         <div className="pl-2">
           {reviews?.map((review) => (
             <Review key={review.review.id} review={review} />
           ))}
         </div>
-      )}
-    </div>
+      </>
+    </ExpandableProductSectionWrapper>
   );
 
   const sizesSection = (
@@ -442,35 +443,38 @@ const Product = ({
     </div>
   );
   const buttonsSection = (
-    <div className="flex flex-col gap-4 ">
-      <Button
-        text="Add to Bag"
-        icon={<BsHandbag />}
-        onClick={handleAddToBag}
-        disabled={
-          isAddingToCart ||
-          isFaving ||
-          isAlreadyInCart ||
-          isGettingCart ||
-          isFetching
-        }
-      />
-      <Button
-        text={favoriteButtonText}
-        icon={favoriteButtonIcon}
-        onClick={handleAddToFavorites}
-        disabled={isFaving || isAddingToCart || isGettingCart || isFetching}
-        ghost
-      />
-    </div>
+    <>
+      <div className="flex flex-col gap-4 ">
+        <Button
+          text="Add to Bag"
+          icon={<BsHandbag />}
+          onClick={handleAddToBag}
+          disabled={
+            isAddingToCart ||
+            isFaving ||
+            isAlreadyInCart ||
+            isGettingCart ||
+            isFetching
+          }
+        />
+        <Button
+          text={favoriteButtonText}
+          icon={favoriteButtonIcon}
+          onClick={handleAddToFavorites}
+          disabled={isFaving || isAddingToCart || isGettingCart || isFetching}
+          ghost
+        />
+      </div>
+    </>
   );
 
   const descriptionSection = (
-    <div>
-      <p className="text-2xl font-semibold">Description</p>
+    <ExpandableProductSectionWrapper
+      headerChildren={<p className="text-2xl font-semibold">Description</p>}
+    >
       <div className="h-2"></div>
       <p className="pl-2 font-light">{description}</p>
-    </div>
+    </ExpandableProductSectionWrapper>
   );
 
   const selectedColorImages = images.filter(

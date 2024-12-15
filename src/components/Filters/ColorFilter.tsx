@@ -1,12 +1,11 @@
 import { useFilterByColor } from "~/hooks/useFilterByColor";
 import { colorOptions } from "~/maps";
+import ExpandableFilterWrapper from "../UI/Expandable/ExpandableFilterWrapper";
 
 const ColorFilter = ({ loading }: { loading: boolean }) => {
   const { colorsQueryArray, handleColor } = useFilterByColor();
   return (
-    <div className=" p-8 pl-0">
-      <p className="font-bold">Colors</p>
-      <div className="h-4"></div>
+    <ExpandableFilterWrapper heading="Color">
       <div className="grid grid-cols-3 items-center justify-center gap-2.5">
         {colorOptions.map((option) => {
           const lowerCaseName = option.color.toLowerCase();
@@ -45,7 +44,7 @@ const ColorFilter = ({ loading }: { loading: boolean }) => {
           );
         })}
       </div>
-    </div>
+    </ExpandableFilterWrapper>
   );
 };
 

@@ -3,6 +3,7 @@ import { formatCurrency } from "~/utilities/formatCurrency";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import PriceRangeInput from "./PriceRangeInput";
+import ExpandableFilterWrapper from "~/components/UI/Expandable/ExpandableFilterWrapper";
 
 const emptySlider = (
   <div className="h-8 border-b p-8 pb-40 pl-0 ">
@@ -54,9 +55,10 @@ const emptySlider = (
 );
 
 const skeletonSlider = (
-  <div className="pointer-events-none h-8 border-b p-8 pb-48 pl-0">
-    <header className="text-md font-semibold">Shop by Price</header>
-    <div className="h-8"></div>
+  <ExpandableFilterWrapper
+    wrapperClassName="pb-20  pointer-events-none"
+    heading="Price"
+  >
     <div className="animate-pulse">
       <div className="mx-auto flex w-full items-center justify-center gap-2">
         <p className="h-8 w-12 rounded-md  bg-slate-300 p-2.5 text-transparent" />
@@ -99,7 +101,7 @@ const skeletonSlider = (
         />
       </div>
     </div>
-  </div>
+  </ExpandableFilterWrapper>
 );
 
 const PriceSlider = ({
@@ -166,10 +168,8 @@ const PriceSlider = ({
   };
 
   return (
-    <div className="h-8 p-8 pb-48 pl-0">
-      <header className="font-semibold">Shop by Price</header>
-      <div className="h-8"></div>
-      <div>
+    <ExpandableFilterWrapper heading="Price">
+      <>
         <div className="flex items-center justify-center gap-2 text-sm font-semibold">
           <PriceRangeInput
             range={[min, max]}
@@ -223,7 +223,7 @@ const PriceSlider = ({
               <div
                 {...props}
                 role="button"
-                className="absolute -top-1.5 h-5 w-5 rounded-md border-2 border-slate-50  bg-indigo-400 outline outline-2 outline-transparent  transition-[colors] duration-150 hover:bg-indigo-500 focus:bg-indigo-500 focus:outline-indigo-400 "
+                className="absolute -top-1.5 h-5 w-5 rounded-md border-2 border-slate-50  bg-indigo-400 shadow-sm outline outline-2  outline-transparent transition-[colors] duration-150 hover:bg-indigo-500 focus:bg-indigo-500 focus:outline-indigo-400"
               ></div>
             )}
             renderTrack={(props, state) => (
@@ -238,8 +238,9 @@ const PriceSlider = ({
             minDistance={5}
           />
         </div>
-      </div>
-    </div>
+        <div className="h-8" />
+      </>
+    </ExpandableFilterWrapper>
   );
 };
 

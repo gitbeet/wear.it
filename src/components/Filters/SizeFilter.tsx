@@ -1,11 +1,10 @@
 import { useFilterBySize } from "~/hooks/useFilterBySize";
+import ExpandableFilterWrapper from "../UI/Expandable/ExpandableFilterWrapper";
 const SizeFilter = ({ loading }: { loading: boolean }) => {
   const { sizes, sizesQueryArray, handleSizes } = useFilterBySize();
 
   return (
-    <div className="p-8 pl-0">
-      <p className="font-bold">Sizes</p>
-      <div className="h-4"></div>
+    <ExpandableFilterWrapper heading="Size">
       <ul className="flex appearance-none flex-col gap-0.5 pl-4">
         {sizes.map((size, i) => {
           const isIncluded = sizesQueryArray.includes(size);
@@ -35,7 +34,7 @@ const SizeFilter = ({ loading }: { loading: boolean }) => {
           );
         })}
       </ul>
-    </div>
+    </ExpandableFilterWrapper>
   );
 };
 
