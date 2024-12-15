@@ -23,6 +23,7 @@ const SliderArrow = ({
     <div className={`${arrowContainerClass} ${containerClass}`}>
       <NavIcon
         {...props}
+        shape="square"
         as="button"
         icon={
           <FiChevronLeft className={`h-full w-full ${arrowDirectionClass}`} />

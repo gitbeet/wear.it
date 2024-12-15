@@ -15,7 +15,7 @@ const NavIcon = ({
     <Icon
       {...props}
       className={`${className} relative h-full w-auto shrink-0 ${
-        shape === "circle" ? "rounde-full" : "rounded-md"
+        shape === "circle" ? "rounded-full" : "rounded-md"
       } bg-transparent hover:bg-slate-200 ${
         variant === "danger" ? "hover:text-red-400" : ""
       } `}

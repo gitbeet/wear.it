@@ -113,7 +113,7 @@ const SearchBar = () => {
           tabIndex={query.length > 0 ? 0 : -1}
           as="button"
           size={24}
-          icon={<VscChromeClose className="h-full w-full p-1" />}
+          icon={<VscChromeClose className="h-5  w-5" />}
         />
       </div>
     </div>
