@@ -131,8 +131,12 @@ const CheckoutForm = () => {
       return;
     }
 
+    if (!costs.totalCost)
+      throw new Error("Could not get the total cost of the items");
+
     const { data } = await axios.post("/api/create-payment-intent", {
-      data: { amount: costs.totalCost },
+      // just rounding for convinience
+      data: { amount: Math.round(costs.totalCost) },
     });
     const clientSecret = data.secret;
 
@@ -336,7 +340,7 @@ const CheckoutForm = () => {
       </section>
       <div>
         <Summary />
-        <Button text="Pay now" onClick={() => void 0} />
+        <Button text="Pay now" />
       </div>
     </form>
   );
