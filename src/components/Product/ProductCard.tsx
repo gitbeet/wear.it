@@ -43,6 +43,7 @@ const ProductCard = ({
       className="shadow-color absolute inset-0 z-[0] rounded-lg border border-transparent bg-slate-100 shadow-md transition-[border] duration-100 group-hover:border-indigo-200"
       src={
         product.images.find((image) => image.id === currentImage)?.imageURL ??
+        product.images[0]?.imageURL ??
         ""
       }
       alt="Product image"
@@ -62,6 +63,7 @@ const ProductCard = ({
         className=" rounded-lg border border-transparent bg-slate-100  transition-[border] duration-100  group-hover:border-indigo-200"
         src={
           product.images.find((image) => image.id === currentImage)?.imageURL ??
+          product.images[0]?.imageURL ??
           ""
         }
         alt="Product image"

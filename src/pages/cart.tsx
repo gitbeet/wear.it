@@ -8,6 +8,7 @@ import { formatCurrency } from "~/utilities/formatCurrency";
 import { RecentlyViewed } from "./favorites";
 import LoadingPage from "~/components/loading";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 
 export const Summary = () => {
   const { isGettingCart, costs } = useCartContext();
@@ -87,15 +88,18 @@ export const CartItems = ({
 
 const Cart = () => {
   const { dbCart, isGettingCart } = useCartContext();
-
+  const router = useRouter();
   const emptyCartContent = (
     <div className="flex flex-col items-center ">
       <div className="h-4"></div>
       <p>Your bag is currently empty.</p>
       <div className="h-8"></div>
-      <Link href="/">
-        <Button text="Continue shopping" onClick={() => void 0} width="FIT" />
-      </Link>
+      <Button
+        text="Continue shopping"
+        aria-label="Go to the home page"
+        onClick={async () => await router.push("/")}
+        width="FIT"
+      />
     </div>
   );
 
@@ -105,9 +109,11 @@ const Cart = () => {
         <CartItems />
         <div>
           <Summary />
-          <Link href="/checkout">
-            <Button text="Buy now" onClick={() => void 0} />
-          </Link>
+          <Button
+            text="Buy now"
+            aria-label="Go to the checkout page"
+            onClick={async () => await router.push("/checkout")}
+          />
         </div>
       </div>
     </>
