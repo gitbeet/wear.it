@@ -14,7 +14,7 @@ const Logo = ({
     href="/"
     className={` ${
       tabIndex === -1 ? "pointer-events-none" : ""
-    } block transition hover:opacity-[.85] active:opacity-50`}
+    } w-fit px-1 py-0.5 transition hover:opacity-[.85] active:opacity-50`}
   >
     <h1 className="flex items-end gap-1 py-1">
       <span className="text-indigo-400">{logoIcon}</span>
