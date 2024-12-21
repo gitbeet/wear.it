@@ -9,10 +9,6 @@ import womensDenimJacket from "./products/womens-denim-jacket";
 
 export type ProductType = Prisma.ProductCreateInput;
 
-const DISTRIBUTION_DOMAIN = "https://d3qpa4ecx59jw0.cloudfront.net";
-
-export const IMAGES_PATH = `${DISTRIBUTION_DOMAIN}/product-images`;
-
 export const products: ProductType[] = [
   cozyWoolenWinterHat,
   womensPurpleLeggings,

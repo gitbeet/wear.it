@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
-import { IMAGES_PATH, type ProductType } from "../products";
+import { type ProductType } from "../products";
+import { IMAGES_PATH } from "~/constants";
 import { type ProductColor } from "@prisma/client";
 
 const product: ProductType = {
