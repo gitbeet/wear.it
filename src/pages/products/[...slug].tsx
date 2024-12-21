@@ -199,7 +199,7 @@ const ProductsPage = (
             <div
               className={`${
                 showFilters ? "" : "-ml-64"
-              }   hidden min-w-[250px] transition-all duration-500 md:block`}
+              }   hidden min-w-[240px] transition-all duration-500 md:block`}
             >
               <PriceFilter
                 loading={isLoading}
