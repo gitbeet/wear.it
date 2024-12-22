@@ -1,10 +1,10 @@
 import { type ProductColor } from "@prisma/client";
 import { v4 as uuid } from "uuid";
-import { type ProductType } from "../products";
+import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
-  name: "Womens oversized pullover hoodie",
+  name: "Oversized pullover hoodie",
   description:
     "Embrace comfort and style with our Oversized Pullover Hoodie for women. Crafted with a soft and durable cotton blend, this heather gray hoodie offers a relaxed, chic look. Perfect for a cozy day out or lounging at home.",
 
@@ -33,27 +33,27 @@ const product: ProductType = {
     createMany: {
       data: [
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-pullover-hoodie/women's-oversized-pullover-hoodie-blue-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-pullover-hoodie/oversized-pullover-hoodie--blue-01.jpg`,
           color: "BLUE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-pullover-hoodie/women's-oversized-pullover-hoodie-blue-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-pullover-hoodie/oversized-pullover-hoodie--blue-02.jpg`,
           color: "BLUE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-pullover-hoodie/women's-oversized-pullover-hoodie-blue-03.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-pullover-hoodie/oversized-pullover-hoodie--blue-03.jpg`,
           color: "BLUE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-pullover-hoodie/women's-oversized-pullover-hoodie-yellow-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-pullover-hoodie/oversized-pullover-hoodie--yellow-01.jpg`,
           color: "YELLOW",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-pullover-hoodie/women's-oversized-pullover-hoodie-yellow-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-pullover-hoodie/oversized-pullover-hoodie--yellow-02.jpg`,
           color: "YELLOW",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-pullover-hoodie/women's-oversized-pullover-hoodie-yellow-03.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-pullover-hoodie/oversized-pullover-hoodie--yellow-03.jpg`,
           color: "YELLOW",
         },
       ],

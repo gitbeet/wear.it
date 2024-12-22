@@ -1,12 +1,12 @@
 import { v4 as uuid } from "uuid";
-import { type ProductType } from "../products";
+import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 import { type ProductColor } from "@prisma/client";
 
 const product: ProductType = {
-  name: "Womens denim jacket",
+  name: "Denim jacket",
   description:
-    "Unwind in comfort and style with our  Oversized Sweatshirt for women. Made from a cozy fleece blend, this navy blue sweatshirt offers a loose, relaxed fit perfect for casual outings or lounging at home. Elevate your comfort game with this must-have piece.",
+    "Elevate your wardrobe with our Classic Women's Denim Jacket, the ultimate blend of casual chic and versatile functionality. Made from premium-quality, lightweight denim, this jacket offers all-day comfort without compromising on style. Its tailored fit and timeless design make it the perfect layering piece for every season.",
   types: ["WOMEN"],
   price: 89.99,
   colors: {
@@ -32,15 +32,15 @@ const product: ProductType = {
     createMany: {
       data: [
         {
-          imageURL: `${IMAGES_PATH}/women's-denim-top/women's-denim-top-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/denim-top/denim-top-01.jpg`,
           color: "WHITE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-denim-top/women's-denim-top-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/denim-top/denim-top-02.jpg`,
           color: "WHITE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-denim-top/women's-denim-top-03.jpg`,
+          imageURL: `${IMAGES_PATH}/women/denim-top/denim-top-03.jpg`,
           color: "WHITE",
         },
       ],

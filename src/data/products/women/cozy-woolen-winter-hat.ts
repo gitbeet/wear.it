@@ -1,10 +1,10 @@
 import { type ProductColor } from "@prisma/client";
 import { v4 as uuid } from "uuid";
-import { type ProductType } from "../products";
+import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
-  name: "Cozy Patterned Woolen Winter Hat",
+  name: "Patterned wool winter hat",
   description:
     "Stay warm and stylish this winter with our Cozy Patterned Woolen Winter Hat! Crafted with comfort and fashion in mind, this hat is the perfect accessory to keep you snug during the chilly months.",
   types: ["WOMEN"],
@@ -45,27 +45,27 @@ const product: ProductType = {
     createMany: {
       data: [
         {
-          imageURL: `${IMAGES_PATH}/cozy-woolen-winter-hat/cozy-woolen-winter-hat--red-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/cozy-woolen-winter-hat/cozy-woolen-winter-hat--red-01.jpg`,
           color: "RED",
         },
         {
-          imageURL: `${IMAGES_PATH}/cozy-woolen-winter-hat/cozy-woolen-winter-hat--red-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/cozy-woolen-winter-hat/cozy-woolen-winter-hat--red-02.jpg`,
           color: "RED",
         },
         {
-          imageURL: `${IMAGES_PATH}/cozy-woolen-winter-hat/cozy-woolen-winter-hat--red-03.jpg`,
+          imageURL: `${IMAGES_PATH}/women/cozy-woolen-winter-hat/cozy-woolen-winter-hat--red-03.jpg`,
           color: "RED",
         },
         {
-          imageURL: `${IMAGES_PATH}/cozy-woolen-winter-hat/cozy-woolen-winter-hat--blue-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/cozy-woolen-winter-hat/cozy-woolen-winter-hat--blue-01.jpg`,
           color: "BLUE",
         },
         {
-          imageURL: `${IMAGES_PATH}/cozy-woolen-winter-hat/cozy-woolen-winter-hat--blue-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/cozy-woolen-winter-hat/cozy-woolen-winter-hat--blue-02.jpg`,
           color: "BLUE",
         },
         {
-          imageURL: `${IMAGES_PATH}/cozy-woolen-winter-hat/cozy-woolen-winter-hat--black-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/cozy-woolen-winter-hat/cozy-woolen-winter-hat--black-01.jpg`,
           color: "BLACK",
         },
       ],

@@ -1,9 +1,9 @@
 import { v4 as uuid } from "uuid";
-import { type ProductType } from "../products";
+import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
-  name: "Women's purple leggings",
+  name: "Purple leggings",
   description: "Coolest leggings ever!",
   types: ["WOMEN"],
   price: 96,
@@ -33,7 +33,7 @@ const product: ProductType = {
     createMany: {
       data: [
         {
-          imageURL: `${IMAGES_PATH}/women's-purple-leggings/women's-purple-leggings-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/purple-leggings/purple-leggings-01.jpg`,
           color: "PURPLE",
         },
       ],

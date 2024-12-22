@@ -1,10 +1,10 @@
 import { type ProductColor } from "@prisma/client";
 import { v4 as uuid } from "uuid";
-import { type ProductType } from "../products";
+import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
-  name: "Womens oversized sweatshirt",
+  name: "Oversized sweatshirt",
   description:
     "Unwind in comfort and style with our  Oversized Sweatshirt for women. Made from a cozy fleece blend, this navy blue sweatshirt offers a loose, relaxed fit perfect for casual outings or lounging at home. Elevate your comfort game with this must-have piece.",
   types: ["WOMEN"],
@@ -32,39 +32,39 @@ const product: ProductType = {
     createMany: {
       data: [
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-beige-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--beige-01.jpg`,
           color: "BEIGE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-beige-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--beige-02.jpg`,
           color: "BEIGE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-beige-03.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--beige-03.jpg`,
           color: "BEIGE",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-pink-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--pink-01.jpg`,
           color: "PINK",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-pink-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--pink-02.jpg`,
           color: "PINK",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-pink-03.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--pink-03.jpg`,
           color: "PINK",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-gray-01.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--gray-01.jpg`,
           color: "GRAY",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-gray-02.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--gray-02.jpg`,
           color: "GRAY",
         },
         {
-          imageURL: `${IMAGES_PATH}/women's-oversized-sweatshirt/women's-oversized-sweatshirt-gray-03.jpg`,
+          imageURL: `${IMAGES_PATH}/women/oversized-sweatshirt/oversized-sweatshirt--gray-03.jpg`,
           color: "GRAY",
         },
       ],

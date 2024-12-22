@@ -1,4 +1,8 @@
-import { PrismaClient, ProductColor, ProductSize } from "@prisma/client";
+import {
+  PrismaClient,
+  type ProductColor,
+  type ProductSize,
+} from "@prisma/client";
 import { productCategories } from "../src/data/categories";
 import { products } from "../src/data/products";
 import { categorySEOData } from "~/data/categorySEO";
@@ -78,14 +82,23 @@ const main = async () => {
     });
   }
 
-  const createDiscounts = prisma.discount.create({
-    data: {
-      id: 1,
-      active: true,
-      discountPercent: 25,
-      description: "Winter offer for all t-shirts",
-      name: "Winter T-shirt Sale",
-    },
+  const createDiscounts = prisma.discount.createMany({
+    data: [
+      {
+        id: 1,
+        active: true,
+        discountPercent: 25,
+        description: "Winter sale",
+        name: "Winter offer for a set of products",
+      },
+      {
+        id: 2,
+        active: true,
+        discountPercent: 15,
+        description: "Outlet sale",
+        name: "Outlet sale 2024",
+      },
+    ],
   });
 
   await prisma.$transaction([createDiscounts]);

@@ -51,8 +51,8 @@ const skeleton = (
 const ProductsPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) => {
+  const PAGE_SIZE = 9;
   const { seo } = props;
-  const pageSize = 12;
   const { setShowMobileFiltersMenu } = useModalsContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(true);
@@ -74,8 +74,8 @@ const ProductsPage = (
       type: [slug?.[0]?.toUpperCase() as CategoryType],
       slug: slug?.[1],
       sort,
-      skip: (currentPage - 1) * pageSize,
-      pageSize,
+      skip: (currentPage - 1) * PAGE_SIZE,
+      pageSize: PAGE_SIZE,
       priceFrom:
         typeof priceFrom === "string" ? parseInt(priceFrom) : undefined,
       priceTo: typeof priceTo === "string" ? parseInt(priceTo) : undefined,
@@ -225,7 +225,7 @@ const ProductsPage = (
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalProducts={data?.totalProducts ?? 0}
-            pageSize={pageSize}
+            pageSize={PAGE_SIZE}
           />
         </div>
         <MobileFiltersMenu
