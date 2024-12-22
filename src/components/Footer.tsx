@@ -5,10 +5,8 @@ import {
   tiktokIcon,
   twitterIcon,
 } from "public/assets/icons";
-import Icon from "./UI/Icon";
 import FooterColumn, { type FooterColumnType } from "./UI/FooterColumn";
 import Spacer from "./Spacer";
-import NavIcon from "./Nav/NavIcon";
 import FooterIcon from "./UI/FooterIcon";
 
 const navigationFooterColumn: FooterColumnType = {
@@ -63,7 +61,7 @@ const Footer = () => {
         id="footer"
         className="w-full border-indigo-100 bg-slate-100  pt-12 text-slate-900"
       >
-        <div className="padding-x mx-auto flex max-w-[1720px] flex-col justify-start gap-8 pb-12 md:pb-20 xs:flex-row xs:flex-wrap">
+        <div className="padding-x mx-auto flex max-w-[1720px] flex-col justify-start gap-8 pb-12 xs:flex-row xs:flex-wrap md:pb-20">
           <div className="relative -top-2 grow">
             <Logo />
           </div>

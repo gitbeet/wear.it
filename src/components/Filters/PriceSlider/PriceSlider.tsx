@@ -5,54 +5,54 @@ import { useRouter } from "next/router";
 import PriceRangeInput from "./PriceRangeInput";
 import ExpandableFilterWrapper from "~/components/UI/Expandable/ExpandableFilterWrapper";
 
-const emptySlider = (
-  <div className="h-8 border-b p-8 pb-40 pl-0 ">
-    <header className="text-md font-semibold">Shop by Price</header>
-    <div className="h-6"></div>
-    <div className="pointer-events-none opacity-50">
-      <div className="w-full space-x-2 text-center text-sm">
-        <span>{formatCurrency(0)}</span>
-        <span>-</span>
-        <span>{formatCurrency(0)}</span>
-      </div>
-      <div className="h-4"></div>
-      <div className="relative">
-        <p className="absolute left-0 top-6 text-sm">{formatCurrency(0)}</p>
-        <p className="absolute right-0 top-6 text-sm">{formatCurrency(0)}</p>
-        <ReactSlider
-          step={50}
-          min={0}
-          max={1}
-          onChange={() => {
-            void 0;
-          }}
-          onAfterChange={() => {
-            void 0;
-          }}
-          value={[0, 1]}
-          ariaLabel={["Lower thumb (disabled)", "Upper thumb (disabled)"]}
-          ariaValuetext={(state) => `Thumb value (disabled) ${state.valueNow}`}
-          renderThumb={(props) => (
-            <div
-              {...props}
-              className="absolute -top-1 h-4 w-4 rounded-md bg-indigo-400"
-            ></div>
-          )}
-          renderTrack={(props, state) => (
-            <div
-              {...props}
-              className={`${
-                state.index === 1 ? "bg-slate-300" : "bg-slate-200"
-              } absolute top-0 h-2`}
-            />
-          )}
-          pearling
-          minDistance={5}
-        />
-      </div>
-    </div>
-  </div>
-);
+// const emptySlider = (
+//   <div className="h-8 border-b p-8 pb-40 pl-0 ">
+//     <header className="text-md font-semibold">Shop by Price</header>
+//     <div className="h-6"></div>
+//     <div className="pointer-events-none opacity-50">
+//       <div className="w-full space-x-2 text-center text-sm">
+//         <span>{formatCurrency(0)}</span>
+//         <span>-</span>
+//         <span>{formatCurrency(0)}</span>
+//       </div>
+//       <div className="h-4"></div>
+//       <div className="relative">
+//         <p className="absolute left-0 top-6 text-sm">{formatCurrency(0)}</p>
+//         <p className="absolute right-0 top-6 text-sm">{formatCurrency(0)}</p>
+//         <ReactSlider
+//           step={50}
+//           min={0}
+//           max={1}
+//           onChange={() => {
+//             void 0;
+//           }}
+//           onAfterChange={() => {
+//             void 0;
+//           }}
+//           value={[0, 1]}
+//           ariaLabel={["Lower thumb (disabled)", "Upper thumb (disabled)"]}
+//           ariaValuetext={(state) => `Thumb value (disabled) ${state.valueNow}`}
+//           renderThumb={(props) => (
+//             <div
+//               {...props}
+//               className="absolute -top-1 h-4 w-4 rounded-md bg-indigo-400"
+//             ></div>
+//           )}
+//           renderTrack={(props, state) => (
+//             <div
+//               {...props}
+//               className={`${
+//                 state.index === 1 ? "bg-slate-300" : "bg-slate-200"
+//               } absolute top-0 h-2`}
+//             />
+//           )}
+//           pearling
+//           minDistance={5}
+//         />
+//       </div>
+//     </div>
+//   </div>
+// );
 
 const skeletonSlider = (
   <ExpandableFilterWrapper

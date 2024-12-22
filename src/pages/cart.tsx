@@ -1,4 +1,3 @@
-import Link from "next/link";
 import CartItem from "~/components/Cart/CartItem";
 import Button from "~/components/UI/Button";
 import BagItemSkeleton from "~/components/skeletons/BagItemSkeleton";

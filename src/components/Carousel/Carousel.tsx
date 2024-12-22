@@ -39,7 +39,7 @@ const Carousel = ({
       setIsBeginning(swiper.isBeginning);
       setIsEnd(swiper.isEnd);
     });
-  }, [swiperRef.current]);
+  }, [swiperRef]);
 
   return (
     <div className="relative">

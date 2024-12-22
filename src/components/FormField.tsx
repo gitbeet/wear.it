@@ -42,7 +42,7 @@ const FormField = ({
     if (inputElement) {
       inputElement.focus();
     }
-  }, []);
+  }, [autoFocus, name]);
 
   return fancy ? (
     <div className="relative grow">

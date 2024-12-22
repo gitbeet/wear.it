@@ -33,7 +33,6 @@ import {
 import axios from "axios";
 import React from "react";
 import { useCartContext } from "~/context/cartContext";
-import { api } from "~/utils/api";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
