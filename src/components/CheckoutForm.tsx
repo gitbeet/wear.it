@@ -17,7 +17,7 @@ import FormSelectField from "~/components/FormSelectField";
 // Phone field
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { CartItems, Summary } from "~/pages/cart";
+
 import Button from "./UI/Button";
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -33,6 +33,9 @@ import {
 import axios from "axios";
 import React from "react";
 import { useCartContext } from "~/context/cartContext";
+import CartItems from "./Cart/CartItems";
+import Summary from "./Cart/CartSummary";
+import { api } from "~/utils/api";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -60,7 +63,7 @@ const clientDataSchema = z.object({
 });
 
 const CheckoutForm = () => {
-  const { costs } = useCartContext();
+  const { costs, isFetching, isGettingCart } = useCartContext();
   const stripe = useStripe();
   const elements = useElements();
   const {
@@ -177,6 +180,29 @@ const CheckoutForm = () => {
       console.log(error);
     }
   };
+  const ctx = api.useUtils();
+  const { mutate: addToFavorites, isLoading: isFaving } =
+    api.favorite.favorite.useMutation({
+      onSuccess: () => {
+        void ctx.invalidate();
+      },
+    });
+  const { mutate: modify, isLoading: isModifying } =
+    api.cart.modifyItem.useMutation({
+      onSuccess: () => {
+        void ctx.invalidate();
+      },
+    });
+
+  const { mutate: remove, isLoading: isRemoving } =
+    api.cart.removeItem.useMutation({
+      onSuccess: () => {
+        void ctx.invalidate();
+      },
+    });
+
+  const isLoading =
+    isFaving || isRemoving || isModifying || isGettingCart || isFetching;
 
   return (
     <form
@@ -335,10 +361,15 @@ const CheckoutForm = () => {
           />
         </section>
         <div className="h-16"></div>
-        <CartItems page="checkout" />
+        <CartItems
+          addToFavorites={addToFavorites}
+          isLoading={isLoading}
+          remove={remove}
+          modify={modify}
+        />
       </section>
       <div>
-        <Summary />
+        <Summary isLoading={false} />
         <Button text="Pay now" />
       </div>
     </form>

@@ -16,7 +16,7 @@ export const PromosBanner = ({
   const CustomArrow = ({ direction }: { direction: "left" | "right" }) => (
     <button
       aria-label={direction === "left" ? "Previous slide" : "Next slide"}
-      className="grid w-8 shrink-0 grow place-content-center text-slate-50 hover:bg-indigo-400 active:opacity-50"
+      className="grid w-8 shrink-0 grow place-content-center text-slate-700 hover:bg-slate-300 active:opacity-50"
       onClick={() =>
         direction === "left"
           ? swiperRef.current?.swiper.slidePrev()
@@ -31,7 +31,7 @@ export const PromosBanner = ({
 
   return (
     // Hard coded pt-16 - value of the nav height
-    <div className="gradient-main-r shadow-color relative z-[40] flex  w-full items-center justify-center pt-16 text-slate-50 shadow-lg ">
+    <div className="shadow-color relative z-[40] flex w-full  items-center justify-center bg-slate-200 pt-16 text-slate-700 shadow-sm">
       <div className="padding-x flex w-[min(100vw,40rem)] items-stretch justify-center gap-2 md:gap-4">
         <CustomArrow direction="left" />
         <Swiper

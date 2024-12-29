@@ -3,7 +3,7 @@ import type {
   InferGetServerSidePropsType,
 } from "next";
 import { createServerSideHelpers } from "@trpc/react-query/server";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { appRouter } from "~/server/api/root";
 import { api } from "~/utils/api";
 import SuperJSON from "superjson";
@@ -27,7 +27,7 @@ import { NextSeo } from "next-seo";
 import { colorOptions } from "~/maps";
 import Spacer from "~/components/Spacer";
 import { useCartContext } from "~/context/cartContext";
-import ProductCardCarouselTest from "~/components/Carousel/ProductCardCarouselTest";
+import ProductCardCarousel from "~/components/Carousel/ProductCardCarousel";
 import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
 import ExpandableProductSectionWrapper from "~/components/UI/Expandable/ExpandableProductSectionWrapper";
 
@@ -142,6 +142,9 @@ const Product = ({
   id,
   color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { setShowBagModal } = useModalsContext();
+  const { isFavorited } = useFavoritesContext();
+  const { dbCart, isGettingCart, isFetching } = useCartContext();
   const router = useRouter();
   const ctx = api.useUtils();
   const { user, isSignedIn } = useUser();
@@ -158,17 +161,27 @@ const Product = ({
       onSuccess: () => setAddedToHistory(true),
     });
   // Add to favorites
+
   const { mutate: addToFavorites, isLoading: isFaving } =
     api.favorite.favorite.useMutation({
       onSuccess: () => {
         void ctx.invalidate();
+
+        if (!productData) return;
+        const isItemFavorited = isFavorited(
+          color as ProductColor,
+          productData?.id,
+        );
+        if (isItemFavorited) return;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setShowBagModal({ show: true, type: "favorite" });
       },
     });
   // Add to cart
   const { mutate, isLoading: isAddingToCart } = api.cart.addItem.useMutation({
     onSuccess: () => {
       void ctx.invalidate();
-      setShowBagModal(true);
+      setShowBagModal({ show: true, type: "cart" });
     },
   });
   // Get Reviews
@@ -182,10 +195,6 @@ const Product = ({
       collectionId: undefined,
       color: undefined,
     });
-
-  const { setShowBagModal } = useModalsContext();
-  const { isFavorited } = useFavoritesContext();
-  const { dbCart, isGettingCart, isFetching } = useCartContext();
 
   const hasUserCommented =
     reviews?.findIndex((review) => review.author.id === user?.id) !== -1;
@@ -327,6 +336,7 @@ const Product = ({
 
   const handleAddToFavorites = () => {
     if (!selectedColor) return;
+
     addToFavorites({
       color: selectedColor,
       productId: productData.id,
@@ -553,12 +563,12 @@ const Product = ({
         </div>
       </section>
       <Spacer type="section" />
-      <section className="padding-x">
+      <section className="padding-x container-mine mx-auto">
         <h2 className="font-display text-2xl font-black">
           You might also like
         </h2>
         <div className="h-12"></div>
-        <ProductCardCarouselTest
+        <ProductCardCarousel
           autoplay={true}
           autoplayDelay={2500}
           infinite={true}

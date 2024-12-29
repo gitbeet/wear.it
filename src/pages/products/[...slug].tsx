@@ -113,7 +113,7 @@ const ProductsPage = (
         }}
       />
       <Spacer type="header" />
-      <main className="flex h-full w-full grow flex-col items-stretch justify-between">
+      <main className="container-mine mx-auto flex h-full w-full grow flex-col items-stretch justify-between">
         <section>
           <section className="padding-x hidden items-center justify-between md:flex">
             {isLoading ? (

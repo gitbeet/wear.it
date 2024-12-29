@@ -1,60 +1,44 @@
-import type { ProductSize } from "@prisma/client";
 import { BsHeart, BsHeartFill, BsTrash } from "react-icons/bs";
-import { type RouterOutputs, api } from "~/utils/api";
-import { formatCurrency } from "~/utilities/formatCurrency";
 import Image from "next/image";
-import { type ChangeEvent } from "react";
 import Link from "next/link";
-import { useCartContext } from "~/context/cartContext";
-import { useFavoritesContext } from "~/context/favoritesContext";
+import type { CartItemModal, CartItemPage, FavoriteItemModal } from "~/types";
+import CartItemDetail from "./CartItemDetail";
+import CartItemSelectElement from "./CartItemSelectElement";
+import CartItemButton from "./CartItemButton";
 
-interface Props {
-  cartItem: RouterOutputs["cart"]["getByUserId"]["cartItems"][number];
-  modal?: boolean;
-}
+type CartItemModalProps = {
+  cartItem: CartItemModal;
+  type: "cartModal";
+  isLoading: boolean;
+};
 
-const CartItem = ({ cartItem, modal = false }: Props) => {
-  const ctx = api.useUtils();
-  const { isFavorited } = useFavoritesContext();
-  const { isFetching } = useCartContext();
-  const { mutate: addToFavorites, isLoading: isFaving } =
-    api.favorite.favorite.useMutation({
-      onSuccess: () => {
-        void ctx.invalidate();
-      },
-    });
-  const { mutate: modify, isLoading: isModifying } =
-    api.cart.modifyItem.useMutation({
-      onSuccess: () => {
-        void ctx.invalidate();
-      },
-    });
+type FavoriteItemModalProps = {
+  cartItem: FavoriteItemModal;
+  type: "wishlistModal";
+  isLoading: boolean;
+};
 
-  const { mutate: remove, isLoading: isRemoving } =
-    api.cart.removeItem.useMutation({
-      onSuccess: () => {
-        void ctx.invalidate();
-      },
-    });
+type CartItemPageProps = {
+  cartItem: CartItemPage;
+  type: "cartPage";
+  isLoading: boolean;
+};
+
+type Props = CartItemModalProps | FavoriteItemModalProps | CartItemPageProps;
+
+const CartItem = ({ cartItem, type, isLoading }: Props) => {
   const {
+    productId,
     name,
     category,
-    sizes,
-    discount,
+    color,
+    image,
     price,
-    images,
-    id: productId,
-  } = cartItem.product;
-  const { color, id, quantity, size } = cartItem;
-  const quantityArray = [...Array(10).keys()];
-  const priceBeforeDiscount = formatCurrency(price);
-  const priceAfterDiscount = formatCurrency(
-    (discount?.discountPercent && discount.active
-      ? price - (price * discount?.discountPercent) / 100
-      : price) * cartItem.quantity,
-  );
-  const thumbnail = images.find((image) => image.color === color)?.imageURL;
-  const isItemFavorited = isFavorited(color, productId);
+    discount,
+    priceBeforeDiscount,
+  } = cartItem;
+  const modal = type === "cartModal" || type === "wishlistModal";
+
   return (
     <div
       className={`${
@@ -69,9 +53,9 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
         <Image
           fill
           objectFit="contain"
-          src={thumbnail ?? ""}
+          src={image}
           alt="Product thumbnail"
-          className="absolute "
+          className="absolute"
         />
       </div>
 
@@ -88,117 +72,90 @@ const CartItem = ({ cartItem, modal = false }: Props) => {
                   {name}
                 </p>
               </Link>
-              <p className="text-slate-600">{category.name}</p>
+              <p className="text-slate-600">{category}</p>
             </div>
-            {!modal && <p className="font-bold">{priceAfterDiscount}</p>}
+            {!modal && <p className="font-bold">{price}</p>}
           </div>
           <div className="h-2"></div>
-          <div className="text-slate-600">
-            Color: <span className="text-slate-500">{color}</span>
-          </div>
+          <CartItemDetail text="Color">
+            <span className="text-slate-500">{color}</span>
+          </CartItemDetail>
           <div className="h-2"></div>
         </div>
         {/* BOTTOM */}
         <div>
           {/* SIZE & QTY */}
-          {modal && (
-            <div className="flex gap-2 text-slate-600">
-              <p>Size</p>
-              <span>{size}</span>
-            </div>
+          {type === "cartModal" && (
+            <CartItemDetail text="Size">
+              <span className="text-slate-500">{cartItem.size}</span>
+            </CartItemDetail>
           )}
           {modal &&
             (discount ? (
               <p>
-                <span className="font-bold">{priceAfterDiscount}</span>{" "}
+                <span className="font-bold">{price}</span>{" "}
                 <span className="pl-2 text-slate-500 line-through">
                   {priceBeforeDiscount}
                 </span>
               </p>
             ) : (
-              <p className="font-bold">{priceAfterDiscount}</p>
+              <p className="font-bold">{price}</p>
             ))}
 
-          {!modal && (
+          {type === "cartPage" && (
             <>
               <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
-                <div className="flex gap-2 text-slate-600">
-                  <p>Sizes</p>
-                  <select
-                    disabled={isFetching || isModifying}
-                    className="bg-slate-200 pl-4 disabled:opacity-50"
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      modify({
-                        id,
-                        size: e.target.value as ProductSize,
-                      })
-                    }
-                    value={size}
-                  >
-                    {sizes.map((s, i) => (
-                      <option key={i}>{s.size}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex gap-2 text-slate-600">
-                  <p>Quantity</p>
-                  <select
-                    disabled={isFetching || isModifying}
-                    className="bg-slate-200 pl-4 disabled:opacity-50"
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      modify({
-                        id,
-                        quantity: parseInt(e.target.value),
-                      })
-                    }
-                    value={quantity}
-                  >
-                    {quantityArray.map((num) => (
-                      <option key={num}>{num + 1}</option>
-                    ))}
-                  </select>
-                </div>
+                <CartItemDetail text="Sizes">
+                  <CartItemSelectElement
+                    disabled={isLoading}
+                    onChange={cartItem.onChangeSize}
+                    value={cartItem.size}
+                    options={cartItem.sizes.map((s) => ({
+                      label: s,
+                      value: s,
+                    }))}
+                  />
+                </CartItemDetail>
+                <CartItemDetail text="Quantity">
+                  <CartItemSelectElement
+                    disabled={isLoading}
+                    onChange={cartItem.onChangeQuantity}
+                    value={cartItem.quantity}
+                    options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((s) => ({
+                      label: s.toString(),
+                      value: s,
+                    }))}
+                  />
+                </CartItemDetail>
               </div>
               <div className="h-4"></div>
             </>
           )}
           {/* BTNS */}
-          {!modal && (
+          {type === "cartPage" && (
             <div className="flex flex-col gap-2 sm:flex-row sm:gap-8">
-              <button
-                type="button"
-                disabled={isFaving}
-                onClick={() => {
-                  if (isItemFavorited) {
-                    addToFavorites({ color, productId });
-                  }
-                  if (!isItemFavorited) {
-                    addToFavorites({ color, productId });
-                    remove({ id });
-                  }
-                }}
-                role="button"
-                className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800"
-              >
-                {isItemFavorited ? (
-                  <BsHeartFill className="h-5 w-5" />
-                ) : (
-                  <BsHeart className="h-5 w-5" />
-                )}
-                <span>
-                  {isItemFavorited ? "Added to Wishlist" : "Add to Wishlist"}
-                </span>
-              </button>
-
-              <button
-                type="button"
-                disabled={isRemoving}
-                onClick={() => remove({ id })}
-                className="flex items-center gap-2 text-slate-500 transition-colors duration-150 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <BsTrash className="h-5 w-5" />
-                <span className="pl-2">Remove</span>
-              </button>
+              <CartItemButton
+                aria-label={
+                  cartItem.isFavorited
+                    ? "Remove from Wishlist"
+                    : "Add to Wishlist"
+                }
+                text={
+                  cartItem.isFavorited
+                    ? "Already in Wishlist"
+                    : "Add to Wishlist"
+                }
+                icon={cartItem.isFavorited ? <BsHeartFill /> : <BsHeart />}
+                disabled={isLoading}
+                onClick={cartItem.onAddToFavorites}
+              />
+              <CartItemButton
+                aria-label="Remove from Bag"
+                text="Remove"
+                icon={<BsTrash />}
+                disabled={isLoading}
+                onClick={cartItem.onRemoveFromCart}
+              />
             </div>
           )}
         </div>

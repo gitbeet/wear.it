@@ -11,13 +11,21 @@ import { disableScrolling, enableScrolling } from "~/utilities/toggleScrolling";
 
 type ModalsContextType = {
   showMegaMenu: { type: CategoryType; show: boolean; active: boolean }[];
-  showBagModal: boolean;
+  showBagModal: {
+    type: "cart" | "favorite" | null;
+    show: boolean;
+  };
   showMobileMenu: boolean;
   showMobileFiltersMenu: boolean;
   setShowMegaMenu: Dispatch<
     SetStateAction<{ type: CategoryType; show: boolean; active: boolean }[]>
   >;
-  setShowBagModal: Dispatch<SetStateAction<boolean>>;
+  setShowBagModal: Dispatch<
+    SetStateAction<{
+      type: "cart" | "favorite" | null;
+      show: boolean;
+    }>
+  >;
   setShowMobileMenu: Dispatch<SetStateAction<boolean>>;
   setShowMobileFiltersMenu: Dispatch<SetStateAction<boolean>>;
   toggleMegaMenu: (type: CategoryType) => void;
@@ -47,7 +55,10 @@ const ModalsProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     { type: "MEN", show: false, active: false },
     { type: "WOMEN", show: false, active: false },
   ]);
-  const [showBagModal, setShowBagModal] = useState(false);
+  const [showBagModal, setShowBagModal] = useState<{
+    type: "cart" | "favorite" | null;
+    show: boolean;
+  }>({ type: null, show: false });
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileFiltersMenu, setShowMobileFiltersMenu] = useState(false);
 
@@ -78,11 +89,11 @@ const ModalsProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (showBagModal || showMobileMenu) {
+    if (showBagModal.show || showMobileMenu) {
       disableScrolling();
       return;
     }
-    if (!showBagModal || !showMobileMenu) {
+    if (!showBagModal.show || !showMobileMenu) {
       enableScrolling();
       return;
     }

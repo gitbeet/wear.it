@@ -66,9 +66,9 @@ const Nav = () => {
           : "-translate-y-0 opacity-100"
       } fixed z-[50] w-full transition-[opacity,transform] duration-[450ms] ease-in-out `}
     >
-      <div className="relative z-[50]">
-        <div className="shadow-color absolute inset-0 z-[50]  bg-slate-50 shadow-lg" />
-        <div className="relative mx-auto flex h-16 max-w-[1720px] items-center">
+      <div className="relative z-[50] ">
+        <div className=" shadow-color absolute inset-0  z-[50] bg-slate-50 shadow-sm" />
+        <div className="container-mine  relative mx-auto flex h-16 items-center ">
           {logo}
           {navLinks}
           <div className="margin-right absolute right-0 z-50 flex h-10 items-center">

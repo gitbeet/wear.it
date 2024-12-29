@@ -5,7 +5,7 @@ const Spacer = ({ type }: { type: SpacerType }) => {
     type === "section"
       ? "h-8 md:h-16"
       : type === "header"
-      ? "h-8 md:h-24"
+      ? "h-12 md:h-16"
       : type === "footer"
       ? "h-12 md:h-24"
       : "";

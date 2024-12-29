@@ -23,6 +23,7 @@ const Carousel = ({
   autoplayDelay: number;
   speed: number;
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(true);
   const swiperRef = useRef<SwiperRef>(null);
@@ -42,7 +43,11 @@ const Carousel = ({
   }, [swiperRef]);
 
   return (
-    <div className="relative">
+    <div
+      className={`${
+        isLoading ? "pointer-events-none opacity-0" : "opacity-100"
+      } relative`}
+    >
       <Swiper
         allowTouchMove
         preventClicks={false}
@@ -72,6 +77,7 @@ const Carousel = ({
           if (autoplay && autoplayDelay) {
             swiperInstance.autoplay.start();
           }
+          setIsLoading(false);
         }}
         onSlideChange={(swiperInstance) => {
           setIsBeginning(swiperInstance.isBeginning);

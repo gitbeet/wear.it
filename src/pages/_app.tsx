@@ -12,15 +12,15 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <CookiesProvider>
       <ClerkProvider>
-        <FavoritesProvider>
-          <CartProvider>
-            <ModalsProvider>
+        <ModalsProvider>
+          <FavoritesProvider>
+            <CartProvider>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
-            </ModalsProvider>
-          </CartProvider>
-        </FavoritesProvider>
+            </CartProvider>
+          </FavoritesProvider>
+        </ModalsProvider>
       </ClerkProvider>
     </CookiesProvider>
   );

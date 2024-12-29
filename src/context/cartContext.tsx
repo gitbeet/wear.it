@@ -15,6 +15,8 @@ export const useCartContext = () => {
 };
 
 export type CartType = RouterOutputs["cart"]["getByUserId"] | undefined;
+export type CartItemType =
+  RouterOutputs["cart"]["getByUserId"]["cartItems"][number];
 
 type CartContextType = {
   dbCart: CartType;

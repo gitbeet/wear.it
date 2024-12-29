@@ -69,7 +69,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         className={`flex min-h-screen flex-col items-stretch justify-between font-body text-slate-800`}
       >
         {nav}
-        <section className="mx-auto flex min-h-full w-[min(100%,1720px)] grow flex-col items-stretch justify-between">
+        <section className=" flex grow flex-col items-stretch justify-between">
           {children}
         </section>
         {footer}

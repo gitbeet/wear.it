@@ -111,7 +111,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="gradient-main-r py-2">
+        <div className="bg-slate-700 py-2">
           <p className="text-center text-sm font-light text-slate-50">
             <b className="font-display font-black">wear.it</b> {currentYear}©
             All rights reserved.

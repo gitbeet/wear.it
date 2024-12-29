@@ -11,7 +11,7 @@ const ExpandArrow = ({
   expanded: boolean;
 }) => {
   return (
-    <div className="h-7 w-7">
+    <div className="h-5 w-5">
       <NavIcon
         disabled={disabled}
         as="button"

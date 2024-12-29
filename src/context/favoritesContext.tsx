@@ -2,6 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { type ProductColor } from "@prisma/client";
 import { createContext, useContext, useEffect } from "react";
 import { type RouterOutputs, api } from "~/utils/api";
+import { useModalsContext } from "./modalsContext";
 
 const favoritesContext = createContext<BagContextType | null>(null);
 
@@ -21,6 +22,7 @@ type BagContextType = {
 };
 
 const FavoritesProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { showBagModal } = useModalsContext();
   const { isSignedIn } = useUser();
   const {
     data: favorites,
