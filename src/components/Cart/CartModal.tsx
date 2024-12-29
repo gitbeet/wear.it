@@ -46,13 +46,17 @@ const CartModal = () => {
             100
         : cartItem.product.price;
 
+    const image =
+      cartItem.product.images.find((image) => image.color === cartItem.color)
+        ?.imageURL ?? "";
+
     const addedItem: CartItemModal = {
       id: cartItem.id,
       name: cartItem.product.name,
       color: cartItem.color,
       productId: cartItem.product.id,
       category: cartItem.product.category.name,
-      image: cartItem.product.images[0]?.imageURL ?? "",
+      image,
       size: cartItem.size,
       price: formatCurrency(priceAfterDiscount),
       ...(cartItem.product.discount?.active && {
@@ -77,13 +81,18 @@ const CartModal = () => {
             100
         : favoriteItem.product.price;
 
+    const image =
+      favoriteItem.product.images.find(
+        (image) => image.color === favoriteItem.color,
+      )?.imageURL ?? "";
+
     const addedItem: FavoriteItemModal = {
       id: favoriteItem.id,
       name: favoriteItem.product.name,
       color: favoriteItem.color,
       productId: favoriteItem.productId,
       category: favoriteItem.product.category.name,
-      image: favoriteItem.product.images[0]?.imageURL ?? "",
+      image,
       price: formatCurrency(priceAfterDiscount),
       ...(favoriteItem.product.discount?.active && {
         discount: favoriteItem.product.discount.discountPercent,
