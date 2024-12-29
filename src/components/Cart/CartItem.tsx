@@ -133,7 +133,7 @@ const CartItem = ({ cartItem, type, isLoading }: Props) => {
           )}
           {/* BTNS */}
           {type === "cartPage" && (
-            <div className="flex flex-col gap-2 sm:flex-row sm:gap-8">
+            <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
               <CartItemButton
                 aria-label={
                   cartItem.isFavorited

@@ -14,7 +14,10 @@ const CartItemSelectElement = ({
   ...props
 }: CartItemSelectElementProps) => {
   return (
-    <select className="bg-slate-200 py-0.5 pl-4 disabled:opacity-25" {...props}>
+    <select
+      className="cursor-pointer rounded-sm  bg-slate-200 py-0.5 pl-4 disabled:opacity-25"
+      {...props}
+    >
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
