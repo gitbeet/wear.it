@@ -1,7 +1,7 @@
 import { NextSeo } from "next-seo";
 import Spacer from "~/components/ui/Spacer";
 import RecentlyViewed from "~/components/carousel/RecentlyViewed";
-import FavoriteItems from "~/components/favorites/FavoriteItems";
+import FavoriteItems from "~/components/favorite/FavoriteItems";
 
 const Favorites = () => {
   return (
