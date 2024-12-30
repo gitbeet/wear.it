@@ -1,6 +1,6 @@
 import type { ProductColor, ProductSize } from "@prisma/client";
 import CartItem from "~/components/Cart/CartItem";
-import BagItemSkeleton from "~/components/Skeletons/BagItemSkeleton";
+import BagItemSkeleton from "../Skeletons/BagItemSkeleton";
 import { type CartItemType, useCartContext } from "~/context/cartContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import type { CartItemPage } from "~/types";
