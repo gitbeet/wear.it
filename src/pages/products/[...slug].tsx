@@ -17,14 +17,14 @@ import PriceFilter from "~/components/Filters/PriceSlider/PriceSlider";
 import SizeFilter from "~/components/Filters/SizeFilter";
 import SortByFilter from "~/components/Filters/SortByFilter";
 import ToggleFilters from "~/components/Filters/ToggleFilters";
-import Products from "~/components/Products";
+import Products from "~/components/Pages/Products/Products";
 import { api } from "~/utils/api";
 import { db } from "~/server/db";
-import Pagination from "~/components/Pagination";
+import Pagination from "~/components/Pages/Products/Pagination";
 import { useModalsContext } from "~/context/modalsContext";
-import MobileFiltersMenu from "~/components/MobileFiltersMenu";
+import MobileFiltersMenu from "~/components/Filters/MobileFiltersMenu";
 import { filtersIcon } from "public/assets/icons";
-import Spacer from "~/components/Spacer";
+import Spacer from "~/components/UI/Spacer";
 
 const skeleton = (
   <section className="grid w-full grow grid-cols-2 content-start gap-2 lg:grid-cols-3">

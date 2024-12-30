@@ -4,7 +4,7 @@ import Button from "~/components/UI/Button";
 import { useCartContext } from "~/context/cartContext";
 import CartItems from "./CartItems";
 import Summary from "./CartSummary";
-import LoadingPage from "~/components/loading";
+import LoadingPage from "~/components/UI/LoadingElements";
 import { api } from "~/utils/api";
 
 const Cart = () => {

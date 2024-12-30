@@ -4,7 +4,7 @@
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentForm from "~/components/PaymentForm";
+import PaymentForm from "~/components/Pages/Checkout/PaymentForm";
 import axios from "axios";
 import { useEffect, useState } from "react";
 

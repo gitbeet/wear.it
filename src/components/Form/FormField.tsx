@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { type UseFormRegister } from "react-hook-form";
 import { type SignInValidationType } from "~/pages/sign-in";
 import { type SignUpValidationType } from "~/pages/sign-up";
-import { type ClientDataValidationType } from "./CheckoutForm";
+import { type ClientDataValidationType } from "../Pages/Checkout/CheckoutForm";
 
 interface Props {
   register: ReturnType<

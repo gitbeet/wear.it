@@ -1,4 +1,4 @@
-import NavIconWithNumber from "./Nav/NavIconWithNumber";
+import NavIconWithNumber from "./NavIconWithNumber";
 import { BsHeart } from "react-icons/bs";
 import { useFavoritesContext } from "~/context/favoritesContext";
 

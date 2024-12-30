@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioButtonOption } from "../MobileFiltersMenu";
+import { RadioButtonOption } from "./MobileFiltersMenu";
 import { useSortItems } from "~/hooks/useSortItems";
 
 const SortByFilterMobile = ({ loading }: { loading: boolean }) => {

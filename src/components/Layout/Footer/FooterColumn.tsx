@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ExpandArrow from "./ExpandArrow";
+import ExpandArrow from "../../UI/ExpandArrow";
 import FooterTextLink from "./FooterTextLink";
 
 export type FooterLinkType = {

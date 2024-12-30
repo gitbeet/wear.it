@@ -1,13 +1,13 @@
-import Logo from "./Logo";
+import Logo from "../../Misc/Logo";
 import {
   facebookIcon,
   instagramIcon,
   tiktokIcon,
   twitterIcon,
 } from "public/assets/icons";
-import FooterColumn, { type FooterColumnType } from "./UI/FooterColumn";
-import Spacer from "./Spacer";
-import FooterIcon from "./UI/FooterIcon";
+import FooterColumn, { type FooterColumnType } from "./FooterColumn";
+import Spacer from "../../UI/Spacer";
+import FooterIcon from "./FooterIcon";
 
 const navigationFooterColumn: FooterColumnType = {
   footerHeader: "Navigation",

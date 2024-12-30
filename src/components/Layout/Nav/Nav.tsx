@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
-import CartIcon from "../Cart/CartIcon";
-import CartModal from "../Cart/CartModal";
-import Logo from "../Logo";
-import FavoritesNavIcon from "../FavoritesNavIcon";
-import MobileMenuButton from "../MobileMenu/MobileMenuButton";
+import CartIcon from "../../Cart/CartIcon";
+import CartModal from "../../Cart/CartModal";
+import Logo from "../../Misc/Logo";
+import FavoritesNavIcon from "./FavoritesNavIcon";
+import MobileMenuButton from "../../MobileMenu/MobileMenuButton";
 import ProfileButton from "./ProfileButton";
 import { useUser } from "@clerk/nextjs";
-import SearchBar from "../SearchBar";
+import SearchBar from "../../Search/SearchBar";
 
 const Nav = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);

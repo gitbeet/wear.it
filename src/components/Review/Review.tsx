@@ -6,7 +6,7 @@ import Image from "next/image";
 import { BsTrash } from "react-icons/bs";
 import { api, type RouterOutputs } from "~/utils/api";
 import Rating from "./Rating";
-import NavIcon from "./Nav/NavIcon";
+import NavIcon from "../Layout/Nav/NavIcon";
 
 dayjs.extend(relativeTime);
 

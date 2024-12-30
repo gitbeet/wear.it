@@ -1,5 +1,5 @@
 import { BsHandbag } from "react-icons/bs";
-import NavIconWithNumber from "../Nav/NavIconWithNumber";
+import NavIconWithNumber from "../Layout/Nav/NavIconWithNumber";
 import { useCartContext } from "~/context/cartContext";
 const CartIcon = () => {
   const { totalCount, isGettingCart } = useCartContext();

@@ -2,7 +2,7 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import React from "react";
 import Button from "~/components/UI/Button";
-import LoadingPage from "~/components/loading";
+import LoadingPage from "~/components/UI/LoadingElements";
 
 const Profile = () => {
   const { user, isLoaded, isSignedIn } = useUser();

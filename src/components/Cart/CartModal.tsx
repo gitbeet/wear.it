@@ -7,7 +7,7 @@ import CartItem from "./CartItem";
 import Backdrop from "../UI/Backdrop";
 import FocusTrap from "focus-trap-react";
 import CloseButton from "../UI/CloseButton";
-import { LoadingSpinner } from "../loading";
+import { LoadingSpinner } from "../UI/LoadingElements";
 import React, { useEffect, useState } from "react";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";

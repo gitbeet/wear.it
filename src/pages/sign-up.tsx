@@ -7,7 +7,7 @@ import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Button from "~/components/UI/Button";
-import FormField from "~/components/FormField";
+import FormField from "~/components/Form/FormField";
 import {
   BsDashCircle,
   BsEnvelope,

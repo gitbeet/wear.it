@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Button from "~/components/UI/Button";
 import { BsEnvelope, BsKey } from "react-icons/bs";
-import FormField from "~/components/FormField";
+import FormField from "~/components/Form/FormField";
 import { NextSeo } from "next-seo";
 
 export type SignInValidationType = z.infer<typeof signInValidationSchema>;

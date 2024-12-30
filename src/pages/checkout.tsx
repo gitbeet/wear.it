@@ -1,4 +1,4 @@
-import CheckoutForm from "~/components/CheckoutForm";
+import CheckoutForm from "~/components/Pages/Checkout/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";

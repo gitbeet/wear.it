@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import FormField from "~/components/FormField";
+import FormField from "~/components/Form/FormField";
 import { useState, useEffect } from "react";
 
 // Country/State/City fields
@@ -12,13 +12,13 @@ import {
   type ICity,
   type IState,
 } from "country-state-city";
-import FormSelectField from "~/components/FormSelectField";
+import FormSelectField from "~/components/Form/FormSelectField";
 
 // Phone field
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-import Button from "./UI/Button";
+import Button from "../../UI/Button";
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -33,8 +33,8 @@ import {
 import axios from "axios";
 import React from "react";
 import { useCartContext } from "~/context/cartContext";
-import CartItems from "./Cart/CartItems";
-import Summary from "./Cart/CartSummary";
+import CartItems from "../../Cart/CartItems";
+import Summary from "../../Cart/CartSummary";
 import { api } from "~/utils/api";
 
 const phoneRegex = new RegExp(

@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo";
-import Spacer from "~/components/Spacer";
+import Spacer from "~/components/UI/Spacer";
 import RecentlyViewed from "~/components/Carousel/RecentlyViewed";
 import Cart from "~/components/Cart/Cart";
 

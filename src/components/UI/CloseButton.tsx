@@ -1,4 +1,4 @@
-import NavIcon from "../Nav/NavIcon";
+import NavIcon from "../Layout/Nav/NavIcon";
 import { VscChromeClose } from "react-icons/vsc";
 import { type IconButtonProps } from "./Icon";
 

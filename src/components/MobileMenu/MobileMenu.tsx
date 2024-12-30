@@ -1,6 +1,6 @@
 import { useModalsContext } from "~/context/modalsContext";
 import Backdrop from "../UI/Backdrop";
-import MobileMenuTextLink from "../UI/MobileMenuTextLink";
+import MobileMenuTextLink from "./MobileMenuTextLink";
 import FocusTrap from "focus-trap-react";
 import CloseButton from "../UI/CloseButton";
 
