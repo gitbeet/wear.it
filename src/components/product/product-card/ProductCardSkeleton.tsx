@@ -1,5 +1,3 @@
-import React from "react";
-
 const ProductCardSkeleton = () => {
   return (
     <div className=" flex animate-pulse flex-col items-center justify-center p-1">

@@ -1,7 +1,7 @@
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Nav from "./layout/nav/Nav";
-import Footer from "./layout/footers/Footer";
+import Footer from "./layout/footer/Footer";
 import Logo from "./misc/Logo";
 import GoToTopButton from "./misc/GoToTopButton";
 import MobileMenu from "./mobile-menu/MobileMenu";

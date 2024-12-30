@@ -1,4 +1,4 @@
-import ProductCard from "../product/ProductCard/ProductCard";
+import ProductCard from "../product/product-card/ProductCard";
 import type { SQLProductType } from "~/types";
 import LoadingPage from "../ui/LoadingElements";
 
