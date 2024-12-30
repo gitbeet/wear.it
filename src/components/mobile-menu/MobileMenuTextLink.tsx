@@ -1,4 +1,4 @@
-import TextLink, { type TextLinkProps } from "../ui/TextLink";
+import TextLink, { type TextLinkProps } from "../uis/TextLink";
 
 const MobileMenuTextLink = ({ children, ...rest }: TextLinkProps) => {
   return (
