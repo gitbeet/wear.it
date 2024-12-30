@@ -1,7 +1,7 @@
 import { NextSeo } from "next-seo";
-import Spacer from "~/components/UI/Spacer";
-import RecentlyViewed from "~/components/Carousel/RecentlyViewed";
-import Cart from "~/components/Cart/Cart";
+import Spacer from "~/components/ui/Spacer";
+import RecentlyViewed from "~/components/carousel/RecentlyViewed";
+import Cart from "~/components/cart/Cart";
 
 const Index = () => {
   return (

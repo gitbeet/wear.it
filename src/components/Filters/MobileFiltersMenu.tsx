@@ -1,7 +1,7 @@
 import { useModalsContext } from "~/context/modalsContext";
 import ColorFilter from "./ColorFilter";
 import SizeFilter from "./SizeFilter";
-import PriceSlider from "./PriceSlider/PriceSlider";
+import PriceSlider from "./price-slider/PriceSlider";
 import SortByFilterMobile from "./SortByFilterMobile";
 
 export const RadioButtonOption = ({

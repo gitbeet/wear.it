@@ -1,12 +1,12 @@
 import { FiSearch } from "react-icons/fi";
 import { VscChromeClose } from "react-icons/vsc";
-import NavIcon from "../Layout/Nav/NavIcon";
+import NavIcon from "../layout/nav/NavIcon";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Backdrop from "../UI/Backdrop";
+import Backdrop from "../ui/Backdrop";
 import { disableScrolling, enableScrolling } from "~/utilities/toggleScrolling";
-import Logo from "../Misc/Logo";
+import Logo from "../misc/Logo";
 import FocusTrap from "focus-trap-react";
-import CloseButton from "../UI/CloseButton";
+import CloseButton from "../ui/CloseButton";
 import debounce from "just-debounce-it";
 import { api } from "~/utils/api";
 import SearchResults from "./SearchResults";

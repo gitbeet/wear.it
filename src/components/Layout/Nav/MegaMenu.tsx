@@ -2,9 +2,9 @@ import { type CategoryType } from "@prisma/client";
 import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
 import { api } from "~/utils/api";
-import LoadingPage from "../../UI/LoadingElements";
+import LoadingPage from "../../ui/LoadingElements";
 import { useRouter } from "next/router";
-import Backdrop from "../../UI/Backdrop";
+import Backdrop from "../../ui/Backdrop";
 
 interface Props {
   type: CategoryType;

@@ -1,7 +1,7 @@
 import { type ProductColor } from "@prisma/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import SliderArrow from "../UI/SliderArrow";
+import SliderArrow from "../ui/SliderArrow";
 
 export const ImageGallerySkeleton = ({
   animate = true,

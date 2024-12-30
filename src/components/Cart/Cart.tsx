@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
-import React from "react";
-import Button from "~/components/UI/Button";
+import Button from "~/components/ui/Button";
 import { useCartContext } from "~/context/cartContext";
 import CartItems from "./CartItems";
 import Summary from "./CartSummary";
-import LoadingPage from "~/components/UI/LoadingElements";
+import LoadingPage from "~/components/ui/LoadingElements";
 import { api } from "~/utils/api";
 
 const Cart = () => {

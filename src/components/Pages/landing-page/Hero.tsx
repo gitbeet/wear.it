@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { FaSnowflake } from "react-icons/fa";
-import Button from "~/components/UI/Button";
+import Button from "~/components/ui/Button";
 import heroImage from "../../../../public/assets/hero.jpg";
 
 const Hero = () => (

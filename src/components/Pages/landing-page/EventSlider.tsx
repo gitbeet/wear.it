@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCardCarousel from "~/components/Carousel/ProductCardCarousel";
+import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
 import { api } from "~/utils/api";
 
 const EventSlider = () => {

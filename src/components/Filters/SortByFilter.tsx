@@ -1,7 +1,7 @@
 import { chevronIcon } from "public/assets/icons";
 import { useRef, useState, type Dispatch, type SetStateAction } from "react";
 import { useSortItems } from "~/hooks/useSortItems";
-import ListMenu from "../UI/ListMenu/ListMenu";
+import ListMenu from "../ui/list-menu/ListMenu";
 interface Props {
   showSort: boolean;
   setShowSort: Dispatch<SetStateAction<boolean>>;

@@ -1,4 +1,4 @@
-import Logo from "../../Misc/Logo";
+import Logo from "../../misc/Logo";
 import {
   facebookIcon,
   instagramIcon,
@@ -6,7 +6,7 @@ import {
   twitterIcon,
 } from "public/assets/icons";
 import FooterColumn, { type FooterColumnType } from "./FooterColumn";
-import Spacer from "../../UI/Spacer";
+import Spacer from "../../ui/Spacer";
 import FooterIcon from "./FooterIcon";
 
 const navigationFooterColumn: FooterColumnType = {

@@ -1,9 +1,9 @@
 import { NextSeo } from "next-seo";
-import Hero from "~/components/Pages/LandingPage/Hero";
-import EventSlider from "~/components/Pages/LandingPage/EventSlider";
-import MemberDeals from "~/components/Pages/LandingPage/MemberDeals";
-import Trending from "~/components/Pages/LandingPage/Trending";
-import Promotions from "~/components/Pages/LandingPage/Promotions";
+import Hero from "~/components/pages/landing-page/Hero";
+import EventSlider from "~/components/pages/landing-page/EventSlider";
+import MemberDeals from "~/components/pages/landing-page/MemberDeals";
+import Trending from "~/components/pages/landing-page/Trending";
+import Promotions from "~/components/pages/landing-page/Promotions";
 
 export default function Home() {
   return (

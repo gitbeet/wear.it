@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Button from "~/components/UI/Button";
-import FormField from "~/components/Form/FormField";
+import Button from "~/components/ui/Button";
+import FormField from "~/components/form/FormField";
 import {
   BsDashCircle,
   BsEnvelope,

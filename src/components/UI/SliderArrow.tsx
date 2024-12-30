@@ -1,4 +1,4 @@
-import NavIcon from "../Layout/Nav/NavIcon";
+import NavIcon from "../layout/nav/NavIcon";
 import { FiChevronLeft } from "react-icons/fi";
 import { type IconButtonProps } from "./Icon";
 

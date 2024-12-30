@@ -1,5 +1,5 @@
-import ProductCardFavoriteButton from "../Product/ProductCard/ProductCardFavoriteButton";
-import ProductCardPrice from "../Product/ProductCard/ProductCardPrice";
+import ProductCardFavoriteButton from "../product/ProductCard/ProductCardFavoriteButton";
+import ProductCardPrice from "../product/ProductCard/ProductCardPrice";
 
 const FavoriteItemSkeleton = () => (
   <article className="w-full animate-pulse @container">

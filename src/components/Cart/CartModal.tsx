@@ -1,13 +1,13 @@
-import Button from "../UI/Button";
+import Button from "../ui/Button";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useModalsContext } from "~/context/modalsContext";
 import { useRouter } from "next/router";
 import { useCartContext } from "~/context/cartContext";
 import CartItem from "./CartItem";
-import Backdrop from "../UI/Backdrop";
+import Backdrop from "../ui/Backdrop";
 import FocusTrap from "focus-trap-react";
-import CloseButton from "../UI/CloseButton";
-import { LoadingSpinner } from "../UI/LoadingElements";
+import CloseButton from "../ui/CloseButton";
+import { LoadingSpinner } from "../ui/LoadingElements";
 import React, { useEffect, useState } from "react";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import { formatCurrency } from "~/utilities/formatCurrency";

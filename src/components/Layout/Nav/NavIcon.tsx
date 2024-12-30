@@ -1,4 +1,4 @@
-import Icon, { type IconProps } from "../../UI/Icon";
+import Icon, { type IconProps } from "../../ui/Icon";
 
 export type NavIconProps = IconProps & {
   shape?: "circle" | "square";

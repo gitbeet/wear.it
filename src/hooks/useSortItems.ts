@@ -1,4 +1,4 @@
-import type { SortOptionType } from "~/components/Filters/SortByFilter";
+import type { SortOptionType } from "~/components/filters/SortByFilter";
 import { useRouterQuery } from "./useRouterQuery";
 
 export const useSortItems = () => {

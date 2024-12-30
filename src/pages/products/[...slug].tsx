@@ -12,19 +12,19 @@ import type {
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useState, useMemo } from "react";
-import ColorFilter from "~/components/Filters/ColorFilter";
-import PriceFilter from "~/components/Filters/PriceSlider/PriceSlider";
-import SizeFilter from "~/components/Filters/SizeFilter";
-import SortByFilter from "~/components/Filters/SortByFilter";
-import ToggleFilters from "~/components/Filters/ToggleFilters";
-import Products from "~/components/Pages/Products/Products";
+import ColorFilter from "~/components/filters/ColorFilter";
+import PriceFilter from "~/components/filters/price-slider/PriceSlider";
+import SizeFilter from "~/components/filters/SizeFilter";
+import SortByFilter from "~/components/filters/SortByFilter";
+import ToggleFilters from "~/components/filters/ToggleFilters";
+import Products from "~/components/pages/products/Products";
 import { api } from "~/utils/api";
 import { db } from "~/server/db";
-import Pagination from "~/components/Pages/Products/Pagination";
+import Pagination from "~/components/pages/products/Pagination";
 import { useModalsContext } from "~/context/modalsContext";
-import MobileFiltersMenu from "~/components/Filters/MobileFiltersMenu";
+import MobileFiltersMenu from "~/components/filters/MobileFiltersMenu";
 import { filtersIcon } from "public/assets/icons";
-import Spacer from "~/components/UI/Spacer";
+import Spacer from "~/components/ui/Spacer";
 
 const skeleton = (
   <section className="grid w-full grow grid-cols-2 content-start gap-2 lg:grid-cols-3">

@@ -1,4 +1,4 @@
-import NavIcon from "../Layout/Nav/NavIcon";
+import NavIcon from "../layout/nav/NavIcon";
 import { FaChevronDown } from "react-icons/fa";
 
 const ExpandArrow = ({

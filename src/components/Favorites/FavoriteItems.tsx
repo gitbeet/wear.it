@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { api } from "~/utils/api";
-import Button from "../UI/Button";
+import Button from "../ui/Button";
 import FavoriteItemSkeleton from "./FavoriteItemSkeleton";
 import FavoriteItem from "./FavoriteItem";
 

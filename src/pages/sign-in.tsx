@@ -5,9 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Button from "~/components/UI/Button";
+import Button from "~/components/ui/Button";
 import { BsEnvelope, BsKey } from "react-icons/bs";
-import FormField from "~/components/Form/FormField";
+import FormField from "~/components/form/FormField";
 import { NextSeo } from "next-seo";
 
 export type SignInValidationType = z.infer<typeof signInValidationSchema>;

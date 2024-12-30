@@ -1,6 +1,6 @@
-import ProductCard from "../Product/ProductCard/ProductCard";
+import ProductCard from "../product/ProductCard/ProductCard";
 import type { SQLProductType } from "~/types";
-import LoadingPage from "../UI/LoadingElements";
+import LoadingPage from "../ui/LoadingElements";
 
 interface Props {
   show: boolean;

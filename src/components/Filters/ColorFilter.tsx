@@ -1,6 +1,6 @@
 import { useFilterByColor } from "~/hooks/useFilterByColor";
 import { colorOptions } from "~/maps";
-import ExpandableFilterWrapper from "../UI/Expandable/ExpandableFilterWrapper";
+import ExpandableFilterWrapper from "../ui/expandable/ExpandableFilterWrapper";
 
 const ColorFilter = ({ loading }: { loading: boolean }) => {
   const { colorsQueryArray, handleColor } = useFilterByColor();

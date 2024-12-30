@@ -1,5 +1,5 @@
 import { useFilterBySize } from "~/hooks/useFilterBySize";
-import ExpandableFilterWrapper from "../UI/Expandable/ExpandableFilterWrapper";
+import ExpandableFilterWrapper from "../ui/expandable/ExpandableFilterWrapper";
 const SizeFilter = ({ loading }: { loading: boolean }) => {
   const { sizes, sizesQueryArray, handleSizes } = useFilterBySize();
 

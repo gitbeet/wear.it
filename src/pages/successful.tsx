@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Button from "~/components/UI/Button";
+import Button from "~/components/ui/Button";
 import { api } from "~/utils/api";
 
 const Successful = () => {

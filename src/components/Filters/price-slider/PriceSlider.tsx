@@ -3,7 +3,7 @@ import { formatCurrency } from "~/utilities/formatCurrency";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import PriceRangeInput from "./PriceRangeInput";
-import ExpandableFilterWrapper from "~/components/UI/Expandable/ExpandableFilterWrapper";
+import ExpandableFilterWrapper from "~/components/ui/expandable/ExpandableFilterWrapper";
 
 // const emptySlider = (
 //   <div className="h-8 border-b p-8 pb-40 pl-0 ">

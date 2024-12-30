@@ -1,7 +1,7 @@
-import ProductCardFavoriteButton from "../Product/ProductCard/ProductCardFavoriteButton";
+import ProductCardFavoriteButton from "../product/ProductCard/ProductCardFavoriteButton";
 import Link from "next/link";
-import ProductCardImage from "../Product/ProductCard/ProductCardImage";
-import ProductCardPrices from "../Product/ProductCard/ProductCardPrices";
+import ProductCardImage from "../product/ProductCard/ProductCardImage";
+import ProductCardPrices from "../product/ProductCard/ProductCardPrices";
 import { type FavoriteType } from "~/types";
 
 const FavoriteItem = ({

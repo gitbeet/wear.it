@@ -1,6 +1,6 @@
 import React from "react";
 import { useModalsContext } from "~/context/modalsContext";
-import NavIcon from "../Layout/Nav/NavIcon";
+import NavIcon from "../layout/nav/NavIcon";
 import { CiMenuBurger } from "react-icons/ci";
 
 const MobileMenuButton = () => {

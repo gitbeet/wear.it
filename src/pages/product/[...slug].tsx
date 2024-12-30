@@ -9,27 +9,27 @@ import { api } from "~/utils/api";
 import SuperJSON from "superjson";
 import { db } from "~/server/db";
 import type { ProductSize, ProductColor } from "@prisma/client";
-import Button, { ButtonSkeleton } from "~/components/UI/Button";
+import Button, { ButtonSkeleton } from "~/components/ui/Button";
 import ImageGallery, {
   ImageGallerySkeleton,
-} from "~/components/Product/ImageGallery";
+} from "~/components/product/ImageGallery";
 import { BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
-import Rating from "~/components/Review/Rating";
-import Review from "~/components/Review/Review";
-import CreateReviewWizard from "~/components/Review/CreateReviewWizard";
+import Rating from "~/components/review/Rating";
+import Review from "~/components/review/Review";
+import CreateReviewWizard from "~/components/review/CreateReviewWizard";
 import { useUser } from "@clerk/nextjs";
 import { NextSeo } from "next-seo";
 import { colorOptions } from "~/maps";
-import Spacer from "~/components/UI/Spacer";
+import Spacer from "~/components/ui/Spacer";
 import { useCartContext } from "~/context/cartContext";
-import ProductCardCarousel from "~/components/Carousel/ProductCardCarousel";
+import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
 import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
-import ExpandableProductSectionWrapper from "~/components/UI/Expandable/ExpandableProductSectionWrapper";
+import ExpandableProductSectionWrapper from "~/components/ui/expandable/ExpandableProductSectionWrapper";
 
 const productPageSkeleton = (
   <>

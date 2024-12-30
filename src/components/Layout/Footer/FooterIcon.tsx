@@ -1,4 +1,4 @@
-import Icon, { type IconProps } from "../../UI/Icon";
+import Icon, { type IconProps } from "../../ui/Icon";
 
 const FooterIcon = ({ className, ...props }: IconProps) => {
   return <Icon {...props} className={`${className} hover:text-slate-600`} />;

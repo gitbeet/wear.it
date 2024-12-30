@@ -1,4 +1,4 @@
-import ProductCardCarousel from "~/components/Carousel/ProductCardCarousel";
+import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
 import { landingPageTrendingBreakPoints } from "~/utilities/swiperBreakPoints";
 import { api } from "~/utils/api";
 
