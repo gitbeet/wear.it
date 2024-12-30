@@ -1,8 +1,8 @@
 import { useModalsContext } from "~/context/modalsContext";
-import Backdrop from "../uis/Backdrop";
+import Backdrop from "../ui/Backdrop";
 import MobileMenuTextLink from "./MobileMenuTextLink";
 import FocusTrap from "focus-trap-react";
-import CloseButton from "../uis/CloseButton";
+import CloseButton from "../ui/CloseButton";
 
 const MobileMenu = () => {
   const { setShowMobileMenu, showMobileMenu } = useModalsContext();

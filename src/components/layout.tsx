@@ -1,11 +1,11 @@
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
-import Nav from "./layouts/navs/Nav";
-import Footer from "./layouts/footers/Footer";
-import Logo from "./miscs/Logo";
-import GoToTopButton from "./miscs/GoToTopButton";
+import Nav from "./layout/nav/Nav";
+import Footer from "./layout/footers/Footer";
+import Logo from "./misc/Logo";
+import GoToTopButton from "./misc/GoToTopButton";
 import MobileMenu from "./mobile-menu/MobileMenu";
-import { PromosBanner } from "./layouts/navs/PromosBanner";
+import { PromosBanner } from "./layout/nav/PromosBanner";
 import { bannerPromos } from "../data/promosData";
 
 const OGImageUrl =
