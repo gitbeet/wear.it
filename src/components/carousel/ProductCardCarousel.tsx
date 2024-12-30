@@ -1,9 +1,9 @@
 import { SwiperSlide } from "swiper/react";
 import Carousel from "./Carousel";
-import ProductCard from "../product/ProductCard/ProductCard";
+import ProductCard from "../product/product-card/ProductCard";
 import { type SQLProductType } from "~/types";
 import { type SwiperOptions } from "swiper/types";
-import ProductCardSkeleton from "../product/ProductCard/ProductCardSkeleton";
+import ProductCardSkeleton from "../product/product-card/ProductCardSkeleton";
 const ProductCardCarousel = ({
   data,
   isLoading,
