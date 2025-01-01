@@ -1,15 +1,14 @@
 import React from "react";
 import { RadioButtonOption } from "./MobileFiltersMenu";
 import { useSortItems } from "~/hooks/useSortItems";
+import ExpandableFilterWrapper from "../ui/expandable/ExpandableFilterWrapper";
 
 const SortByFilterMobile = ({ loading }: { loading: boolean }) => {
   const { handleChangeSort, sortQueryArray } = useSortItems();
 
   return (
-    <menu>
-      <p className="text-md font-semibold">Order By</p>
-      <div className="h-2"></div>
-      <ul>
+    <ExpandableFilterWrapper heading="Order by">
+      <ul className="flex appearance-none flex-col gap-0.5 pl-4">
         <RadioButtonOption
           loading={loading}
           label="Newest"
@@ -34,7 +33,7 @@ const SortByFilterMobile = ({ loading }: { loading: boolean }) => {
           onChange={() => handleChangeSort("low-to-high")}
         />
       </ul>
-    </menu>
+    </ExpandableFilterWrapper>
   );
 };
 
