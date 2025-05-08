@@ -3,6 +3,7 @@ import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
+  id: "6",
   name: "Purple leggings",
   description: "Coolest leggings ever!",
   types: ["WOMEN"],

@@ -7,6 +7,7 @@ import { productCategories } from "../src/data/categories";
 import { products } from "../src/data/products";
 import { categorySEOData } from "~/data/categorySEO";
 import { typeSEOdata } from "~/data/typeSEO";
+import { reviews } from "~/data/reviews";
 
 const prisma = new PrismaClient();
 
@@ -39,6 +40,7 @@ const main = async () => {
   await prisma.product.deleteMany();
   await prisma.productCategory.deleteMany();
   await prisma.productInventory.deleteMany();
+  await prisma.productHistory.deleteMany();
   await prisma.discount.deleteMany();
   await prisma.collection.deleteMany();
   await prisma.favorite.deleteMany();
@@ -47,6 +49,8 @@ const main = async () => {
   await prisma.sizeDetails.deleteMany();
   await prisma.categorySEO.deleteMany();
   await prisma.typeSEO.deleteMany();
+  await prisma.userReview.deleteMany();
+  await prisma.orderDetails.deleteMany();
 
   await prisma.typeSEO.createMany({
     data: typeSEOdata,
@@ -119,14 +123,45 @@ const main = async () => {
       data: p,
     });
   }
+
+  for (const r of reviews) {
+    try {
+      await prisma.userReview.create({ data: r });
+      console.log(`User review by user ${r.userId} created successfully`);
+    } catch (error) {
+      console.error("Error while creating review: ", error);
+    }
+  }
 };
 
-main()
-  .then(() => console.log("Seeded Successfully"))
+async function seedReviews() {
+  await prisma.userReview.deleteMany();
+  for (const r of reviews) {
+    try {
+      await prisma.userReview.create({ data: r });
+      console.log(`User review by user ${r.userId} created successfully`);
+    } catch (error) {
+      console.error("Error while creating review: ", error);
+    }
+  }
+}
+
+seedReviews()
+  .then(() => console.log("Seeded reviews successfully"))
   .catch((e) => {
-    console.error(e);
+    console.error("Error while seeding reviews: ", e);
     process.exit(1);
   })
   .finally(() => {
     void prisma.$disconnect();
   });
+
+// main()
+//   .then(() => console.log("Seeded Successfully"))
+//   .catch((e) => {
+//     console.error(e);
+//     process.exit(1);
+//   })
+//   .finally(() => {
+//     void prisma.$disconnect();
+//   });

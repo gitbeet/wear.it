@@ -82,7 +82,7 @@ const SearchBar = () => {
         <NavIcon
           aria-label="Search a product"
           onClick={handleIconClick}
-          className={` shrink-0 text-indigo-300 transition-all duration-300 `}
+          className={`shrink-0 text-indigo-300 transition-all duration-300`}
           as="button"
           icon={<FiSearch className="h-5  w-5" />}
         />
@@ -96,7 +96,7 @@ const SearchBar = () => {
         onChange={handleSearch}
         className={` ${isActive ? "w-full" : "w-36"} peer ${
           !isActive ? "hidden lg:block" : ""
-        } h-full origin-right rounded-full border border-indigo-100 bg-white px-9 outline  outline-transparent  `}
+        } h-full origin-right rounded-full border border-indigo-100 bg-white px-9 outline outline-transparent`}
       />
 
       <div
@@ -113,7 +113,7 @@ const SearchBar = () => {
           tabIndex={query.length > 0 ? 0 : -1}
           as="button"
           size={24}
-          icon={<VscChromeClose className="h-5  w-5" />}
+          icon={<VscChromeClose className="h-5 w-5" />}
         />
       </div>
     </div>

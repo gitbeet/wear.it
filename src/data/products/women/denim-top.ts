@@ -4,6 +4,7 @@ import { IMAGES_PATH } from "~/constants";
 import { type ProductColor } from "@prisma/client";
 
 const product: ProductType = {
+  id: "3",
   name: "Denim jacket",
   description:
     "Elevate your wardrobe with our Classic Women's Denim Jacket, the ultimate blend of casual chic and versatile functionality. Made from premium-quality, lightweight denim, this jacket offers all-day comfort without compromising on style. Its tailored fit and timeless design make it the perfect layering piece for every season.",

@@ -43,6 +43,9 @@ export const reviewRouter = createTRPCRouter({
         where: {
           productId,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
       return addUserDataToComments(comments);
     }),

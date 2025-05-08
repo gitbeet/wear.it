@@ -4,6 +4,7 @@ import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
+  id: "4",
   name: "Long sleeve t-shirt",
   description:
     "Made from soft, breathable fabric, this wardrobe essential offers a flattering fit and versatile design perfect for layering or wearing on its own. Stay comfy and stylish no matter the season.",

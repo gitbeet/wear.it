@@ -3,6 +3,7 @@ import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
+  id: "9",
   name: "Wool hat and scarf",
   description:
     " Crafted from premium, soft wool, this matching set combines timeless style with unbeatable warmth. Perfect for chilly days, it’s the ideal accessory duo to keep you snug and effortlessly chic.",

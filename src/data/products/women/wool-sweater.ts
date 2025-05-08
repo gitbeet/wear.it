@@ -3,6 +3,7 @@ import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
+  id: "10",
   name: "Wool sweater",
   description:
     "Crafted from premium, soft wool, this sweater offers a flattering fit and timeless design that’s perfect for layering or wearing on its own. Stay cozy and chic whether you're lounging at home or out enjoying the crisp autumn air.",

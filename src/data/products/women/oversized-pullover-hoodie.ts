@@ -4,6 +4,7 @@ import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
+  id: "2",
   name: "Oversized pullover hoodie",
   description:
     "Embrace comfort and style with our Oversized Pullover Hoodie for women. Crafted with a soft and durable cotton blend, this heather gray hoodie offers a relaxed, chic look. Perfect for a cozy day out or lounging at home.",

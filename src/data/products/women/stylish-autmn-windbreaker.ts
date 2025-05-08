@@ -3,6 +3,7 @@ import { type ProductType } from "../../products";
 import { IMAGES_PATH } from "~/constants";
 
 const product: ProductType = {
+  id: "7",
   name: "Stylish autmn windbreaker",
   description:
     "Designed for both fashion and function, this lightweight jacket features a flattering fit, water-resistant fabric, and a sleek design perfect for layering. Whether you’re running errands or enjoying a crisp outdoor stroll, this windbreaker keeps you comfortable and effortlessly stylish.",

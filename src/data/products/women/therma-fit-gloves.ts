@@ -4,6 +4,7 @@ import { IMAGES_PATH } from "~/constants";
 import { type ProductColor } from "@prisma/client";
 
 const product: ProductType = {
+  id: "8",
   name: "Therma-fit gloves",
   description:
     "Designed with advanced insulation technology, these gloves provide superior warmth and a sleek, comfortable fit. Perfect for chilly days, they’re an essential accessory for staying cozy and stylish on the go.",
