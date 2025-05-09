@@ -8,13 +8,38 @@ import { api, type RouterOutputs } from "~/utils/api";
 import Rating from "./Rating";
 import NavIcon from "../layout/nav/NavIcon";
 
+export const UserReviewSkeleton = () => (
+  <div className="items grid grid-cols-[64px,1fr]  justify-center gap-4 py-4 ">
+    <div className="h-16 w-16 rounded-full bg-gray-300" />
+    <div>
+      <div className="flex justify-between">
+        {/* username */}
+        <div className="h-3 w-12 rounded-full bg-gray-300" />
+        {/* rating stars */}
+        <div className="h-3 w-16 rounded-full bg-gray-300" />
+      </div>
+
+      <div className="h-4"></div>
+      {/* comment (3 lines) */}
+      <div className="w-full space-y-1.5">
+        <div className="h-3 w-full rounded-full bg-gray-300" />
+        <div className="h-3 w-full rounded-full bg-gray-300" />
+        <div className="h-3 w-full rounded-full bg-gray-300" />
+      </div>
+
+      <div className="h-2"></div>
+      <div className=" ml-auto h-3 w-10 rounded-full bg-gray-300" />
+    </div>
+  </div>
+);
+
 dayjs.extend(relativeTime);
 
 interface Props {
   review: RouterOutputs["review"]["getReviewsByProductId"][number];
 }
 
-const Review = ({ review }: Props) => {
+const UserReview = ({ review }: Props) => {
   const commentRef = useRef<HTMLParagraphElement | null>(null);
   const [showFullText, setShowFullText] = useState(false);
   const [showButton, setShowButton] = useState(
@@ -94,4 +119,4 @@ const Review = ({ review }: Props) => {
   );
 };
 
-export default Review;
+export default UserReview;

@@ -20,7 +20,7 @@ import ToggleFilters from "~/components/filters/ToggleFilters";
 import Products from "~/components/pages/products/Products";
 import { api } from "~/utils/api";
 import { db } from "~/server/db";
-import Pagination from "~/components/pages/products/Pagination";
+import Pagination from "~/components/ui/Pagination";
 import { useModalsContext } from "~/context/modalsContext";
 import MobileFiltersMenu from "~/components/filters/MobileFiltersMenu";
 import { filtersIcon } from "public/assets/icons";
@@ -224,7 +224,7 @@ const ProductsPage = (
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            totalProducts={data?.totalProducts ?? 0}
+            total={data?.totalProducts ?? 0}
             pageSize={PAGE_SIZE}
           />
         </div>

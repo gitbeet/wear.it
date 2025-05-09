@@ -3,17 +3,17 @@ import { FaChevronLeft } from "react-icons/fa";
 interface PaginationProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  totalProducts: number;
+  total: number;
   pageSize: number;
 }
 
 const Pagination = ({
   currentPage,
   setCurrentPage,
-  totalProducts,
+  total,
   pageSize,
 }: PaginationProps) => {
-  const totalPages = Math.ceil(totalProducts / pageSize);
+  const totalPages = Math.ceil(total / pageSize);
   const isThereNextPage = currentPage < totalPages;
   return (
     <div className="flex items-center justify-center gap-16 p-4 pb-12">

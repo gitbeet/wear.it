@@ -34,20 +34,56 @@ const addUserDataToComments = async (reviews: UserReview[]) => {
 };
 
 export const reviewRouter = createTRPCRouter({
-  getReviewsByProductId: publicProcedure
+  getProductReviewStats: publicProcedure
     .input(z.object({ productId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const { db } = ctx;
       const { productId } = input;
-      const comments = await db.userReview.findMany({
+      const [total, averageRatingResult] = await ctx.db.$transaction([
+        ctx.db.userReview.count({
+          where: {
+            productId,
+          },
+        }),
+        ctx.db.userReview.aggregate({
+          where: {
+            productId,
+          },
+          _avg: {
+            rate: true,
+          },
+        }),
+      ]);
+
+      const averageRating = averageRatingResult._avg.rate;
+
+      return { total, averageRating };
+    }),
+  getReviewsByProductId: publicProcedure
+    .input(
+      z.object({
+        productId: z.string(),
+        skip: z.number().optional(),
+        pageSize: z.number().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { db } = ctx;
+      const { productId, pageSize, skip } = input;
+
+      const reviews = await db.userReview.findMany({
         where: {
           productId,
         },
         orderBy: {
           createdAt: "desc",
         },
+        take: pageSize,
+        skip,
       });
-      return addUserDataToComments(comments);
+
+      const reviewsWithUserData = await addUserDataToComments(reviews);
+
+      return reviewsWithUserData;
     }),
   deleteReview: privateProcedure
     .input(z.object({ id: z.string() }))

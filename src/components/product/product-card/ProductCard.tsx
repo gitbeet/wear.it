@@ -7,7 +7,6 @@ import ProductCardFavoriteButton from "./ProductCardFavoriteButton";
 import ProductCardPrices from "./ProductCardPrices";
 import ProductCardText from "./ProductCardText";
 import ProductCardImage from "./ProductCardImage";
-console.log("first");
 const ProductCard = ({
   product,
   onClick,

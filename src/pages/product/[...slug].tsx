@@ -19,10 +19,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useModalsContext } from "~/context/modalsContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
-import Rating from "~/components/review/Rating";
-import Review from "~/components/review/Review";
-import CreateReviewWizard from "~/components/review/CreateReviewWizard";
-import { useUser } from "@clerk/nextjs";
 import { NextSeo } from "next-seo";
 import { colorOptions } from "~/maps";
 import Spacer from "~/components/ui/Spacer";
@@ -30,6 +26,7 @@ import { useCartContext } from "~/context/cartContext";
 import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
 import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
 import ExpandableProductSectionWrapper from "~/components/ui/expandable/ExpandableProductSectionWrapper";
+import UserReviews from "~/components/pages/product/UserReviews";
 
 const productPageSkeleton = (
   <>
@@ -147,7 +144,6 @@ const Product = ({
   const { dbCart, isGettingCart, isFetching } = useCartContext();
   const router = useRouter();
   const ctx = api.useUtils();
-  const { user, isSignedIn } = useUser();
   // const { cookies } = useCartContext();
   // Get product data
   const {
@@ -184,20 +180,13 @@ const Product = ({
       setShowBagModal({ show: true, type: "cart" });
     },
   });
-  // Get Reviews
-  const { data: reviews, isLoading: isGettingReviews } =
-    api.review.getReviewsByProductId.useQuery({
-      productId: id,
-    });
+
   // Get reccomended products
   const { data: reccomendedProducts, isLoading: isGettingReccomended } =
     api.product.getAllSQL.useQuery({
       collectionId: undefined,
       color: undefined,
     });
-
-  const hasUserCommented =
-    reviews?.findIndex((review) => review.author.id === user?.id) !== -1;
 
   const [addedtoHistory, setAddedToHistory] = useState(false);
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
@@ -207,14 +196,6 @@ const Product = ({
   const [error, setError] = useState<boolean>(false);
 
   const primaryColor = productData?.colors[0]?.color;
-
-  const totalReviewsCount = reviews?.length ?? undefined;
-  const totalScore =
-    reviews?.reduce((acc, x) => acc + x.review.rate, 0) ?? undefined;
-  const averageReviewsRating =
-    !totalReviewsCount || !totalScore
-      ? undefined
-      : totalScore / totalReviewsCount;
 
   useEffect(() => {
     if (!productData || addedtoHistory || isAddingToHistory) return;
@@ -376,42 +357,6 @@ const Product = ({
     </div>
   );
 
-  const reviewsSection = (
-    <ExpandableProductSectionWrapper
-      headerChildren={
-        <>
-          <p className="text-2xl font-semibold">
-            Reviews ({totalReviewsCount})
-          </p>
-          <div className="flex items-center gap-4">
-            <div className=" flex items-center gap-2">
-              <p className="flex gap-1">
-                <span>{averageReviewsRating?.toFixed(1)}</span>
-              </p>
-              <Rating
-                handleRate={() => void 0}
-                isHoverable={false}
-                averageRating={averageReviewsRating}
-              />
-            </div>
-          </div>
-        </>
-      }
-    >
-      <>
-        <div className="h-4"></div>
-        {!hasUserCommented && isSignedIn && (
-          <CreateReviewWizard productId={id} />
-        )}
-        <div className="pl-2">
-          {reviews?.map((review) => (
-            <Review key={review.review.id} review={review} />
-          ))}
-        </div>
-      </>
-    </ExpandableProductSectionWrapper>
-  );
-
   const sizesSection = (
     <div>
       <p
@@ -559,7 +504,7 @@ const Product = ({
           {sizesSection}
           {buttonsSection}
           {descriptionSection}
-          {reviewsSection}
+          <UserReviews productId={id} />
         </div>
       </section>
       <Spacer type="section" />
