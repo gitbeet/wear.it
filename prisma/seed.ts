@@ -7,7 +7,7 @@ import { productCategories } from "../src/data/categories";
 import { products } from "../src/data/products";
 import { categorySEOData } from "~/data/categorySEO";
 import { typeSEOdata } from "~/data/typeSEO";
-import { reviews } from "~/data/reviews";
+import { reviews, reviewsToAdd } from "~/data/reviews";
 
 const prisma = new PrismaClient();
 
@@ -146,10 +146,42 @@ async function seedReviews() {
   }
 }
 
-seedReviews()
-  .then(() => console.log("Seeded reviews successfully"))
+async function addReviews() {
+  const productId = reviewsToAdd[0]?.product.connect?.id;
+  if (!productId) {
+    console.error("Product ID is missing in the reviews to add.");
+    return;
+  }
+  await prisma.userReview.deleteMany({
+    where: {
+      productId,
+    },
+  });
+
+  for (const r of reviewsToAdd) {
+    try {
+      await prisma.userReview.create({ data: r });
+      console.log(`User review by user ${r.userId} created successfully`);
+    } catch (error) {
+      console.error("Error while creating review: ", error);
+    }
+  }
+}
+
+// seedReviews()
+//   .then(() => console.log("Seeded reviews successfully"))
+//   .catch((e) => {
+//     console.error("Error while seeding reviews: ", e);
+//     process.exit(1);
+//   })
+//   .finally(() => {
+//     void prisma.$disconnect();
+//   });
+
+addReviews()
+  .then(() => console.log("Added reviews successfully"))
   .catch((e) => {
-    console.error("Error while seeding reviews: ", e);
+    console.error("Error while adding reviews: ", e);
     process.exit(1);
   })
   .finally(() => {

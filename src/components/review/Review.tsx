@@ -35,7 +35,7 @@ const Review = ({ review }: Props) => {
   return (
     <div className="items grid grid-cols-[64px,1fr]  justify-center gap-4 py-4 ">
       <Image
-        className="shrink-0 rounded-sm"
+        className="shrink-0 rounded-full"
         src={review.author.profilePicture}
         width={64}
         height={64}
