@@ -1,16 +1,8 @@
 import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
+import { type SQLProductType } from "~/types";
 import { landingPageTrendingBreakPoints } from "~/utilities/swiperBreakPoints";
-import { api } from "~/utils/api";
 
-const Trending = () => {
-  const { data: products, isLoading: isGettingProducts } =
-    api.product.getAllSQL.useQuery({
-      color: undefined,
-      size: undefined,
-      slug: undefined,
-      sort: undefined,
-      type: ["MEN", "WOMEN"],
-    });
+const Trending = ({ products }: { products: SQLProductType[] | undefined }) => {
   return (
     <section className="padding-x container-mine mx-auto">
       <h2 className="padding-section font-display text-2xl font-black">
@@ -22,8 +14,8 @@ const Trending = () => {
         autoplayDelay={3000}
         infinite={true}
         paginationContainerId="landing-page--trending__pagination-container"
-        data={products?.products}
-        isLoading={isGettingProducts}
+        data={products}
+        isLoading={false}
         speed={600}
         breakPoints={landingPageTrendingBreakPoints}
       />

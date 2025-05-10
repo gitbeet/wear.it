@@ -1,18 +1,11 @@
-import React from "react";
 import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
-import { api } from "~/utils/api";
+import { type SQLProductType } from "~/types";
 
-const EventSlider = () => {
-  const { data: products, isLoading: isGettingProducts } =
-    api.product.getAllSQL.useQuery({
-      // collectionId: 1,
-      color: undefined,
-      size: undefined,
-      slug: undefined,
-      sort: undefined,
-      type: ["MEN", "WOMEN"],
-    });
-
+const EventSlider = ({
+  products,
+}: {
+  products: SQLProductType[] | undefined;
+}) => {
   return (
     <section className="padding-x container-mine padding-section mx-auto flex grow flex-col items-start gap-2 md:flex-row md:items-center lg:gap-16">
       <div>
@@ -29,8 +22,8 @@ const EventSlider = () => {
       <div className="w-full overflow-hidden">
         <ProductCardCarousel
           paginationContainerId="landing-page--winter-event__pagination-container"
-          data={products?.products}
-          isLoading={isGettingProducts}
+          data={products}
+          isLoading={false}
           infinite={true}
           autoplay={false}
           autoplayDelay={2500}
