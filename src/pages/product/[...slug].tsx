@@ -12,7 +12,7 @@ import type { ProductSize, ProductColor } from "@prisma/client";
 import Button, { ButtonSkeleton } from "~/components/ui/Button";
 import ImageGallery, {
   ImageGallerySkeleton,
-} from "~/components/product/ImageGallery";
+} from "~/components/pages/product/ImageGallery";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
@@ -163,29 +163,20 @@ const Product = ({
   }, [id, color]);
 
   const { mutateAsync: addToHistory, isLoading: isAddingToHistory } =
-    api.history.addToHistory.useMutation({
-      onSuccess: () => setAddedToHistory(true),
-    });
-  const [addedtoHistory, setAddedToHistory] = useState(false);
-  // add to recently visited if not already added
+    api.history.addToHistory.useMutation({});
   useEffect(() => {
-    if (!productData || addedtoHistory || isAddingToHistory) return;
     async function add() {
-      if (!productData) return;
       try {
-        await addToHistory({ productId: productData.id });
-        setAddedToHistory(true);
+        await addToHistory({ productId: id });
       } catch (error) {
         throw new Error("Unexpected error");
       }
     }
 
     add()
-      .then(() => setAddedToHistory(true))
-      .catch((err) => console.log(err));
-
-    return () => void 0;
-  }, [productData]);
+      .then(() => console.log("Added to history"))
+      .catch(() => console.log("Error while adding to history"));
+  }, [id]);
 
   if (isGettingProductData) return productPageSkeleton;
   if (!productData)

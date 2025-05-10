@@ -12,7 +12,7 @@ export const historyRouter = createTRPCRouter({
         message: "No user identifier found",
       });
     }
-    const recentlyViewed = await db.productHistory.findUniqueOrThrow({
+    const recentlyViewed = await db.productHistory.findUnique({
       where: {
         userId,
       },
@@ -47,75 +47,58 @@ export const historyRouter = createTRPCRouter({
             },
           },
           orderBy: {
-            createdAt: "desc",
+            updatedAt: "desc",
           },
         },
       },
     });
+
     return recentlyViewed;
   }),
   addToHistory: publicProcedure
     .input(z.object({ productId: z.string() }))
     .mutation(async ({ input, ctx }) => {
+      const { productId } = input;
       const { db, userId: loggedUserId, guestUserId } = ctx;
       const userId = loggedUserId ?? guestUserId ?? undefined;
+
       if (typeof userId === "undefined") {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "No user identifier found",
         });
       }
-      const { productId } = input;
 
-      const existingHistory = await db.productHistory.findFirst({
+      // create history if none found
+      const history = await db.productHistory.upsert({
         where: {
           userId,
         },
-        include: {
-          items: {
-            select: {
-              productId: true,
-              id: true,
-            },
-          },
+        create: {
+          userId,
         },
+        update: {},
       });
 
-      if (!existingHistory) {
-        const createHistory = await db.productHistory.create({
-          data: {
-            userId,
-            items: {
-              create: {
-                productId,
-              },
-            },
+      // create/update history item depending on conditions
+      const historyItem = await db.historyItem.upsert({
+        where: {
+          historyId_productId: {
+            historyId: history.id,
+            productId,
           },
-        });
-        return createHistory;
-      }
-      const itemIndex = existingHistory.items.find(
-        (item) => item.productId === productId,
-      );
-      if (itemIndex) {
-        const dateTime = new Date();
-
-        await db.historyItem.update({
-          where: {
-            id: itemIndex.id,
-          },
-          data: {
-            createdAt: dateTime,
-          },
-        });
-        return;
-      }
-      const addProduct = await db.historyItem.create({
-        data: {
+        },
+        // create if not existing
+        create: {
+          historyId: history.id,
           productId,
-          historyId: existingHistory.id,
+        },
+        // update to appear as last visited
+        update: {
+          updatedAt: new Date(),
         },
       });
-      return addProduct;
+
+      return historyItem;
     }),
 });

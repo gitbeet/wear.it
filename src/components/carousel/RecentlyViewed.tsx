@@ -12,6 +12,8 @@ export const RecentlyViewed = () => {
     void refetch();
   }, [isSignedIn, refetch]);
 
+  if (!data?.items) return null;
+
   return (
     <>
       <div className="padding-section">
