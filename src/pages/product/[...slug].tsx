@@ -13,20 +13,17 @@ import Button, { ButtonSkeleton } from "~/components/ui/Button";
 import ImageGallery, {
   ImageGallerySkeleton,
 } from "~/components/product/ImageGallery";
-import { BsHandbag, BsHeart, BsHeartFill } from "react-icons/bs";
 import { formatCurrency } from "../../utilities/formatCurrency";
-import { useRouter } from "next/router";
 import Link from "next/link";
-import { useModalsContext } from "~/context/modalsContext";
-import { useFavoritesContext } from "~/context/favoritesContext";
 import { NextSeo } from "next-seo";
-import { colorOptions } from "~/maps";
 import Spacer from "~/components/ui/Spacer";
-import { useCartContext } from "~/context/cartContext";
-import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
-import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
 import ExpandableProductSectionWrapper from "~/components/ui/expandable/ExpandableProductSectionWrapper";
 import UserReviews from "~/components/pages/product/UserReviews";
+import AddButtons from "~/components/pages/product/AddButtons";
+import ReccomendedProducts from "~/components/pages/product/ReccomendedProducts";
+import SelectColor from "~/components/pages/product/SelectColor";
+import SelectSize from "~/components/pages/product/SelectSize";
+import { useRouter } from "next/router";
 
 const productPageSkeleton = (
   <>
@@ -139,64 +136,38 @@ const Product = ({
   id,
   color,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { setShowBagModal } = useModalsContext();
-  const { isFavorited } = useFavoritesContext();
-  const { dbCart, isGettingCart, isFetching } = useCartContext();
   const router = useRouter();
-  const ctx = api.useUtils();
-  // const { cookies } = useCartContext();
+  const [error, setError] = useState<boolean>(false);
+  const [selectedSize, setSelectedSize] = useState<ProductSize | null>(null);
+  const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
+    color as ProductColor,
+  );
+
   // Get product data
   const {
     data: productData,
     isLoading: isGettingProductData,
     error: getProductError,
-  } = api.product.getSingleProduct.useQuery({ id });
-  // Add to history
+  } = api.product.getSingleProduct.useQuery(
+    { id },
+    {
+      staleTime: Infinity,
+      refetchOnMount: false,
+      keepPreviousData: true,
+    },
+  );
+
+  // reset error state when product/color is changed
+  useEffect(() => {
+    setError(false);
+  }, [id, color]);
+
   const { mutateAsync: addToHistory, isLoading: isAddingToHistory } =
     api.history.addToHistory.useMutation({
       onSuccess: () => setAddedToHistory(true),
     });
-  // Add to favorites
-
-  const { mutate: addToFavorites, isLoading: isFaving } =
-    api.favorite.favorite.useMutation({
-      onSuccess: () => {
-        void ctx.invalidate();
-
-        if (!productData) return;
-        const isItemFavorited = isFavorited(
-          color as ProductColor,
-          productData?.id,
-        );
-        if (isItemFavorited) return;
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        setShowBagModal({ show: true, type: "favorite" });
-      },
-    });
-  // Add to cart
-  const { mutate, isLoading: isAddingToCart } = api.cart.addItem.useMutation({
-    onSuccess: () => {
-      void ctx.invalidate();
-      setShowBagModal({ show: true, type: "cart" });
-    },
-  });
-
-  // Get reccomended products
-  const { data: reccomendedProducts, isLoading: isGettingReccomended } =
-    api.product.getAllSQL.useQuery({
-      collectionId: undefined,
-      color: undefined,
-    });
-
   const [addedtoHistory, setAddedToHistory] = useState(false);
-  const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
-    color as ProductColor,
-  );
-  const [selectedSize, setSelectedSize] = useState<ProductSize | null>(null);
-  const [error, setError] = useState<boolean>(false);
-
-  const primaryColor = productData?.colors[0]?.color;
-
+  // add to recently visited if not already added
   useEffect(() => {
     if (!productData || addedtoHistory || isAddingToHistory) return;
     async function add() {
@@ -216,58 +187,29 @@ const Product = ({
     return () => void 0;
   }, [productData]);
 
-  useEffect(() => {
-    if (!primaryColor) return;
-    if (!router.query.slug?.[1]) {
-      void router.push(
-        `/product/${productData?.id}/${primaryColor}`,
-        undefined,
-        {
-          shallow: false,
-          scroll: true,
-        },
-      );
-      return;
-    }
-    const isColorValid =
-      productData?.colors.findIndex(
-        (color) => color.color === router.query.slug?.[1],
-      ) !== -1;
-    if (!isColorValid) {
-      void router.push(
-        `/product/${productData?.id}/${primaryColor}`,
-        undefined,
-        {
-          shallow: false,
-          scroll: true,
-        },
-      );
-      return;
-    }
-    setSelectedColor(router.query.slug[1] as ProductColor);
-  }, [
-    productData?.colors,
-    router.query,
-    primaryColor,
-    router,
-    productData?.id,
-  ]);
-
-  const isAlreadyInCart =
-    dbCart?.cartItems.findIndex(
-      (item) =>
-        item.product.id === id &&
-        item.color === selectedColor &&
-        item.size === selectedSize,
-    ) !== -1;
-
   if (isGettingProductData) return productPageSkeleton;
   if (!productData)
     return (
-      <div>
-        <h1>{getProductError?.message ?? "Something went wrong."}</h1>
+      <div className=" flex h-full w-full grow flex-col items-center justify-center gap-8 ">
+        <h1 className="text-4xl font-black">
+          {getProductError?.message ?? "Something went wrong."}
+        </h1>
+        <p>
+          There was a problem loading this page.Please reload or try again
+          later.
+        </p>
+        <div className="flex w-fit items-center justify-center gap-2">
+          <Button size="SM" text="Try again" onClick={() => router.reload()} />
+          <Button
+            size="SM"
+            ghost
+            text="Go back"
+            onClick={() => router.back()}
+          />
+        </div>
       </div>
     );
+
   const {
     colors,
     name,
@@ -280,165 +222,16 @@ const Product = ({
     types,
   } = productData;
 
-  const priceBeforeDiscount = formatCurrency(price);
-  const priceAfterDiscount = formatCurrency(
-    discount?.discountPercent && discount.active
-      ? price - (price * discount?.discountPercent) / 100
-      : price,
-  );
-
-  async function handleColor(color: ProductColor) {
-    await router.push(`/product/${productData?.id}/${color}`, undefined, {
-      shallow: false,
-      scroll: true,
-    });
-  }
-
   const handleSize = (size: ProductSize) => {
     setSelectedSize(size);
     setError(false);
   };
 
-  const handleAddToBag = () => {
-    if (!selectedColor) return;
-    if (!selectedSize) {
-      setError(true);
-      return;
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    mutate({
-      color: selectedColor,
-      size: selectedSize,
-      productId: productData.id,
-      quantity: 1,
-      // type: "INCREMENT",
-    });
-  };
-
-  const handleAddToFavorites = () => {
-    if (!selectedColor) return;
-
-    addToFavorites({
-      color: selectedColor,
-      productId: productData.id,
-    });
-  };
-  const isItemFavorited = isFavorited(selectedColor, productData.id);
-  const favoriteButtonText = isItemFavorited
-    ? "Added to Wishlist"
-    : "Add to Wishlist";
-  const favoriteButtonIcon = isItemFavorited ? <BsHeartFill /> : <BsHeart />;
-
-  const colorsSection = (
-    <div>
-      <p className="font-display text-2xl font-semibold">Colors</p>
-      <div className="h-2"></div>
-      <div className="flex gap-2">
-        {colors.map((c, i) => {
-          const tailwindColor = colorOptions.find(
-            (option) => option.color === c.color,
-          )?.colorClass;
-          return (
-            <button
-              aria-label={`Select ${c.name} variant`}
-              key={i}
-              onClick={async () => {
-                await handleColor(c.color);
-              }}
-              className={`h-8 w-8 rounded-full border-[2px] outline outline-2 ${tailwindColor} ${
-                selectedColor === c.color
-                  ? "border-slate-100 outline-indigo-300"
-                  : "border-slate-200 outline-transparent  hover:outline-slate-400"
-              } active:opacity-50`}
-            ></button>
-          );
-        })}
-      </div>
-    </div>
-  );
-
-  const sizesSection = (
-    <div>
-      <p
-        className={`${
-          error ? "text-red-500" : "text-slate-800"
-        } text-2xl font-semibold`}
-      >
-        Select Size
-      </p>
-      <div className="h-4"></div>
-      <div
-        className={`${
-          error ? "border-red-500" : "border-transparent"
-        } flex w-fit flex-wrap gap-2 rounded-sm border`}
-      >
-        {sizes.map((s, i) => (
-          <button
-            aria-label={`Select size ${s.size}`}
-            onClick={() => handleSize(s.size)}
-            className={`${
-              s.size === selectedSize
-                ? "border-slate-800  text-slate-800"
-                : "border-slate-300 text-slate-500  hover:border-slate-400"
-            } w-16 rounded-[3px] border py-2 text-center font-display font-bold shadow-sm transition active:opacity-50`}
-            key={i}
-          >
-            {s.size}
-          </button>
-        ))}
-      </div>
-
-      <p
-        className={`${
-          error ? "visible" : "pointer-events-none invisible"
-        } pt-2 text-sm text-red-500`}
-      >
-        Please select a size
-      </p>
-    </div>
-  );
-  const buttonsSection = (
-    <>
-      <div className="relative flex flex-col gap-4">
-        {isAlreadyInCart && (
-          <p
-            id="reason-add-button-disabled"
-            className="text-right text-red-500"
-          >
-            Product is already in bag
-          </p>
-        )}
-        <Button
-          aria-describedby="reason-add-button-disabled"
-          text="Add to Bag"
-          icon={<BsHandbag />}
-          onClick={handleAddToBag}
-          disabled={
-            isAddingToCart ||
-            isFaving ||
-            isAlreadyInCart ||
-            isGettingCart ||
-            isFetching
-          }
-        />
-        <Button
-          text={favoriteButtonText}
-          icon={favoriteButtonIcon}
-          onClick={handleAddToFavorites}
-          disabled={isFaving || isAddingToCart || isGettingCart || isFetching}
-          ghost
-        />
-      </div>
-    </>
-  );
-
-  const descriptionSection = (
-    <ExpandableProductSectionWrapper
-      headerChildren={<p className="text-2xl font-semibold">Description</p>}
-    >
-      <div className="h-2"></div>
-      <p className="pl-2 font-light">{description}</p>
-    </ExpandableProductSectionWrapper>
+  const priceBeforeDiscount = formatCurrency(price);
+  const priceAfterDiscount = formatCurrency(
+    discount?.discountPercent && discount.active
+      ? price - (price * discount?.discountPercent) / 100
+      : price,
   );
 
   const selectedColorImages = images.filter(
@@ -455,16 +248,16 @@ const Product = ({
         title={productData.name}
         description={description}
         openGraph={{
-          url: `https://t3-ecommerce-five.vercel.app/product/${id}/${selectedColor}`,
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/product/${id}/${selectedColor}`,
           title: name,
           description,
           site_name: "wear.it",
           images: [
             {
-              url: "",
+              url: productData.images[0]?.imageURL ?? "",
               width: 800,
               height: 600,
-              alt: `Hero image for contact page`,
+              alt: productData.name,
             },
           ],
         }}
@@ -500,30 +293,39 @@ const Product = ({
               </span>
             )}
           </div>
-          {colorsSection}
-          {sizesSection}
-          {buttonsSection}
-          {descriptionSection}
+          <SelectColor
+            productId={id}
+            color={color}
+            colors={colors}
+            selectedColor={selectedColor}
+            setSelectedColor={setSelectedColor}
+          />
+          <SelectSize
+            error={error}
+            handleSize={handleSize}
+            sizes={sizes}
+            selectedSize={selectedSize}
+          />
+          <AddButtons
+            color={color}
+            productId={id}
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+            setError={setError}
+          />
+          <ExpandableProductSectionWrapper
+            headerChildren={
+              <p className="text-2xl font-semibold">Description</p>
+            }
+          >
+            <div className="h-2"></div>
+            <p className="pl-2 font-light">{description}</p>
+          </ExpandableProductSectionWrapper>
           <UserReviews productId={id} />
         </div>
       </section>
       <Spacer type="section" />
-      <section className="padding-x container-mine mx-auto">
-        <h2 className="font-display text-2xl font-black">
-          You might also like
-        </h2>
-        <div className="h-12"></div>
-        <ProductCardCarousel
-          autoplay={true}
-          autoplayDelay={2500}
-          infinite={true}
-          paginationContainerId="product-page--reccomended__pagination-container"
-          speed={600}
-          data={reccomendedProducts?.products}
-          isLoading={isGettingReccomended}
-          breakPoints={ReccomendedProductsBreakPoints}
-        />
-      </section>
+      <ReccomendedProducts />
     </>
   );
 };

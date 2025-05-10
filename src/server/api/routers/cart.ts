@@ -132,8 +132,6 @@ export const cartRouter = createTRPCRouter({
       });
       return newSession;
     }
-    console.log("Yes session");
-    console.log(shoppingSession.cartItems.length);
     return shoppingSession;
   }),
   removeItem: publicProcedure

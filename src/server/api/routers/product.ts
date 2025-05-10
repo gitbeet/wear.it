@@ -39,10 +39,11 @@ const includeStatement = {
 
 export const productRouter = createTRPCRouter({
   searchProduct: publicProcedure
-    .input(z.object({ query: z.string() }))
+    .input(z.object({ query: z.string().optional() }))
     .query(async ({ ctx, input }) => {
       const { db } = ctx;
       const { query } = input;
+      if (!query) return [];
       if (query.length < 1) return;
       const tags = query.split(" ").filter(Boolean);
       const results = await db.product.findMany({
@@ -103,19 +104,7 @@ export const productRouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       const { id } = input;
-      const { db, userId: loggedUserId, guestUserId } = ctx;
-      const userId = loggedUserId ?? guestUserId ?? undefined;
-
-      // console.log("session-id  -- product router", guestUserId);
-      // console.log("userId -- product router", loggedUserId);
-
-      if (typeof userId === "undefined") {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "No user identifier found",
-        });
-      }
-
+      const { db } = ctx;
       const product = await db.product.findUnique({
         where: {
           id,

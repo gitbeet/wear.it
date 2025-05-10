@@ -9,7 +9,7 @@ import Rating from "./Rating";
 import NavIcon from "../layout/nav/NavIcon";
 
 export const UserReviewSkeleton = () => (
-  <div className="items grid grid-cols-[64px,1fr]  justify-center gap-4 py-4 ">
+  <div className="items grid animate-pulse  grid-cols-[64px,1fr] justify-center gap-4 py-4 ">
     <div className="h-16 w-16 rounded-full bg-gray-300" />
     <div>
       <div className="flex justify-between">

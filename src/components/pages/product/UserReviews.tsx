@@ -7,7 +7,7 @@ import { useUser } from "@clerk/nextjs";
 import UserReview, { UserReviewSkeleton } from "~/components/review/Review";
 import Rating from "~/components/review/Rating";
 
-const PAGE_SIZE = 2;
+const REVIEWS_PAGE_SIZE = 2;
 
 const UserReviews = ({ productId }: { productId: string }) => {
   const { user, isSignedIn } = useUser();
@@ -16,11 +16,11 @@ const UserReviews = ({ productId }: { productId: string }) => {
   const { data: reviews, isLoading: isGettingReviews } =
     api.review.getReviewsByProductId.useQuery({
       productId,
-      skip: (currentPage - 1) * PAGE_SIZE,
-      pageSize: PAGE_SIZE,
+      skip: (currentPage - 1) * REVIEWS_PAGE_SIZE,
+      pageSize: REVIEWS_PAGE_SIZE,
     });
 
-  const { data: reviewStats, isLoading: isGettingTotal } =
+  const { data: reviewStats, isLoading: isGettingReviewsStats } =
     api.review.getProductReviewStats.useQuery({
       productId,
     });
@@ -32,21 +32,41 @@ const UserReviews = ({ productId }: { productId: string }) => {
     <ExpandableProductSectionWrapper
       headerChildren={
         <>
-          <p className="text-2xl font-semibold">
-            Reviews ({reviewStats?.total})
-          </p>
-          <div className="flex items-center gap-4">
-            <div className=" flex items-center gap-2">
-              <p className="flex gap-1">
-                <span>{reviewStats?.averageRating?.toFixed(1)}</span>
+          {/* skeleton */}
+          {isGettingReviewsStats && (
+            <>
+              {/* "Reviews (3)" */}
+              <div className="h-6 w-24 animate-pulse rounded-full bg-gray-300" />
+
+              <div className="flex animate-pulse items-center gap-4">
+                <div className=" flex items-center gap-2">
+                  {/* rating */}
+                  <div className="h-6 w-12 rounded-full bg-gray-300" />
+                  {/* stars */}
+                  <div className="h-6 w-24 rounded-full bg-gray-300" />
+                </div>
+              </div>
+            </>
+          )}
+          {!isGettingReviewsStats && (
+            <>
+              <p className="text-2xl font-semibold">
+                Reviews ({reviewStats?.total})
               </p>
-              <Rating
-                handleRate={() => void 0}
-                isHoverable={false}
-                averageRating={reviewStats?.averageRating ?? 2.5}
-              />
-            </div>
-          </div>
+              <div className="flex items-center gap-4">
+                <div className=" flex items-center gap-2">
+                  <p className="flex gap-1">
+                    <span>{reviewStats?.averageRating?.toFixed(1)}</span>
+                  </p>
+                  <Rating
+                    handleRate={() => void 0}
+                    isHoverable={false}
+                    averageRating={reviewStats?.averageRating ?? 2.5}
+                  />
+                </div>
+              </div>
+            </>
+          )}
         </>
       }
     >
@@ -56,7 +76,7 @@ const UserReviews = ({ productId }: { productId: string }) => {
           <CreateReviewWizard productId={productId} />
         )}
         {isGettingReviews &&
-          Array.from(Array(PAGE_SIZE).keys()).map((review) => (
+          Array.from(Array(REVIEWS_PAGE_SIZE).keys()).map((review) => (
             <UserReviewSkeleton key={review} />
           ))}
         {!isGettingReviews && (
@@ -68,7 +88,7 @@ const UserReviews = ({ productId }: { productId: string }) => {
         )}
         <Pagination
           currentPage={currentPage}
-          pageSize={PAGE_SIZE}
+          pageSize={REVIEWS_PAGE_SIZE}
           setCurrentPage={setCurrentPage}
           total={reviewStats?.total ?? 1}
         />
