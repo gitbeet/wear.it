@@ -10,7 +10,7 @@ import CloseButton from "../ui/CloseButton";
 import { LoadingSpinner } from "../ui/LoadingElements";
 import React, { useEffect, useState } from "react";
 import { useFavoritesContext } from "~/context/favoritesContext";
-import { formatCurrency } from "~/utilities/formatCurrency";
+import { formatCurrency } from "~/utils/formatCurrency";
 import type { CartItemModal, FavoriteItemModal, CartItemPage } from "~/types";
 
 const CartModal = () => {

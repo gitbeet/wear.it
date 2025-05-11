@@ -3,7 +3,7 @@ import type { SwiperOptions } from "swiper/types";
 import { Swiper, type SwiperRef } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import SliderArrow from "../ui/SliderArrow";
-import { defaultBreakPoints } from "~/utilities/swiperBreakPoints";
+import { defaultBreakPoints } from "~/utils/swiperBreakPoints";
 import "swiper/css";
 
 const Carousel = ({

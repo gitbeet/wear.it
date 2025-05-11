@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { formatCurrency } from "~/utilities/formatCurrency";
+import { formatCurrency } from "~/utils/formatCurrency";
 
 const PriceRangeInput = ({
   range,

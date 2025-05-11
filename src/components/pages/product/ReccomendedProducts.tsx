@@ -1,6 +1,6 @@
 import React from "react";
 import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
-import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
+import { ReccomendedProductsBreakPoints } from "~/utils/swiperBreakPoints";
 import { api } from "~/utils/api";
 
 const ReccomendedProducts = () => {

@@ -15,7 +15,7 @@
 }
 
 .container-mine {
-  @apply w-[min(100%,1720px)];
+  @apply w-[min(100%,1400px)];
 }
 
 .margin-left {
@@ -32,6 +32,10 @@
 
 .padding-section {
   @apply py-12 md:py-16;
+}
+
+.padding-section-bottom {
+  @apply pb-12 md:pb-16;
 }
 
 .gradient-main-r,

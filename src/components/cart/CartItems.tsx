@@ -4,7 +4,7 @@ import BagItemSkeleton from "~/components/skeletons/BagItemSkeleton";
 import { type CartItemType, useCartContext } from "~/context/cartContext";
 import { useFavoritesContext } from "~/context/favoritesContext";
 import type { CartItemPage } from "~/types";
-import { formatCurrency } from "~/utilities/formatCurrency";
+import { formatCurrency } from "~/utils/formatCurrency";
 
 export const CartItems = ({
   page = "cart",

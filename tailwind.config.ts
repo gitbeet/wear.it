@@ -17,8 +17,8 @@ export default {
         "3xl": "1720px",
       },
       fontFamily: {
-        display: "Montserrat , sans-serif",
-        body: "Open Sans, sans-serif",
+        display: "Roboto , sans-serif",
+        body: "Roboto, sans-serif",
       },
     },
   },

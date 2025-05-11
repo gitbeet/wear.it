@@ -7,7 +7,7 @@ const Spacer = ({ type }: { type: SpacerType }) => {
       : type === "header"
       ? "h-12 md:h-16"
       : type === "footer"
-      ? "h-12 md:h-24"
+      ? "h-12 md:h-16"
       : "";
   return <div className={`${heightClass} pointer-events-none invisible`}></div>;
 };

@@ -1,5 +1,5 @@
 import ReactSlider from "react-slider";
-import { formatCurrency } from "~/utilities/formatCurrency";
+import { formatCurrency } from "~/utils/formatCurrency";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import PriceRangeInput from "./PriceRangeInput";

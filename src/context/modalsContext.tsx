@@ -7,7 +7,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
-import { disableScrolling, enableScrolling } from "~/utilities/toggleScrolling";
+import { disableScrolling, enableScrolling } from "~/utils/toggleScrolling";
 
 type ModalsContextType = {
   showMegaMenu: { type: CategoryType; show: boolean; active: boolean }[];

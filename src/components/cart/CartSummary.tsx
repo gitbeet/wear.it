@@ -1,5 +1,5 @@
 import { useCartContext } from "~/context/cartContext";
-import { formatCurrency } from "~/utilities/formatCurrency";
+import { formatCurrency } from "~/utils/formatCurrency";
 
 export const Summary = ({ isLoading }: { isLoading: boolean }) => {
   const { costs } = useCartContext();

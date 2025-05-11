@@ -1,14 +1,20 @@
 import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
 import { type SQLProductType } from "~/types";
-import { landingPageTrendingBreakPoints } from "~/utilities/swiperBreakPoints";
+import { landingPageTrendingBreakPoints } from "~/utils/swiperBreakPoints";
 
 const Trending = ({ products }: { products: SQLProductType[] | undefined }) => {
   return (
-    <section className="padding-x container-mine mx-auto">
-      <h2 className="padding-section font-display text-2xl font-black">
-        Trending
-      </h2>
-      {/* <div className="h-6 md:h-12"></div> */}
+    <section className="padding-x padding-section container-mine mx-auto">
+      <div>
+        <h2 className="bg-gradient-to-r from-slate-600 to-slate-800  bg-clip-text py-1 text-center  font-display  text-4xl  font-extrabold text-transparent">
+          Trending
+        </h2>
+        <div className="h-4"></div>
+        <p className="text-center text-xl font-light text-slate-700">
+          Discover Winter Essentials Tailored for <b>Comfort & Style</b>
+        </p>
+      </div>
+      <div className="h-6 md:h-12"></div>
       <ProductCardCarousel
         autoplay={true}
         autoplayDelay={3000}

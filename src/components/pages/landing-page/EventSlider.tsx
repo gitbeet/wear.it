@@ -1,5 +1,6 @@
 import ProductCardCarousel from "~/components/carousel/ProductCardCarousel";
 import { type SQLProductType } from "~/types";
+import { landingPageTrendingBreakPoints } from "~/utils/swiperBreakPoints";
 
 const EventSlider = ({
   products,
@@ -7,11 +8,10 @@ const EventSlider = ({
   products: SQLProductType[] | undefined;
 }) => {
   return (
-    <section className="padding-x container-mine padding-section mx-auto flex grow flex-col items-start gap-2 md:flex-row md:items-center lg:gap-16">
-      <div>
-        <h2 className="flex items-center gap-2 bg-gradient-to-r  from-slate-600 to-slate-800 bg-clip-text  py-1  font-display font-extrabold text-transparent">
-          {/* <FaSnowflake className="inline h-8 w-8 shrink-0 text-indigo-500" /> */}
-          <p className=" py-1 font-display text-5xl font-extrabold">Cozy up!</p>
+    <section className="padding-x container-mine padding-section relative mx-auto  flex grow flex-col items-start gap-4  md:items-center md:gap-16">
+      <div className="mx-auto">
+        <h2 className="bg-gradient-to-r from-slate-600 to-slate-800  bg-clip-text py-1 text-center  font-display  text-4xl  font-extrabold text-transparent">
+          Cozy up!
         </h2>
         <div className="h-4"></div>
         <p className="text-xl font-light text-slate-700">
@@ -21,6 +21,7 @@ const EventSlider = ({
 
       <div className="w-full overflow-hidden">
         <ProductCardCarousel
+          breakPoints={landingPageTrendingBreakPoints}
           paginationContainerId="landing-page--winter-event__pagination-container"
           data={products}
           isLoading={false}

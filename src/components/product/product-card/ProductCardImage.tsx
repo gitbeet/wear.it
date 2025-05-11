@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import Image from "next/image";
 import { type ImageProps } from "next/image";
-import { base64String } from "~/components/pages/product/ImageGallery";
+import { base64String } from "~/utils/imageString";
 const ProductCardImage = (props: ImageProps) => {
   return (
     <div className="border border-slate-200 transition-[border]  duration-100 group-hover:border-slate-300 @2xs:rounded-md">

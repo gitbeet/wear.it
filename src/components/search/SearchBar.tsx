@@ -3,7 +3,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import NavIcon from "../layout/nav/NavIcon";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Backdrop from "../ui/Backdrop";
-import { disableScrolling, enableScrolling } from "~/utilities/toggleScrolling";
+import { disableScrolling, enableScrolling } from "~/utils/toggleScrolling";
 import Logo from "../misc/Logo";
 import FocusTrap from "focus-trap-react";
 import CloseButton from "../ui/CloseButton";
@@ -16,6 +16,7 @@ const SearchBar = () => {
   const [isActive, setIsActive] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const { data: searchResults, isLoading: isSearching } =
     api.product.searchProduct.useQuery(
       { query: debouncedQuery },
@@ -28,6 +29,7 @@ const SearchBar = () => {
   const getDebouncedResults = useCallback(
     debounce((val: string) => {
       setDebouncedQuery(val);
+      setShowResults(true);
     }, 500),
     [],
   );
@@ -38,6 +40,7 @@ const SearchBar = () => {
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setShowResults(false);
     const { value } = e.target;
     if (value.length < 1) {
       setDebouncedQuery("");
@@ -96,7 +99,7 @@ const SearchBar = () => {
         onChange={handleSearch}
         className={` ${isActive ? "w-full" : "w-36"} peer ${
           !isActive ? "hidden lg:block" : ""
-        } h-full origin-right rounded-full border border-indigo-100 bg-white px-9 outline outline-transparent`}
+        } h-full rounded-full border border-indigo-100 bg-white px-9 outline outline-transparent`}
       />
 
       <div
@@ -126,7 +129,7 @@ const SearchBar = () => {
           <div
             className={
               isActive
-                ? "fixed left-0 right-0 top-0  z-50 w-screen bg-slate-50  shadow-lg"
+                ? "fixed left-0 right-0 top-0  z-50 w-screen rounded-b-2xl  bg-slate-50 shadow-lg"
                 : ""
             }
           >
@@ -152,7 +155,7 @@ const SearchBar = () => {
                 onClose={() => void 0}
                 query={query}
                 results={searchResults}
-                show={isActive}
+                show={isActive && showResults && debouncedQuery.length !== 0}
                 mobile={false}
               />
             </div>

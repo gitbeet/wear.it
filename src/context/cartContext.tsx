@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { type RouterOutputs, api } from "~/utils/api";
 import { useCookies } from "react-cookie";
 import { createId } from "@paralleldrive/cuid2";
-import { formatNumber } from "~/utilities/formatNumber";
+import { formatNumber } from "~/utils/formatNumber";
 
 const cartContext = createContext<CartContextType | null>(null);
 export const useCartContext = () => {

@@ -2,7 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
 import { api } from "~/utils/api";
 import ProductCardCarousel from "./ProductCardCarousel";
-import { ReccomendedProductsBreakPoints } from "~/utilities/swiperBreakPoints";
+import { ReccomendedProductsBreakPoints } from "~/utils/swiperBreakPoints";
 
 export const RecentlyViewed = () => {
   const { isSignedIn } = useUser();

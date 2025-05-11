@@ -13,7 +13,7 @@ import Button, { ButtonSkeleton } from "~/components/ui/Button";
 import ImageGallery, {
   ImageGallerySkeleton,
 } from "~/components/pages/product/ImageGallery";
-import { formatCurrency } from "../../utilities/formatCurrency";
+import { formatCurrency } from "../../utils/formatCurrency";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 import Spacer from "~/components/ui/Spacer";
@@ -162,8 +162,7 @@ const Product = ({
     setError(false);
   }, [id, color]);
 
-  const { mutateAsync: addToHistory, isLoading: isAddingToHistory } =
-    api.history.addToHistory.useMutation({});
+  const { mutateAsync: addToHistory } = api.history.addToHistory.useMutation();
   useEffect(() => {
     async function add() {
       try {
