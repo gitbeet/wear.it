@@ -26,7 +26,7 @@ const NavLink = (props: NavLinkLinkProps) => {
 
   const baseClass = ` ${
     disabled ? "opacity-50 pointer-events-none" : ""
-  } z-50  grid grow place-content-center  border-b-[6px] border-b-transparent px-4  !text-slate-800  hover:!border-indigo-400 hover:!text-indigo-400 relative ${className} active:opacity-50 `;
+  } z-50  grid grow place-content-center px-4  !text-slate-800  hover:!bg-slate-800 hover:!text-slate-50 relative ${className} active:opacity-50`;
 
   const elementClass =
     "absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2";

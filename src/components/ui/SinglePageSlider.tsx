@@ -34,8 +34,7 @@ const SinglePageSlider = ({ slides }: Props) => {
           <div key={i}>
             <Image
               fill
-              objectFit="cover"
-              className={`absolute z-0  ${
+              className={`absolute z-0 object-cover  ${
                 isVisible ? "opacity-50" : "opacity-0"
               } rounded-mdtransition-opacity duration-[750ms]`}
               src={slide.image ?? ""}

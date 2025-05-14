@@ -27,11 +27,10 @@ const MemberDeals = () => (
     <Image
       fill
       sizes="100vw"
-      objectFit="cover"
       src={image}
       alt="Hero section image"
       placeholder="blur"
-      className="z-0 scale-x-[-1] opacity-30"
+      className="z-0 scale-x-[-1] object-cover opacity-30"
     />
   </section>
 );

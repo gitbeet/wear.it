@@ -57,9 +57,8 @@ const ImageGallery = ({ images, selectedColor }: Props) => {
         <div className="aspect-square w-full ">
           <Image
             fill
-            objectFit="fill"
             sizes="(max-width: 1024px) 100vw, 600px"
-            className="rounded-md bg-gradient-to-b from-slate-200 to-slate-100"
+            className="rounded-md bg-gradient-to-b from-slate-200 to-slate-100 object-fill"
             src={images[currentImage]?.imageURL ?? ""}
             placeholder="blur"
             blurDataURL={base64String}

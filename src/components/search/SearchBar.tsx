@@ -10,6 +10,9 @@ import CloseButton from "../ui/CloseButton";
 import debounce from "just-debounce-it";
 import { api } from "~/utils/api";
 import SearchResults from "./SearchResults";
+import Button from "../ui/Button";
+
+const SEARCH_RESULTS_PAGE_SIZE = 5;
 
 const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -17,19 +20,40 @@ const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
-  const { data: searchResults, isLoading: isSearching } =
+  const [showPagination, setShowPagination] = useState(false);
+  const [showNotFoundText, setShowNotFoundText] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: results, isLoading: isGettingResults } =
     api.product.searchProduct.useQuery(
-      { query: debouncedQuery },
+      {
+        query: debouncedQuery,
+        pageSize: SEARCH_RESULTS_PAGE_SIZE,
+        skip: (currentPage - 1) * SEARCH_RESULTS_PAGE_SIZE,
+      },
       {
         enabled: true,
-        refetchOnWindowFocus: false, // Prevents refetch on window focus
-        refetchOnMount: false, // Prevents initial automatic refetch on mount
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
       },
     );
+  const { data: total } = api.product.getTotalSearchResults.useQuery(
+    {
+      query: debouncedQuery,
+    },
+    {
+      enabled: true,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    },
+  );
+
   const getDebouncedResults = useCallback(
     debounce((val: string) => {
+      setCurrentPage(1);
       setDebouncedQuery(val);
       setShowResults(true);
+      setShowPagination(true);
+      setShowNotFoundText(true);
     }, 500),
     [],
   );
@@ -40,7 +64,7 @@ const SearchBar = () => {
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowResults(false);
+    setShowNotFoundText(false);
     const { value } = e.target;
     if (value.length < 1) {
       setDebouncedQuery("");
@@ -48,6 +72,7 @@ const SearchBar = () => {
     }
     setQuery(value);
     getDebouncedResults(value);
+    setShowPagination(false);
   };
 
   useEffect(() => {
@@ -76,7 +101,9 @@ const SearchBar = () => {
   };
 
   const searchBarJsx = (
-    <div className={`group relative flex h-10 grow items-center justify-end`}>
+    <div
+      className={`group relative flex h-10 max-h-[100dvh] grow items-center justify-end`}
+    >
       <div
         className={` ${
           !isActive ? "relative h-10 lg:left-9 lg:h-8" : "absolute left-1 h-8"
@@ -122,6 +149,7 @@ const SearchBar = () => {
     </div>
   );
 
+  const showSearchResults = isActive && showResults && query.length !== 0;
   return (
     <>
       <FocusTrap active={isActive}>
@@ -129,14 +157,14 @@ const SearchBar = () => {
           <div
             className={
               isActive
-                ? "fixed left-0 right-0 top-0  z-50 w-screen rounded-b-2xl  bg-slate-50 shadow-lg"
+                ? "fixed left-0 right-0 top-0 z-50 flex h-[100dvh] w-[100dvw] flex-col bg-slate-50 shadow-lg  lg:h-auto lg:rounded-b-3xl"
                 : ""
             }
           >
             <div
               className={` ${
                 isActive
-                  ? "padding-x show-search-results-element relative mx-auto min-h-[20rem] max-w-[1720px] pt-4"
+                  ? "padding-x show-search-results-element container-mine relative mx-auto flex min-h-[15rem] grow  flex-col pt-4"
                   : ""
               } `}
             >
@@ -149,14 +177,19 @@ const SearchBar = () => {
                   <CloseButton onClick={() => setIsActive(false)} />
                 </div>
               </div>
-
+              {isActive && <div className="h-4" />}
               <SearchResults
-                loading={isSearching}
+                loading={isGettingResults}
                 onClose={() => void 0}
                 query={query}
-                results={searchResults}
-                show={isActive && showResults && debouncedQuery.length !== 0}
-                mobile={false}
+                results={results}
+                show={showSearchResults}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                pageSize={SEARCH_RESULTS_PAGE_SIZE}
+                total={total ?? 0}
+                showPagination={showPagination}
+                showNotFoundText={showNotFoundText}
               />
             </div>
           </div>

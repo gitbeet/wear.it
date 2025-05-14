@@ -19,7 +19,7 @@ const Hero = () => (
       <div className="h-12"></div>
       <div className="w-fit">
         <Button
-          disabled
+          // disabled
           ghost
           light
           text="Winter Collection"
@@ -31,11 +31,10 @@ const Hero = () => (
     <div className="absolute inset-0 bg-slate-700" />
     <Image
       fill
-      objectFit="cover"
       src={heroImage}
       alt="Hero section image"
       placeholder="blur"
-      className="absolute  scale-x-[-1]  opacity-30"
+      className="absolute scale-x-[-1] object-cover  opacity-30"
     />
   </section>
 );

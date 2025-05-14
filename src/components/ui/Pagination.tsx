@@ -16,7 +16,7 @@ const Pagination = ({
   const totalPages = Math.ceil(total / pageSize);
   const isThereNextPage = currentPage < totalPages;
   return (
-    <div className="flex items-center justify-center gap-16 p-4 pb-12">
+    <div className="flex items-center justify-center gap-8 p-4  md:gap-16">
       <p
         role="button"
         className={`${

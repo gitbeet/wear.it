@@ -68,7 +68,7 @@ const Nav = () => {
     >
       <div className="relative z-[50] ">
         <div className=" shadow-color absolute inset-0  z-[50] bg-slate-50 shadow-sm" />
-        <div className="container-mine  relative mx-auto flex h-16 items-center ">
+        <div className="container-mine  relative mx-auto flex h-14 items-center ">
           {logo}
           {navLinks}
           <div className="margin-right absolute right-0 z-50 flex h-10 items-center">

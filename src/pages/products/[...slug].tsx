@@ -87,24 +87,24 @@ const ProductsPage = (
   return (
     <>
       <NextSeo
-        title={seo.metaTitle ?? ""}
-        description={seo.metaDescription ?? ""}
+        title={seo?.metaTitle ?? ""}
+        description={seo?.metaDescription ?? ""}
         additionalMetaTags={[
-          { property: "keywords", content: seo.metaKeywords ?? "" },
+          { property: "keywords", content: seo?.metaKeywords ?? "" },
         ]}
         noindex={false}
         nofollow={false}
         canonical={`https://t3-ecommerce-five.vercel.app/products/${
-          seo.type?.toLowerCase() ?? ""
+          seo?.type?.toLowerCase() ?? ""
         }`}
         openGraph={{
-          url: `https://t3-ecommerce-five.vercel.app/${seo.type?.toLowerCase()}`,
-          title: `${seo.metaTitle} - wear.it`,
-          description: seo.metaDescription ?? "",
+          url: `https://t3-ecommerce-five.vercel.app/${seo?.type?.toLowerCase()}`,
+          title: `${seo?.metaTitle} - wear.it`,
+          description: seo?.metaDescription ?? "",
           site_name: "wear.it",
           images: [
             {
-              url: seo.metaOGImage ?? "",
+              url: seo?.metaOGImage ?? "",
               width: 800,
               height: 600,
               alt: `Hero image for contact page`,

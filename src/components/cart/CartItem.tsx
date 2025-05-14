@@ -52,10 +52,9 @@ const CartItem = ({ cartItem, type, isLoading }: Props) => {
       >
         <Image
           fill
-          objectFit="contain"
           src={image}
           alt="Product thumbnail"
-          className="absolute"
+          className="absolute object-contain"
         />
       </div>
 

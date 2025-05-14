@@ -6,7 +6,6 @@ import {
   ProductColor,
   ProductSize,
 } from "@prisma/client";
-import { TRPCError } from "@trpc/server";
 import type { SQLProductType } from "~/types";
 import { colorOptions, sizeOptions } from "~/maps";
 
@@ -37,68 +36,108 @@ const includeStatement = {
   sizes: true,
 };
 
+const getTagsFromQuery = (query: string) => {
+  const tags = query.split(" ").filter(Boolean);
+  return tags;
+};
+
+const getWhereConditionFromTags = (
+  tags: string[],
+): Prisma.ProductWhereInput => {
+  return {
+    OR: tags.map((tag: string) => {
+      return {
+        OR: [
+          {
+            name: {
+              contains: tag,
+              mode: "insensitive",
+            },
+          },
+          {
+            description: {
+              contains: tag,
+              mode: "insensitive",
+            },
+          },
+          {
+            category: {
+              name: {
+                contains: tag,
+                mode: "insensitive",
+              },
+            },
+          },
+          {
+            colors: {
+              some: {
+                name: {
+                  contains: tag,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+          {
+            sizes: {
+              some: {
+                name: {
+                  contains: tag,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+        ],
+      };
+    }),
+  };
+};
+
 export const productRouter = createTRPCRouter({
   searchProduct: publicProcedure
-    .input(z.object({ query: z.string().optional() }))
+    .input(
+      z.object({
+        query: z.string().optional(),
+        skip: z.number().optional(),
+        pageSize: z.number(),
+      }),
+    )
     .query(async ({ ctx, input }) => {
       const { db } = ctx;
-      const { query } = input;
+      const { query, pageSize, skip } = input;
       if (!query) return [];
-      if (query.length < 1) return;
-      const tags = query.split(" ").filter(Boolean);
-      const results = await db.product.findMany({
-        where: {
-          OR: tags.map((tag) => {
-            return {
-              OR: [
-                {
-                  name: {
-                    contains: tag,
-                    mode: "insensitive",
-                  },
-                },
-                {
-                  description: {
-                    contains: tag,
-                    mode: "insensitive",
-                  },
-                },
-                {
-                  category: {
-                    name: {
-                      contains: tag,
-                      mode: "insensitive",
-                    },
-                  },
-                },
-                {
-                  colors: {
-                    some: {
-                      name: {
-                        contains: tag,
-                        mode: "insensitive",
-                      },
-                    },
-                  },
-                },
-                {
-                  sizes: {
-                    some: {
-                      name: {
-                        contains: tag,
-                        mode: "insensitive",
-                      },
-                    },
-                  },
-                },
-              ],
-            };
-          }),
-        },
+      if (query.length < 1) return [];
+      const tags = getTagsFromQuery(query);
+      const where = getWhereConditionFromTags(tags);
+
+      const products = await db.product.findMany({
+        where,
+        take: pageSize,
+        skip,
         include: includeStatement,
       });
 
-      return results;
+      return products;
+    }),
+  getTotalSearchResults: publicProcedure
+    .input(
+      z.object({
+        query: z.string().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { query } = input;
+      if (!query) return 0;
+      if (query.length < 1) return 0;
+      const tags = getTagsFromQuery(query);
+      const where = getWhereConditionFromTags(tags);
+      const { db } = ctx;
+      const total = await db.product.count({
+        where,
+      });
+
+      return total;
     }),
   getSingleProduct: publicProcedure
     .input(z.object({ id: z.string() }))
